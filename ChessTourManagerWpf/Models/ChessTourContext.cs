@@ -1,14 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using ChessTourManagerWpf.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ChessTourManagerWpf.Models;
 
 public partial class ChessTourContext : DbContext
 {
-    public ChessTourContext()
+    private ChessTourContext()
     {
+    }
+
+    public static ChessTourContext CreateInstance()
+    {
+        return new ChessTourContext();
     }
 
     public ChessTourContext(DbContextOptions<ChessTourContext> options)
@@ -44,12 +51,23 @@ public partial class ChessTourContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-// Connection string is in appsettings.json
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        optionsBuilder.UseNpgsql(ConfigurationManager
-                                .ConnectionStrings
-                                     ["ChessTourManagerWpf.Properties.Settings.ChessTourManagerConnectionString"]
-                                .ConnectionString);
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // Get project directory
+        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName
+                               ?? throw new InvalidOperationException("Directory not found");
+
+        IConfigurationBuilder builder = new ConfigurationBuilder()
+                                       .SetBasePath(projectDirectory)
+                                       .AddJsonFile("appsettings.json");
+
+        IConfiguration configuration = builder.Build();
+        string connectionString = configuration.GetConnectionString("DefaultConnection")
+                               ?? throw new InvalidOperationException("Connection string not found");
+
+        optionsBuilder.UseNpgsql(connectionString);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

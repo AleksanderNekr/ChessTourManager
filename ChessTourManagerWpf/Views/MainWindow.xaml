@@ -3,23 +3,243 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:viewModels="clr-namespace:ChessTourManagerWpf.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800">
     <Grid>
-        <Grid.DataContext>
-            <viewModels:MainViewModel />
-        </Grid.DataContext>
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+        <Menu
+            Margin="10,5,10,5"
+            VerticalAlignment="Top"
+            FontSize="15">
+            <Menu.DataContext>
+                <viewModels:MainViewModel />
+            </Menu.DataContext>
             <Button
-                Content="Click"
-                Command="{Binding ClickCommand}" />
-            <TextBlock
-                Text="{Binding ClickCountsInfo}" />
-        </StackPanel>
+                MinWidth="60"
+                Content="Вывод"
+                Command="{Binding ShowPlayersCommand}" />
+        </Menu>
+        <TabControl
+            Margin="0,36,0,0">
+            <TabItem
+                Header="Список игроков">
+                <Grid
+                    Background="#FFE5E5E5">
+                    <DataGrid
+                        x:Name="PlayersGrid"
+                        Margin="10,35,10,10"
+                        FontSize="15"
+                        Width="Auto"
+                        AutoGenerateColumns="False"
+                        MaxColumnWidth="200"
+                        MinColumnWidth="10"
+                        Height="Auto">
+                        <DataGrid.CellStyle>
+                            <!-- Add margin to cells -->
+                            <Style
+
+                                TargetType="DataGridCell">
+                                <Setter
+                                    Property="Margin"
+                                    Value="1,0,0,0" />
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <!-- Set column header content to center. -->
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style
+
+                                TargetType="DataGridColumnHeader">
+                                <Setter
+                                    Property="HorizontalContentAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <!-- Set row header content to center. -->
+                        <DataGrid.RowHeaderStyle>
+                            <Style
+
+                                TargetType="DataGridRowHeader">
+                                <Setter
+                                    Property="HorizontalContentAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn
+                                Header="Фамилия"
+                                SortMemberPath="player_last_name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+
+                                            Text="{Binding player_last_name}"
+
+                                            VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox
+
+                                            Text="{Binding player_last_name}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Имя"
+                                SortMemberPath="player_first_name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+
+                                            Text="{Binding player_first_name}"
+                                            VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox
+
+                                            Text="{Binding player_first_name}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Пол"
+                                SortMemberPath="sex">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Text="{Binding sex}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding sex}">
+                                            <ComboBox.ItemsSource>
+                                                <x:Array
+                                                    Type="{x:Type system:String}">
+                                                    <system:String>M</system:String>
+                                                    <system:String>F</system:String>
+                                                </x:Array>
+                                            </ComboBox.ItemsSource>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Атрибут"
+                                SortMemberPath="player_attribute">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+
+                                            Text="{Binding player_attribute}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedItem="{Binding player_attribute}">
+                                            <ComboBox.ItemsSource>
+                                                <x:Array
+                                                    Type="{x:Type system:String}">
+                                                    <system:String>1MS</system:String>
+                                                    <system:String>2MS</system:String>
+                                                    <system:String>3MS</system:String>
+                                                    <system:String>1FS</system:String>
+                                                    <system:String>2FS</system:String>
+                                                    <system:String>3FS</system:String>
+                                                </x:Array>
+                                            </ComboBox.ItemsSource>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Команда"
+                                SortMemberPath="team_name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+
+                                            Text="{Binding team_name}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedItem="{Binding team_name}">
+                                            <ComboBox.ItemsSource>
+                                                <x:Array
+                                                    Type="{x:Type system:String}">
+                                                    <system:String>Медведь</system:String>
+                                                    <system:String>ОСШ 1</system:String>
+                                                    <system:String>ОСШ №2</system:String>
+                                                    <system:String>Белая ладья</system:String>
+                                                    <system:String>Оханск</system:String>
+                                                    <system:String>Чёрный ферзь</system:String>
+                                                    <system:String>ОСОШ №3</system:String>
+                                                </x:Array>
+                                            </ComboBox.ItemsSource>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Год рождения"
+                                SortMemberPath="player_birth_year">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+
+                                            Text="{Binding player_birth_year}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <!-- Use slider from 1940 to 2022 and show values while dragging. -->
+                                        <Slider
+                                            Minimum="1940"
+                                            Maximum="2022"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="True"
+                                            IsMoveToPointEnabled="True"
+                                            Value="{Binding player_birth_year}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Активен"
+                                SortMemberPath="is_active">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding is_active}"
+                                                  HorizontalAlignment="Center"
+
+                                                  VerticalAlignment="Center"
+                                                  IsEnabled="False" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding is_active}"
+                                                  HorizontalAlignment="Center"
+
+                                                  VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5" />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
