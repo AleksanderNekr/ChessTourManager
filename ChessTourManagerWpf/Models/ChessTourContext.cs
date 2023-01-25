@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ChessTourManagerWpf.Models.Entities;
+using ChessTourManagerWpf.Models.TableViews;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

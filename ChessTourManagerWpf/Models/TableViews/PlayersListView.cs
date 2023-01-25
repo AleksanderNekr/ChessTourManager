@@ -1,4 +1,4 @@
-﻿namespace ChessTourManagerWpf.Models.Entities;
+﻿namespace ChessTourManagerWpf.Models.TableViews;
 
 public class PlayersListView
 {
