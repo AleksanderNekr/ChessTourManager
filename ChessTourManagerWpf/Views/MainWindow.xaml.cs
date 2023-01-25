@@ -1,15 +1,9 @@
-﻿using System.Windows;
+﻿namespace ChessTourManagerWpf.Views;
 
-namespace ChessTourManagerWpf.Views
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+    public MainWindow() => InitializeComponent();
 }
