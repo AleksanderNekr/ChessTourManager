@@ -10,20 +10,6 @@ namespace ChessTourManagerWpf.Models;
 
 public partial class ChessTourContext : DbContext
 {
-    private ChessTourContext()
-    {
-    }
-
-    public static ChessTourContext CreateInstance()
-    {
-        return new ChessTourContext();
-    }
-
-    public ChessTourContext(DbContextOptions<ChessTourContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<Game> Games { get; set; }
 
     public virtual DbSet<Group> Groups { get; set; }
@@ -51,7 +37,6 @@ public partial class ChessTourContext : DbContext
     public virtual DbSet<Tournament> Tournaments { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

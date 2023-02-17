@@ -29,14 +29,17 @@
                 <Grid
                     Background="#FFE5E5E5">
                     <DataGrid
-                        x:Name="PlayersGrid"
                         Margin="10,35,10,10"
                         FontSize="15"
                         Width="Auto"
-                        AutoGenerateColumns="False"
+                        AutoGenerateColumns="True"
                         MaxColumnWidth="200"
                         MinColumnWidth="10"
-                        Height="Auto">
+                        Height="Auto"
+                        ItemsSource="{Binding UsersCollection}">
+                        <DataGrid.DataContext>
+                            <viewModels:MainViewModel />
+                        </DataGrid.DataContext>
                         <DataGrid.CellStyle>
                             <!-- Add margin to cells -->
                             <Style
@@ -75,7 +78,7 @@
                                     <DataTemplate>
                                         <TextBlock
 
-                                            Text="{Binding player_last_name}"
+                                            Text="{Binding UserLastname}"
 
                                             VerticalAlignment="Center" />
                                     </DataTemplate>
@@ -84,7 +87,7 @@
                                     <DataTemplate>
                                         <TextBox
 
-                                            Text="{Binding player_last_name}" />
+                                            Text="{Binding UserLastname}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
@@ -95,7 +98,7 @@
                                     <DataTemplate>
                                         <TextBlock
 
-                                            Text="{Binding player_first_name}"
+                                            Text="{Binding UserFirstname}"
                                             VerticalAlignment="Center" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -103,7 +106,7 @@
                                     <DataTemplate>
                                         <TextBox
 
-                                            Text="{Binding player_first_name}" />
+                                            Text="{Binding UserFirstname}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
@@ -113,14 +116,14 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                                            Text="{Binding sex}"
+                                            Text="{Binding }"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ComboBox SelectedValue="{Binding sex}">
+                                        <ComboBox SelectedValue="{Binding }">
                                             <ComboBox.ItemsSource>
                                                 <x:Array
                                                     Type="{x:Type system:String}">
@@ -139,12 +142,12 @@
                                     <DataTemplate>
                                         <TextBlock
 
-                                            Text="{Binding player_attribute}" />
+                                            Text="{Binding }" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ComboBox SelectedItem="{Binding player_attribute}">
+                                        <ComboBox SelectedItem="{Binding }">
                                             <ComboBox.ItemsSource>
                                                 <x:Array
                                                     Type="{x:Type system:String}">
