@@ -295,16 +295,16 @@ public partial class ChessTourContext : DbContext
 
         modelBuilder.Entity<Entities.System>(entity =>
                                              {
-                                                 entity.HasKey(e => e.SystemId).HasName("systems_pk");
+                                                   entity.HasKey(e => e.SystemId).HasName("systems_pk");
 
-                                                 entity.ToTable("systems");
+                                                   entity.ToTable("systems");
 
-                                                 entity.HasIndex(e => e.SystemName, "systems_name_uq").IsUnique();
+                                                   entity.HasIndex(e => e.SystemName, "systems_name_uq").IsUnique();
 
-                                                 entity.Property(e => e.SystemId).HasColumnName("system_id");
-                                                 entity.Property(e => e.SystemName)
-                                                       .HasMaxLength(255)
-                                                       .HasColumnName("system_name");
+                                                   entity.Property(e => e.SystemId).HasColumnName("system_id");
+                                                   entity.Property(e => e.SystemName)
+                                                         .HasMaxLength(255)
+                                                         .HasColumnName("system_name");
                                              });
 
         modelBuilder.Entity<Team>(entity =>
