@@ -1,0 +1,8 @@
+<ArchitectureGraph>
+  <Module Identifier="57C1ADDE-8547-4A97-9073-1CF70BBBF4AE" Name="ChessTourManager.DataAccess" />
+  <Module Identifier="E4C2EC81-5C8E-4CE7-AAD3-60B083D9DAA3" Name="ChessTourManager.Domain" />
+  <Module Identifier="EF98285B-B2E9-45BA-8934-FF71DFEE478F" Name="ChessTourManager.WPF" />
+  <Reference Identifier="E4C2EC81-5C8E-4CE7-AAD3-60B083D9DAA3/r:ChessTourManager.DataAccess" SourceId="E4C2EC81-5C8E-4CE7-AAD3-60B083D9DAA3" Name="ChessTourManager.DataAccess" TargetId="57C1ADDE-8547-4A97-9073-1CF70BBBF4AE" />
+  <Reference Identifier="EF98285B-B2E9-45BA-8934-FF71DFEE478F/r:ChessTourManager.Domain" SourceId="EF98285B-B2E9-45BA-8934-FF71DFEE478F" Name="ChessTourManager.Domain" TargetId="E4C2EC81-5C8E-4CE7-AAD3-60B083D9DAA3" />
+  <Reference Identifier="EF98285B-B2E9-45BA-8934-FF71DFEE478F/r:ChessTourManager.DataAccess" SourceId="EF98285B-B2E9-45BA-8934-FF71DFEE478F" Name="ChessTourManager.DataAccess" TargetId="57C1ADDE-8547-4A97-9073-1CF70BBBF4AE" />
+</ArchitectureGraph>
