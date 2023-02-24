@@ -1,6 +1,6 @@
 # ChessTourManager
 
-A project of implementing chess-drawing system using client-server architecture and vertical architecture.
+A project of implementing chess-drawing system using client-server and layered architecture.
 Using:
 - C# 10
 - WPF
