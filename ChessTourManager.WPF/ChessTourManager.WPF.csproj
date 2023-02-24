@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <UserSecretsId>8fe28114-aaf5-4e5e-a0ab-cead5ac95a2d</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
