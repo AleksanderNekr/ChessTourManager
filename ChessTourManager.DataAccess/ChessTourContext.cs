@@ -8,35 +8,35 @@ using Microsoft.Extensions.Configuration;
 
 namespace ChessTourManager.DataAccess;
 
-public partial class ChessTourContext : DbContext
+public class ChessTourContext : DbContext
 {
-    public virtual DbSet<Game> Games { get; set; }
+    public DbSet<Game> Games { get; set; }
 
-    public virtual DbSet<Group> Groups { get; set; }
+    public DbSet<Group> Groups { get; set; }
 
-    public virtual DbSet<Kind> Kinds { get; set; }
+    public DbSet<Kind> Kinds { get; set; }
 
-    public virtual DbSet<Player> Players { get; set; }
+    public DbSet<Player> Players { get; set; }
 
-    public virtual DbSet<PlayersListView> PlayersListViews { get; set; }
+    public DbSet<PlayersListView> PlayersListViews { get; set; }
 
-    public virtual DbSet<Ratio> Ratios { get; set; }
+    public DbSet<Ratio> Ratios { get; set; }
 
-    public virtual DbSet<SingleRatingListView> SingleRatingListViews { get; set; }
+    public DbSet<SingleRatingListView> SingleRatingListViews { get; set; }
 
-    public virtual DbSet<Entities.System> Systems { get; set; }
+    public DbSet<Entities.System> Systems { get; set; }
 
-    public virtual DbSet<Team> Teams { get; set; }
+    public DbSet<Team> Teams { get; set; }
 
-    public virtual DbSet<TeamRatingListView> TeamRatingListViews { get; set; }
+    public DbSet<TeamRatingListView> TeamRatingListViews { get; set; }
 
-    public virtual DbSet<TeamView> TeamViews { get; set; }
+    public DbSet<TeamView> TeamViews { get; set; }
 
-    public virtual DbSet<TeamsListView> TeamsListViews { get; set; }
+    public DbSet<TeamsListView> TeamsListViews { get; set; }
 
-    public virtual DbSet<Tournament> Tournaments { get; set; }
+    public DbSet<Tournament> Tournaments { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -90,7 +90,11 @@ public partial class ChessTourContext : DbContext
 
         modelBuilder.Entity<Group>(entity =>
                                    {
-                                       entity.HasKey(e => new { e.GroupId, e.TournamentId, e.OrganizerId })
+                                       entity.HasKey(e => new
+                                                          {
+                                                              GroupId = (int?)e.GroupId, e.TournamentId,
+                                                              e.OrganizerId
+                                                          })
                                              .HasName("groups_pk");
 
                                        entity.ToTable("groups");
@@ -295,23 +299,27 @@ public partial class ChessTourContext : DbContext
 
         modelBuilder.Entity<Entities.System>(entity =>
                                              {
-                                                   entity.HasKey(e => e.SystemId).HasName("systems_pk");
+                                                 entity.HasKey(e => e.SystemId).HasName("systems_pk");
 
-                                                   entity.ToTable("systems");
+                                                 entity.ToTable("systems");
 
-                                                   entity.HasIndex(e => e.SystemName, "systems_name_uq")
-                                                         .IsUnique();
+                                                 entity.HasIndex(e => e.SystemName, "systems_name_uq")
+                                                       .IsUnique();
 
-                                                   entity.Property(e => e.SystemId)
-                                                         .HasColumnName("system_id");
-                                                   entity.Property(e => e.SystemName)
-                                                         .HasMaxLength(255)
-                                                         .HasColumnName("system_name");
+                                                 entity.Property(e => e.SystemId)
+                                                       .HasColumnName("system_id");
+                                                 entity.Property(e => e.SystemName)
+                                                       .HasMaxLength(255)
+                                                       .HasColumnName("system_name");
                                              });
 
         modelBuilder.Entity<Team>(entity =>
                                   {
-                                      entity.HasKey(e => new { e.TeamId, e.OrganizerId, e.TournamentId })
+                                      entity.HasKey(e => new
+                                                         {
+                                                             TeamId = (int?)e.TeamId, e.OrganizerId,
+                                                             e.TournamentId
+                                                         })
                                             .HasName("teams_pk");
 
                                       entity.ToTable("teams");
@@ -544,9 +552,5 @@ public partial class ChessTourContext : DbContext
                                             .HasDefaultValueSql("'-'::character varying")
                                             .HasColumnName("user_patronymic");
                                   });
-
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
