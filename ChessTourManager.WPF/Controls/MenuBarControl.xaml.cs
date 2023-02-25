@@ -8,8 +8,6 @@ public partial class MenuBarControl : UserControl
 {
     public MenuBarControl() => InitializeComponent();
 
-    private void CreateTournamentMenuItem_Click(object sender, RoutedEventArgs e)
-    {
+    private void CreateTournamentMenuItem_Click(object sender, RoutedEventArgs e) =>
         new CreateTournamentWindow().ShowDialog();
-    }
 }

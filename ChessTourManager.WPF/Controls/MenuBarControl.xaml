@@ -9,7 +9,7 @@
         Margin="0,2"
         FontSize="14">
         <MenuItem Header="Создать турнир"
-                  Click="CreateTournamentMenuItem_Click"/>
+                  Click="CreateTournamentMenuItem_Click" />
         <MenuItem Header="Печать">
             <MenuItem Header="Список игроков" />
             <MenuItem Header="Список пар" />

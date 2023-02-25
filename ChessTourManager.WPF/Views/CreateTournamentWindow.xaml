@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:ChessTourManager.WPF.Views"
         mc:Ignorable="d"
         Title="CreateTournamentWindow"
         MinHeight="500" MinWidth="550"
@@ -12,17 +11,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="0.3*">
-            </RowDefinition>
+                Height="0.3*" />
             <RowDefinition
-                Height="Auto">
-            </RowDefinition>
+                Height="Auto" />
             <RowDefinition
-                Height="Auto">
-            </RowDefinition>
+                Height="Auto" />
             <RowDefinition
-                Height="0.3*">
-            </RowDefinition>
+                Height="0.3*" />
         </Grid.RowDefinitions>
         <StackPanel
             Grid.Row="1">
@@ -125,8 +120,7 @@
                         IsChecked="True"
                         VerticalContentAlignment="Center" />
                     <TextBlock
-                        Text="Да">
-                    </TextBlock>
+                        Text="Да" />
                 </StackPanel>
                 <StackPanel
                     Orientation="Horizontal"
@@ -135,8 +129,7 @@
                         GroupName="MixedGroupsChoice"
                         VerticalContentAlignment="Center" />
                     <TextBlock
-                        Text="Нет">
-                    </TextBlock>
+                        Text="Нет" />
                 </StackPanel>
             </StackPanel>
             <Button
