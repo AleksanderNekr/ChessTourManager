@@ -12,7 +12,5 @@ public partial class PlayersViewModel : ObservableObject
 
     public PlayersViewModel()
     {
-        MainViewModel.ChessTourContext.Players.Load();
-        PlayersCollection = MainViewModel.ChessTourContext.Players.Local.ToObservableCollection();
     }
 }

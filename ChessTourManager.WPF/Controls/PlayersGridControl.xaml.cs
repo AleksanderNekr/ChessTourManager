@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
+﻿namespace ChessTourManager.WPF.Controls;
 
-namespace ChessTourManager.WPF.Controls;
-
-public partial class PlayersGridControl : UserControl
+public partial class PlayersGridControl
 {
     public PlayersGridControl() => InitializeComponent();
 }

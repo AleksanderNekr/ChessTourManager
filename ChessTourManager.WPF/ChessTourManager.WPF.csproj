@@ -8,8 +8,8 @@
         <UserSecretsId>8fe28114-aaf5-4e5e-a0ab-cead5ac95a2d</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0"/>
-        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,6 +10,15 @@ namespace ChessTourManager.DataAccess;
 
 public class ChessTourContext : DbContext
 {
+    /// <summary>
+    /// Factory method of creating instance of the context.
+    /// </summary>
+    /// <returns>The context.</returns>
+    public static ChessTourContext CreateInstance()
+    {
+        return new ChessTourContext();
+    }
+
     public DbSet<Game> Games { get; set; }
 
     public DbSet<Group> Groups { get; set; }

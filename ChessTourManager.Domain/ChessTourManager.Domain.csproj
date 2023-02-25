@@ -6,9 +6,9 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
     <ItemGroup>
-        <Folder Include="Models"/>
+        <Folder Include="Models" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj"/>
+        <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj" />
     </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ namespace ChessTourManager.WPF.ViewModels;
 
 public partial class TournamentsListViewModel : ObservableObject
 {
-    private static readonly ChessTourContext ChessTourContext = new();
+    private static readonly ChessTourContext ChessTourContext = ChessTourContext.CreateInstance();
 
     [ObservableProperty]
     private bool _isOpened;
