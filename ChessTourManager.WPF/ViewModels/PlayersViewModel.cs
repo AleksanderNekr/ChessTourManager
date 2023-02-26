@@ -1,16 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using ChessTourManager.DataAccess.Entities;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.WPF.ViewModels;
 
-public partial class PlayersViewModel : ObservableObject
+public class PlayersViewModel : ViewModelBase
 {
-    [ObservableProperty]
     private ObservableCollection<Player>? _playersCollection;
-
-    public PlayersViewModel()
-    {
-    }
 }

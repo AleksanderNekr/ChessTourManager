@@ -77,9 +77,11 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="{Binding SelectedTournamentName}"
-                     IsEnabled="{Binding IsOpened}"
-                     IsSelected="{Binding IsOpened, Mode=OneWay}">
+            <TabItem
+                Header="{Binding SelectedTournament.TournamentName,
+                                 FallbackValue=''}"
+                IsEnabled="{Binding IsOpened}"
+                IsSelected="{Binding IsOpened, Mode=OneWay}">
                 <TabControl
                     Margin="0,5,0,0">
                     <TabItem

@@ -1,57 +1,48 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using ChessTourManager.DataAccess;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using ChessTourManager.DataAccess.Entities;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using ChessTourManager.Domain.Queries;
+using ChessTourManager.WPF.Commands;
 
 namespace ChessTourManager.WPF.ViewModels;
 
-public partial class TournamentsListViewModel : ObservableObject
+public class TournamentsListViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext ChessTourContext = ChessTourContext.CreateInstance();
-
-    [ObservableProperty]
     private bool _isOpened;
 
+    private OpenTournamentCommand? _openTournamentCommand;
 
-    [ObservableProperty]
     private Tournament? _selectedTournament;
 
-    private string? _selectedTournamentName;
-
-    [ObservableProperty]
-    private ObservableCollection<Tournament> _tournamentsCollection =
-        new(ChessTourContext.Tournaments.Select(tournament => tournament));
-
-    public string SelectedTournamentName
+    public TournamentsListViewModel()
     {
-        get
-        {
-            if (_selectedTournamentName == null)
-            {
-                _selectedTournamentName = "";
-                OnPropertyChanged();
-            }
+        bool isSuccess = IGetQueries.CreateInstance()
+                                    .TryGetTournaments(2, out IEnumerable<Tournament>? tournamentsCollection);
 
-            return _selectedTournamentName;
-        }
-        private set
+        if (isSuccess)
         {
-            _selectedTournamentName = value;
+            TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
+        }
+    }
+
+    public bool IsOpened
+    {
+        get => _isOpened;
+        set
+        {
+            SetField(ref _isOpened, value);
             OnPropertyChanged();
         }
     }
 
-    [RelayCommand]
-    private void OpenTournament(object obj)
+    public Tournament? SelectedTournament
     {
-        if (obj is Tournament tournament)
-        {
-            SelectedTournament     = tournament;
-            SelectedTournamentName = tournament.TournamentName;
-            IsOpened               = false;
-            IsOpened               = true;
-        }
+        get => _selectedTournament;
+        set => SetField(ref _selectedTournament, value);
     }
+
+    public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
+
+    public ObservableCollection<Tournament>? TournamentsCollection { get; }
 }

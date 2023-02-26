@@ -5,6 +5,8 @@ namespace ChessTourManager.Domain.Queries;
 
 public interface IGetQueries
 {
+    public static IGetQueries CreateInstance() => new GetQueries();
+
     public bool TryGetUser(int id, out User? user);
 
     public bool TryGetTournaments(int organiserId, out IEnumerable<Tournament> tournaments);
