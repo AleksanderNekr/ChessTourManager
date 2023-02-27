@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
@@ -17,12 +19,20 @@ public class TournamentsListViewModel : ViewModelBase
 
     public TournamentsListViewModel()
     {
-        bool isSuccess = IGetQueries.CreateInstance()
-                                    .TryGetTournaments(2, out IEnumerable<Tournament>? tournamentsCollection);
+        GetResult result = IGetQueries.CreateInstance()
+                                      .TryGetTournaments(2, out IEnumerable<Tournament>? tournamentsCollection);
 
-        if (isSuccess)
+        switch (result)
         {
-            TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
+            case GetResult.Success:
+                TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
+                break;
+            case GetResult.UserNotFound:
+                MessageBox.Show("Пользователь не найден!", "Ошибка получения списка турниров",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

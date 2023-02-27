@@ -42,7 +42,7 @@ public class ChessTourContext : DbContext
     ///     Factory method of creating instance of the context.
     /// </summary>
     /// <returns>The context.</returns>
-    public static ChessTourContext CreateInstance() => new ChessTourContext();
+    public static ChessTourContext CreateInstance() => new();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
