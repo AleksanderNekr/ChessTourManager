@@ -16,11 +16,11 @@ public static class SuccessLoginEvent
 
 public class SuccessLoginEventArgs : EventArgs
 {
-    public User User;
+    public User? User;
 
     public DateTimeOffset LoginDateTimeUtc;
 
-    public SuccessLoginEventArgs(User user, DateTimeOffset loginDateTimeUtc)
+    public SuccessLoginEventArgs(User? user, DateTimeOffset loginDateTimeUtc)
     {
         User             = user;
         LoginDateTimeUtc = loginDateTimeUtc;

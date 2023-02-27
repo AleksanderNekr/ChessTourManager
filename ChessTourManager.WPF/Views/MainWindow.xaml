@@ -60,12 +60,6 @@
                             Header="Туры"
                             Binding="{Binding ToursCount}" />
                         <DataGridTextColumn
-                            Header="Игроки"
-                            Binding="{Binding Players.Count}" />
-                        <DataGridTextColumn
-                            Header="Система"
-                            Binding="{Binding System}" />
-                        <DataGridTextColumn
                             Header="Место"
                             Binding="{Binding Place}" />
                         <DataGridTextColumn
@@ -77,9 +71,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <!-- Header="{Binding Source={StaticResource TournamentsListViewModel}, -->
-            <!-- Path=SelectedTournament, -->
-            <!-- FallbackValue=''}" -->
             <TabItem
                 Header="{Binding SelectedTournamentObservable.TournamentName,
                                  FallbackValue=''}"

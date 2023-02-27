@@ -9,6 +9,9 @@ public class LoginViewModel : ViewModelBase
 {
     public LoginViewModel()
     {
+        _login    = string.Empty;
+        _password = string.Empty;
+
         SuccessLoginEvent.UserSuccessLogin += SuccessLoginEvent_UserSuccessLogin;
     }
 
@@ -37,5 +40,5 @@ public class LoginViewModel : ViewModelBase
 
     public ICommand LoginCommand => _loginCommand ??= new LoginCommand(this);
 
-    public static User CurrentUser { get; private set; }
+    public static User? CurrentUser { get; private set; }
 }
