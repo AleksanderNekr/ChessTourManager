@@ -3,8 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:ChessTourManager.WPF.ViewModels"
         mc:Ignorable="d"
         Title="AuthWindow" Height="500" Width="400">
+    <Window.DataContext>
+        <viewModels:LoginViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -33,6 +37,7 @@
                 FontSize="14"
                 Text="Логин" />
             <TextBox
+                Text="{Binding Login}"
                 FontSize="14"
                 Width="200"
                 Height="20" />
@@ -45,10 +50,12 @@
             <TextBlock
                 FontSize="14"
                 Text="Пароль" />
-            <PasswordBox
+            <TextBox
+                Text="{Binding Password}"
                 FontSize="14"
                 Width="200"
-                Height="20" />
+                Height="20">
+            </TextBox>
         </StackPanel>
         <StackPanel
             Grid.Row="6"
@@ -57,7 +64,7 @@
             <Button
                 FontSize="14"
                 Content="Войти"
-                Click="LoginButton_Click" />
+                Command="{Binding LoginCommand}" />
             <TextBlock
                 HorizontalAlignment="Center"
                 Margin="5"

@@ -15,12 +15,11 @@ public class TournamentsListViewModel : ViewModelBase
 
     private OpenTournamentCommand? _openTournamentCommand;
 
-    private Tournament? _selectedTournament;
-
     public TournamentsListViewModel()
     {
         GetResult result = IGetQueries.CreateInstance()
-                                      .TryGetTournaments(2, out IEnumerable<Tournament>? tournamentsCollection);
+                                      .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
+                                                         out IEnumerable<Tournament>? tournamentsCollection);
 
         switch (result)
         {
@@ -46,11 +45,9 @@ public class TournamentsListViewModel : ViewModelBase
         }
     }
 
-    public Tournament? SelectedTournament
-    {
-        get => _selectedTournament;
-        set => SetField(ref _selectedTournament, value);
-    }
+    public static Tournament? SelectedTournament { get; set; }
+
+    public Tournament? SelectedTournamentObservable => SelectedTournament;
 
     public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
 

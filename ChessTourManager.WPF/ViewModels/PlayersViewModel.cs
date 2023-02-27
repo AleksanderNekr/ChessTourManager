@@ -15,7 +15,16 @@ public class PlayersViewModel : ViewModelBase
         {
             if (_playersCollection == null)
             {
-                IGetQueries.CreateInstance().TryGetPlayers(2, 2, out IEnumerable<Player> players);
+                if (TournamentsListViewModel.SelectedTournament == null)
+                {
+                    return new ObservableCollection<Player>();
+                }
+
+                IGetQueries.CreateInstance()
+                           .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
+                                          TournamentsListViewModel.SelectedTournament.TournamentId,
+                                          out IEnumerable<Player> players);
+
                 _playersCollection = new ObservableCollection<Player>(players);
                 OnPropertyChanged();
             }

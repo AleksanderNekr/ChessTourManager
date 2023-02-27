@@ -14,7 +14,16 @@ public interface IGetQueries
     /// <param name="user">Выходной параметр – пользователь.</param>
     /// <returns>Если пользователь найден, то он возвращается, результат – Success,
     /// иначе – null, результат – UserNotFound.</returns>
-    public GetResult TryGetUser(int id, out User? user);
+    public GetResult TryGetUserById(int id, out User? user);
+
+    /// <summary>
+    /// Получение пользователя по его логину и паролю.
+    /// </summary>
+    /// <param name="login">Логин пользователя.</param>
+    /// <param name="user">Выходной параметр – пользователь.</param>
+    /// <returns>Если пользователь найден, то он возвращается, результат – Success,
+    /// иначе – null, результат – UserNotFound.</returns>
+    public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user);
 
     /// <summary>
     /// Получение турниров пользователя по его ID.

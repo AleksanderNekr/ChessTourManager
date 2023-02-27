@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.WPF.Commands;
+using ChessTourManager.WPF.Commands.Events;
 
 namespace ChessTourManager.WPF.Views;
 
@@ -7,17 +10,21 @@ namespace ChessTourManager.WPF.Views;
 /// </summary>
 public partial class AuthWindow : Window
 {
-    public AuthWindow() => InitializeComponent();
+    public AuthWindow()
+    {
+        InitializeComponent();
+        SuccessLoginEvent.UserSuccessLogin += LoginViewModel_UserSuccessLogin;
+    }
+
+    private void LoginViewModel_UserSuccessLogin(SuccessLoginEventArgs successLoginEventArgs)
+    {
+        new MainWindow().Show();
+        Close();
+    }
 
     private void RegisterButton_Click(object sender, RoutedEventArgs e)
     {
         new RegisterWindow().Show();
-        Close();
-    }
-
-    private void LoginButton_Click(object sender, RoutedEventArgs e)
-    {
-        new MainWindow().Show();
         Close();
     }
 }

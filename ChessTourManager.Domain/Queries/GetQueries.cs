@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.Domain.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Query;
+using static System.Security.Policy.Hash;
 
 namespace ChessTourManager.Domain.Queries;
 
 internal class GetQueries : IGetQueries
 {
-    public GetResult TryGetUser(int id, out User? user)
+    public GetResult TryGetUserById(int id, out User? user)
     {
         List<User> usersLocal = ChessTourContext.CreateInstance()
                                                 .Users
@@ -24,9 +26,20 @@ internal class GetQueries : IGetQueries
                    : GetResult.UserNotFound;
     }
 
+    public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
+    {
+        string hash = PasswordHasher.HashPassword(password);
+        user = ChessTourContext.CreateInstance().Users
+                               .FirstOrDefault(u => u.Email == login
+                                                 && PasswordHasher.VerifyPassword(password, hash));
+        return user is not null
+                   ? GetResult.Success
+                   : GetResult.UserNotFound;
+    }
+
     public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament> tournaments)
     {
-        if (TryGetUser(organiserId, out User? organiser) == GetResult.Success)
+        if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
             tournaments = organiser.Tournaments;
             return GetResult.Success;
@@ -40,7 +53,7 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player> players)
     {
         players = Array.Empty<Player>();
-        if (TryGetUser(organiserId, out User? user) == GetResult.UserNotFound)
+        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
         }
@@ -70,7 +83,7 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetTeams(int organiserId, int tournamentId, out IEnumerable<Team> teams)
     {
         teams = Array.Empty<Team>();
-        if (TryGetUser(organiserId, out User? user) == GetResult.UserNotFound)
+        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
         }

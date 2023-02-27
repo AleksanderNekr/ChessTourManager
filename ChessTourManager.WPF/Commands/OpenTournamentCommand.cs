@@ -1,4 +1,5 @@
 ﻿using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.WPF.Commands.Events;
 using ChessTourManager.WPF.ViewModels;
 
 namespace ChessTourManager.WPF.Commands;
@@ -14,8 +15,9 @@ public class OpenTournamentCommand : CommandBase
     {
         if (parameter is Tournament tournament)
         {
-            _tournamentsListViewModel.SelectedTournament = tournament;
-            _tournamentsListViewModel.IsOpened           = true;
+            TournamentsListViewModel.SelectedTournament = tournament;
+            _tournamentsListViewModel.IsOpened          = true;
+            TournamentOpenedEvent.OnTournamentOpened(new TournamentOpenedEventArgs(tournament));
         }
     }
 }

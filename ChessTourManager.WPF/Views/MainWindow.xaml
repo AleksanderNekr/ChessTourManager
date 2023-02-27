@@ -11,6 +11,9 @@
     <Window.DataContext>
         <viewModels:TournamentsListViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <viewModels:TournamentsListViewModel x:Key="TournamentsListViewModel" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
@@ -78,7 +81,8 @@
                 </DataGrid>
             </TabItem>
             <TabItem
-                Header="{Binding SelectedTournament.TournamentName,
+                Header="{Binding Source={StaticResource TournamentsListViewModel},
+                                Path=SelectedTournament,
                                  FallbackValue=''}"
                 IsEnabled="{Binding IsOpened}"
                 IsSelected="{Binding IsOpened, Mode=OneWay}">
