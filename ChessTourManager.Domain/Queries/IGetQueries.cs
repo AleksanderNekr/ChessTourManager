@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.Domain.Queries;
@@ -32,7 +32,7 @@ public interface IGetQueries
     /// <param name="tournaments">Выходной параметр – список турниров.</param>
     /// <returns>Если пользователь найден, то возвращается список его турниров, результат – Success,
     /// иначе – пустой список, результат – UserNotFound.</returns>
-    public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament> tournaments);
+    public GetResult TryGetTournaments(int organiserId, out IQueryable<Tournament>? tournaments);
 
     /// <summary>
     /// Получение списка игроков в турнире пользователя.
@@ -43,7 +43,7 @@ public interface IGetQueries
     /// <returns>Если пользователь не найден, возвращается пустой список игроков, результат – UserNotFound,
     /// если пользователь не имеет турниров, то возвращается NoTournaments, если турнир с заданным ID не найден,
     /// то TournamentNotFound, иначе – список игроков и результат – Success.</returns>
-    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player> players);
+    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IQueryable<Player>? players);
 
     /// <summary>
     /// Получение списка команд в турнире пользователя.
@@ -54,5 +54,5 @@ public interface IGetQueries
     /// <returns>Если пользователь не найден, возвращается пустой список команд, результат – UserNotFound,
     /// если пользователь не имеет турниров, то возвращается NoTournaments, если турнир с заданным ID не найден,
     /// то TournamentNotFound, иначе – список команд и результат – Success.</returns>
-    public GetResult TryGetTeams(int organiserId, int tournamentId, out IEnumerable<Team> teams);
+    public GetResult TryGetTeams(int organiserId, int tournamentId, out IQueryable<Team>? teams);
 }

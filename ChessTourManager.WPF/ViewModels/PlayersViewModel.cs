@@ -1,32 +1,45 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
+using ChessTourManager.WPF.Commands.Events;
 
 namespace ChessTourManager.WPF.ViewModels;
 
 public class PlayersViewModel : ViewModelBase
 {
+    public PlayersViewModel()
+    {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+    }
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        IGetQueries.CreateInstance()
+                   .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
+                                  TournamentsListViewModel.SelectedTournament.TournamentId,
+                                  out IQueryable<Player>? players);
+
+        if (players != null)
+        {
+            PlayersCollection = new ObservableCollection<Player>(players);
+        }
+    }
+
     private ObservableCollection<Player>? _playersCollection;
 
     public ObservableCollection<Player>? PlayersCollection
     {
         get
         {
-            if (_playersCollection == null)
+            if (_playersCollection != null)
             {
-                if (TournamentsListViewModel.SelectedTournament == null)
-                {
-                    return new ObservableCollection<Player>();
-                }
+                return _playersCollection;
+            }
 
-                IGetQueries.CreateInstance()
-                           .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
-                                          TournamentsListViewModel.SelectedTournament.TournamentId,
-                                          out IEnumerable<Player> players);
-
-                _playersCollection = new ObservableCollection<Player>(players);
-                OnPropertyChanged();
+            if (TournamentsListViewModel.SelectedTournament == null)
+            {
+                return new ObservableCollection<Player>();
             }
 
             return _playersCollection;

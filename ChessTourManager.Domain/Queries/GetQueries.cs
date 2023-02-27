@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Helpers;
 using Microsoft.EntityFrameworkCore;
-using static System.Security.Policy.Hash;
 
 namespace ChessTourManager.Domain.Queries;
 
@@ -15,11 +11,10 @@ internal class GetQueries : IGetQueries
 {
     public GetResult TryGetUserById(int id, out User? user)
     {
-        List<User> usersLocal = ChessTourContext.CreateInstance()
-                                                .Users
-                                                .Include(u => u.Tournaments)
-                                                .ToList();
-        user = usersLocal.Find(u => u.UserId == id);
+        IEnumerable<User> usersLocal = ChessTourContext.CreateInstance()
+                                                       .Users
+                                                       .Include(u => u.Tournaments.AsQueryable());
+        user = usersLocal.FirstOrDefault(u => u.UserId == id);
 
         return user is not null
                    ? GetResult.Success
@@ -37,22 +32,22 @@ internal class GetQueries : IGetQueries
                    : GetResult.UserNotFound;
     }
 
-    public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament> tournaments)
+    public GetResult TryGetTournaments(int organiserId, out IQueryable<Tournament>? tournaments)
     {
         if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
-            tournaments = organiser.Tournaments;
+            tournaments = organiser.Tournaments.AsQueryable();
             return GetResult.Success;
         }
 
 
-        tournaments = Array.Empty<Tournament>();
+        tournaments = default;
         return GetResult.UserNotFound;
     }
 
-    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player> players)
+    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IQueryable<Player>? players)
     {
-        players = Array.Empty<Player>();
+        players = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -63,11 +58,10 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        List<Tournament> tournaments = ChessTourContext.CreateInstance()
-                                                       .Tournaments
-                                                       .Where(t => t.OrganizerId == organiserId)
-                                                       .Include(t => t.Players)
-                                                       .ToList();
+        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
+                                                             .Tournaments
+                                                             .Where(t => t.OrganizerId == organiserId)
+                                                             .Include(t => t.Players);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -75,14 +69,14 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        players = tournament.Players;
+        players = tournament.Players.AsQueryable();
 
         return GetResult.Success;
     }
 
-    public GetResult TryGetTeams(int organiserId, int tournamentId, out IEnumerable<Team> teams)
+    public GetResult TryGetTeams(int organiserId, int tournamentId, out IQueryable<Team>? teams)
     {
-        teams = Array.Empty<Team>();
+        teams = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -93,11 +87,10 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        List<Tournament> tournaments = ChessTourContext.CreateInstance()
-                                                       .Tournaments
-                                                       .Where(t => t.OrganizerId == organiserId)
-                                                       .Include(t => t.Teams)
-                                                       .ToList();
+        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
+                                                             .Tournaments
+                                                             .Where(t => t.OrganizerId == organiserId)
+                                                             .Include(t => t.Teams);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -105,7 +98,7 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        teams = tournament.Teams;
+        teams = tournament.Teams.AsQueryable();
 
         return GetResult.Success;
     }

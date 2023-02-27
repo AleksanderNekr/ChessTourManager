@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
 using ChessTourManager.WPF.Commands;
+using ChessTourManager.WPF.Commands.Events;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.WPF.ViewModels;
 
@@ -17,14 +19,21 @@ public class TournamentsListViewModel : ViewModelBase
 
     public TournamentsListViewModel()
     {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         GetResult result = IGetQueries.CreateInstance()
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
-                                                         out IEnumerable<Tournament>? tournamentsCollection);
+                                                         out IQueryable<Tournament>? tournamentsCollection);
 
         switch (result)
         {
             case GetResult.Success:
-                TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
+                if (tournamentsCollection != null)
+                {
+                    TournamentsCollection =
+                        new ObservableCollection<Tournament>(tournamentsCollection
+                                                                .Include(t => t.Players));
+                }
+
                 break;
             case GetResult.UserNotFound:
                 MessageBox.Show("Пользователь не найден!", "Ошибка получения списка турниров",
@@ -33,6 +42,11 @@ public class TournamentsListViewModel : ViewModelBase
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        OnPropertyChanged(nameof(SelectedTournamentObservable));
     }
 
     public bool IsOpened

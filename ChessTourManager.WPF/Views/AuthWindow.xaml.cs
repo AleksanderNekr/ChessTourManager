@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.WPF.Commands;
 using ChessTourManager.WPF.Commands.Events;
 
 namespace ChessTourManager.WPF.Views;
