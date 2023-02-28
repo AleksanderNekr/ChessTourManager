@@ -54,8 +54,7 @@
                 Text="{Binding Password}"
                 FontSize="14"
                 Width="200"
-                Height="20">
-            </TextBox>
+                Height="20" />
         </StackPanel>
         <StackPanel
             Grid.Row="6"

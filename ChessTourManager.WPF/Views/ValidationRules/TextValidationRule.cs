@@ -1,10 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using System.Globalization;
+using System.Windows.Controls;
 
 namespace ChessTourManager.WPF.Views.ValidationRules;
 
 public class TextValidationRule : ValidationRule
 {
-    public override ValidationResult Validate(object? value, System.Globalization.CultureInfo cultureInfo)
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
     {
         var input = value?.ToString();
         if (input is null)

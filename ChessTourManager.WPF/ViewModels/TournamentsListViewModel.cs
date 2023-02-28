@@ -14,11 +14,10 @@ namespace ChessTourManager.WPF.ViewModels;
 
 public class TournamentsListViewModel : ViewModelBase
 {
-    private bool _isOpened;
+    private static readonly ChessTourContext TournamentsListContext = new();
+    private                 bool             _isOpened;
 
     private OpenTournamentCommand? _openTournamentCommand;
-
-    private static readonly ChessTourContext TournamentsListContext = new();
 
     public TournamentsListViewModel()
     {
@@ -47,11 +46,6 @@ public class TournamentsListViewModel : ViewModelBase
         }
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
-    {
-        OnPropertyChanged(nameof(SelectedTournamentObservable));
-    }
-
     public bool IsOpened
     {
         get => _isOpened;
@@ -69,4 +63,7 @@ public class TournamentsListViewModel : ViewModelBase
     public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
 
     public ObservableCollection<Tournament>? TournamentsCollection { get; }
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) =>
+        OnPropertyChanged(nameof(SelectedTournamentObservable));
 }

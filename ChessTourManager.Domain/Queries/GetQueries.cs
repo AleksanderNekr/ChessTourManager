@@ -11,10 +11,7 @@ internal class GetQueries : IGetQueries
 {
     private static ChessTourContext _context = new();
 
-    public GetQueries(ChessTourContext context)
-    {
-        _context = context;
-    }
+    public GetQueries(ChessTourContext context) => _context = context;
 
     public GetResult TryGetUserById(int id, out User? user)
     {

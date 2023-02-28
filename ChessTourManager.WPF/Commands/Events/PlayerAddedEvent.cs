@@ -6,7 +6,7 @@ namespace ChessTourManager.WPF.Commands.Events;
 public class PlayerAddedEvent
 {
     /// <summary>
-    /// Delegate on handling UserSuccessLogin event.
+    ///     Delegate on handling UserSuccessLogin event.
     /// </summary>
     public delegate void PlayerAddedHandler(PlayerAddedEventArgs e);
 
@@ -18,8 +18,5 @@ public class PlayerAddedEventArgs : EventArgs
 {
     public Player? AddedPlayer;
 
-    public PlayerAddedEventArgs(Player? addedPlayer)
-    {
-        AddedPlayer = addedPlayer;
-    }
+    public PlayerAddedEventArgs(Player? addedPlayer) => AddedPlayer = addedPlayer;
 }

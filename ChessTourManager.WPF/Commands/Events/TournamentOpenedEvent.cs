@@ -6,7 +6,7 @@ namespace ChessTourManager.WPF.Commands.Events;
 public class TournamentOpenedEvent
 {
     /// <summary>
-    /// Delegate on handling TournamentOpenedEvent.
+    ///     Delegate on handling TournamentOpenedEvent.
     /// </summary>
     public delegate void TournamentOpenedEventHandler(TournamentOpenedEventArgs e);
 

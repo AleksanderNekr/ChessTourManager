@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:viewModels="clr-namespace:ChessTourManager.WPF.ViewModels"
+             xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
@@ -13,9 +14,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
-                Width="Auto"></ColumnDefinition>
+                Width="Auto" />
             <ColumnDefinition
-                Width="*"></ColumnDefinition>
+                Width="*" />
         </Grid.ColumnDefinitions>
         <Button
             FontSize="14"
@@ -23,8 +24,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="Добавить игрока"
-            Command="{Binding AddPlayerCommand}">
-        </Button>
+            Command="{Binding AddPlayerCommand}" />
         <ScrollViewer
             Grid.Column="1">
             <DataGrid
@@ -32,12 +32,12 @@
                 AutoGenerateColumns="False"
                 IsReadOnly="False"
                 MaxColumnWidth="200"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ItemsSource="{Binding PlayersCollection}"
                 CanUserAddRows="False"
-                SelectedCellsChanged="DataGrid_CurrentCellChanged">
+                CanUserDeleteRows="False"
+                SelectedCellsChanged="DataGrid_CurrentCellChanged"
+                LoadingRow="DataGrid_LoadingRow"
+                dgx:Tools.ForceCommitOnLostFocus="True">
                 <DataGrid.CellStyle>
                     <!-- Add margin to cells -->
                     <Style

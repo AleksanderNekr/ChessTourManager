@@ -1,5 +1,4 @@
-﻿using ChessTourManager.DataAccess;
-using ChessTourManager.DataAccess.Entities;
+﻿using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
 using ChessTourManager.WPF.Commands.Events;
 using ChessTourManager.WPF.ViewModels;
@@ -10,10 +9,7 @@ public class AddPlayerCommand : CommandBase
 {
     private readonly PlayersViewModel _playersViewModel;
 
-    public AddPlayerCommand(PlayersViewModel viewModel)
-    {
-        _playersViewModel = viewModel;
-    }
+    public AddPlayerCommand(PlayersViewModel viewModel) => _playersViewModel = viewModel;
 
     public override void Execute(object? parameter)
     {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -14,6 +12,10 @@ namespace ChessTourManager.WPF.ViewModels;
 public class PlayersViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext PlayersContext = new();
+    private                  ICommand?        _addPlayerCommand;
+    private                  ICommand         _deletePlayerCommand;
+
+    private ObservableCollection<Player>? _playersCollection;
 
     public PlayersViewModel()
     {
@@ -21,38 +23,6 @@ public class PlayersViewModel : ViewModelBase
         PlayerAddedEvent.PlayerAdded           += PlayerAddedEvent_PlayerAdded;
         PlayerDeletedEvent.PlayerDeleted       += PlayerDeletedEvent_PlayerDeleted;
     }
-
-    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
-    {
-        UpdatePlayers();
-    }
-
-    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)
-    {
-        UpdatePlayers();
-    }
-
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
-    {
-        UpdatePlayers();
-    }
-
-    private void UpdatePlayers()
-    {
-        IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
-                                  TournamentsListViewModel.SelectedTournament.TournamentId,
-                                  out IQueryable<Player>? players);
-
-        if (players != null)
-        {
-            PlayersCollection = new ObservableCollection<Player>(players);
-        }
-    }
-
-    private ObservableCollection<Player>? _playersCollection;
-    private ICommand?                     _addPlayerCommand;
-    private ICommand                      _deletePlayerCommand;
 
     public ObservableCollection<Player>? PlayersCollection
     {
@@ -70,10 +40,29 @@ public class PlayersViewModel : ViewModelBase
 
             return _playersCollection;
         }
-        private set { SetField(ref _playersCollection, value); }
+        private set => SetField(ref _playersCollection, value);
     }
 
     public ICommand AddPlayerCommand => _addPlayerCommand ??= new AddPlayerCommand(this);
 
     public ICommand DeletePlayerCommand => _deletePlayerCommand ??= new DeletePlayerCommand(this);
+
+    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e) => UpdatePlayers();
+
+    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e) => UpdatePlayers();
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) => UpdatePlayers();
+
+    private void UpdatePlayers()
+    {
+        IGetQueries.CreateInstance(PlayersContext)
+                   .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
+                                  TournamentsListViewModel.SelectedTournament.TournamentId,
+                                  out IQueryable<Player>? players);
+
+        if (players != null)
+        {
+            PlayersCollection = new ObservableCollection<Player>(players);
+        }
+    }
 }

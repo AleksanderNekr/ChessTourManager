@@ -10,10 +10,7 @@ internal class InsertQueries : IInsertQueries
 {
     private static ChessTourContext _context = new();
 
-    public InsertQueries(ChessTourContext context)
-    {
-        _context = context;
-    }
+    public InsertQueries(ChessTourContext context) => _context = context;
 
     public InsertResult TryAddUser(string lastName, string firstName, string email, string password,
                                    string patronymic       = "-",

@@ -9,10 +9,7 @@ internal class DeleteQuery : IDeleteQueries
 {
     private static ChessTourContext? _context = new();
 
-    public DeleteQuery(ChessTourContext context)
-    {
-        _context = context;
-    }
+    public DeleteQuery(ChessTourContext context) => _context = context;
 
     public DeleteResult TryDeletePlayer(Player player)
     {
