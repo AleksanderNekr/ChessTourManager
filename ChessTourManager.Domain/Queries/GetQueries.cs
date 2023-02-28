@@ -98,7 +98,64 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        teams = tournament.Teams.AsQueryable();
+        teams = tournament.Teams.AsQueryable().Include(t => t.Players);
+
+        return GetResult.Success;
+    }
+
+    public GetResult TryGetGroups(int organiserId, int tournamentId, out IQueryable<Group>? groups)
+    {
+        groups = default;
+        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
+        {
+            return GetResult.UserNotFound;
+        }
+
+        if (user.Tournaments.Count == 0)
+        {
+            return GetResult.NoTournaments;
+        }
+
+        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
+                                                             .Tournaments
+                                                             .Where(g => g.OrganizerId == organiserId);
+
+        Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
+        if (tournament is null)
+        {
+            return GetResult.TournamentNotFound;
+        }
+
+        groups = tournament.Groups.AsQueryable().Include(g => g.Players);
+
+        return GetResult.Success;
+    }
+
+    public GetResult TryGetGames(int organiserId, int tournamentId, int tourNumber, out IQueryable<Game>? games)
+    {
+        games = default;
+        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
+        {
+            return GetResult.UserNotFound;
+        }
+
+        if (user.Tournaments.Count == 0)
+        {
+            return GetResult.NoTournaments;
+        }
+
+        Tournament? tournament = user.Tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
+
+        if (tournament is null)
+        {
+            return GetResult.TournamentNotFound;
+        }
+
+        games = ChessTourContext.CreateInstance()
+                                .Games
+                                .Where(g => g.OrganizerId  == organiserId
+                                         && g.TournamentId == tournamentId
+                                         && g.TourNumber   == tourNumber);
 
         return GetResult.Success;
     }
