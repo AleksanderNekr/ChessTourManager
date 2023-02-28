@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ChessTourManager.WPF.Views;
 
-namespace ChessTourManager.WPF.Controls;
+namespace ChessTourManager.WPF.Views.Controls;
 
 public partial class MenuBarControl : UserControl
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessTourManager.WPF.ViewModels;
 
-namespace ChessTourManager.WPF.Controls;
+namespace ChessTourManager.WPF.Views.Controls;
 
 public partial class PlayersGridControl
 {
