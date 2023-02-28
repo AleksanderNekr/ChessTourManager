@@ -37,7 +37,8 @@
                 CanUserDeleteRows="False"
                 SelectedCellsChanged="DataGrid_CurrentCellChanged"
                 LoadingRow="DataGrid_LoadingRow"
-                dgx:Tools.ForceCommitOnLostFocus="True">
+                dgx:Tools.ForceCommitOnLostFocus="True"
+                LostFocus="DataGrid_LostFocus">
                 <DataGrid.CellStyle>
                     <!-- Add margin to cells -->
                     <Style
