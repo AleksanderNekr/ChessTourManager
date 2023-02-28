@@ -9,11 +9,17 @@ namespace ChessTourManager.Domain.Queries;
 
 internal class GetQueries : IGetQueries
 {
+    private static ChessTourContext _context = new();
+
+    public GetQueries(ChessTourContext context)
+    {
+        _context = context;
+    }
+
     public GetResult TryGetUserById(int id, out User? user)
     {
-        IEnumerable<User> usersLocal = ChessTourContext.CreateInstance()
-                                                       .Users
-                                                       .Include(u => u.Tournaments.AsQueryable());
+        IEnumerable<User> usersLocal = _context.Users
+                                               .Include(u => u.Tournaments.AsQueryable());
         user = usersLocal.FirstOrDefault(u => u.UserId == id);
 
         return user is not null
@@ -24,9 +30,9 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
     {
         string hash = PasswordHasher.HashPassword(password);
-        user = ChessTourContext.CreateInstance().Users
-                               .FirstOrDefault(u => u.Email == login
-                                                 && PasswordHasher.VerifyPassword(password, hash));
+        user = _context.Users
+                       .FirstOrDefault(u => u.Email == login
+                                         && PasswordHasher.VerifyPassword(password, hash));
         return user is not null
                    ? GetResult.Success
                    : GetResult.UserNotFound;
@@ -58,10 +64,10 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
-                                                             .Tournaments
-                                                             .Where(t => t.OrganizerId == organiserId)
-                                                             .Include(t => t.Players);
+        IQueryable<Tournament> tournaments = _context
+                                            .Tournaments
+                                            .Where(t => t.OrganizerId == organiserId)
+                                            .Include(t => t.Players);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -87,10 +93,10 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
-                                                             .Tournaments
-                                                             .Where(t => t.OrganizerId == organiserId)
-                                                             .Include(t => t.Teams);
+        IQueryable<Tournament> tournaments = _context
+                                            .Tournaments
+                                            .Where(t => t.OrganizerId == organiserId)
+                                            .Include(t => t.Teams);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -116,9 +122,9 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = ChessTourContext.CreateInstance()
-                                                             .Tournaments
-                                                             .Where(g => g.OrganizerId == organiserId);
+        IQueryable<Tournament> tournaments = _context
+                                            .Tournaments
+                                            .Where(g => g.OrganizerId == organiserId);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -151,11 +157,11 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        games = ChessTourContext.CreateInstance()
-                                .Games
-                                .Where(g => g.OrganizerId  == organiserId
-                                         && g.TournamentId == tournamentId
-                                         && g.TourNumber   == tourNumber);
+        games = _context
+               .Games
+               .Where(g => g.OrganizerId  == organiserId
+                        && g.TournamentId == tournamentId
+                        && g.TourNumber   == tourNumber);
 
         return GetResult.Success;
     }

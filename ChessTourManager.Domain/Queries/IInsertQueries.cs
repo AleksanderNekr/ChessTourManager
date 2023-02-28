@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.Domain.Queries;
 
 public interface IInsertQueries
 {
-    public static IInsertQueries CreateInstance() => new InsertQueries();
+    public static IInsertQueries CreateInstance(ChessTourContext context) => new InsertQueries(context);
 
     /// <summary>
     /// Добавление пользователя.
@@ -58,7 +59,7 @@ public interface IInsertQueries
     /// Добавление пары игроков в список пар тура.
     /// </summary>
     public InsertResult TryAddGamePair(int  whiteId, int blackId, int tournamentId, int organizerId, int tourNumber,
-                                   int  whitePointsResult = 0,
-                                   int  blackPointsResult  = 0,
-                                   bool isPlayed          = false);
+                                       int  whitePointsResult = 0,
+                                       int  blackPointsResult = 0,
+                                       bool isPlayed          = false);
 }

@@ -18,7 +18,7 @@ public class LoginCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        GetResult result = IGetQueries.CreateInstance()
+        GetResult result = IGetQueries.CreateInstance(LoginViewModel.LoginContext)
                                       .TryGetUserByLoginAndPass(_loginViewModel.Login, _loginViewModel.Password,
                                                                 out User? user);
         switch (result)

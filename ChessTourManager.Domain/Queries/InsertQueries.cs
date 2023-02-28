@@ -8,25 +8,31 @@ namespace ChessTourManager.Domain.Queries;
 
 internal class InsertQueries : IInsertQueries
 {
+    private static ChessTourContext _context = new();
+
+    public InsertQueries(ChessTourContext context)
+    {
+        _context = context;
+    }
+
     public InsertResult TryAddUser(string lastName, string firstName, string email, string password,
                                    string patronymic       = "-",
                                    int    tournamentsLimit = 50)
     {
         try
         {
-            var context = ChessTourContext.CreateInstance();
-            context.Users.Add(new User
-                              {
-                                  UserLastname   = lastName,
-                                  UserFirstname  = firstName,
-                                  Email          = email,
-                                  PassHash       = PasswordHasher.HashPassword(password),
-                                  UserPatronymic = patronymic,
-                                  TournamentsLim = tournamentsLimit,
-                                  RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
-                                  RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
-                              });
-            context.SaveChanges();
+            _context.Users.Add(new User
+                               {
+                                   UserLastname   = lastName,
+                                   UserFirstname  = firstName,
+                                   Email          = email,
+                                   PassHash       = PasswordHasher.HashPassword(password),
+                                   UserPatronymic = patronymic,
+                                   TournamentsLim = tournamentsLimit,
+                                   RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
+                                   RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
+                               });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
@@ -52,23 +58,22 @@ internal class InsertQueries : IInsertQueries
 
             tournamentTimeStart ??= TimeOnly.FromDateTime(DateTime.UtcNow);
 
-            var context = ChessTourContext.CreateInstance();
-            context.Tournaments.Add(new Tournament
-                                    {
-                                        OrganizerId      = organiserId,
-                                        TournamentName   = tournamentName,
-                                        SystemId         = systemId,
-                                        KindId           = kindId,
-                                        ToursCount       = toursCount,
-                                        Place            = place,
-                                        DateStart        = (DateOnly)tournamentDateStart,
-                                        TimeStart        = (TimeOnly)tournamentTimeStart,
-                                        Duration         = duration,
-                                        MaxTeamPlayers   = maxTeamPlayers,
-                                        OrganizationName = organizationName,
-                                        IsMixedGroups    = isMixedGroups
-                                    });
-            context.SaveChanges();
+            _context.Tournaments.Add(new Tournament
+                                     {
+                                         OrganizerId      = organiserId,
+                                         TournamentName   = tournamentName,
+                                         SystemId         = systemId,
+                                         KindId           = kindId,
+                                         ToursCount       = toursCount,
+                                         Place            = place,
+                                         DateStart        = (DateOnly)tournamentDateStart,
+                                         TimeStart        = (TimeOnly)tournamentTimeStart,
+                                         Duration         = duration,
+                                         MaxTeamPlayers   = maxTeamPlayers,
+                                         OrganizationName = organizationName,
+                                         IsMixedGroups    = isMixedGroups
+                                     });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
@@ -89,22 +94,21 @@ internal class InsertQueries : IInsertQueries
     {
         try
         {
-            var context = ChessTourContext.CreateInstance();
-            context.Players.Add(new Player
-                                {
-                                    TournamentId    = tournamentId,
-                                    OrganizerId     = organiserId,
-                                    PlayerLastName  = lastName,
-                                    PlayerFirstName = firstName,
-                                    Gender          = gender,
-                                    PlayerAttribute = attribute,
-                                    PlayerBirthYear = birthYear,
-                                    BoardNumber     = boardNumber,
-                                    TeamId          = teamId,
-                                    GroupId         = groupId,
-                                    IsActive        = isActive
-                                });
-            context.SaveChanges();
+            _context.Players.Add(new Player
+                                 {
+                                     TournamentId    = tournamentId,
+                                     OrganizerId     = organiserId,
+                                     PlayerLastName  = lastName,
+                                     PlayerFirstName = firstName,
+                                     Gender          = gender,
+                                     PlayerAttribute = attribute,
+                                     PlayerBirthYear = birthYear,
+                                     BoardNumber     = boardNumber,
+                                     TeamId          = teamId,
+                                     GroupId         = groupId,
+                                     IsActive        = isActive
+                                 });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
@@ -119,16 +123,15 @@ internal class InsertQueries : IInsertQueries
     {
         try
         {
-            var context = ChessTourContext.CreateInstance();
-            context.Teams.Add(new Team
-                              {
-                                  OrganizerId   = organiserId,
-                                  TournamentId  = tournamentId,
-                                  TeamName      = name,
-                                  TeamAttribute = attribute,
-                                  IsActive      = isActive
-                              });
-            context.SaveChanges();
+            _context.Teams.Add(new Team
+                               {
+                                   OrganizerId   = organiserId,
+                                   TournamentId  = tournamentId,
+                                   TeamName      = name,
+                                   TeamAttribute = attribute,
+                                   IsActive      = isActive
+                               });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
@@ -144,15 +147,14 @@ internal class InsertQueries : IInsertQueries
     {
         try
         {
-            var context = ChessTourContext.CreateInstance();
-            context.Groups.Add(new Group
-                               {
-                                   OrganizerId  = organiserId,
-                                   TournamentId = tournamentId,
-                                   GroupName    = name,
-                                   Identity     = identity
-                               });
-            context.SaveChanges();
+            _context.Groups.Add(new Group
+                                {
+                                    OrganizerId  = organiserId,
+                                    TournamentId = tournamentId,
+                                    GroupName    = name,
+                                    Identity     = identity
+                                });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
@@ -167,19 +169,18 @@ internal class InsertQueries : IInsertQueries
     {
         try
         {
-            var context = ChessTourContext.CreateInstance();
-            context.Games.Add(new Game()
-                              {
-                                  WhiteId      = whiteId,
-                                  BlackId      = blackId,
-                                  TournamentId = tournamentId,
-                                  OrganizerId  = organizerId,
-                                  TourNumber   = tourNumber,
-                                  WhitePoints  = whitePointsResult,
-                                  BlackPoints  = blackPointsResult,
-                                  IsPlayed     = isPlayed
-                              });
-            context.SaveChanges();
+            _context.Games.Add(new Game
+                               {
+                                   WhiteId      = whiteId,
+                                   BlackId      = blackId,
+                                   TournamentId = tournamentId,
+                                   OrganizerId  = organizerId,
+                                   TourNumber   = tourNumber,
+                                   WhitePoints  = whitePointsResult,
+                                   BlackPoints  = blackPointsResult,
+                                   IsPlayed     = isPlayed
+                               });
+            _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)

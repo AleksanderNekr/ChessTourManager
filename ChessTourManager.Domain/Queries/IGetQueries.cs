@@ -1,11 +1,12 @@
 ﻿using System.Linq;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.Domain.Queries;
 
 public interface IGetQueries
 {
-    public static IGetQueries CreateInstance() => new GetQueries();
+    public static IGetQueries CreateInstance(ChessTourContext context) => new GetQueries(context);
 
     /// <summary>
     /// Получение пользователя по его ID.

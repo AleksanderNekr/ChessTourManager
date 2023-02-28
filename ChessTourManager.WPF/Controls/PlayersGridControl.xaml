@@ -19,8 +19,8 @@
             ScrollViewer.CanContentScroll="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            ItemsSource="{Binding PlayersCollection, Mode=TwoWay}">
-            <!-- ItemsSource="{Binding PlayersCollection}" -->
+            ItemsSource="{Binding PlayersCollection, Mode=TwoWay}"
+            CurrentCellChanged="DataGrid_CurrentCellChanged">
             <DataGrid.CellStyle>
                 <!-- Add margin to cells -->
                 <Style
@@ -61,7 +61,7 @@
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox
-                                Text="{Binding PlayerLastName}" />
+                                Text="{Binding PlayerLastName, ValidatesOnExceptions=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
@@ -77,7 +77,7 @@
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox
-                                Text="{Binding PlayerFirstName}" />
+                                Text="{Binding PlayerFirstName, ValidatesOnExceptions=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
@@ -115,7 +115,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedItem="{Binding PlayerAttribute}">
+                            <ComboBox SelectedItem="{Binding PlayerAttribute, ValidatesOnExceptions=True}">
                                 <ComboBox.ItemsSource>
                                     <x:Array
                                         Type="{x:Type system:String}">
@@ -141,7 +141,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedItem="{Binding Team}">
+                            <ComboBox
+                                SelectedItem="{Binding Team, ValidatesOnExceptions=True}">
                                 <ComboBox.ItemsSource>
                                     <x:Array
                                         Type="{x:Type system:String}">
@@ -176,7 +177,7 @@
                                 IsSnapToTickEnabled="True"
                                 IsMoveToPointEnabled="True"
                                 AutoToolTipPlacement="TopLeft"
-                                Value="{Binding PlayerBirthYear}" />
+                                Value="{Binding PlayerBirthYear, ValidatesOnExceptions=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

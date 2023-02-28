@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Commands;
 using ChessTourManager.WPF.Commands.Events;
@@ -7,6 +8,8 @@ namespace ChessTourManager.WPF.ViewModels;
 
 public class LoginViewModel : ViewModelBase
 {
+    internal static readonly ChessTourContext LoginContext = new();
+
     public LoginViewModel()
     {
         _login    = string.Empty;

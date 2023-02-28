@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
 using ChessTourManager.WPF.Commands;
@@ -17,10 +18,12 @@ public class TournamentsListViewModel : ViewModelBase
 
     private OpenTournamentCommand? _openTournamentCommand;
 
+    private static readonly ChessTourContext TournamentsListContext = new();
+
     public TournamentsListViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        GetResult result = IGetQueries.CreateInstance()
+        GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
                                                          out IQueryable<Tournament>? tournamentsCollection);
 
