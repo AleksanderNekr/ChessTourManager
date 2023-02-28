@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries;
+using ChessTourManager.WPF.Commands;
 using ChessTourManager.WPF.Commands.Events;
 
 namespace ChessTourManager.WPF.ViewModels;
@@ -14,9 +18,20 @@ public class PlayersViewModel : ViewModelBase
     public PlayersViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        PlayerAddedEvent.PlayerAdded           += PlayerAddedEvent_PlayerAdded;
+    }
+
+    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)
+    {
+        UpdatePlayers();
     }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        UpdatePlayers();
+    }
+
+    private void UpdatePlayers()
     {
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
@@ -30,6 +45,8 @@ public class PlayersViewModel : ViewModelBase
     }
 
     private ObservableCollection<Player>? _playersCollection;
+    private ICommand?                     _addPlayerCommand;
+    private ICommand                      _deletePlayerCommand;
 
     public ObservableCollection<Player>? PlayersCollection
     {
@@ -47,6 +64,10 @@ public class PlayersViewModel : ViewModelBase
 
             return _playersCollection;
         }
-        set => SetField(ref _playersCollection, value);
+        private set { SetField(ref _playersCollection, value); }
     }
+
+    public ICommand AddPlayerCommand => _addPlayerCommand ??= new AddPlayerCommand(this);
+
+    public ICommand DeletePlayerCommand => _deletePlayerCommand ??= new DeletePlayerCommand(this);
 }

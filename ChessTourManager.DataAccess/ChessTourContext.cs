@@ -16,7 +16,7 @@ public class ChessTourContext : DbContext
 
     public DbSet<Kind> Kinds { get; set; }
 
-    public DbSet<Player> Players { get; set; }
+    public DbSet<Player?> Players { get; set; }
 
     public DbSet<PlayersListView> PlayersListViews { get; set; }
 

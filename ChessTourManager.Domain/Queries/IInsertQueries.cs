@@ -32,14 +32,15 @@ public interface IInsertQueries
     /// <summary>
     /// Добавление игрока в список в турнире пользователя.
     /// </summary>
-    public InsertResult TryAddPlayer(int    tournamentId, int organiserId, string lastName, string firstName,
-                                     char   gender      = 'M',
-                                     string attribute   = "-",
-                                     int    birthYear   = 1900,
-                                     int    boardNumber = 1,
-                                     int?   teamId      = null,
-                                     int?   groupId     = null,
-                                     bool   isActive    = true);
+    public InsertResult TryAddPlayer(out Player? addedPlayer, int tournamentId, int organiserId, string lastName,
+                                     string      firstName,
+                                     char        gender      = 'M',
+                                     string      attribute   = "-",
+                                     int         birthYear   = 2000,
+                                     int         boardNumber = 1,
+                                     int?        teamId      = null,
+                                     int?        groupId     = null,
+                                     bool        isActive    = true);
 
     /// <summary>
     /// Добавление команды в список турнира пользователя.

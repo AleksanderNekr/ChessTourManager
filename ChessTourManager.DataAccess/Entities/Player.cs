@@ -18,7 +18,7 @@ public class Player
 
     public string PlayerAttribute { get; set; } = null!;
 
-    public int PlayerBirthYear { get; set; }
+    public int PlayerBirthYear { get; set; } = 2000;
 
     public bool? IsActive { get; set; }
 

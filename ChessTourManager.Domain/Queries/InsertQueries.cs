@@ -83,37 +83,41 @@ internal class InsertQueries : IInsertQueries
         }
     }
 
-    public InsertResult TryAddPlayer(int    tournamentId, int organiserId, string lastName, string firstName,
-                                     char   gender      = 'M',
-                                     string attribute   = "-",
-                                     int    birthYear   = 1900,
-                                     int    boardNumber = 1,
-                                     int?   teamId      = null,
-                                     int?   groupId     = null,
-                                     bool   isActive    = true)
+    public InsertResult TryAddPlayer(out Player? addedPlayer, int tournamentId, int organiserId, string lastName,
+                                     string      firstName,
+                                     char        gender      = 'M',
+                                     string      attribute   = "-",
+                                     int         birthYear   = 2000,
+                                     int         boardNumber = 1,
+                                     int?        teamId      = null,
+                                     int?        groupId     = null,
+                                     bool        isActive    = true)
     {
         try
         {
-            _context.Players.Add(new Player
-                                 {
-                                     TournamentId    = tournamentId,
-                                     OrganizerId     = organiserId,
-                                     PlayerLastName  = lastName,
-                                     PlayerFirstName = firstName,
-                                     Gender          = gender,
-                                     PlayerAttribute = attribute,
-                                     PlayerBirthYear = birthYear,
-                                     BoardNumber     = boardNumber,
-                                     TeamId          = teamId,
-                                     GroupId         = groupId,
-                                     IsActive        = isActive
-                                 });
+            addedPlayer = new Player
+                          {
+                              TournamentId    = tournamentId,
+                              OrganizerId     = organiserId,
+                              PlayerLastName  = lastName,
+                              PlayerFirstName = firstName,
+                              Gender          = gender,
+                              PlayerAttribute = attribute,
+                              PlayerBirthYear = birthYear,
+                              BoardNumber     = boardNumber,
+                              TeamId          = teamId,
+                              GroupId         = groupId,
+                              IsActive        = isActive
+                          };
+
+            _context.Players.Add(addedPlayer);
             _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
         {
             MessageBox.Show(e.Message, "Ошибка добавлении игрока", MessageBoxButton.OK, MessageBoxImage.Error);
+            addedPlayer = null;
             return InsertResult.Fail;
         }
     }
