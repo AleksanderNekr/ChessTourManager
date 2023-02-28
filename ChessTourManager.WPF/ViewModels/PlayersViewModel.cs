@@ -19,6 +19,12 @@ public class PlayersViewModel : ViewModelBase
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         PlayerAddedEvent.PlayerAdded           += PlayerAddedEvent_PlayerAdded;
+        PlayerDeletedEvent.PlayerDeleted       += PlayerDeletedEvent_PlayerDeleted;
+    }
+
+    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
+    {
+        UpdatePlayers();
     }
 
     private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)

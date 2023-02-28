@@ -1,4 +1,6 @@
 ﻿using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.Domain.Queries;
+using ChessTourManager.WPF.Commands.Events;
 using ChessTourManager.WPF.ViewModels;
 
 namespace ChessTourManager.WPF.Commands;
@@ -14,9 +16,16 @@ public class DeletePlayerCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (parameter is Player player)
+        if (parameter is not Player player)
         {
-            
+            return;
+        }
+
+        DeleteResult response = IDeleteQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                              .TryDeletePlayer(player);
+        if (response == DeleteResult.Success)
+        {
+            PlayerDeletedEvent.OnPlayerDeleted(new PlayerDeletedEventArgs(player));
         }
     }
 }

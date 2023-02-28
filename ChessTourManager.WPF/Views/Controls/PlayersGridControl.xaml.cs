@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Windows.Controls;
-using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries;
 using ChessTourManager.WPF.Commands.Events;
 using ChessTourManager.WPF.ViewModels;
 
