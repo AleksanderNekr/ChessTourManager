@@ -28,8 +28,8 @@ internal class GetQueries : IGetQueries
     {
         string hash = PasswordHasher.HashPassword(password);
         user = _context.Users
-                       .FirstOrDefault(u => u.Email == login
-                                         && PasswordHasher.VerifyPassword(password, hash));
+                       .FirstOrDefault(u => u.Email    == login
+                                         && u.PassHash == hash);
         return user is not null
                    ? GetResult.Success
                    : GetResult.UserNotFound;
