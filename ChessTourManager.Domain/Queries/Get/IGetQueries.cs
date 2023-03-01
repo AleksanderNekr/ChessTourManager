@@ -78,4 +78,18 @@ public interface IGetQueries
     ///     Получение списка игр тура в турнире пользователя.
     /// </summary>
     public GetResult TryGetGames(int organiserId, int tournamentId, int tourNumber, out IQueryable<Game>? games);
+
+    /// <summary>
+    /// Получение видов турниров.
+    /// </summary>
+    /// <param name="kinds">Выходной параметр – список видов турниров.</param>
+    /// <returns>Список видов турниров и результат – Success. </returns>
+    public GetResult GetKinds(out IQueryable<Kind>? kinds);
+
+    /// <summary>
+    ///   Получение списка систем турниров.
+    /// </summary>
+    /// <param name="systems">Выходной параметр – список систем турниров.</param>
+    /// <returns>Список систем турниров и результат – Success. </returns>
+    public GetResult GetSystems(out IQueryable<DataAccess.Entities.System>? systems);
 }

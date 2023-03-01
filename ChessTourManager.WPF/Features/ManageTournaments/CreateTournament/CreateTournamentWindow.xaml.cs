@@ -2,5 +2,9 @@
 
 public partial class CreateTournamentWindow
 {
-    public CreateTournamentWindow() => InitializeComponent();
+    public CreateTournamentWindow()
+    {
+        InitializeComponent();
+        DatePicker.BlackoutDates.AddDatesInPast();
+    }
 }

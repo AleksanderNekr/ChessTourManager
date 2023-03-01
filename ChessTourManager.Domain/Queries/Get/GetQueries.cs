@@ -162,6 +162,18 @@ internal class GetQueries : IGetQueries
 
         return GetResult.Success;
     }
+
+    public GetResult GetKinds(out IQueryable<Kind>? kinds)
+    {
+        kinds = _context.Kinds;
+        return GetResult.Success;
+    }
+
+    public GetResult GetSystems(out IQueryable<DataAccess.Entities.System>? systems)
+    {
+        systems = _context.Systems;
+        return GetResult.Success;
+    }
 }
 
 public enum GetResult
