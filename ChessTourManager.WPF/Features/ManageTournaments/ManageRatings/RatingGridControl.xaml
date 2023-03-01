@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ChessTourManager.WPF.Features.ManageTournaments.ManageRatings.RatingGridControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="800">
+    <StackPanel>
+        <TextBlock
+            TextAlignment="Center"
+            TextTrimming="CharacterEllipsis"
+            FontWeight="DemiBold"
+            FontSize="20"
+            Padding="10"
+            Text="Рейтинг-лист после 1 тура" />
+        <DataGrid
+            IsReadOnly="True"
+            FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Место" />
+                <DataGridTextColumn
+                    Header="Имя" />
+                <DataGridTextColumn
+                    Header="Группа" />
+                <DataGridTextColumn
+                    Header="Победы" />
+                <DataGridTextColumn
+                    Header="Ничьи" />
+                <DataGridTextColumn
+                    Header="Проигрыши" />
+                <DataGridTextColumn
+                    Header="Очки" />
+                <DataGridTextColumn
+                    Header="Коэффициент 1" />
+                <DataGridTextColumn
+                    Header="Коэффициент 2" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>
