@@ -7,13 +7,14 @@
         xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
         xmlns:manageGames="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGames"
         xmlns:manageRatings="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageRatings"
+        xmlns:manageTournaments="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments"
         Title="MainWindow"
         MinHeight="700"
         MinWidth="520"
         Width="800"
         Height="700">
     <Window.DataContext>
-        <openTournament:TournamentsListViewModel />
+        <manageTournaments:TournamentsListViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -35,7 +36,7 @@
                 Header="Список турниров">
                 <DataGrid
                     AutoGenerateColumns="False"
-                    ItemsSource="{Binding TournamentsCollection}"
+                    ItemsSource="{Binding TournamentsCollection, Mode=TwoWay}"
                     IsReadOnly="True">
                     <DataGrid.Columns>
                         <!-- Button to open tournament -->

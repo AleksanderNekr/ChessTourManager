@@ -39,15 +39,16 @@ internal class InsertQueries : IInsertQueries
         }
     }
 
-    public InsertResult TryAddTournament(int       organiserId, string tournamentName, int systemId, int kindId,
-                                         int       toursCount          = 7,
-                                         string    place               = "-",
-                                         DateOnly? tournamentDateStart = null,
-                                         TimeOnly? tournamentTimeStart = null,
-                                         int       duration            = 0,
-                                         int       maxTeamPlayers      = 5,
-                                         string    organizationName    = "-",
-                                         bool      isMixedGroups       = true)
+    public InsertResult TryAddTournament(
+        out Tournament? addedTournament, int organiserId, string tournamentName, int systemId, int kindId,
+        int             toursCount          = 7,
+        string          place               = "-",
+        DateOnly?       tournamentDateStart = null,
+        TimeOnly?       tournamentTimeStart = null,
+        int             duration            = 0,
+        int             maxTeamPlayers      = 5,
+        string          organizationName    = "-",
+        bool            isMixedGroups       = true)
     {
         try
         {
@@ -55,27 +56,31 @@ internal class InsertQueries : IInsertQueries
 
             tournamentTimeStart ??= TimeOnly.FromDateTime(DateTime.UtcNow);
 
-            _context.Tournaments.Add(new Tournament
-                                     {
-                                         OrganizerId      = organiserId,
-                                         TournamentName   = tournamentName,
-                                         SystemId         = systemId,
-                                         KindId           = kindId,
-                                         ToursCount       = toursCount,
-                                         Place            = place,
-                                         DateStart        = (DateOnly)tournamentDateStart,
-                                         TimeStart        = (TimeOnly)tournamentTimeStart,
-                                         Duration         = duration,
-                                         MaxTeamPlayers   = maxTeamPlayers,
-                                         OrganizationName = organizationName,
-                                         IsMixedGroups    = isMixedGroups
-                                     });
+
+            addedTournament = new Tournament
+                              {
+                                  OrganizerId      = organiserId,
+                                  TournamentName   = tournamentName,
+                                  SystemId         = systemId,
+                                  KindId           = kindId,
+                                  ToursCount       = toursCount,
+                                  Place            = place,
+                                  DateStart        = (DateOnly)tournamentDateStart,
+                                  TimeStart        = (TimeOnly)tournamentTimeStart,
+                                  Duration         = duration,
+                                  MaxTeamPlayers   = maxTeamPlayers,
+                                  OrganizationName = organizationName,
+                                  IsMixedGroups    = isMixedGroups
+                              };
+
+            _context.Tournaments.Add(addedTournament);
             _context.SaveChanges();
             return InsertResult.Success;
         }
         catch (Exception e)
         {
             MessageBox.Show(e.Message, "Ошибка при создании турнира", MessageBoxButton.OK, MessageBoxImage.Error);
+            addedTournament = null;
             return InsertResult.Fail;
         }
     }

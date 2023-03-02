@@ -44,15 +44,11 @@
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Вид турнира" />
                 <ComboBox
-                    ItemsSource="{Binding TournamentKinds}">
-                    <ComboBox.SelectedItem>
-                        <!-- Set first item as default -->
-                        <Binding
-                            Path="TournamentKinds[0]" />
-                    </ComboBox.SelectedItem>
+                    ItemsSource="{Binding TournamentKinds}"
+                    SelectedItem="{Binding SelectedTournamentKind}">
                     <ComboBox.ItemTemplate>
                         <!-- Use DataTemplate to display the Name property of the TournamentKind object -->
                         <DataTemplate>
@@ -64,17 +60,24 @@
             </StackPanel>
             <StackPanel
                 Margin="5"
+                Orientation="Horizontal"
+                Visibility="{Binding VisibleIfTeamsAllowed}">
+                <TextBlock
+                    Width="280"
+                    Text="Максимальное число игроков в команде" />
+                <ComboBox
+                    ItemsSource="{Binding TeamPlayersCountItems, Mode=OneTime}"
+                    SelectedItem="{Binding SelectedMaxTeamPlayers}" />
+            </StackPanel>
+            <StackPanel
+                Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Система турнира" />
                 <ComboBox
-                    ItemsSource="{Binding TournamentSystems}">
-                    <ComboBox.SelectedItem>
-                        <!-- Set first item as default -->
-                        <Binding
-                            Path="TournamentSystems[0]" />
-                    </ComboBox.SelectedItem>
+                    ItemsSource="{Binding TournamentSystems}"
+                    SelectedItem="{Binding SelectedTournamentSystem}">
                     <ComboBox.ItemTemplate>
                         <!-- Use DataTemplate to display the Name property of the TournamentSystem object -->
                         <DataTemplate>
@@ -88,22 +91,18 @@
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Количество туров" />
                 <ComboBox
-                    ItemsSource="{Binding TournamentRoundsCountItems}">
-                    <ComboBox.SelectedItem>
-                        <!-- Set 2nd item as default -->
-                        <Binding
-                            Path="TournamentRoundsCountItems[2]" />
-                    </ComboBox.SelectedItem>
+                    ItemsSource="{Binding TournamentRoundsCountItems}"
+                    SelectedItem="{Binding SelectedTournamentRoundsCount}">
                 </ComboBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Название турнира" />
                 <TextBox
                     MinWidth="200"
@@ -113,7 +112,7 @@
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Место проведения" />
                 <TextBox
                     MinWidth="200"
@@ -123,44 +122,38 @@
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Дата и время начала" />
+
+                <!-- Blackout Dates are set in the Code Behind -->
                 <DatePicker
                     x:Name="DatePicker"
                     DisplayDateStart="{Binding MinDate, Mode=OneTime}"
-                    SelectedDate="{Binding SelectedDate}"
-                    SelectedDateFormat="Long"
+                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                    SelectedDateFormat="Short"
                     FirstDayOfWeek="Monday" />
                 <ComboBox
                     Margin="10, 0"
-                    ItemsSource="{Binding HoursItems, Mode=OneTime}">
-                    <ComboBox.SelectedItem>
-                        <!-- Set 2nd item as default -->
-                        <Binding
-                            Path="HoursItems[3]" />
-                    </ComboBox.SelectedItem>
+                    ItemsSource="{Binding TimeItems, Mode=OneTime}"
+                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay}">
                 </ComboBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Продолжительность (в часах)" />
                 <ComboBox
-                    ItemsSource="{Binding DurationHoursItems, Mode=OneTime}">
-                    <ComboBox.SelectedItem>
-                        <!-- Set 2nd item as default -->
-                        <Binding
-                            Path="DurationHoursItems[2]" />
-                    </ComboBox.SelectedItem>
+                    ItemsSource="{Binding DurationHoursItems, Mode=OneTime}"
+                    SelectedItem="{Binding SelectedDurationHours}">
                 </ComboBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Название организации" />
                 <TextBox
                     MinWidth="200"
@@ -171,7 +164,7 @@
                 ToolTip="Разрешить игрокам из разных групп играть вместе?"
                 Orientation="Horizontal">
                 <TextBlock
-                    Width="200"
+                    Width="280"
                     Text="Разрешить смешивать группы?" />
                 <StackPanel
                     Orientation="Horizontal"

@@ -16,7 +16,7 @@ public class PlayersViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext PlayersContext = new();
     private                  ICommand?        _addPlayerCommand;
-    private                  ICommand         _deletePlayerCommand;
+    private                  ICommand?        _deletePlayerCommand;
 
     private ObservableCollection<Player>? _playersCollection;
 

@@ -18,15 +18,16 @@ public interface IInsertQueries
     /// <summary>
     ///     Добавление турнира пользователя по его ID.
     /// </summary>
-    public InsertResult TryAddTournament(int       organiserId, string tournamentName, int systemId, int kindId,
-                                         int       toursCount          = 7,
-                                         string    place               = "-",
-                                         DateOnly? tournamentDateStart = null,
-                                         TimeOnly? tournamentTimeStart = null,
-                                         int       duration            = 0,
-                                         int       maxTeamPlayers      = 5,
-                                         string    organizationName    = "-",
-                                         bool      isMixedGroups       = true);
+    public InsertResult TryAddTournament(
+        out Tournament? addedTournament, int organiserId, string tournamentName, int systemId, int kindId,
+        int             toursCount          = 7,
+        string          place               = "-",
+        DateOnly?       tournamentDateStart = null,
+        TimeOnly?       tournamentTimeStart = null,
+        int             duration            = 0,
+        int             maxTeamPlayers      = 5,
+        string          organizationName    = "-",
+        bool            isMixedGroups       = true);
 
     /// <summary>
     ///     Добавление игрока в список в турнире пользователя.

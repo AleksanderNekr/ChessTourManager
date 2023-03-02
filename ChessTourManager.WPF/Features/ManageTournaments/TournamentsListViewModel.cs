@@ -7,21 +7,36 @@ using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
+using ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
+using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
+namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class TournamentsListViewModel : ViewModelBase
 {
     private static readonly ChessTourContext TournamentsListContext = new();
     private                 bool             _isOpened;
 
-    private OpenTournamentCommand? _openTournamentCommand;
+    private OpenTournamentCommand?            _openTournamentCommand;
+    private ObservableCollection<Tournament>? _tournamentsCollection;
 
     public TournamentsListViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
+        TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
+
+        UpdateTournamentsList();
+    }
+
+    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e)
+    {
+        UpdateTournamentsList();
+    }
+
+    private void UpdateTournamentsList()
+    {
         GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
                                                          out IQueryable<Tournament>? tournamentsCollection);
@@ -62,7 +77,11 @@ public class TournamentsListViewModel : ViewModelBase
 
     public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
 
-    public ObservableCollection<Tournament>? TournamentsCollection { get; }
+    public ObservableCollection<Tournament>? TournamentsCollection
+    {
+        get => _tournamentsCollection;
+        set => SetField(ref _tournamentsCollection, value);
+    }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) =>
         OnPropertyChanged(nameof(SelectedTournamentObservable));

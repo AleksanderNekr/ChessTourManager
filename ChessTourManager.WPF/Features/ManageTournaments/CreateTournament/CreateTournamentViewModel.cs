@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -13,16 +14,23 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 
 public class CreateTournamentViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext CreateTournamentContext = new();
+    internal static readonly ChessTourContext CreateTournamentContext = new();
 
     private ObservableCollection<Kind>?                       _tournamentKinds;
     private ObservableCollection<DataAccess.Entities.System>? _tournamentSystems;
 
-    private string?                  _tournamentNameText;
-    private string?                  _tournamentPlaceText;
-    private DateOnly                 _selectedDate;
-    private string?                  _orgNameText;
-    private CreateTournamentCommand? _createTournamentCommand;
+    private string?                     _tournamentNameText;
+    private string?                     _tournamentPlaceText;
+    private DateTime?                   _selectedDate;
+    private string?                     _orgNameText;
+    private CreateTournamentCommand?    _createTournamentCommand;
+    private Kind?                       _selectedTournamentKind;
+    private DataAccess.Entities.System? _selectedTournamentSystem;
+    private int?                        _selectedTournamentRoundsCount;
+    private TimeOnly?                   _selectedTime;
+    private int?                        _selectedDurationHours;
+    private int                         _selectedMaxTeamPlayers = 4;
+    private Visibility?                 _visibleIfTeamsAllowed;
 
     public ObservableCollection<Kind> TournamentKinds
     {
@@ -99,25 +107,40 @@ public class CreateTournamentViewModel : ViewModelBase
 
     public DateOnly MinDate => DateOnly.FromDateTime(DateTime.Now);
 
-    public DateOnly SelectedDate
+    public DateTime SelectedDate
     {
         get
         {
-            if (_selectedDate == default)
+            if (_selectedDate is null)
             {
-                SetField(ref _selectedDate, DateOnly.FromDateTime(DateTime.Now));
+                SetField(ref _selectedDate, DateTime.Now);
             }
 
-            return _selectedDate;
+            return (DateTime)_selectedDate!;
         }
         set => SetField(ref _selectedDate, value);
     }
 
-    public ObservableCollection<string> HoursItems =>
+    public ObservableCollection<TimeOnly> TimeItems =>
         new()
         {
-            "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-            "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"
+            TimeOnly.FromDateTime(DateTime.Parse("07:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("08:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("09:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("10:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("11:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("12:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("13:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("14:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("15:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("16:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("17:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("18:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("19:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("20:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("21:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("22:00")),
+            TimeOnly.FromDateTime(DateTime.Parse("23:00"))
         };
 
     public ObservableCollection<int> DurationHoursItems =>
@@ -143,4 +166,109 @@ public class CreateTournamentViewModel : ViewModelBase
     public bool IsMixedGroupsAllowed { get; set; } = true;
 
     public ICommand CreateTournamentCommand => _createTournamentCommand ??= new CreateTournamentCommand(this);
+
+    public Kind SelectedTournamentKind
+    {
+        get
+        {
+            if (_selectedTournamentKind is null)
+            {
+                SetField(ref _selectedTournamentKind, TournamentKinds.First());
+                OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+            }
+
+            return _selectedTournamentKind!;
+        }
+        set
+        {
+            SetField(ref _selectedTournamentKind, value);
+            OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+        }
+    }
+
+    public DataAccess.Entities.System SelectedTournamentSystem
+    {
+        get
+        {
+            if (_selectedTournamentSystem is null)
+            {
+                SetField(ref _selectedTournamentSystem, TournamentSystems.First());
+            }
+
+            return _selectedTournamentSystem!;
+        }
+        set => SetField(ref _selectedTournamentSystem, value);
+    }
+
+    public int SelectedTournamentRoundsCount
+    {
+        get
+        {
+            if (_selectedTournamentRoundsCount is null)
+            {
+                SetField(ref _selectedTournamentRoundsCount, TournamentRoundsCountItems.First());
+            }
+
+            return (int)_selectedTournamentRoundsCount!;
+        }
+        set => SetField(ref _selectedTournamentRoundsCount, value);
+    }
+
+    public TimeOnly SelectedTime
+    {
+        get
+        {
+            if (_selectedTime is null)
+            {
+                SetField(ref _selectedTime, TimeItems.First());
+            }
+
+            return (TimeOnly)_selectedTime!;
+        }
+        set => SetField(ref _selectedTime, value);
+    }
+
+    public int SelectedDurationHours
+    {
+        get
+        {
+            if (_selectedDurationHours is null)
+            {
+                SetField(ref _selectedDurationHours, DurationHoursItems.First());
+            }
+
+            return (int)_selectedDurationHours!;
+        }
+        set => SetField(ref _selectedDurationHours, value);
+    }
+
+    public ObservableCollection<int> TeamPlayersCountItems =>
+        new()
+        {
+            2, 3, 4, 5, 6, 7, 8, 9, 10
+        };
+
+    public int SelectedMaxTeamPlayers
+    {
+        get => _selectedMaxTeamPlayers;
+        set => SetField(ref _selectedMaxTeamPlayers, value);
+    }
+
+    public Visibility VisibleIfTeamsAllowed
+    {
+        get
+        {
+            if (SelectedTournamentKind.KindName.Contains("team"))
+            {
+                SetField(ref _visibleIfTeamsAllowed, Visibility.Visible);
+            }
+            else
+            {
+                SetField(ref _visibleIfTeamsAllowed, Visibility.Collapsed);
+            }
+
+            return (Visibility)_visibleIfTeamsAllowed!;
+        }
+        set => SetField(ref _visibleIfTeamsAllowed, value);
+    }
 }
