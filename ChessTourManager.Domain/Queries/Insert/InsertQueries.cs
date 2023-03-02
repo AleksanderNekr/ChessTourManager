@@ -34,7 +34,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при регистрации", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при регистрации", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
             return InsertResult.Fail;
         }
     }
@@ -77,9 +78,19 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно турнир с таким именем уже существует,"
+                          + " либо вы не заполнили важные данные", "Ошибка при создании турнира",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            addedTournament = null;
+            return InsertResult.Fail;
+        }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при создании турнира", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при создании турнира",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
             addedTournament = null;
             return InsertResult.Fail;
         }
@@ -118,7 +129,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка добавлении игрока", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка добавлении игрока", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
             addedPlayer = null;
             return InsertResult.Fail;
         }
@@ -142,7 +154,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при добавлении команды", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении команды",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
             return InsertResult.Fail;
         }
     }
@@ -165,7 +178,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при добавлении группы", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении группы",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
             return InsertResult.Fail;
         }
     }
@@ -191,7 +205,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при добавлении пары", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении пары",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
             return InsertResult.Fail;
         }
     }
