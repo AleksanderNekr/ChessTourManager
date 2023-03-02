@@ -8,6 +8,7 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
+using ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +17,12 @@ namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class TournamentsListViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext TournamentsListContext = new();
+    internal static readonly ChessTourContext TournamentsListContext = new();
     private                 bool             _isOpened;
 
     private OpenTournamentCommand?            _openTournamentCommand;
     private ObservableCollection<Tournament>? _tournamentsCollection;
+    private DeleteTournamentCommand?          _deleteTournamentCommand;
 
     public TournamentsListViewModel()
     {
@@ -35,7 +37,7 @@ public class TournamentsListViewModel : ViewModelBase
         UpdateTournamentsList();
     }
 
-    private void UpdateTournamentsList()
+    internal void UpdateTournamentsList()
     {
         GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
@@ -82,6 +84,8 @@ public class TournamentsListViewModel : ViewModelBase
         get => _tournamentsCollection;
         set => SetField(ref _tournamentsCollection, value);
     }
+
+    public ICommand DeleteTournamentCommand => _deleteTournamentCommand ??= new DeleteTournamentCommand(this);
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) =>
         OnPropertyChanged(nameof(SelectedTournamentObservable));

@@ -25,4 +25,19 @@ internal class DeleteQuery : IDeleteQueries
             return DeleteResult.Failed;
         }
     }
+
+    public DeleteResult TryDeleteTournament(Tournament tournament)
+    {
+        try
+        {
+            _context.Tournaments.Remove(tournament);
+            _context.SaveChanges();
+            return DeleteResult.Success;
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "Ошибка при удалении турнира", MessageBoxButton.OK, MessageBoxImage.Error);
+            return DeleteResult.Failed;
+        }
+    }
 }

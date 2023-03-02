@@ -73,6 +73,22 @@
                         <DataGridTextColumn
                             Header="Дата изменения"
                             Binding="{Binding DateLastChange}" />
+                        <!-- Button to delete tournament -->
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Content="Удалить"
+                                        Command="{Binding DataContext.DeleteTournamentCommand,
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}"
+
+                                        CommandParameter="{Binding CurrentItem}"
+
+                                        DataContext="{Binding
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
