@@ -3,6 +3,7 @@ using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.Domain.Queries.Insert;
 
@@ -78,7 +79,7 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+        catch (DbUpdateException e)
         {
             MessageBox.Show("Ошибка в веденных данных! Возможно турнир с таким именем уже существует,"
                           + " либо вы не заполнили важные данные", "Ошибка при создании турнира",

@@ -13,8 +13,6 @@ public partial class PlayersGridControl
 
     private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e) => e.Row.Header = e.Row.GetIndex() + 1;
 
-    private void DataGrid_LostFocus(object sender, RoutedEventArgs e)
-    {
+    private void DataGrid_LostFocus(object sender, RoutedEventArgs e) =>
         PlayersViewModel.PlayersContext.SaveChanges();
-    }
 }

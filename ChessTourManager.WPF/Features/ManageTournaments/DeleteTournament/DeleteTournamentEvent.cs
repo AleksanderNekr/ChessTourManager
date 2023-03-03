@@ -13,10 +13,7 @@ public static class DeleteTournamentEvent
 
 public class DeleteTournamentEventArgs : EventArgs
 {
-    public Tournament DeletedTournament { get; }
+    public DeleteTournamentEventArgs(Tournament deletedTournament) => DeletedTournament = deletedTournament;
 
-    public DeleteTournamentEventArgs(Tournament deletedTournament)
-    {
-        DeletedTournament = deletedTournament;
-    }
+    public Tournament DeletedTournament { get; }
 }

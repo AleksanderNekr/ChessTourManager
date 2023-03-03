@@ -13,10 +13,7 @@ public static class TournamentCreatedEvent
 
 public class TournamentCreatedEventArgs : EventArgs
 {
-    public Tournament Tournament { get; }
+    public TournamentCreatedEventArgs(Tournament tournament) => Tournament = tournament;
 
-    public TournamentCreatedEventArgs(Tournament tournament)
-    {
-        Tournament = tournament;
-    }
+    public Tournament Tournament { get; }
 }

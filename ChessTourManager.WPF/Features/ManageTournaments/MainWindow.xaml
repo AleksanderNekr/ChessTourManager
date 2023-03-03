@@ -1,7 +1,6 @@
 ﻿<Window x:Class="ChessTourManager.WPF.Features.ManageTournaments.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:openTournament="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.OpenTournament"
         xmlns:features="clr-namespace:ChessTourManager.WPF.Features"
         xmlns:manageAccount="clr-namespace:ChessTourManager.WPF.Features.ManageAccount"
         xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
@@ -73,6 +72,22 @@
                         <DataGridTextColumn
                             Header="Дата изменения"
                             Binding="{Binding DateLastChange}" />
+                        <!-- Button to edit tournament -->
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Content="Редактировать"
+                                        Command="{Binding DataContext.StartEditTournamentCommand,
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}"
+
+                                        CommandParameter="{Binding CurrentItem}"
+
+                                        DataContext="{Binding
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Button to delete tournament -->
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

@@ -9,6 +9,7 @@ using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
+using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -17,25 +18,52 @@ namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class TournamentsListViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext TournamentsListContext = new();
-    private                 bool             _isOpened;
+    internal static readonly ChessTourContext         TournamentsListContext = new();
+    private                  DeleteTournamentCommand? _deleteTournamentCommand;
+    private                  bool                     _isOpened;
 
     private OpenTournamentCommand?            _openTournamentCommand;
+    private StartEditTournamentCommand?       _startEditTournamentCommand;
     private ObservableCollection<Tournament>? _tournamentsCollection;
-    private DeleteTournamentCommand?          _deleteTournamentCommand;
 
     public TournamentsListViewModel()
     {
         TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
+        TournamentEditedEvent.TournamentEdited   += TournamentEditedEvent_TournamentEdited;
 
         UpdateTournamentsList();
     }
 
-    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e)
+    public bool IsOpened
     {
-        UpdateTournamentsList();
+        get => _isOpened;
+        set
+        {
+            SetField(ref _isOpened, value);
+            OnPropertyChanged();
+        }
     }
+
+    public static Tournament? SelectedTournament { get; set; }
+
+    public Tournament? SelectedTournamentObservable => SelectedTournament;
+
+    public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
+
+    public ObservableCollection<Tournament>? TournamentsCollection
+    {
+        get => _tournamentsCollection;
+        set => SetField(ref _tournamentsCollection, value);
+    }
+
+    public ICommand DeleteTournamentCommand => _deleteTournamentCommand ??= new DeleteTournamentCommand(this);
+
+    public ICommand StartEditTournamentCommand => _startEditTournamentCommand ??= new StartEditTournamentCommand();
+
+    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e) => UpdateTournamentsList();
+
+    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e) => UpdateTournamentsList();
 
     internal void UpdateTournamentsList()
     {
@@ -62,30 +90,6 @@ public class TournamentsListViewModel : ViewModelBase
                 throw new ArgumentOutOfRangeException();
         }
     }
-
-    public bool IsOpened
-    {
-        get => _isOpened;
-        set
-        {
-            SetField(ref _isOpened, value);
-            OnPropertyChanged();
-        }
-    }
-
-    public static Tournament? SelectedTournament { get; set; }
-
-    public Tournament? SelectedTournamentObservable => SelectedTournament;
-
-    public ICommand OpenTournamentCommand => _openTournamentCommand ??= new OpenTournamentCommand(this);
-
-    public ObservableCollection<Tournament>? TournamentsCollection
-    {
-        get => _tournamentsCollection;
-        set => SetField(ref _tournamentsCollection, value);
-    }
-
-    public ICommand DeleteTournamentCommand => _deleteTournamentCommand ??= new DeleteTournamentCommand(this);
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) =>
         OnPropertyChanged(nameof(SelectedTournamentObservable));

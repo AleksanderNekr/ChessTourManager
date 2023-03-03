@@ -8,25 +8,16 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
+namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 
-public class CreateTournamentViewModel : ViewModelBase
+public class EditTournamentViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext            CreateTournamentContext = new();
-    private                  CreateTournamentCommand?    _createTournamentCommand;
-    private                  string?                     _orgNameText;
-    private                  DateTime?                   _selectedDate;
-    private                  int?                        _selectedDurationHours;
-    private                  int                         _selectedMaxTeamPlayers = 4;
-    private                  TimeOnly?                   _selectedTime;
-    private                  Kind?                       _selectedTournamentKind;
-    private                  int?                        _selectedTournamentRoundsCount;
-    private                  DataAccess.Entities.System? _selectedTournamentSystem;
+    internal static readonly ChessTourContext            EditTournamentContext = new();
+    private                  ApplyEditTournamentCommand? _applyEditTournamentCommand;
 
-    private ObservableCollection<Kind>? _tournamentKinds;
+    private int _selectedMaxTeamPlayers = 4;
 
-    private string?                                           _tournamentNameText;
-    private string?                                           _tournamentPlaceText;
+    private ObservableCollection<Kind>?                       _tournamentKinds;
     private ObservableCollection<DataAccess.Entities.System>? _tournamentSystems;
     private Visibility?                                       _visibleIfTeamsAllowed;
 
@@ -39,7 +30,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 return _tournamentKinds;
             }
 
-            IGetQueries.CreateInstance(CreateTournamentContext).GetKinds(out IQueryable<Kind>? kinds);
+            IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out IQueryable<Kind>? kinds);
             if (kinds != null)
             {
                 _tournamentKinds = new ObservableCollection<Kind>(kinds);
@@ -58,7 +49,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 return _tournamentSystems;
             }
 
-            IGetQueries.CreateInstance(CreateTournamentContext)
+            IGetQueries.CreateInstance(EditTournamentContext)
                        .GetSystems(out IQueryable<DataAccess.Entities.System>? systems);
             if (systems != null)
             {
@@ -76,47 +67,42 @@ public class CreateTournamentViewModel : ViewModelBase
 
     public string TournamentNameText
     {
-        get
+        get => EditingTournament?.TournamentName ?? "Название турнира";
+        set
         {
-            if (_tournamentNameText is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _tournamentNameText, "Название турнира");
+                EditingTournament.TournamentName = value;
+                OnPropertyChanged();
             }
-
-            return _tournamentNameText!;
         }
-        set => SetField(ref _tournamentNameText, value);
     }
 
 
     public string TournamentPlaceText
     {
-        get
+        get => EditingTournament?.Place ?? "Место проведения";
+        set
         {
-            if (_tournamentPlaceText is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _tournamentPlaceText, "Место проведения турнира");
+                EditingTournament.Place = value;
+                OnPropertyChanged();
             }
-
-            return _tournamentPlaceText!;
         }
-        set => SetField(ref _tournamentPlaceText, value);
     }
-
-    public DateOnly MinDate => DateOnly.FromDateTime(DateTime.Now);
 
     public DateTime SelectedDate
     {
-        get
+        get => EditingTournament?.DateStart.ToDateTime(new TimeOnly(0, 0)) ?? DateTime.Now;
+        set
         {
-            if (_selectedDate is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _selectedDate, DateTime.Now);
+                EditingTournament.DateStart = DateOnly.FromDateTime(value);
+                OnPropertyChanged();
             }
-
-            return (DateTime)_selectedDate!;
         }
-        set => SetField(ref _selectedDate, value);
     }
 
     public ObservableCollection<TimeOnly> TimeItems =>
@@ -149,95 +135,82 @@ public class CreateTournamentViewModel : ViewModelBase
 
     public string OrgNameText
     {
-        get
+        get => EditingTournament?.OrganizationName ?? "Организатор";
+        set
         {
-            if (_orgNameText is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _orgNameText, "Название организации");
+                EditingTournament.OrganizationName = value;
+                OnPropertyChanged();
             }
-
-            return _orgNameText!;
         }
-        set => SetField(ref _orgNameText, value);
     }
 
     public bool IsMixedGroupsAllowed { get; set; } = true;
 
-    public ICommand CreateTournamentCommand => _createTournamentCommand ??= new CreateTournamentCommand(this);
-
     public Kind SelectedTournamentKind
     {
-        get
-        {
-            if (_selectedTournamentKind is null)
-            {
-                SetField(ref _selectedTournamentKind, TournamentKinds.First());
-                OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
-            }
-
-            return _selectedTournamentKind!;
-        }
+        get => EditingTournament?.Kind ?? TournamentKinds.First();
         set
         {
-            SetField(ref _selectedTournamentKind, value);
-            OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+            if (EditingTournament != null)
+            {
+                EditingTournament.Kind = value;
+                OnPropertyChanged();
+            }
         }
     }
 
     public DataAccess.Entities.System SelectedTournamentSystem
     {
-        get
+        get => EditingTournament?.System ?? TournamentSystems.First();
+        set
         {
-            if (_selectedTournamentSystem is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _selectedTournamentSystem, TournamentSystems.First());
+                EditingTournament.System = value;
+                OnPropertyChanged();
             }
-
-            return _selectedTournamentSystem!;
         }
-        set => SetField(ref _selectedTournamentSystem, value);
     }
 
     public int SelectedTournamentRoundsCount
     {
-        get
+        get => EditingTournament?.ToursCount ?? TournamentRoundsCountItems.First();
+        set
         {
-            if (_selectedTournamentRoundsCount is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _selectedTournamentRoundsCount, TournamentRoundsCountItems.First());
+                EditingTournament.ToursCount = value;
+                OnPropertyChanged();
             }
-
-            return (int)_selectedTournamentRoundsCount!;
         }
-        set => SetField(ref _selectedTournamentRoundsCount, value);
     }
 
     public TimeOnly SelectedTime
     {
-        get
+        get => EditingTournament?.TimeStart ?? TimeItems.First();
+        set
         {
-            if (_selectedTime is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _selectedTime, TimeItems.First());
+                EditingTournament.TimeStart = value;
+                OnPropertyChanged();
             }
-
-            return (TimeOnly)_selectedTime!;
         }
-        set => SetField(ref _selectedTime, value);
     }
 
     public int SelectedDurationHours
     {
-        get
+        get => EditingTournament?.Duration ?? DurationHoursItems.First();
+        set
         {
-            if (_selectedDurationHours is null)
+            if (EditingTournament != null)
             {
-                SetField(ref _selectedDurationHours, DurationHoursItems.First());
+                EditingTournament.Duration = value;
+                OnPropertyChanged();
             }
-
-            return (int)_selectedDurationHours!;
         }
-        set => SetField(ref _selectedDurationHours, value);
     }
 
     public ObservableCollection<int> TeamPlayersCountItems =>
@@ -269,4 +242,8 @@ public class CreateTournamentViewModel : ViewModelBase
         }
         set => SetField(ref _visibleIfTeamsAllowed, value);
     }
+
+    public ICommand ApplyEditTournamentCommand => _applyEditTournamentCommand ??= new ApplyEditTournamentCommand();
+
+    public static Tournament? EditingTournament { get; set; }
 }

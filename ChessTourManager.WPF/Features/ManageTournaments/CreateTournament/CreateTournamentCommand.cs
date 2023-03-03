@@ -3,7 +3,6 @@ using System.Windows;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Insert;
 using ChessTourManager.WPF.Features.Authentication.Login;
-using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
@@ -12,10 +11,7 @@ public class CreateTournamentCommand : CommandBase
 {
     private readonly CreateTournamentViewModel _createViewModel;
 
-    public CreateTournamentCommand(CreateTournamentViewModel createViewModel)
-    {
-        _createViewModel = createViewModel;
-    }
+    public CreateTournamentCommand(CreateTournamentViewModel createViewModel) => _createViewModel = createViewModel;
 
     public override void Execute(object? parameter)
     {

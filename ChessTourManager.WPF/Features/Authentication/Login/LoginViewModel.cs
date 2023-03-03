@@ -17,8 +17,8 @@ public class LoginViewModel : ViewModelBase
 
     public LoginViewModel()
     {
-        _login    = string.Empty;
-        _password = string.Empty;
+        _login    = "petre@live.com";
+        _password = "123qwe";
 
         SuccessLoginEvent.UserSuccessLogin += SuccessLoginEvent_UserSuccessLogin;
     }

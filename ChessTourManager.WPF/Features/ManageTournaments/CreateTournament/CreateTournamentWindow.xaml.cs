@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
+﻿namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 
 public partial class CreateTournamentWindow
 {
