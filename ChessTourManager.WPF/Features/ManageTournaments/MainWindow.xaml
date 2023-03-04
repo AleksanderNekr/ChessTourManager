@@ -7,6 +7,7 @@
         xmlns:manageGames="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGames"
         xmlns:manageRatings="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageRatings"
         xmlns:manageTournaments="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments"
+        xmlns:tree="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.Tree"
         Title="MainWindow"
         MinHeight="700"
         MinWidth="520"
@@ -126,6 +127,10 @@
                         <manageRatings:RatingGridControl />
                     </TabItem>
                 </TabControl>
+            </TabItem>
+            <TabItem
+                Header="Дерево турниров">
+                <tree:TreeControl />
             </TabItem>
         </TabControl>
     </Grid>

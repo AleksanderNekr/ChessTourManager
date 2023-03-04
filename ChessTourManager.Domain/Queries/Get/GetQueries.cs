@@ -15,8 +15,7 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetUserById(int id, out User? user)
     {
-        IEnumerable<User> usersLocal = _context.Users
-                                               .Include(u => u.Tournaments.AsQueryable());
+        IEnumerable<User> usersLocal = _context.Users.Include(u => u.Tournaments.AsQueryable());
         user = usersLocal.FirstOrDefault(u => u.UserId == id);
 
         return user is not null
@@ -27,9 +26,7 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
     {
         string hash = PasswordHasher.HashPassword(password);
-        user = _context.Users
-                       .FirstOrDefault(u => u.Email    == login
-                                         && u.PassHash == hash);
+        user = _context.Users.FirstOrDefault(u => u.Email == login && u.PassHash == hash);
         return user is not null
                    ? GetResult.Success
                    : GetResult.UserNotFound;
@@ -43,6 +40,22 @@ internal class GetQueries : IGetQueries
             return GetResult.Success;
         }
 
+
+        tournaments = default;
+        return GetResult.UserNotFound;
+    }
+
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IQueryable<Tournament>? tournaments)
+    {
+        if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
+        {
+            tournaments = _context.Tournaments
+                                  .Where(t => t.OrganizerId == organiserId)
+                                  .Include(t => t.Teams)
+                                  .ThenInclude(t => t.Players);
+
+            return GetResult.Success;
+        }
 
         tournaments = default;
         return GetResult.UserNotFound;
@@ -91,8 +104,7 @@ internal class GetQueries : IGetQueries
         }
 
         IQueryable<Tournament> tournaments = _context
-                                            .Tournaments
-                                            .Where(t => t.OrganizerId == organiserId)
+                                            .Tournaments.Where(t => t.OrganizerId == organiserId)
                                             .Include(t => t.Teams);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
@@ -119,9 +131,7 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = _context
-                                            .Tournaments
-                                            .Where(g => g.OrganizerId == organiserId);
+        IQueryable<Tournament> tournaments = _context.Tournaments.Where(g => g.OrganizerId == organiserId);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -154,11 +164,8 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        games = _context
-               .Games
-               .Where(g => g.OrganizerId  == organiserId
-                        && g.TournamentId == tournamentId
-                        && g.TourNumber   == tourNumber);
+        games = _context.Games.Where(g => g.OrganizerId == organiserId && g.TournamentId == tournamentId
+                                                                       && g.TourNumber   == tourNumber);
 
         return GetResult.Success;
     }
@@ -172,6 +179,13 @@ internal class GetQueries : IGetQueries
     public GetResult GetSystems(out IQueryable<DataAccess.Entities.System>? systems)
     {
         systems = _context.Systems;
+        return GetResult.Success;
+    }
+
+    public GetResult GetGroups(int organizerId, int tournamentId, out IQueryable<Group>? groups)
+    {
+        groups = _context.Groups.Where(g => g.OrganizerId == organizerId && g.TournamentId == tournamentId)
+                         .Include(g => g.Players);
         return GetResult.Success;
     }
 }

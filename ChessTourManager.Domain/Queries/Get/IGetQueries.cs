@@ -41,6 +41,8 @@ public interface IGetQueries
     /// </returns>
     public GetResult TryGetTournaments(int organiserId, out IQueryable<Tournament>? tournaments);
 
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IQueryable<Tournament>? tournaments);
+
     /// <summary>
     ///     Получение списка игроков в турнире пользователя.
     /// </summary>
@@ -92,4 +94,7 @@ public interface IGetQueries
     /// <param name="systems">Выходной параметр – список систем турниров.</param>
     /// <returns>Список систем турниров и результат – Success. </returns>
     public GetResult GetSystems(out IQueryable<DataAccess.Entities.System>? systems);
+
+
+    public GetResult GetGroups(int organizerId, int tournamentId, out IQueryable<Group>? groups);
 }
