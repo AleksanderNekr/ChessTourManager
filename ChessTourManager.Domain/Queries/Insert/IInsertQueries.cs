@@ -6,7 +6,10 @@ namespace ChessTourManager.Domain.Queries.Insert;
 
 public interface IInsertQueries
 {
-    public static IInsertQueries CreateInstance(ChessTourContext context) => new InsertQueries(context);
+    public static IInsertQueries CreateInstance(ChessTourContext context)
+    {
+        return new InsertQueries(context);
+    }
 
     /// <summary>
     ///     Добавление пользователя.

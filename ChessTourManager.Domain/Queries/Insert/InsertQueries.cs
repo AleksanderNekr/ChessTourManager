@@ -11,7 +11,10 @@ internal class InsertQueries : IInsertQueries
 {
     private static ChessTourContext _context = new();
 
-    public InsertQueries(ChessTourContext context) => _context = context;
+    public InsertQueries(ChessTourContext context)
+    {
+        _context = context;
+    }
 
     public InsertResult TryAddUser(string lastName, string firstName, string email, string password,
                                    string patronymic       = "-",
@@ -35,8 +38,8 @@ internal class InsertQueries : IInsertQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при регистрации", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при регистрации",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
             return InsertResult.Fail;
         }
     }
@@ -79,7 +82,7 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException e)
+        catch (DbUpdateException)
         {
             MessageBox.Show("Ошибка в веденных данных! Возможно турнир с таким именем уже существует,"
                           + " либо вы не заполнили важные данные", "Ошибка при создании турнира",

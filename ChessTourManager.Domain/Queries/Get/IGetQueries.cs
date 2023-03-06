@@ -6,7 +6,10 @@ namespace ChessTourManager.Domain.Queries.Get;
 
 public interface IGetQueries
 {
-    public static IGetQueries CreateInstance(ChessTourContext context) => new GetQueries(context);
+    public static IGetQueries CreateInstance(ChessTourContext context)
+    {
+        return new GetQueries(context);
+    }
 
     /// <summary>
     ///     Получение пользователя по его ID.
@@ -23,6 +26,7 @@ public interface IGetQueries
     ///     Получение пользователя по его логину и паролю.
     /// </summary>
     /// <param name="login">Логин пользователя.</param>
+    /// <param name="password">Пароль пользователя.</param>
     /// <param name="user">Выходной параметр – пользователь.</param>
     /// <returns>
     ///     Если пользователь найден, то он возвращается, результат – Success,

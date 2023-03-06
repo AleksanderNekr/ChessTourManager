@@ -42,7 +42,10 @@ public class ChessTourContext : DbContext
     ///     Factory method of creating instance of the context.
     /// </summary>
     /// <returns>The context.</returns>
-    public static ChessTourContext CreateInstance() => new();
+    public static ChessTourContext CreateInstance()
+    {
+        return new ChessTourContext();
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -92,7 +95,8 @@ public class ChessTourContext : DbContext
         DefineUserEntity(modelBuilder);
     }
 
-    private static void DefineUserEntity(ModelBuilder modelBuilder) =>
+    private static void DefineUserEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<User>(entity =>
                                   {
                                       entity.HasKey(e => e.UserId).HasName("users_pk");
@@ -129,8 +133,10 @@ public class ChessTourContext : DbContext
                                             .HasDefaultValueSql("'-'::character varying")
                                             .HasColumnName("user_patronymic");
                                   });
+    }
 
-    private static void DefineTournamentEntity(ModelBuilder modelBuilder) =>
+    private static void DefineTournamentEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Tournament>(entity =>
                                         {
                                             entity.HasKey(e => new { e.TournamentId, e.OrganizerId })
@@ -218,13 +224,16 @@ public class ChessTourContext : DbContext
                                                           .HasConstraintName("tournaments_ratios_in_tournaments_fk"),
                                                     j =>
                                                     {
-                                                        j.HasKey("TournamentId", "OrganizerId", "RatioId")
+                                                        j.HasKey("TournamentId", "OrganizerId",
+                                                                 "RatioId")
                                                          .HasName("tournament_ratios_pk");
                                                         j.ToTable("tournament_ratios");
                                                     });
                                         });
+    }
 
-    private static void DefineTeamListView(ModelBuilder modelBuilder) =>
+    private static void DefineTeamListView(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<TeamsListView>(entity =>
                                            {
                                                entity
@@ -232,8 +241,10 @@ public class ChessTourContext : DbContext
                                                   .ToView("teams_list_view");
 
                                                entity.Property(e => e.IsActive).HasColumnName("is_active");
-                                               entity.Property(e => e.OrganizerId).HasColumnName("organizer_id");
-                                               entity.Property(e => e.PlayersCount).HasColumnName("players_count");
+                                               entity.Property(e => e.OrganizerId)
+                                                     .HasColumnName("organizer_id");
+                                               entity.Property(e => e.PlayersCount)
+                                                     .HasColumnName("players_count");
                                                entity.Property(e => e.TeamAttribute)
                                                      .HasMaxLength(3)
                                                      .IsFixedLength()
@@ -242,10 +253,13 @@ public class ChessTourContext : DbContext
                                                entity.Property(e => e.TeamName)
                                                      .HasMaxLength(255)
                                                      .HasColumnName("team_name");
-                                               entity.Property(e => e.TournamentId).HasColumnName("tournament_id");
+                                               entity.Property(e => e.TournamentId)
+                                                     .HasColumnName("tournament_id");
                                            });
+    }
 
-    private static void DefineTeamView(ModelBuilder modelBuilder) =>
+    private static void DefineTeamView(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<TeamView>(entity =>
                                       {
                                           entity
@@ -269,23 +283,28 @@ public class ChessTourContext : DbContext
                                           entity.Property(e => e.TeamId).HasColumnName("team_id");
                                           entity.Property(e => e.TournamentId).HasColumnName("tournament_id");
                                       });
+    }
 
-    private static void DefineTeamRatingListView(ModelBuilder modelBuilder) =>
+    private static void DefineTeamRatingListView(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<TeamRatingListView>(entity =>
                                                 {
                                                     entity
                                                        .HasNoKey()
                                                        .ToView("team_rating_list_view");
 
-                                                    entity.Property(e => e.DrawsCount).HasColumnName("draws_count");
+                                                    entity.Property(e => e.DrawsCount)
+                                                          .HasColumnName("draws_count");
                                                     entity.Property(e => e.LossesCount)
                                                           .HasColumnName("losses_count");
                                                     entity.Property(e => e.OrganizerId)
                                                           .HasColumnName("organizer_id");
                                                     entity.Property(e => e.PointsCount)
                                                           .HasColumnName("points_count");
-                                                    entity.Property(e => e.RatioSum1).HasColumnName("ratio_sum1");
-                                                    entity.Property(e => e.RatioSum2).HasColumnName("ratio_sum2");
+                                                    entity.Property(e => e.RatioSum1)
+                                                          .HasColumnName("ratio_sum1");
+                                                    entity.Property(e => e.RatioSum2)
+                                                          .HasColumnName("ratio_sum2");
                                                     entity.Property(e => e.TeamAttribute)
                                                           .HasMaxLength(3)
                                                           .IsFixedLength()
@@ -294,13 +313,17 @@ public class ChessTourContext : DbContext
                                                     entity.Property(e => e.TeamName)
                                                           .HasMaxLength(255)
                                                           .HasColumnName("team_name");
-                                                    entity.Property(e => e.TeamRank).HasColumnName("team_rank");
+                                                    entity.Property(e => e.TeamRank)
+                                                          .HasColumnName("team_rank");
                                                     entity.Property(e => e.TournamentId)
                                                           .HasColumnName("tournament_id");
-                                                    entity.Property(e => e.WinsCount).HasColumnName("wins_count");
+                                                    entity.Property(e => e.WinsCount)
+                                                          .HasColumnName("wins_count");
                                                 });
+    }
 
-    private static void DefineTeamEntity(ModelBuilder modelBuilder) =>
+    private static void DefineTeamEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Team>(entity =>
                                   {
                                       entity.HasKey(e => new
@@ -337,8 +360,10 @@ public class ChessTourContext : DbContext
                                             .HasForeignKey(d => new { d.TournamentId, d.OrganizerId })
                                             .HasConstraintName("teams_in_tournaments_fk");
                                   });
+    }
 
-    private static void DefineSystemEntity(ModelBuilder modelBuilder) =>
+    private static void DefineSystemEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Entities.System>(entity =>
                                              {
                                                  entity.HasKey(e => e.SystemId).HasName("systems_pk");
@@ -354,8 +379,10 @@ public class ChessTourContext : DbContext
                                                        .HasMaxLength(255)
                                                        .HasColumnName("system_name");
                                              });
+    }
 
-    private static void DefineSingleRatingListView(ModelBuilder modelBuilder) =>
+    private static void DefineSingleRatingListView(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<SingleRatingListView>(entity =>
                                                   {
                                                       entity
@@ -379,7 +406,8 @@ public class ChessTourContext : DbContext
                                                       entity.Property(e => e.PlayerFirstName)
                                                             .HasMaxLength(255)
                                                             .HasColumnName("player_first_name");
-                                                      entity.Property(e => e.PlayerId).HasColumnName("player_id");
+                                                      entity.Property(e => e.PlayerId)
+                                                            .HasColumnName("player_id");
                                                       entity.Property(e => e.PlayerLastName)
                                                             .HasMaxLength(255)
                                                             .HasColumnName("player_last_name");
@@ -395,10 +423,13 @@ public class ChessTourContext : DbContext
                                                             .HasColumnName("ratio_sum2");
                                                       entity.Property(e => e.TournamentId)
                                                             .HasColumnName("tournament_id");
-                                                      entity.Property(e => e.WinsCount).HasColumnName("wins_count");
+                                                      entity.Property(e => e.WinsCount)
+                                                            .HasColumnName("wins_count");
                                                   });
+    }
 
-    private static void DefineRatioEntity(ModelBuilder modelBuilder) =>
+    private static void DefineRatioEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Ratio>(entity =>
                                    {
                                        entity.HasKey(e => e.RatioId).HasName("ratios_pk");
@@ -412,8 +443,10 @@ public class ChessTourContext : DbContext
                                              .HasMaxLength(255)
                                              .HasColumnName("ratio_name");
                                    });
+    }
 
-    private static void DefinePlayersListView(ModelBuilder modelBuilder) =>
+    private static void DefinePlayersListView(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<PlayersListView>(entity =>
                                              {
                                                  entity
@@ -428,7 +461,8 @@ public class ChessTourContext : DbContext
                                                        .IsFixedLength()
                                                        .HasColumnName("group_ident");
                                                  entity.Property(e => e.IsActive).HasColumnName("is_active");
-                                                 entity.Property(e => e.OrganizerId).HasColumnName("organizer_id");
+                                                 entity.Property(e => e.OrganizerId)
+                                                       .HasColumnName("organizer_id");
                                                  entity.Property(e => e.PlayerAttribute)
                                                        .HasMaxLength(3)
                                                        .IsFixedLength()
@@ -445,10 +479,13 @@ public class ChessTourContext : DbContext
                                                  entity.Property(e => e.TeamName)
                                                        .HasMaxLength(255)
                                                        .HasColumnName("team_name");
-                                                 entity.Property(e => e.TournamentId).HasColumnName("tournament_id");
+                                                 entity.Property(e => e.TournamentId)
+                                                       .HasColumnName("tournament_id");
                                              });
+    }
 
-    private static void DefinePlayerEntity(ModelBuilder modelBuilder) =>
+    private static void DefinePlayerEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Player>(entity =>
                                     {
                                         entity.HasKey(e => new { e.PlayerId, e.TournamentId, e.OrganizerId })
@@ -507,17 +544,27 @@ public class ChessTourContext : DbContext
                                               .HasConstraintName("players_take_part_in_tournaments_fk");
 
                                         entity.HasOne(d => d.Group).WithMany(p => p.Players)
-                                              .HasForeignKey(d => new { d.GroupId, d.TournamentId, d.OrganizerId })
+                                              .HasForeignKey(d => new
+                                                                  {
+                                                                      d.GroupId, d.TournamentId,
+                                                                      d.OrganizerId
+                                                                  })
                                               .OnDelete(DeleteBehavior.Restrict)
                                               .HasConstraintName("players_in_groups_fk");
 
                                         entity.HasOne(d => d.Team).WithMany(p => p.Players)
-                                              .HasForeignKey(d => new { d.TeamId, d.OrganizerId, d.TournamentId })
+                                              .HasForeignKey(d => new
+                                                                  {
+                                                                      d.TeamId, d.OrganizerId,
+                                                                      d.TournamentId
+                                                                  })
                                               .OnDelete(DeleteBehavior.Restrict)
                                               .HasConstraintName("players_in_teams_fk");
                                     });
+    }
 
-    private static void DefineKindEntity(ModelBuilder modelBuilder) =>
+    private static void DefineKindEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Kind>(entity =>
                                   {
                                       entity.HasKey(e => e.KindId).HasName("kinds_pk");
@@ -531,8 +578,10 @@ public class ChessTourContext : DbContext
                                             .HasMaxLength(255)
                                             .HasColumnName("kind_name");
                                   });
+    }
 
-    private static void DefineGroupEntity(ModelBuilder modelBuilder) =>
+    private static void DefineGroupEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Group>(entity =>
                                    {
                                        entity.HasKey(e => new
@@ -569,11 +618,17 @@ public class ChessTourContext : DbContext
                                              .HasForeignKey(d => new { d.TournamentId, d.OrganizerId })
                                              .HasConstraintName("groups_in_tournaments_fk");
                                    });
+    }
 
-    private static void DefineGameEntity(ModelBuilder modelBuilder) =>
+    private static void DefineGameEntity(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Game>(entity =>
                                   {
-                                      entity.HasKey(e => new { e.WhiteId, e.BlackId, e.TournamentId, e.OrganizerId })
+                                      entity.HasKey(e => new
+                                                         {
+                                                             e.WhiteId, e.BlackId, e.TournamentId,
+                                                             e.OrganizerId
+                                                         })
                                             .HasName("games_pk");
 
                                       entity.ToTable("games");
@@ -592,13 +647,23 @@ public class ChessTourContext : DbContext
                                       entity.Property(e => e.WhitePoints).HasColumnName("white_points");
 
                                       entity.HasOne(d => d.Player).WithMany(p => p.GamePlayers)
-                                            .HasForeignKey(d => new { d.BlackId, d.TournamentId, d.OrganizerId })
+                                            .HasForeignKey(d => new
+                                                                {
+                                                                    d.BlackId, d.TournamentId,
+                                                                    d.OrganizerId
+                                                                })
                                             .OnDelete(DeleteBehavior.Restrict)
                                             .HasConstraintName("games_have_black_players_fk");
 
-                                      entity.HasOne(d => d.PlayerNavigation).WithMany(p => p.GamePlayerNavigations)
-                                            .HasForeignKey(d => new { d.WhiteId, d.TournamentId, d.OrganizerId })
+                                      entity.HasOne(d => d.PlayerNavigation)
+                                            .WithMany(p => p.GamePlayerNavigations)
+                                            .HasForeignKey(d => new
+                                                                {
+                                                                    d.WhiteId, d.TournamentId,
+                                                                    d.OrganizerId
+                                                                })
                                             .OnDelete(DeleteBehavior.Restrict)
                                             .HasConstraintName("games_have_white_players_fk");
                                   });
+    }
 }

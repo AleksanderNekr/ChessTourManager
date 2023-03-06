@@ -8,7 +8,10 @@ namespace ChessTourManager.WPF.Features.Authentication.Register;
 /// </summary>
 public partial class RegisterWindow : Window
 {
-    public RegisterWindow() => InitializeComponent();
+    public RegisterWindow()
+    {
+        InitializeComponent();
+    }
 
     private void CompleteRegisterButton_Click(object sender, RoutedEventArgs e)
     {

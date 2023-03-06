@@ -11,7 +11,11 @@ public static class SuccessLoginEvent
     public delegate void UserSuccessLoginHandler(SuccessLoginEventArgs e);
 
     public static event UserSuccessLoginHandler? UserSuccessLogin;
-    internal static void OnUserSuccessLogin(SuccessLoginEventArgs e) => UserSuccessLogin?.Invoke(e);
+
+    internal static void OnUserSuccessLogin(SuccessLoginEventArgs e)
+    {
+        UserSuccessLogin?.Invoke(e);
+    }
 }
 
 public class SuccessLoginEventArgs : EventArgs

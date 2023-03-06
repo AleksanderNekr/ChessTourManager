@@ -8,12 +8,19 @@ public class TournamentEditedEvent
     public delegate void TournamentEditedHandler(TournamentEditedEventArgs e);
 
     public static event TournamentEditedHandler? TournamentEdited;
-    internal static void OnTournamentEdited(TournamentEditedEventArgs e) => TournamentEdited?.Invoke(e);
+
+    internal static void OnTournamentEdited(TournamentEditedEventArgs e)
+    {
+        TournamentEdited?.Invoke(e);
+    }
 }
 
 public class TournamentEditedEventArgs : EventArgs
 {
-    public TournamentEditedEventArgs(Tournament newTournament) => NewTournament = newTournament;
+    public TournamentEditedEventArgs(Tournament newTournament)
+    {
+        NewTournament = newTournament;
+    }
 
     public Tournament NewTournament { get; }
 }

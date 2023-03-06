@@ -20,20 +20,15 @@
                     <TextBlock
                         Text="{Binding TournamentName}" />
                 </HierarchicalDataTemplate>
-                <!-- Players -->
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Team}"
-                    ItemsSource="{Binding Players}">
-                    <TextBlock
-                        Text="{Binding TeamName}">
-                    </TextBlock>
-                </HierarchicalDataTemplate>
-                <DataTemplate
+                    ItemsSource="{Binding Players}"
+                    ItemTemplate="{Binding TeamName}" />
+                <HierarchicalDataTemplate
                     DataType="{x:Type entities:Player}">
-                    <TextBlock
-                        Text="{Binding PlayerLastName}">
-                    </TextBlock>
-                </DataTemplate>
+                    <TextBox
+                        Text="{Binding PlayerLastName}" />
+                </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>
     </Grid>

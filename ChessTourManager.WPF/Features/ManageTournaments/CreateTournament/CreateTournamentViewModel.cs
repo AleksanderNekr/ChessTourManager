@@ -85,7 +85,7 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return _tournamentNameText!;
         }
-        set => SetField(ref _tournamentNameText, value);
+        set { SetField(ref _tournamentNameText, value); }
     }
 
 
@@ -100,10 +100,13 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return _tournamentPlaceText!;
         }
-        set => SetField(ref _tournamentPlaceText, value);
+        set { SetField(ref _tournamentPlaceText, value); }
     }
 
-    public DateOnly MinDate => DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly MinDate
+    {
+        get { return DateOnly.FromDateTime(DateTime.Now); }
+    }
 
     public DateTime SelectedDate
     {
@@ -116,36 +119,46 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return (DateTime)_selectedDate!;
         }
-        set => SetField(ref _selectedDate, value);
+        set { SetField(ref _selectedDate, value); }
     }
 
-    public ObservableCollection<TimeOnly> TimeItems =>
-        new()
+    public ObservableCollection<TimeOnly> TimeItems
+    {
+        get
         {
-            TimeOnly.FromDateTime(DateTime.Parse("07:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("08:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("09:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("10:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("11:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("12:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("13:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("14:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("15:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("16:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("17:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("18:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("19:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("20:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("21:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("22:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("23:00"))
-        };
+            return new ObservableCollection<TimeOnly>
+                   {
+                       TimeOnly.FromDateTime(DateTime.Parse("07:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("08:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("09:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("10:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("11:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("12:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("13:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("14:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("15:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("16:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("17:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("18:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("19:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("20:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("21:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("22:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("23:00"))
+                   };
+        }
+    }
 
-    public ObservableCollection<int> DurationHoursItems =>
-        new()
+    public ObservableCollection<int> DurationHoursItems
+    {
+        get
         {
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        };
+            return new ObservableCollection<int>
+                   {
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+                   };
+        }
+    }
 
     public string OrgNameText
     {
@@ -158,12 +171,15 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return _orgNameText!;
         }
-        set => SetField(ref _orgNameText, value);
+        set { SetField(ref _orgNameText, value); }
     }
 
     public bool IsMixedGroupsAllowed { get; set; } = true;
 
-    public ICommand CreateTournamentCommand => _createTournamentCommand ??= new CreateTournamentCommand(this);
+    public ICommand CreateTournamentCommand
+    {
+        get { return _createTournamentCommand ??= new CreateTournamentCommand(this); }
+    }
 
     public Kind SelectedTournamentKind
     {
@@ -195,7 +211,7 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return _selectedTournamentSystem!;
         }
-        set => SetField(ref _selectedTournamentSystem, value);
+        set { SetField(ref _selectedTournamentSystem, value); }
     }
 
     public int SelectedTournamentRoundsCount
@@ -209,7 +225,7 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return (int)_selectedTournamentRoundsCount!;
         }
-        set => SetField(ref _selectedTournamentRoundsCount, value);
+        set { SetField(ref _selectedTournamentRoundsCount, value); }
     }
 
     public TimeOnly SelectedTime
@@ -223,7 +239,7 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return (TimeOnly)_selectedTime!;
         }
-        set => SetField(ref _selectedTime, value);
+        set { SetField(ref _selectedTime, value); }
     }
 
     public int SelectedDurationHours
@@ -237,19 +253,24 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return (int)_selectedDurationHours!;
         }
-        set => SetField(ref _selectedDurationHours, value);
+        set { SetField(ref _selectedDurationHours, value); }
     }
 
-    public ObservableCollection<int> TeamPlayersCountItems =>
-        new()
+    public ObservableCollection<int> TeamPlayersCountItems
+    {
+        get
         {
-            2, 3, 4, 5, 6, 7, 8, 9, 10
-        };
+            return new ObservableCollection<int>
+                   {
+                       2, 3, 4, 5, 6, 7, 8, 9, 10
+                   };
+        }
+    }
 
     public int SelectedMaxTeamPlayers
     {
-        get => _selectedMaxTeamPlayers;
-        set => SetField(ref _selectedMaxTeamPlayers, value);
+        get { return _selectedMaxTeamPlayers; }
+        set { SetField(ref _selectedMaxTeamPlayers, value); }
     }
 
     public Visibility VisibleIfTeamsAllowed
@@ -267,6 +288,6 @@ public class CreateTournamentViewModel : ViewModelBase
 
             return (Visibility)_visibleIfTeamsAllowed!;
         }
-        set => SetField(ref _visibleIfTeamsAllowed, value);
+        set { SetField(ref _visibleIfTeamsAllowed, value); }
     }
 }

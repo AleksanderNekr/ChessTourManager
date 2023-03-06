@@ -7,8 +7,10 @@ public class OpenTournamentCommand : CommandBase
 {
     private readonly TournamentsListViewModel _tournamentsListViewModel;
 
-    public OpenTournamentCommand(TournamentsListViewModel tournamentsListViewModel) =>
+    public OpenTournamentCommand(TournamentsListViewModel tournamentsListViewModel)
+    {
         _tournamentsListViewModel = tournamentsListViewModel;
+    }
 
     public override void Execute(object? parameter)
     {

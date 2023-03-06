@@ -25,19 +25,25 @@ public class LoginViewModel : ViewModelBase
 
     public string Login
     {
-        get => _login;
-        set => SetField(ref _login, value);
+        get { return _login; }
+        set { SetField(ref _login, value); }
     }
 
     public string Password
     {
-        get => _password;
-        set => SetField(ref _password, value);
+        get { return _password; }
+        set { SetField(ref _password, value); }
     }
 
-    public ICommand LoginCommand => _loginCommand ??= new LoginCommand(this);
+    public ICommand LoginCommand
+    {
+        get { return _loginCommand ??= new LoginCommand(this); }
+    }
 
     public static User? CurrentUser { get; private set; }
 
-    private static void SuccessLoginEvent_UserSuccessLogin(SuccessLoginEventArgs e) => CurrentUser = e.User;
+    private static void SuccessLoginEvent_UserSuccessLogin(SuccessLoginEventArgs e)
+    {
+        CurrentUser = e.User;
+    }
 }

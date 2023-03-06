@@ -43,18 +43,33 @@ public class PlayersViewModel : ViewModelBase
 
             return _playersCollection;
         }
-        private set => SetField(ref _playersCollection, value);
+        private set { SetField(ref _playersCollection, value); }
     }
 
-    public ICommand AddPlayerCommand => _addPlayerCommand ??= new AddPlayerCommand(this);
+    public ICommand AddPlayerCommand
+    {
+        get { return _addPlayerCommand ??= new AddPlayerCommand(this); }
+    }
 
-    public ICommand DeletePlayerCommand => _deletePlayerCommand ??= new DeletePlayerCommand(this);
+    public ICommand DeletePlayerCommand
+    {
+        get { return _deletePlayerCommand ??= new DeletePlayerCommand(this); }
+    }
 
-    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e) => UpdatePlayers();
+    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
+    {
+        UpdatePlayers();
+    }
 
-    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e) => UpdatePlayers();
+    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)
+    {
+        UpdatePlayers();
+    }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e) => UpdatePlayers();
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        UpdatePlayers();
+    }
 
     private void UpdatePlayers()
     {

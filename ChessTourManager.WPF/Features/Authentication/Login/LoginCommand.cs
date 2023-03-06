@@ -10,7 +10,10 @@ public class LoginCommand : CommandBase
 {
     private readonly LoginViewModel _loginViewModel;
 
-    public LoginCommand(LoginViewModel loginViewModel) => _loginViewModel = loginViewModel;
+    public LoginCommand(LoginViewModel loginViewModel)
+    {
+        _loginViewModel = loginViewModel;
+    }
 
     public override void Execute(object? parameter)
     {

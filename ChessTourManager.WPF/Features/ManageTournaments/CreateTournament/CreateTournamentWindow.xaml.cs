@@ -9,5 +9,8 @@ public partial class CreateTournamentWindow
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
     }
 
-    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e) => Close();
+    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e)
+    {
+        Close();
+    }
 }

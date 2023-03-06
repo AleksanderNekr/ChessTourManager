@@ -20,5 +20,8 @@ public partial class EditTournamentWindow : Window
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e) => Close();
+    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    {
+        Close();
+    }
 }

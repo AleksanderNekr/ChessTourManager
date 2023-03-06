@@ -11,7 +11,10 @@ public class CreateTournamentCommand : CommandBase
 {
     private readonly CreateTournamentViewModel _createViewModel;
 
-    public CreateTournamentCommand(CreateTournamentViewModel createViewModel) => _createViewModel = createViewModel;
+    public CreateTournamentCommand(CreateTournamentViewModel createViewModel)
+    {
+        _createViewModel = createViewModel;
+    }
 
     public override void Execute(object? parameter)
     {

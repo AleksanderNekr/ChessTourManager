@@ -67,7 +67,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public string TournamentNameText
     {
-        get => EditingTournament?.TournamentName ?? "Название турнира";
+        get { return EditingTournament?.TournamentName ?? "Название турнира"; }
         set
         {
             if (EditingTournament != null)
@@ -81,7 +81,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public string TournamentPlaceText
     {
-        get => EditingTournament?.Place ?? "Место проведения";
+        get { return EditingTournament?.Place ?? "Место проведения"; }
         set
         {
             if (EditingTournament != null)
@@ -94,7 +94,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public DateTime SelectedDate
     {
-        get => EditingTournament?.DateStart.ToDateTime(new TimeOnly(0, 0)) ?? DateTime.Now;
+        get { return EditingTournament?.DateStart.ToDateTime(new TimeOnly(0, 0)) ?? DateTime.Now; }
         set
         {
             if (EditingTournament != null)
@@ -105,37 +105,47 @@ public class EditTournamentViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<TimeOnly> TimeItems =>
-        new()
+    public ObservableCollection<TimeOnly> TimeItems
+    {
+        get
         {
-            TimeOnly.FromDateTime(DateTime.Parse("07:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("08:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("09:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("10:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("11:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("12:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("13:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("14:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("15:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("16:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("17:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("18:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("19:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("20:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("21:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("22:00")),
-            TimeOnly.FromDateTime(DateTime.Parse("23:00"))
-        };
+            return new ObservableCollection<TimeOnly>
+                   {
+                       TimeOnly.FromDateTime(DateTime.Parse("07:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("08:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("09:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("10:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("11:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("12:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("13:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("14:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("15:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("16:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("17:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("18:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("19:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("20:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("21:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("22:00")),
+                       TimeOnly.FromDateTime(DateTime.Parse("23:00"))
+                   };
+        }
+    }
 
-    public ObservableCollection<int> DurationHoursItems =>
-        new()
+    public ObservableCollection<int> DurationHoursItems
+    {
+        get
         {
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        };
+            return new ObservableCollection<int>
+                   {
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+                   };
+        }
+    }
 
     public string OrgNameText
     {
-        get => EditingTournament?.OrganizationName ?? "Организатор";
+        get { return EditingTournament?.OrganizationName ?? "Организатор"; }
         set
         {
             if (EditingTournament != null)
@@ -150,7 +160,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public Kind SelectedTournamentKind
     {
-        get => EditingTournament?.Kind ?? TournamentKinds.First();
+        get { return EditingTournament?.Kind ?? TournamentKinds.First(); }
         set
         {
             if (EditingTournament != null)
@@ -163,7 +173,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public DataAccess.Entities.System SelectedTournamentSystem
     {
-        get => EditingTournament?.System ?? TournamentSystems.First();
+        get { return EditingTournament?.System ?? TournamentSystems.First(); }
         set
         {
             if (EditingTournament != null)
@@ -176,7 +186,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public int SelectedTournamentRoundsCount
     {
-        get => EditingTournament?.ToursCount ?? TournamentRoundsCountItems.First();
+        get { return EditingTournament?.ToursCount ?? TournamentRoundsCountItems.First(); }
         set
         {
             if (EditingTournament != null)
@@ -189,7 +199,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public TimeOnly SelectedTime
     {
-        get => EditingTournament?.TimeStart ?? TimeItems.First();
+        get { return EditingTournament?.TimeStart ?? TimeItems.First(); }
         set
         {
             if (EditingTournament != null)
@@ -202,7 +212,7 @@ public class EditTournamentViewModel : ViewModelBase
 
     public int SelectedDurationHours
     {
-        get => EditingTournament?.Duration ?? DurationHoursItems.First();
+        get { return EditingTournament?.Duration ?? DurationHoursItems.First(); }
         set
         {
             if (EditingTournament != null)
@@ -213,16 +223,21 @@ public class EditTournamentViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<int> TeamPlayersCountItems =>
-        new()
+    public ObservableCollection<int> TeamPlayersCountItems
+    {
+        get
         {
-            2, 3, 4, 5, 6, 7, 8, 9, 10
-        };
+            return new ObservableCollection<int>
+                   {
+                       2, 3, 4, 5, 6, 7, 8, 9, 10
+                   };
+        }
+    }
 
     public int SelectedMaxTeamPlayers
     {
-        get => _selectedMaxTeamPlayers;
-        set => SetField(ref _selectedMaxTeamPlayers, value);
+        get { return _selectedMaxTeamPlayers; }
+        set { SetField(ref _selectedMaxTeamPlayers, value); }
     }
 
     public Visibility VisibleIfTeamsAllowed
@@ -240,10 +255,13 @@ public class EditTournamentViewModel : ViewModelBase
 
             return (Visibility)_visibleIfTeamsAllowed!;
         }
-        set => SetField(ref _visibleIfTeamsAllowed, value);
+        set { SetField(ref _visibleIfTeamsAllowed, value); }
     }
 
-    public ICommand ApplyEditTournamentCommand => _applyEditTournamentCommand ??= new ApplyEditTournamentCommand();
+    public ICommand ApplyEditTournamentCommand
+    {
+        get { return _applyEditTournamentCommand ??= new ApplyEditTournamentCommand(); }
+    }
 
     public static Tournament? EditingTournament { get; set; }
 }

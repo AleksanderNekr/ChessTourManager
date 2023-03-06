@@ -6,8 +6,13 @@ namespace ChessTourManager.WPF.Features;
 
 public partial class MenuBarControl : UserControl
 {
-    public MenuBarControl() => InitializeComponent();
+    public MenuBarControl()
+    {
+        InitializeComponent();
+    }
 
-    private void CreateTournamentMenuItem_Click(object sender, RoutedEventArgs e) =>
+    private void CreateTournamentMenuItem_Click(object sender, RoutedEventArgs e)
+    {
         new CreateTournamentWindow().ShowDialog();
+    }
 }

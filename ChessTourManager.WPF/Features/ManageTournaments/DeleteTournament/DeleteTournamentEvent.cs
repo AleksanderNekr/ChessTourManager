@@ -8,12 +8,19 @@ public static class DeleteTournamentEvent
     public delegate void DeleteTournamentHandler(DeleteTournamentEventArgs e);
 
     public static event DeleteTournamentHandler? TournamentDeleted;
-    internal static void OnTournamentDeleted(DeleteTournamentEventArgs e) => TournamentDeleted?.Invoke(e);
+
+    internal static void OnTournamentDeleted(DeleteTournamentEventArgs e)
+    {
+        TournamentDeleted?.Invoke(e);
+    }
 }
 
 public class DeleteTournamentEventArgs : EventArgs
 {
-    public DeleteTournamentEventArgs(Tournament deletedTournament) => DeletedTournament = deletedTournament;
+    public DeleteTournamentEventArgs(Tournament deletedTournament)
+    {
+        DeletedTournament = deletedTournament;
+    }
 
     public Tournament DeletedTournament { get; }
 }

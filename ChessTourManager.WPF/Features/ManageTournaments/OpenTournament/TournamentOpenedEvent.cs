@@ -12,12 +12,18 @@ public class TournamentOpenedEvent
 
     public static event TournamentOpenedEventHandler? TournamentOpened;
 
-    internal static void OnTournamentOpened(TournamentOpenedEventArgs e) => TournamentOpened?.Invoke(e);
+    internal static void OnTournamentOpened(TournamentOpenedEventArgs e)
+    {
+        TournamentOpened?.Invoke(e);
+    }
 }
 
 public class TournamentOpenedEventArgs : EventArgs
 {
     public Tournament OpenedTournament;
 
-    public TournamentOpenedEventArgs(Tournament openedTournament) => OpenedTournament = openedTournament;
+    public TournamentOpenedEventArgs(Tournament openedTournament)
+    {
+        OpenedTournament = openedTournament;
+    }
 }

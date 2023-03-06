@@ -5,7 +5,6 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
@@ -19,17 +18,19 @@ public class TreeViewModel : ViewModelBase
     {
         get
         {
-            if (_tournaments is null && LoginViewModel.CurrentUser != null)
+            if (_tournaments is not null || LoginViewModel.CurrentUser == null)
             {
-                IGetQueries.CreateInstance(TreeContext)
-                           .TryGetTournamentsWithTeamsAndPlayers(LoginViewModel.CurrentUser.UserId,
-                                                                 out IQueryable<Tournament>? tournaments);
+                return _tournaments!;
+            }
+
+            IGetQueries.CreateInstance(TreeContext)
+                       .TryGetTournamentsWithTeamsAndPlayers(LoginViewModel.CurrentUser.UserId,
+                                                             out IQueryable<Tournament>? tournaments);
 
 
-                if (tournaments is not null)
-                {
-                    SetField(ref _tournaments, new(tournaments));
-                }
+            if (tournaments is not null)
+            {
+                SetField(ref _tournaments, new ObservableCollection<Tournament>(tournaments));
             }
 
             return _tournaments!;

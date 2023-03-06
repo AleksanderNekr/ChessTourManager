@@ -12,12 +12,18 @@ public class PlayerDeletedEvent
 
     public static event PlayerAddedHandler? PlayerDeleted;
 
-    internal static void OnPlayerDeleted(PlayerDeletedEventArgs e) => PlayerDeleted?.Invoke(e);
+    internal static void OnPlayerDeleted(PlayerDeletedEventArgs e)
+    {
+        PlayerDeleted?.Invoke(e);
+    }
 }
 
 public class PlayerDeletedEventArgs : EventArgs
 {
     public Player? DeletedPlayer;
 
-    public PlayerDeletedEventArgs(Player? deletedPlayer) => DeletedPlayer = deletedPlayer;
+    public PlayerDeletedEventArgs(Player? deletedPlayer)
+    {
+        DeletedPlayer = deletedPlayer;
+    }
 }

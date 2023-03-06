@@ -4,5 +4,8 @@ namespace ChessTourManager.WPF.Features.ManageAccount;
 
 public partial class ProfileControl : UserControl
 {
-    public ProfileControl() => InitializeComponent();
+    public ProfileControl()
+    {
+        InitializeComponent();
+    }
 }

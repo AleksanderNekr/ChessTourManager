@@ -5,5 +5,8 @@ namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class StartEditTournamentCommand : CommandBase
 {
-    public override void Execute(object? parameter) => new EditTournamentWindow(parameter).ShowDialog();
+    public override void Execute(object? parameter)
+    {
+        new EditTournamentWindow(parameter).ShowDialog();
+    }
 }

@@ -9,8 +9,10 @@ public class DeleteTournamentCommand : CommandBase
 {
     private readonly TournamentsListViewModel _tournamentsListViewModel;
 
-    public DeleteTournamentCommand(TournamentsListViewModel tournamentsListViewModel) =>
+    public DeleteTournamentCommand(TournamentsListViewModel tournamentsListViewModel)
+    {
         _tournamentsListViewModel = tournamentsListViewModel;
+    }
 
     public override void Execute(object? parameter)
     {
