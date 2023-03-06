@@ -68,38 +68,32 @@
                     </Style>
                 </DataGrid.RowHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn
-                        Header="Фамилия">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Text="{Binding PlayerLastName}"
-                                    VerticalAlignment="Center" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox
-                                    Text="{Binding PlayerLastName, ValidatesOnExceptions=True}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn
-                        Header="Имя">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Text="{Binding PlayerFirstName}"
-                                    VerticalAlignment="Center" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox
-                                    Text="{Binding PlayerFirstName, ValidatesOnExceptions=True}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Header="Фамилия"
+                        Binding="{Binding PlayerLastName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <!-- Set to center -->
+                            <Style
+                                TargetType="TextBlock">
+                                <Setter
+                                    Property="VerticalAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Header="Имя"
+                        Binding="{Binding PlayerFirstName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <!-- Set to center -->
+                            <Style
+                                TargetType="TextBlock">
+                                <Setter
+                                    Property="VerticalAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTemplateColumn
                         Header="Пол">
                         <DataGridTemplateColumn.CellTemplate>
@@ -115,47 +109,35 @@
                                 <ComboBox SelectedValue="{Binding Gender}">
                                     <ComboBox.ItemsSource>
                                         <x:Array
-                                            Type="{x:Type system:String}">
-                                            <system:String>M</system:String>
-                                            <system:String>F</system:String>
+                                            Type="{x:Type system:Char}">
+                                            <system:Char>М</system:Char>
+                                            <system:Char>Ж</system:Char>
                                         </x:Array>
                                     </ComboBox.ItemsSource>
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn
-                        Header="Атрибут">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Text="{Binding PlayerAttribute}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <ComboBox SelectedItem="{Binding PlayerAttribute, ValidatesOnExceptions=True}">
-                                    <ComboBox.ItemsSource>
-                                        <x:Array
-                                            Type="{x:Type system:String}">
-                                            <system:String>1MS</system:String>
-                                            <system:String>2MS</system:String>
-                                            <system:String>3MS</system:String>
-                                            <system:String>1FS</system:String>
-                                            <system:String>2FS</system:String>
-                                            <system:String>3FS</system:String>
-                                        </x:Array>
-                                    </ComboBox.ItemsSource>
-                                </ComboBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Header="Атрибут"
+                        Binding="{Binding PlayerAttribute}">
+                        <DataGridTextColumn.ElementStyle>
+                            <!-- Set to center -->
+                            <Style
+                                TargetType="TextBlock">
+                                <Setter
+                                    Property="VerticalAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTemplateColumn
                         Header="Команда">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock
-                                    Text="{Binding Team.TeamName}" />
+                                    Text="{Binding Team.TeamName}"
+                                    VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -180,7 +162,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock
-                                    Text="{Binding PlayerBirthYear}" />
+                                    Text="{Binding PlayerBirthYear}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -188,7 +172,9 @@
                                 <ComboBox
                                     SelectedItem="{Binding PlayerBirthYear, ValidatesOnExceptions=True}"
                                     ItemsSource="{Binding DataContext.BirthYears,
-                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center">
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
