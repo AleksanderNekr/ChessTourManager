@@ -92,6 +92,35 @@ internal class GetQueries : IGetQueries
         return GetResult.Success;
     }
 
+    public GetResult TryGetPlayersWithTeams(int organiserId, int tournamentId, out IQueryable<Player>? players)
+    {
+        players = default;
+        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
+        {
+            return GetResult.UserNotFound;
+        }
+
+        if (user!.Tournaments.Count == 0)
+        {
+            return GetResult.NoTournaments;
+        }
+
+        IQueryable<Tournament> tournaments = _context.Tournaments
+                                                     .Where(t => t.OrganizerId == organiserId)
+                                                     .Include(t => t.Players)
+                                                     .ThenInclude(p => p.Team);
+
+        Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
+        if (tournament is null)
+        {
+            return GetResult.TournamentNotFound;
+        }
+
+        players = tournament.Players.AsQueryable();
+
+        return GetResult.Success;
+    }
+
     public GetResult TryGetTeams(int organiserId, int tournamentId, out IQueryable<Team>? teams)
     {
         teams = default;

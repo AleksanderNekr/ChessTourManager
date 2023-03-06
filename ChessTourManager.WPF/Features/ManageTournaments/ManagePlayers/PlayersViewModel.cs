@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -19,6 +20,7 @@ public class PlayersViewModel : ViewModelBase
     private                  ICommand?        _deletePlayerCommand;
 
     private ObservableCollection<Player>? _playersCollection;
+    private ObservableCollection<Team>?   _teamsAvailable;
 
     public PlayersViewModel()
     {
@@ -56,6 +58,29 @@ public class PlayersViewModel : ViewModelBase
         get { return _deletePlayerCommand ??= new DeletePlayerCommand(this); }
     }
 
+    public ObservableCollection<Team> TeamsAvailable
+    {
+        get
+        {
+            if (_teamsAvailable is not null)
+            {
+                return _teamsAvailable;
+            }
+
+            IGetQueries.CreateInstance(PlayersContext)
+                       .TryGetTeams(LoginViewModel.CurrentUser!.UserId,
+                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                    out IQueryable<Team>? teams);
+
+            _teamsAvailable = new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>());
+
+            return _teamsAvailable;
+        }
+        set { SetField(ref _teamsAvailable, value); }
+    }
+
+    public ObservableCollection<int> BirthYears => new(Enumerable.Range(DateTime.UtcNow.Year - 100, 100));
+
     private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
     {
         UpdatePlayers();
@@ -74,9 +99,9 @@ public class PlayersViewModel : ViewModelBase
     private void UpdatePlayers()
     {
         IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetPlayers(LoginViewModel.CurrentUser.UserId,
-                                  TournamentsListViewModel.SelectedTournament.TournamentId,
-                                  out IQueryable<Player>? players);
+                   .TryGetPlayersWithTeams(LoginViewModel.CurrentUser!.UserId,
+                                           TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                           out IQueryable<Player>? players);
 
         if (players != null)
         {

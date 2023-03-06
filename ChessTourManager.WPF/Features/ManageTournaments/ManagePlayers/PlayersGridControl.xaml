@@ -6,6 +6,7 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
+             xmlns:local="clr-namespace:ChessTourManager.DataAccess.Entities;assembly=ChessTourManager.DataAccess"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
@@ -154,25 +155,22 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock
-                                    Text="{Binding Team}" />
+                                    Text="{Binding Team.TeamName}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <ComboBox
-                                    SelectedItem="{Binding Team, ValidatesOnExceptions=True}">
-                                    <ComboBox.ItemsSource>
-                                        <x:Array
-                                            Type="{x:Type system:String}">
-                                            <system:String>Медведь</system:String>
-                                            <system:String>ОСШ 1</system:String>
-                                            <system:String>ОСШ №2</system:String>
-                                            <system:String>Белая ладья</system:String>
-                                            <system:String>Оханск</system:String>
-                                            <system:String>Чёрный ферзь</system:String>
-                                            <system:String>ОСОШ №3</system:String>
-                                        </x:Array>
-                                    </ComboBox.ItemsSource>
+                                    SelectedItem="{Binding Team,
+                                                   ValidatesOnExceptions=True}"
+                                    ItemsSource="{Binding DataContext.TeamsAvailable,
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding TeamName}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
@@ -187,15 +185,11 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <!-- Use slider from 1940 to 2022 and show values while dragging. -->
-                                <Slider
-                                    Minimum="1940"
-                                    Maximum="2022"
-                                    TickFrequency="1"
-                                    IsSnapToTickEnabled="True"
-                                    IsMoveToPointEnabled="True"
-                                    AutoToolTipPlacement="TopLeft"
-                                    Value="{Binding PlayerBirthYear, ValidatesOnExceptions=True}" />
+                                <ComboBox
+                                    SelectedItem="{Binding PlayerBirthYear, ValidatesOnExceptions=True}"
+                                    ItemsSource="{Binding DataContext.BirthYears,
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -217,7 +211,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <!-- Button to вудуеу здфнук -->
+
+                    <!-- Button to delete tournament. -->
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

@@ -60,6 +60,8 @@ public interface IGetQueries
     /// </returns>
     public GetResult TryGetPlayers(int organiserId, int tournamentId, out IQueryable<Player>? players);
 
+    public GetResult TryGetPlayersWithTeams(int organiserId, int tournamentId, out IQueryable<Player>? players);
+
     /// <summary>
     ///     Получение списка команд в турнире пользователя.
     /// </summary>
