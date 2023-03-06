@@ -72,14 +72,17 @@ public class PlayersViewModel : ViewModelBase
                                     TournamentsListViewModel.SelectedTournament!.TournamentId,
                                     out IQueryable<Team>? teams);
 
-            _teamsAvailable = new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>());
+            SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
 
-            return _teamsAvailable;
+            return _teamsAvailable!;
         }
         set { SetField(ref _teamsAvailable, value); }
     }
 
-    public ObservableCollection<int> BirthYears => new(Enumerable.Range(DateTime.UtcNow.Year - 100, 100));
+    public ObservableCollection<int> BirthYears
+    {
+        get { return new ObservableCollection<int>(Enumerable.Range(DateTime.UtcNow.Year - 100, 100)); }
+    }
 
     private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
     {
