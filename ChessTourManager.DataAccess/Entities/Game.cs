@@ -41,8 +41,29 @@ public class Game
         {
             _result = value;
             string[] res = value.Split(" – ");
-            WhitePoints = double.Parse(res[0], CultureInfo.InvariantCulture);
-            BlackPoints = double.Parse(res[1], CultureInfo.InvariantCulture);
+            switch (res[0])
+            {
+                case "0" when res[1] == "0":
+                    WhitePoints = double.Parse(res[0], CultureInfo.InvariantCulture);
+                    BlackPoints = double.Parse(res[1], CultureInfo.InvariantCulture);
+                    IsPlayed    = false;
+                    break;
+                case "+":
+                    WhitePoints = 1;
+                    BlackPoints = 0;
+                    IsPlayed    = false;
+                    break;
+                case "-":
+                    WhitePoints = 0;
+                    BlackPoints = 1;
+                    IsPlayed    = false;
+                    break;
+                default:
+                    WhitePoints = double.Parse(res[0], CultureInfo.InvariantCulture);
+                    BlackPoints = double.Parse(res[1], CultureInfo.InvariantCulture);
+                    IsPlayed    = true;
+                    break;
+            }
         }
     }
 
