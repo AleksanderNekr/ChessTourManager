@@ -175,7 +175,7 @@ internal class GetQueries : IGetQueries
         return GetResult.Success;
     }
 
-    public GetResult TryGetGames(int organiserId, int tournamentId, int tourNumber, out IQueryable<Game>? games)
+    public GetResult TryGetGames(int organiserId, int tournamentId, out IQueryable<Game>? games)
     {
         games = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
@@ -195,8 +195,9 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        games = _context.Games.Where(g => g.OrganizerId == organiserId && g.TournamentId == tournamentId
-                                                                       && g.TourNumber   == tourNumber);
+        games = _context.Games.Where(g => g.OrganizerId == organiserId && g.TournamentId == tournamentId)
+                        .Include(g => g.PlayerBlack)
+                        .Include(g => g.PlayerWhite);
 
         return GetResult.Success;
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessTourManager.DataAccess.Entities;
 
@@ -23,7 +24,7 @@ public class Player
 
     public bool? IsActive { get; set; }
 
-    public int PointsCount { get; set; }
+    public double PointsCount { get; set; }
 
     public int WinsCount { get; set; }
 
@@ -41,13 +42,16 @@ public class Player
 
     public int? GroupId { get; set; }
 
-    public virtual ICollection<Game> GamePlayerNavigations { get; } = new List<Game>();
+    public virtual ICollection<Game> BlackGamePlayers { get; } = new List<Game>();
 
-    public virtual ICollection<Game> GamePlayers { get; } = new List<Game>();
+    public virtual ICollection<Game> WhiteGamePlayers { get; } = new List<Game>();
 
     public virtual Group? Group { get; set; }
 
     public virtual Team? Team { get; set; }
 
     public virtual Tournament Tournament { get; set; } = null!;
+
+    [NotMapped]
+    public string PlayerFullName => PlayerLastName + " " + PlayerFirstName;
 }

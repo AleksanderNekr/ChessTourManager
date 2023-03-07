@@ -4,16 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:manageGames="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGames"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              FontSize="14">
+    <UserControl.DataContext>
+        <manageGames:PairsGridViewModel />
+    </UserControl.DataContext>
     <StackPanel>
         <StackPanel
             Orientation="Horizontal">
             <TextBlock
                 Margin="2"
                 Padding="5,5,10,5"
-                Text="Текущий тур: 1" />
+                Text="{Binding ToursInfo}" />
             <Button
                 Content="Предыдущий"
                 VerticalAlignment="Center"
@@ -28,22 +32,26 @@
                 Margin="0,0,10,0" />
         </StackPanel>
         <DataGrid
-            CanUserAddRows="True"
+            CanUserAddRows="False"
             CanUserSortColumns="False"
-            CanUserReorderColumns="False">
+            CanUserReorderColumns="False"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding PairsForSelectedTour}"
+            CurrentCellChanged="DataGrid_CurrentCellChanged"
+            LoadingRow="DataGrid_LoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     IsReadOnly="True"
-                    Header="№" />
+                    Header="Белые"
+                    Binding="{Binding WhiteLastName}" />
                 <DataGridTextColumn
                     IsReadOnly="True"
-                    Header="Белые" />
-                <DataGridTextColumn
-                    IsReadOnly="True"
-                    Header="Очки" />
+                    Header="Очки"
+                    Binding="{Binding WhitePointsCount}" />
                 <DataGridComboBoxColumn
                     IsReadOnly="False"
-                    Header="Результат">
+                    Header="Результат"
+                    SelectedValueBinding="{Binding Result}">
                     <DataGridComboBoxColumn.ItemsSource>
                         <x:Array
                             Type="{x:Type system:String}">
@@ -58,10 +66,12 @@
                 </DataGridComboBoxColumn>
                 <DataGridTextColumn
                     IsReadOnly="True"
-                    Header="Черные" />
+                    Header="Черные"
+                    Binding="{Binding BlackLastName}" />
                 <DataGridTextColumn
                     IsReadOnly="True"
-                    Header="Очки" />
+                    Header="Очки"
+                    Binding="{Binding BlackPointsCount}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

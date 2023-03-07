@@ -85,7 +85,7 @@ public interface IGetQueries
     /// <summary>
     ///     Получение списка игр тура в турнире пользователя.
     /// </summary>
-    public GetResult TryGetGames(int organiserId, int tournamentId, int tourNumber, out IQueryable<Game>? games);
+    public GetResult TryGetGames(int organiserId, int tournamentId, out IQueryable<Game>? games);
 
     /// <summary>
     ///     Получение видов турниров.
