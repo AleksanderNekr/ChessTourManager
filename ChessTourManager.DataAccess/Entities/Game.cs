@@ -1,17 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace ChessTourManager.DataAccess.Entities;
 
-public class Game
+public class Game : INotifyPropertyChanged
 {
+    private (decimal RatioSum1, decimal RatioSum2)           _prevBlackRatios;
+    private (int WinsCount, int DrawsCount, int LossesCount) _prevBlackStats;
+
+    [NotMapped]
+    private (double, double) _prevPointsSum;
+
+    [NotMapped]
+    private (double, double) _prevResult;
+
+    private (decimal RatioSum1, decimal RatioSum2) _prevWhiteRatios;
+
+    private (int WinsCount, int DrawsCount, int LossesCount) _prevWhiteStats;
+
+    private string? _result;
+
     public Game()
     {
         UpdatePreviousValues();
     }
-
-    private string? _result;
 
     public int WhiteId { get; set; }
 
@@ -33,25 +49,41 @@ public class Game
 
     public Player PlayerWhite { get; set; } = null!;
 
-    [NotMapped]
-    private (double, double) _prevResult;
-
-    [NotMapped]
-    private (double, double) _prevPointsSum;
-
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevWhiteStats;
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevBlackStats;
-    private (decimal RatioSum1, decimal RatioSum2)           _prevWhiteRatios;
-    private (decimal RatioSum1, decimal RatioSum2)           _prevBlackRatios;
-
-    [NotMapped]
     public string Result
     {
-        get { return _result ??= WhitePoints + " – " + BlackPoints; }
+        get
+        {
+            if (IsPlayed)
+            {
+                if (_result is null)
+                {
+                    SetField(ref _result, WhitePoints + " – " + BlackPoints);
+                }
+            }
+            else if (Math.Abs(WhitePoints - 1) < 0.0001)
+            {
+                if (_result is null)
+                {
+                    SetField(ref _result, "+ – -");
+                }
+            }
+            else if (Math.Abs(BlackPoints - 1) < 0.0001)
+            {
+                if (_result is null)
+                {
+                    SetField(ref _result, "- – +");
+                }
+            }
+            else if (_result is null)
+            {
+                SetField(ref _result, "0 – 0");
+            }
+
+            return _result!;
+        }
         set
         {
-            _result = value;
-            if (_result.Equals(_prevResult.Item1 + " – " + _prevResult.Item2))
+            if (!SetField(ref _result, value))
             {
                 return;
             }
@@ -88,6 +120,8 @@ public class Game
         }
     }
 
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     private void UpdatePreviousValues()
     {
         if (PlayerWhite is null || PlayerBlack is null)
@@ -115,5 +149,22 @@ public class Game
 
         (PlayerBlack.WinsCount, PlayerBlack.DrawsCount, PlayerBlack.LossesCount) = _prevBlackStats;
         (PlayerBlack.RatioSum1, PlayerBlack.RatioSum2)                           = _prevBlackRatios;
+    }
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+        {
+            return false;
+        }
+
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
 }
