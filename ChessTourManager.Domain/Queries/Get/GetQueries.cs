@@ -129,7 +129,7 @@ internal class GetQueries : IGetQueries
             return GetResult.UserNotFound;
         }
 
-        if (user.Tournaments.Count == 0)
+        if (user != null && user.Tournaments.Count == 0)
         {
             return GetResult.NoTournaments;
         }
@@ -157,7 +157,7 @@ internal class GetQueries : IGetQueries
             return GetResult.UserNotFound;
         }
 
-        if (user.Tournaments.Count == 0)
+        if (user != null && user.Tournaments.Count == 0)
         {
             return GetResult.NoTournaments;
         }
@@ -183,12 +183,12 @@ internal class GetQueries : IGetQueries
             return GetResult.UserNotFound;
         }
 
-        if (user.Tournaments.Count == 0)
+        if (user != null && user.Tournaments.Count == 0)
         {
             return GetResult.NoTournaments;
         }
 
-        Tournament? tournament = user.Tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
+        Tournament? tournament = user?.Tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
 
         if (tournament is null)
         {

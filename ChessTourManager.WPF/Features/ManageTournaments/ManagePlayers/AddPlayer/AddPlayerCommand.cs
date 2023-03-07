@@ -15,10 +15,16 @@ public class AddPlayerCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
+        if (TournamentsListViewModel.SelectedTournament == null)
+        {
+            return;
+        }
+
         IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                       .TryAddPlayer(out Player? player, TournamentsListViewModel.SelectedTournament.TournamentId,
                                     TournamentsListViewModel.SelectedTournament.OrganizerId,
                                     "", "");
         PlayerAddedEvent.OnPlayerAdded(new PlayerAddedEventArgs(player));
+
     }
 }
