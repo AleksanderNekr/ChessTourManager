@@ -7,12 +7,6 @@ public class Game
 {
     private string? _result;
 
-    public Game()
-    {
-        UpdateGame();
-    }
-
-
     public int WhiteId { get; set; }
 
     public int BlackId { get; set; }
@@ -65,30 +59,5 @@ public class Game
                     break;
             }
         }
-    }
-
-    [NotMapped]
-    public string WhiteLastName { get; set; }
-
-    [NotMapped]
-    public double WhitePointsCount { get; set; }
-
-    [NotMapped]
-    public string BlackLastName { get; set; }
-
-    [NotMapped]
-    public double BlackPointsCount { get; set; }
-
-    public void UpdateGame()
-    {
-        if (PlayerWhite is null || PlayerBlack is null)
-        {
-            return;
-        }
-
-        WhiteLastName    = PlayerWhite.PlayerLastName;
-        WhitePointsCount = PlayerWhite.PointsCount;
-        BlackLastName    = PlayerBlack.PlayerLastName;
-        BlackPointsCount = PlayerBlack.PointsCount;
     }
 }

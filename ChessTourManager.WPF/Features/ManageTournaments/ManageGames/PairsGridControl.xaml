@@ -43,11 +43,11 @@
                 <DataGridTextColumn
                     IsReadOnly="True"
                     Header="Белые"
-                    Binding="{Binding WhiteLastName}" />
+                    Binding="{Binding PlayerWhite.PlayerFullName}" />
                 <DataGridTextColumn
                     IsReadOnly="True"
                     Header="Очки"
-                    Binding="{Binding WhitePointsCount}" />
+                    Binding="{Binding PlayerWhite.PointsCount}" />
                 <DataGridComboBoxColumn
                     IsReadOnly="False"
                     Header="Результат"
@@ -67,11 +67,11 @@
                 <DataGridTextColumn
                     IsReadOnly="True"
                     Header="Черные"
-                    Binding="{Binding BlackLastName}" />
+                    Binding="{Binding PlayerBlack.PlayerFullName}" />
                 <DataGridTextColumn
                     IsReadOnly="True"
                     Header="Очки"
-                    Binding="{Binding BlackPointsCount}" />
+                    Binding="{Binding PlayerBlack.PointsCount}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

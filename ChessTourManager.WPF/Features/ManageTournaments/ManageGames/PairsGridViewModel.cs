@@ -30,18 +30,11 @@ public class PairsGridViewModel : ViewModelBase
         IGetQueries.CreateInstance(PairsContext)
                    .TryGetGames(_tournament!.OrganizerId,
                                 _tournament.TournamentId,
-                                out IQueryable<Game>? gamesIQueryable);
+                                out IQueryable<Game>? games);
 
-        if (gamesIQueryable is null)
+        if (games is null)
         {
             return;
-        }
-
-        List<Game> games = gamesIQueryable.ToList();
-
-        foreach (Game g in games)
-        {
-            g.UpdateGame();
         }
 
         Pairs                = new ObservableCollection<Game>(games);
