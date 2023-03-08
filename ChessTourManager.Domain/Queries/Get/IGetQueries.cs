@@ -73,7 +73,7 @@ public interface IGetQueries
     ///     если пользователь не имеет турниров, то возвращается NoTournaments, если турнир с заданным ID не найден,
     ///     то TournamentNotFound, иначе – список команд и результат – Success.
     /// </returns>
-    public GetResult TryGetTeams(int organiserId, int tournamentId, out IQueryable<Team>? teams);
+    public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IQueryable<Team>? teams);
 
 
     /// <summary>
