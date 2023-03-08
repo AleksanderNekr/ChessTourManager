@@ -35,9 +35,11 @@
             ItemsSource="{Binding PlayersCollection}"
             CanUserAddRows="False"
             CanUserDeleteRows="False"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            dgx:Tools.ForceCommitOnLostFocus="True"
             SelectedCellsChanged="DataGrid_CurrentCellChanged"
             LoadingRow="DataGrid_LoadingRow"
-            dgx:Tools.ForceCommitOnLostFocus="True"
             LostFocus="DataGrid_LostFocus">
             <DataGrid.CellStyle>
                 <!-- Add margin to cells -->

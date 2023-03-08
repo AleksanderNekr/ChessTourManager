@@ -51,8 +51,7 @@
                 <DataGridComboBoxColumn
                     IsReadOnly="False"
                     Header="Результат"
-                    SelectedValueBinding="{Binding DataContext.GameResult,
-                                            RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                    SelectedValueBinding="{Binding Result}">
                     <DataGridComboBoxColumn.ItemsSource>
                         <x:Array
                             Type="{x:Type system:String}">

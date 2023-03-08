@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:manageRatings="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageRatings"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="800">
-    <StackPanel>
+    <UserControl.DataContext>
+        <manageRatings:ManageRatingsViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <TextBlock
             TextAlignment="Center"
             TextTrimming="CharacterEllipsis"
@@ -14,28 +23,42 @@
             Padding="10"
             Text="Рейтинг-лист после 1 тура" />
         <DataGrid
+            Grid.Row="1"
             IsReadOnly="True"
-            FontSize="14">
+            FontSize="14"
+            AutoGenerateColumns="False"
+            CanUserSortColumns="False"
+            CanUserResizeRows="False"
+            ItemsSource="{Binding PlayersSorted}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            LoadingRow="DataGrid_LoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Header="Место" />
+                    Header="Имя"
+                    Binding="{Binding PlayerFullName}" />
                 <DataGridTextColumn
-                    Header="Имя" />
+                    Header="Группа"
+                    Binding="{Binding Group}" />
                 <DataGridTextColumn
-                    Header="Группа" />
+                    Header="Победы"
+                    Binding="{Binding WinsCount}" />
                 <DataGridTextColumn
-                    Header="Победы" />
+                    Header="Ничьи"
+                    Binding="{Binding DrawsCount}" />
                 <DataGridTextColumn
-                    Header="Ничьи" />
+                    Header="Проигрыши"
+                    Binding="{Binding LossesCount}" />
                 <DataGridTextColumn
-                    Header="Проигрыши" />
+                    Header="Очки"
+                    Binding="{Binding PointsCount}" />
                 <DataGridTextColumn
-                    Header="Очки" />
+                    Header="Коэффициент 1"
+                    Binding="{Binding RatioSum1}" />
                 <DataGridTextColumn
-                    Header="Коэффициент 1" />
-                <DataGridTextColumn
-                    Header="Коэффициент 2" />
+                    Header="Коэффициент 2"
+                    Binding="{Binding RatioSum2}" />
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+    </Grid>
 </UserControl>

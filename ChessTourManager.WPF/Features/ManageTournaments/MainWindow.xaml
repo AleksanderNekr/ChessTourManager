@@ -37,7 +37,9 @@
                 <DataGrid
                     AutoGenerateColumns="False"
                     ItemsSource="{Binding TournamentsCollection, Mode=TwoWay}"
-                    IsReadOnly="True">
+                    IsReadOnly="True"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
                     <DataGrid.Columns>
                         <!-- Button to open tournament -->
                         <DataGridTemplateColumn>
