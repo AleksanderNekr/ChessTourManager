@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace ChessTourManager.DataAccess.Entities;
 
@@ -19,4 +20,5 @@ public class Team
     public virtual ICollection<Player> Players { get; } = new List<Player>();
 
     public virtual Tournament Tournament { get; set; } = null!;
+
 }

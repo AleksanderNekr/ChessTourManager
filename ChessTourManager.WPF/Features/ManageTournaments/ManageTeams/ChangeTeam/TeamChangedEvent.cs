@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.ChangeTeam;
 
 public delegate void TeamChangedHandler(TeamChangedEventArgs e);
 

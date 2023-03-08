@@ -3,10 +3,9 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Insert;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
 using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Commands;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
 
 public class CompleteAddTeamCommand : CommandBase
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.ChangeTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 

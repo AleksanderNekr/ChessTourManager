@@ -37,8 +37,17 @@
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Team}"
                     ItemsSource="{Binding Players}">
-                    <TextBlock
-                        Text="{Binding TeamName}" />
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Text="{Binding TeamName}" />
+                        <Button
+                            Margin="5, 0, 0, 0"
+                            Content="Удалить"
+                            Command="{Binding DataContext.DeleteTeamCommand,
+                                            RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}" />
+                    </StackPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Player}">

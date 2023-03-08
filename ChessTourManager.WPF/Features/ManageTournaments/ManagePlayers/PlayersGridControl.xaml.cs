@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.ChangeTeam;
 using Npgsql;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
