@@ -22,8 +22,10 @@
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Team}"
-                    ItemsSource="{Binding Players}"
-                    ItemTemplate="{Binding TeamName}" />
+                    ItemsSource="{Binding Players}">
+                    <TextBlock
+                        Text="{Binding TeamName}" />
+                </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Player}">
                     <TextBox
