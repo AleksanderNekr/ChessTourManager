@@ -48,16 +48,16 @@ public interface IInsertQueries
     /// <summary>
     ///     Добавление команды в список турнира пользователя.
     /// </summary>
-    public InsertResult TryAddTeam(int    organiserId, int tournamentId, string name,
-                                   string attribute = "-",
-                                   bool   isActive  = true);
+    public InsertResult TryAddTeam(out Team? addedTeam, int organiserId, int tournamentId, string name,
+                                   bool      isActive  = true,
+                                   string    attribute = "-");
 
     /// <summary>
     ///     Добавление группы в турнир пользователя.
     /// </summary>
-    public InsertResult TryAddGroup(int    organiserId, int tournamentId,
-                                    string name     = "1",
-                                    string identity = "1");
+    public InsertResult TryAddGroup(out Group? addedTeam, int organiserId, int tournamentId,
+                                    string     name     = "1",
+                                    string     identity = "1");
 
     /// <summary>
     ///     Добавление пары игроков в список пар тура.

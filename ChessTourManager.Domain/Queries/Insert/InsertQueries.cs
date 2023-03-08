@@ -140,19 +140,20 @@ internal class InsertQueries : IInsertQueries
         }
     }
 
-    public InsertResult TryAddTeam(int  organiserId, int tournamentId, string name, string attribute = "-",
-                                   bool isActive = true)
+    public InsertResult TryAddTeam(out Team? addedTeam,       int    organiserId, int tournamentId, string name,
+                                   bool      isActive = true, string attribute = "-")
     {
         try
         {
-            _context.Teams.Add(new Team
-                               {
-                                   OrganizerId   = organiserId,
-                                   TournamentId  = tournamentId,
-                                   TeamName      = name,
-                                   TeamAttribute = attribute,
-                                   IsActive      = isActive
-                               });
+            addedTeam = new Team
+                        {
+                            OrganizerId   = organiserId,
+                            TournamentId  = tournamentId,
+                            TeamName      = name,
+                            TeamAttribute = attribute,
+                            IsActive      = isActive
+                        };
+            _context.Teams.Add(addedTeam);
             _context.SaveChanges();
             return InsertResult.Success;
         }
@@ -160,23 +161,25 @@ internal class InsertQueries : IInsertQueries
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении команды",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            addedTeam = null;
             return InsertResult.Fail;
         }
     }
 
-    public InsertResult TryAddGroup(int    organiserId, int tournamentId,
-                                    string name     = "1",
-                                    string identity = "1")
+    public InsertResult TryAddGroup(out Group? addedGroup, int organiserId, int tournamentId,
+                                    string     name     = "1",
+                                    string     identity = "1")
     {
         try
         {
-            _context.Groups.Add(new Group
-                                {
-                                    OrganizerId  = organiserId,
-                                    TournamentId = tournamentId,
-                                    GroupName    = name,
-                                    Identity     = identity
-                                });
+            addedGroup = new Group
+                         {
+                             OrganizerId  = organiserId,
+                             TournamentId = tournamentId,
+                             GroupName    = name,
+                             Identity     = identity
+                         };
+            _context.Groups.Add(addedGroup);
             _context.SaveChanges();
             return InsertResult.Success;
         }
@@ -184,6 +187,7 @@ internal class InsertQueries : IInsertQueries
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении группы",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            addedGroup = null;
             return InsertResult.Fail;
         }
     }
