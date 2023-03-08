@@ -102,7 +102,7 @@ public class PlayersViewModel : ViewModelBase
     private void UpdatePlayers()
     {
         IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetPlayersWithTeams(LoginViewModel.CurrentUser!.UserId,
+                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
                                            TournamentsListViewModel.SelectedTournament!.TournamentId,
                                            out IQueryable<Player>? players);
 
