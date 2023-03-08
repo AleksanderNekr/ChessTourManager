@@ -38,8 +38,8 @@
                     Header="Имя"
                     Binding="{Binding PlayerFullName}" />
                 <DataGridTextColumn
-                    Header="Группа"
-                    Binding="{Binding Group}" />
+                    Header="Команда"
+                    Binding="{Binding Team.TeamName}" />
                 <DataGridTextColumn
                     Header="Победы"
                     Binding="{Binding WinsCount}" />

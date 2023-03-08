@@ -29,7 +29,7 @@ public class ManageRatingsViewModel : ViewModelBase
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
         IGetQueries.CreateInstance(RatingsContext)
-                   .TryGetPlayers(LoginViewModel.CurrentUser!.UserId,
+                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
                                   TournamentsListViewModel.SelectedTournament!.TournamentId,
                                   out IQueryable<Player>? players);
 

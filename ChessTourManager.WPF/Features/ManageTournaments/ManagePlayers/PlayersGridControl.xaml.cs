@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 using Npgsql;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
@@ -44,5 +47,10 @@ public partial class PlayersGridControl
     private void DataGrid_LostFocus(object sender, RoutedEventArgs e)
     {
         TryToSave();
+    }
+
+    private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        TeamChangedEvent.OnTeamChanged(new TeamChangedEventArgs(null!));
     }
 }

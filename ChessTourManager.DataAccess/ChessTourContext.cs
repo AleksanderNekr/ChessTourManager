@@ -12,7 +12,7 @@ public class ChessTourContext : DbContext
 {
     public DbSet<Game> Games { get; set; }
 
-    public DbSet<Group> Groups { get; set; }
+    public DbSet<Group?> Groups { get; set; }
 
     public DbSet<Kind> Kinds { get; set; }
 
@@ -26,7 +26,7 @@ public class ChessTourContext : DbContext
 
     public DbSet<Entities.System> Systems { get; set; }
 
-    public DbSet<Team> Teams { get; set; }
+    public DbSet<Team?> Teams { get; set; }
 
     public DbSet<TeamRatingListView> TeamRatingListViews { get; set; }
 

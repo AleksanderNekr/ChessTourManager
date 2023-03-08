@@ -19,13 +19,15 @@
             <ColumnDefinition
                 Width="*" />
         </Grid.ColumnDefinitions>
-        <Button
-            FontSize="14"
-            Margin="10"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Content="Добавить игрока"
-            Command="{Binding AddPlayerCommand}" />
+        <StackPanel>
+            <Button
+                FontSize="14"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Content="Добавить игрока"
+                Command="{Binding AddPlayerCommand}" />
+        </StackPanel>
         <DataGrid
             Grid.Column="1"
             FontSize="14"
@@ -147,7 +149,8 @@
                                 SelectedItem="{Binding Team,
                                                    ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.TeamsAvailable,
-                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                SelectionChanged="Selector_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock

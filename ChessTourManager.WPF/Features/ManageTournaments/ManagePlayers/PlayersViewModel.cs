@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -8,6 +9,7 @@ using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
@@ -24,9 +26,15 @@ public class PlayersViewModel : ViewModelBase
 
     public PlayersViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        PlayerAddedEvent.PlayerAdded           += PlayerAddedEvent_PlayerAdded;
-        PlayerDeletedEvent.PlayerDeleted       += PlayerDeletedEvent_PlayerDeleted;
+        TournamentOpenedEvent.TournamentOpened       += TournamentOpenedEvent_TournamentOpened;
+        PlayerAddedEvent.PlayerAdded                 += PlayerAddedEvent_PlayerAdded;
+        PlayerDeletedEvent.PlayerDeleted             += PlayerDeletedEvent_PlayerDeleted;
+        TeamAddedEvent.TeamAdded                     += TeamAddedEvent_TeamAdded;
+    }
+
+    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
+    {
+        UpdateTeams();
     }
 
     public ObservableCollection<Player>? PlayersCollection
@@ -67,16 +75,21 @@ public class PlayersViewModel : ViewModelBase
                 return _teamsAvailable;
             }
 
-            IGetQueries.CreateInstance(PlayersContext)
-                       .TryGetTeams(LoginViewModel.CurrentUser!.UserId,
-                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                    out IQueryable<Team>? teams);
-
-            SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
+            UpdateTeams();
 
             return _teamsAvailable!;
         }
         set { SetField(ref _teamsAvailable, value); }
+    }
+
+    private void UpdateTeams()
+    {
+        IGetQueries.CreateInstance(PlayersContext)
+                   .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser!.UserId,
+                                           TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                           out IQueryable<Team>? teams);
+
+        SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
     }
 
     public ObservableCollection<int> BirthYears
@@ -103,8 +116,8 @@ public class PlayersViewModel : ViewModelBase
     {
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
-                                           TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                           out IQueryable<Player>? players);
+                                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                                    out IQueryable<Player>? players);
 
         if (players != null)
         {
