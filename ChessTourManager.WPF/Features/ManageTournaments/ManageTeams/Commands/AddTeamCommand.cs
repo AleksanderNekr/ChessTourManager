@@ -1,6 +1,6 @@
 ﻿using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Commands;
 
 public class AddTeamCommand : CommandBase
 {

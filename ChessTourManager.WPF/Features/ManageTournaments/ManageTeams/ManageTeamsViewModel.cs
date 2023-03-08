@@ -6,6 +6,8 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.Domain.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Commands;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
@@ -21,7 +23,6 @@ public class ManageTeamsViewModel : ViewModelBase
     public ManageTeamsViewModel()
     {
         CompleteAddTeam                        =  new CompleteAddTeamCommand(this);
-        UpdateTeamsCommand                     =  new UpdateTeamsCommand(this);
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
         TeamChangedEvent.TeamChanged           += TeamChangedEvent_TeamChanged;
@@ -55,8 +56,6 @@ public class ManageTeamsViewModel : ViewModelBase
     }
 
     public ICommand CompleteAddTeam { get; }
-
-    public ICommand UpdateTeamsCommand { get; }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {

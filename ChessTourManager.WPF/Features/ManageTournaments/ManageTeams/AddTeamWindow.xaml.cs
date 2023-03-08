@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 

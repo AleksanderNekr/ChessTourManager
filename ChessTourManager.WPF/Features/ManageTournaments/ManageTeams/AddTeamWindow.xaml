@@ -6,7 +6,8 @@
         xmlns:manageTeams="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams"
         mc:Ignorable="d"
         Height="200"
-        Width="300">
+        Width="300"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <manageTeams:ManageTeamsViewModel />
     </Window.DataContext>
@@ -50,6 +51,7 @@
             Content="Добавить"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            IsDefault="True"
             Command="{Binding CompleteAddTeam}" />
     </Grid>
 </Window>

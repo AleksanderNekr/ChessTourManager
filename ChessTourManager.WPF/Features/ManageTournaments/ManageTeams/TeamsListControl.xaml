@@ -23,13 +23,6 @@
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Content="Обновить"
-                Command="{Binding UpdateTeamsCommand}"></Button>
-            <Button
-                FontSize="14"
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
                 Content="Добавить команду"
                 Command="{Binding AddTeamCommand}" />
         </StackPanel>

@@ -13,7 +13,8 @@
         MinHeight="700"
         MinWidth="520"
         Width="800"
-        Height="700">
+        Height="700"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <manageTournaments:TournamentsListViewModel />
     </Window.DataContext>

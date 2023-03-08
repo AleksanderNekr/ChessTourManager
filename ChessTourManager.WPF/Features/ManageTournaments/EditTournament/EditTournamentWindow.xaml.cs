@@ -16,7 +16,6 @@ public partial class EditTournamentWindow : Window
     {
         EditTournamentViewModel.EditingTournament = parameter as Tournament;
         InitializeComponent();
-        DatePicker.BlackoutDates.AddDatesInPast();
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
     }
 

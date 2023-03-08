@@ -10,6 +10,7 @@ using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 

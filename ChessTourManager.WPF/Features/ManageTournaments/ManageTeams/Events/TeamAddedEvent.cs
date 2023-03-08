@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.Events;
 
 public delegate void TeamAddedHandler(TeamAddedEventArgs e);
 
