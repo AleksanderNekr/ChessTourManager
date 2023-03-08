@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.ChangeTeam;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 public delegate void TeamChangedHandler(TeamChangedEventArgs e);
 
@@ -17,10 +17,10 @@ public class TeamChangedEvent
 
 public class TeamChangedEventArgs : EventArgs
 {
-    public TeamChangedEventArgs(Player forPlayer)
+    public TeamChangedEventArgs(Team team)
     {
-        ForPlayer = forPlayer;
+        Team = team;
     }
 
-    public Player ForPlayer { get; }
+    public Team Team { get; }
 }

@@ -47,6 +47,12 @@
                             Command="{Binding DataContext.DeleteTeamCommand,
                                             RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}" />
+                        <Button
+                            Margin="5, 0, 0, 0"
+                            Content="Редактировать"
+                            Command="{Binding DataContext.EditTeamCommand,
+                                            RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate

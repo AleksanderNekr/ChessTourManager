@@ -11,8 +11,8 @@ using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.ChangeTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.DeleteTeam;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
