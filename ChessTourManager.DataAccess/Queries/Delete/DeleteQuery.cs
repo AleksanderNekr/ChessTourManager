@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.Domain.Queries.Delete;
+namespace ChessTourManager.DataAccess.Queries.Delete;
 
 internal class DeleteQuery : IDeleteQueries
 {

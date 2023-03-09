@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries.Insert;
+using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Helpers;
 

@@ -1,5 +1,5 @@
 ﻿using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries.Insert;
+using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;

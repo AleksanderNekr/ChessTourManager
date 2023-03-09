@@ -1,8 +1,7 @@
 ﻿using System;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.Domain.Queries.Insert;
+namespace ChessTourManager.DataAccess.Queries.Insert;
 
 public interface IInsertQueries
 {

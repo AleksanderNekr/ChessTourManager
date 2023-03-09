@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries.Delete;
+using ChessTourManager.DataAccess.Queries.Delete;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;

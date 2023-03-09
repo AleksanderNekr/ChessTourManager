@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Documents;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries.Get;
+using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 

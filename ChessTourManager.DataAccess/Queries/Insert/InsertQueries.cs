@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Helpers;
+using ChessTourManager.DataAccess.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChessTourManager.Domain.Queries.Insert;
+namespace ChessTourManager.DataAccess.Queries.Insert;
 
 internal class InsertQueries : IInsertQueries
 {

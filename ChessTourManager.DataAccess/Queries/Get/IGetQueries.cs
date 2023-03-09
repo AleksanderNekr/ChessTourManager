@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.Domain.Queries.Get;
+namespace ChessTourManager.DataAccess.Queries.Get;
 
 public interface IGetQueries
 {

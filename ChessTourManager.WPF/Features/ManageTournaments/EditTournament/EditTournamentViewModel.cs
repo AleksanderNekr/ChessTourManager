@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Queries.Get;
+using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;

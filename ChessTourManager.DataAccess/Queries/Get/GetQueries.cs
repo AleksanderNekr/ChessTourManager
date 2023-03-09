@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Helpers;
+using ChessTourManager.DataAccess.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChessTourManager.Domain.Queries.Get;
+namespace ChessTourManager.DataAccess.Queries.Get;
 
 internal class GetQueries : IGetQueries
 {

@@ -1,13 +1,12 @@
-﻿/// Class to hash and verify passwords
-///
-
+﻿
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ChessTourManager.Domain.Helpers;
+namespace ChessTourManager.DataAccess.Helpers;
 
+/// Class to hash and verify passwords
 public static class PasswordHasher
 {
     private const           int               KeySize       = 64;
