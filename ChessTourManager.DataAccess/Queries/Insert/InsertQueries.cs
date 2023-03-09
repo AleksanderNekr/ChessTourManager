@@ -35,6 +35,12 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
+        catch (DbUpdateException)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно пользователь с таким email уже существует!",
+                            "Ошибка при регистрации", MessageBoxButton.OK, MessageBoxImage.Error);
+            return InsertResult.Fail;
+        }
         catch (Exception e)
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при регистрации",
@@ -130,6 +136,14 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
+        catch (DbUpdateException)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно игрок с такими данными уже существует,"
+                          + " либо вы не заполнили важные данные", "Ошибка добавлении игрока", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+            addedPlayer = null;
+            return InsertResult.Fail;
+        }
         catch (Exception e)
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка добавлении игрока", MessageBoxButton.OK,
@@ -156,6 +170,14 @@ internal class InsertQueries : IInsertQueries
             _context.SaveChanges();
             return InsertResult.Success;
         }
+        catch (DbUpdateException)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно команда с таким именем уже существует,"
+                          + " либо вы не заполнили важные данные", "Ошибка при добавлении команды",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            addedTeam = null;
+            return InsertResult.Fail;
+        }
         catch (Exception e)
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении команды",
@@ -181,6 +203,14 @@ internal class InsertQueries : IInsertQueries
             _context.Groups.Add(addedGroup);
             _context.SaveChanges();
             return InsertResult.Success;
+        }
+        catch (DbUpdateException)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно группа с таким именем уже существует,"
+                          + " либо вы не заполнили важные данные", "Ошибка при добавлении группы",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            addedGroup = null;
+            return InsertResult.Fail;
         }
         catch (Exception e)
         {
@@ -209,6 +239,13 @@ internal class InsertQueries : IInsertQueries
                                });
             _context.SaveChanges();
             return InsertResult.Success;
+        }
+        catch (DbUpdateException)
+        {
+            MessageBox.Show("Ошибка в веденных данных! Возможно пара с такими данными уже существует,"
+                          + " либо вы не заполнили важные данные", "Ошибка при добавлении пары",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            return InsertResult.Fail;
         }
         catch (Exception e)
         {

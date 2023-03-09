@@ -34,7 +34,7 @@ internal class GetQueries : IGetQueries
                    : GetResult.UserNotFound;
     }
 
-    public GetResult TryGetTournaments(int organiserId, out IQueryable<Tournament>? tournaments)
+    public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament>? tournaments)
     {
         if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
@@ -47,7 +47,7 @@ internal class GetQueries : IGetQueries
         return GetResult.UserNotFound;
     }
 
-    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IQueryable<Tournament>? tournaments)
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments)
     {
         if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
@@ -63,7 +63,7 @@ internal class GetQueries : IGetQueries
         return GetResult.UserNotFound;
     }
 
-    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IQueryable<Player>? players)
+    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player>? players)
     {
         players = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
@@ -76,9 +76,9 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = _context.Tournaments
-                                                     .Where(t => t.OrganizerId == organiserId)
-                                                     .Include(t => t.Players);
+        IEnumerable<Tournament> tournaments = _context.Tournaments
+                                                      .Where(t => t.OrganizerId == organiserId)
+                                                      .Include(t => t.Players);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -86,13 +86,13 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        players = tournament.Players.AsQueryable();
+        players = tournament.Players;
 
         return GetResult.Success;
     }
 
-    public GetResult TryGetPlayersWithTeamsAndGroups(int                     organiserId, int tournamentId,
-                                                     out IQueryable<Player>? players)
+    public GetResult TryGetPlayersWithTeamsAndGroups(int                      organiserId, int tournamentId,
+                                                     out IEnumerable<Player>? players)
     {
         players = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
@@ -119,12 +119,12 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        players = tournament.Players.AsQueryable();
+        players = tournament.Players;
 
         return GetResult.Success;
     }
 
-    public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IQueryable<Team>? teams)
+    public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IEnumerable<Team>? teams)
     {
         teams = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
@@ -137,10 +137,10 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = _context.Tournaments
-                                                     .Where(t => t.OrganizerId == organiserId)
-                                                     .Include(t => t.Teams)
-                                                     .ThenInclude(t => t.Players);
+        IEnumerable<Tournament> tournaments = _context.Tournaments
+                                                      .Where(t => t.OrganizerId == organiserId)
+                                                      .Include(t => t.Teams)
+                                                      .ThenInclude(t => t.Players);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -148,15 +148,16 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        teams = tournament.Teams.AsQueryable();
+        teams = tournament.Teams;
 
         return GetResult.Success;
     }
 
-    public GetResult TryGetGroups(int organiserId, int tournamentId, out IQueryable<Group>? groups)
+    public GetResult TryGetGroups(int                     organizerId, int tournamentId,
+                                  out IEnumerable<Group>? groups)
     {
         groups = default;
-        if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
+        if (TryGetUserById(organizerId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
         }
@@ -166,7 +167,7 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IQueryable<Tournament> tournaments = _context.Tournaments.Where(g => g.OrganizerId == organiserId);
+        IEnumerable<Tournament> tournaments = _context.Tournaments.Where(g => g.OrganizerId == organizerId);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)
@@ -174,12 +175,13 @@ internal class GetQueries : IGetQueries
             return GetResult.TournamentNotFound;
         }
 
-        groups = tournament.Groups.AsQueryable().Include(g => g.Players);
-
+        groups = _context.Groups
+                         .Where(g => g.OrganizerId == organizerId && g.TournamentId == tournamentId)
+                         .Include(g => g.Players);
         return GetResult.Success;
     }
 
-    public GetResult TryGetGames(int organiserId, int tournamentId, out IQueryable<Game>? games)
+    public GetResult TryGetGames(int organiserId, int tournamentId, out IEnumerable<Game>? games)
     {
         games = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
@@ -206,23 +208,15 @@ internal class GetQueries : IGetQueries
         return GetResult.Success;
     }
 
-    public GetResult GetKinds(out IQueryable<Kind>? kinds)
+    public GetResult GetKinds(out IEnumerable<Kind>? kinds)
     {
         kinds = _context.Kinds;
         return GetResult.Success;
     }
 
-    public GetResult GetSystems(out IQueryable<DataAccess.Entities.System>? systems)
+    public GetResult GetSystems(out IEnumerable<Entities.System>? systems)
     {
         systems = _context.Systems;
-        return GetResult.Success;
-    }
-
-    public GetResult GetGroups(int organizerId, int tournamentId, out IQueryable<Group>? groups)
-    {
-        groups = _context.Groups
-                         .Where(g => g.OrganizerId == organizerId && g.TournamentId == tournamentId)
-                         .Include(g => g.Players);
         return GetResult.Success;
     }
 }
