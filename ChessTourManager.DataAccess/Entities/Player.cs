@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessTourManager.DataAccess.Entities;
@@ -53,5 +52,8 @@ public class Player
     public virtual Tournament Tournament { get; set; } = null!;
 
     [NotMapped]
-    public string PlayerFullName => PlayerLastName + " " + PlayerFirstName;
+    public string PlayerFullName
+    {
+        get { return PlayerLastName + " " + PlayerFirstName; }
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
@@ -7,12 +6,25 @@ namespace ChessTourManager.DataAccess.Entities;
 
 public class Game
 {
+    private (decimal RatioSum1, decimal RatioSum2)           _prevBlackRatios;
+    private (int WinsCount, int DrawsCount, int LossesCount) _prevBlackStats;
+
+    [NotMapped]
+    private (double, double) _prevPointsSum;
+
+    [NotMapped]
+    private (double, double) _prevResult;
+
+    private (decimal RatioSum1, decimal RatioSum2) _prevWhiteRatios;
+
+    private (int WinsCount, int DrawsCount, int LossesCount) _prevWhiteStats;
+
+    private string? _result;
+
     public Game()
     {
         UpdatePreviousValues();
     }
-
-    private string? _result;
 
     public int WhiteId { get; set; }
 
@@ -33,17 +45,6 @@ public class Game
     public Player PlayerBlack { get; set; } = null!;
 
     public Player PlayerWhite { get; set; } = null!;
-
-    [NotMapped]
-    private (double, double) _prevResult;
-
-    [NotMapped]
-    private (double, double) _prevPointsSum;
-
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevWhiteStats;
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevBlackStats;
-    private (decimal RatioSum1, decimal RatioSum2)           _prevWhiteRatios;
-    private (decimal RatioSum1, decimal RatioSum2)           _prevBlackRatios;
 
     [NotMapped]
     public string Result
