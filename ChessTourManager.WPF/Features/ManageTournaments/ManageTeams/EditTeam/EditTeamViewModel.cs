@@ -9,10 +9,23 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 public class EditTeamViewModel : ViewModelBase, IValidatableObject
 {
-    private  string? _name;
-    private  string? _attribute;
-    private  bool?   _isActive;
-    internal Team?   Team { get; }
+    private string? _attribute;
+    private bool?   _isActive;
+    private string? _name;
+
+    public EditTeamViewModel(Team? team)
+    {
+        Team        = team;
+        SaveCommand = new SaveTeamCommand(this);
+    }
+
+    public EditTeamViewModel()
+    {
+        Team        = null;
+        SaveCommand = new SaveTeamCommand(this);
+    }
+
+    internal Team? Team { get; }
 
     public string Name
     {
@@ -34,18 +47,6 @@ public class EditTeamViewModel : ViewModelBase, IValidatableObject
     }
 
     public ICommand SaveCommand { get; }
-
-    public EditTeamViewModel(Team? team)
-    {
-        Team        = team;
-        SaveCommand = new SaveTeamCommand(this);
-    }
-
-    public EditTeamViewModel()
-    {
-        Team        = null;
-        SaveCommand = new SaveTeamCommand(this);
-    }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

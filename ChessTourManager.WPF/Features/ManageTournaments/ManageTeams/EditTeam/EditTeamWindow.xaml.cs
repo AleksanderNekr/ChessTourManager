@@ -17,4 +17,3 @@ public partial class EditTeamWindow : Window
         DataContext = new EditTeamViewModel(team);
     }
 }
-

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
@@ -18,4 +17,3 @@ public partial class TeamsListControl : UserControl
         TreeView.Items.Refresh();
     }
 }
-

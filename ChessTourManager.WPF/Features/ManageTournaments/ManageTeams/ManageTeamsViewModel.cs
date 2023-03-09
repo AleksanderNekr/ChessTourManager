@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
@@ -16,9 +16,9 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 
 public class ManageTeamsViewModel : ViewModelBase
 {
-    internal static ChessTourContext TeamsContext = PlayersViewModel.PlayersContext;
-    private         AddTeamCommand?  _addTeamCommand;
-    private         string           _teamName;
+    internal static readonly ChessTourContext TeamsContext = PlayersViewModel.PlayersContext;
+    private                  AddTeamCommand?  _addTeamCommand;
+    private                  string           _teamName;
 
     private ObservableCollection<Team> _teamsWithPlayers;
 
@@ -26,7 +26,7 @@ public class ManageTeamsViewModel : ViewModelBase
     {
         CompleteAddTeam                        =  new CompleteAddTeamCommand(this);
         DeleteTeamCommand                      =  new DeleteTeamCommand();
-        EditTeamCommand                        =  new EditTeamCommand(this);
+        EditTeamCommand                        =  new EditTeamCommand();
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
         TeamChangedEvent.TeamChanged           += TeamChangedEvent_TeamChanged;
@@ -41,7 +41,7 @@ public class ManageTeamsViewModel : ViewModelBase
 
     public ICommand AddTeamCommand
     {
-        get { return _addTeamCommand ??= new AddTeamCommand(this); }
+        get { return _addTeamCommand ??= new AddTeamCommand(); }
     }
 
     public string TeamName
@@ -74,12 +74,12 @@ public class ManageTeamsViewModel : ViewModelBase
         UpdateTeams();
     }
 
-    internal void UpdateTeams()
+    private void UpdateTeams()
     {
         IGetQueries.CreateInstance(TeamsContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser!.UserId,
                                            TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                           out IQueryable<Team>? teams);
+                                           out IEnumerable<Team>? teams);
         if (teams is not null)
         {
             TeamsWithPlayers = new ObservableCollection<Team>(teams);
