@@ -1,0 +1,80 @@
+﻿<Window x:Class="ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup.AddGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
+        mc:Ignorable="d"
+        MinHeight="300"
+        MinWidth="500"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <manageGroups:ManageGroupsViewModel />
+    </Window.DataContext>
+    <Grid
+        HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="18"
+            FontWeight="SemiBold"
+            Text="Добавление группы" />
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Width="170"
+                FontSize="14"
+                Text="Полное название группы:" />
+            <TextBox
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                FontSize="14"
+                MinWidth="200"
+                Text="{Binding GroupName}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Orientation="Horizontal"
+            ToolTip="Краткий идентификатор группы, например, если
+полное название группы – Мальчики до 12 лет, то идентификатор
+может быть М12">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Width="170"
+                FontSize="14"
+                Text="Идентификатор группы:" />
+            <TextBox
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                FontSize="14"
+                MinWidth="100"
+                Text="{Binding GroupIdentifier}" />
+        </StackPanel>
+        <Button
+            Grid.Row="4"
+            Margin="5"
+            FontSize="14"
+            Content="Добавить"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsDefault="True"
+            Command="{Binding CompleteAddGroup}" />
+    </Grid>
+</Window>
