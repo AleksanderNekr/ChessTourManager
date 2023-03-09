@@ -25,6 +25,5 @@ public class AddPlayerCommand : CommandBase
                                     TournamentsListViewModel.SelectedTournament.OrganizerId,
                                     "", "");
         PlayerAddedEvent.OnPlayerAdded(new PlayerAddedEventArgs(player));
-
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -25,7 +25,7 @@ public class TreeViewModel : ViewModelBase
 
             IGetQueries.CreateInstance(TreeContext)
                        .TryGetTournamentsWithTeamsAndPlayers(LoginViewModel.CurrentUser.UserId,
-                                                             out IQueryable<Tournament>? tournaments);
+                                                             out IEnumerable<Tournament>? tournaments);
 
 
             if (tournaments is not null)

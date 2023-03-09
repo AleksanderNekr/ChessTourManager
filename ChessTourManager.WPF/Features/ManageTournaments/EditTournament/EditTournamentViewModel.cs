@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -30,7 +31,7 @@ public class EditTournamentViewModel : ViewModelBase
                 return _tournamentKinds;
             }
 
-            IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out IQueryable<Kind>? kinds);
+            IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out IEnumerable<Kind>? kinds);
             if (kinds != null)
             {
                 _tournamentKinds = new ObservableCollection<Kind>(kinds);
@@ -50,7 +51,7 @@ public class EditTournamentViewModel : ViewModelBase
             }
 
             IGetQueries.CreateInstance(EditTournamentContext)
-                       .GetSystems(out IQueryable<DataAccess.Entities.System>? systems);
+                       .GetSystems(out IEnumerable<DataAccess.Entities.System>? systems);
             if (systems != null)
             {
                 _tournamentSystems = new ObservableCollection<DataAccess.Entities.System>(systems);

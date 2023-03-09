@@ -6,7 +6,6 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
-             xmlns:local="clr-namespace:ChessTourManager.DataAccess.Entities;assembly=ChessTourManager.DataAccess"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
@@ -162,6 +161,33 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
+                    Header="Группа">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding Group.Identity}"
+                                VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                SelectedItem="{Binding Group,
+                                                   ValidatesOnExceptions=True}"
+                                ItemsSource="{Binding DataContext.GroupsAvailable,
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                SelectionChanged="Selector_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Text="{Binding GroupName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
                     Header="Год рождения">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -178,8 +204,7 @@
                                 ItemsSource="{Binding DataContext.BirthYears,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center">
-                            </ComboBox>
+                                VerticalContentAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

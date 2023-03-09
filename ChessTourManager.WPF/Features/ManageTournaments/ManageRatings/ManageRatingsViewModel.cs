@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
@@ -30,13 +31,13 @@ public class ManageRatingsViewModel : ViewModelBase
     {
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
-                                  TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                  out IQueryable<Player>? players);
+                                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                                    out IEnumerable<Player>? players);
 
         // Sort players descending by PointsCount, RatioSum1 and RatioSum2
-        IOrderedQueryable<Player>? playersSorted = players?.OrderByDescending(p => p.PointsCount)
-                                                           .ThenByDescending(p => p.RatioSum1)
-                                                           .ThenByDescending(p => p.RatioSum2);
+        IOrderedEnumerable<Player>? playersSorted = players?.OrderByDescending(p => p.PointsCount)
+                                                            .ThenByDescending(p => p.RatioSum1)
+                                                            .ThenByDescending(p => p.RatioSum2);
 
 
         if (playersSorted != null)

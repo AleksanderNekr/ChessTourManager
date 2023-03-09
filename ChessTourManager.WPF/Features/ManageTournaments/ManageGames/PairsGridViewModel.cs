@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Documents;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -12,42 +11,23 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
 public class PairsGridViewModel : ViewModelBase
 {
-    private Tournament? _tournament;
+    internal static readonly ChessTourContext PairsContext = new();
+
+    private int                         _currentTour;
+    private ObservableCollection<Game>? _pairs;
+    private ObservableCollection<Game>? _pairsForSelectedTour;
+    private int?                        _selectedTour;
+    private Tournament?                 _tournament;
 
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    public string ToursInfo
     {
-        _tournament = e.OpenedTournament;
-        UpdatePairs();
+        get { return $"Выбранный тур: {SelectedTour}, текущий: {CurrentTour}"; }
     }
-
-    private void UpdatePairs()
-    {
-        IGetQueries.CreateInstance(PairsContext)
-                   .TryGetGames(_tournament!.OrganizerId,
-                                _tournament.TournamentId,
-                                out IQueryable<Game>? games);
-
-        if (games is null)
-        {
-            return;
-        }
-
-        Pairs                = new ObservableCollection<Game>(games);
-        PairsForSelectedTour = new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == CurrentTour));
-    }
-
-    internal static readonly ChessTourContext PairsContext = new();
-
-    private int                         _currentTour;
-    private ObservableCollection<Game>? _pairs;
-    private int?                        _selectedTour;
-    private ObservableCollection<Game>? _pairsForSelectedTour;
-    public  string                      ToursInfo => $"Выбранный тур: {SelectedTour}, текущий: {CurrentTour}";
 
     public ObservableCollection<Game> Pairs
     {
@@ -127,5 +107,27 @@ public class PairsGridViewModel : ViewModelBase
             return _pairsForSelectedTour!;
         }
         set { SetField(ref _pairsForSelectedTour, value); }
+    }
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        _tournament = e.OpenedTournament;
+        UpdatePairs();
+    }
+
+    private void UpdatePairs()
+    {
+        IGetQueries.CreateInstance(PairsContext)
+                   .TryGetGames(_tournament!.OrganizerId,
+                                _tournament.TournamentId,
+                                out IEnumerable<Game>? games);
+
+        if (games is null)
+        {
+            return;
+        }
+
+        Pairs                = new ObservableCollection<Game>(games);
+        PairsForSelectedTour = new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == CurrentTour));
     }
 }

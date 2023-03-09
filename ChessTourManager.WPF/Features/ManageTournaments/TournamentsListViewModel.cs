@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -91,7 +91,7 @@ public class TournamentsListViewModel : ViewModelBase
 
         GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
-                                                         out IQueryable<Tournament>? tournamentsCollection);
+                                                         out IEnumerable<Tournament>? tournamentsCollection);
 
         switch (result)
         {

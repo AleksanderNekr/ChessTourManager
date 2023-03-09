@@ -9,6 +9,7 @@
         xmlns:manageTournaments="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments"
         xmlns:tree="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.Tree"
         xmlns:manageTeams="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams"
+        xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
         Title="MainWindow"
         MinHeight="700"
         MinWidth="520"
@@ -126,6 +127,10 @@
                     </TabItem>
                     <TabItem Header="Список команд">
                         <manageTeams:TeamsListControl />
+                    </TabItem>
+                    <TabItem
+                        Header="Список групп">
+                        <manageGroups:GroupsListControl />
                     </TabItem>
                     <TabItem Header="Список пар">
                         <manageGames:PairsGridControl />
