@@ -29,9 +29,6 @@ public class ManageGroupsViewModel : ViewModelBase
         DeleteGroupCommand                     =  new DeleteGroupCommand();
         EditGroupCommand                       =  new EditGroupCommand(this);
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        GroupAddedEvent.GroupAdded             += GroupAddedEvent_GroupAdded;
-        GroupChangedEvent.GroupChanged         += GroupChangedEvent_GroupChanged;
-        GroupDeletedEvent.GroupDeleted         += GroupDeletedEvent_GroupDeleted;
     }
 
     public ObservableCollection<Group> GroupsWithPlayers
@@ -78,6 +75,9 @@ public class ManageGroupsViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
+        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
         UpdateGroups();
     }
 

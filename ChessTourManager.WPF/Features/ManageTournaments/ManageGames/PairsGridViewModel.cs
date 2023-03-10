@@ -29,7 +29,6 @@ public class PairsGridViewModel : ViewModelBase
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        TourAddedEvent.TourAdded               += TourAddedEvent_TourAdded;
     }
 
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
@@ -141,6 +140,8 @@ public class PairsGridViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
+        TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
+
         _tournament = e.OpenedTournament;
         UpdatePairs();
         UpdateCurrentTour();

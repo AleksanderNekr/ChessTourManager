@@ -21,7 +21,7 @@
             FontWeight="DemiBold"
             FontSize="20"
             Padding="10"
-            Text="Рейтинг-лист после 1 тура" />
+            Text="{Binding Title, Mode=OneWay}" />
         <DataGrid
             Grid.Row="1"
             IsReadOnly="True"

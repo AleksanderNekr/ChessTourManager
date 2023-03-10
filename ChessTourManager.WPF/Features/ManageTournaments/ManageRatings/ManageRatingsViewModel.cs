@@ -7,14 +7,13 @@ using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.DeleteTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
@@ -27,25 +26,16 @@ public class ManageRatingsViewModel : ViewModelBase
     private static readonly ChessTourContext RatingsContext = PlayersViewModel.PlayersContext;
 
     private ObservableCollection<Player>? _playersSorted;
+    private string?                       _title;
 
     public ManageRatingsViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
+    }
 
-        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
-        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
-        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
-
-        TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
-        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
-
-        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
-        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
-        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
-
-        ResultChangedEvent.ResultChanged += ResultChangedEvent_ResultChanged;
+    private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs e)
+    {
+        Title = $"Рейтинг-лист после {e.TourNumber} тура";
     }
 
     private void ResultChangedEvent_ResultChanged(object? sender, ResultChangedEventArgs e)
@@ -68,22 +58,12 @@ public class ManageRatingsViewModel : ViewModelBase
         UpdateRating();
     }
 
-    private void GroupAddedEvent_GroupAdded(GroupAddedEventArgs e)
-    {
-        UpdateRating();
-    }
-
     private void TeamDeletedEvent_TeamDeleted(TeamDeletedEventArgs e)
     {
         UpdateRating();
     }
 
     private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
-    {
-        UpdateRating();
-    }
-
-    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
     {
         UpdateRating();
     }
@@ -105,20 +85,64 @@ public class ManageRatingsViewModel : ViewModelBase
 
     public ObservableCollection<Player>? PlayersSorted
     {
-        get { return _playersSorted; }
+        get
+        {
+            if (_playersSorted is null)
+            {
+                UpdateRating();
+            }
+
+            return _playersSorted;
+        }
         private set { SetField(ref _playersSorted, value); }
+    }
+
+    public string Title
+    {
+        get { return _title ?? string.Empty; }
+        private set { SetField(ref _title, value); }
     }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
         UpdateRating();
+
+        IGetQueries.CreateInstance(RatingsContext)
+                   .TryGetGames(LoginViewModel.CurrentUser!.UserId,
+                                TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                out IEnumerable<Game>? games);
+        // Get the number of the last tour.
+        int lastTourNumber = games?.Max(g => g.TourNumber) ?? 0;
+
+        Title = $"Рейтинг-лист после {lastTourNumber} тура";
+
+        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
+
+        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
+
+        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
+
+        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
+
+        ResultChangedEvent.ResultChanged += ResultChangedEvent_ResultChanged;
+
+        TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
     }
 
     private void UpdateRating()
     {
+        if (TournamentsListViewModel.SelectedTournament == null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
-                                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                                    TournamentsListViewModel.SelectedTournament.TournamentId,
                                                     out IEnumerable<Player>? players);
 
         // Sort players descending by PointsCount, RatioSum1 and RatioSum2.

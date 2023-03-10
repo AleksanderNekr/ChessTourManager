@@ -37,19 +37,6 @@ public class PlayersViewModel : ViewModelBase
     public PlayersViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
-
-        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
-        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
-        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
-
-        TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
-        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
-
-        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
-        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
-        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
     }
 
     public ObservableCollection<Player>? PlayersCollection
@@ -216,6 +203,19 @@ public class PlayersViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
+        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
+
+        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
+
+        TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
+
+        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
         UpdatePlayers();
     }
 
