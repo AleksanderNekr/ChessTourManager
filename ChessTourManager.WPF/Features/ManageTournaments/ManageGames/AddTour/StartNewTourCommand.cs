@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Models;
 using ChessTourManager.WPF.Helpers;
@@ -25,15 +27,23 @@ public class StartNewTourCommand : CommandBase
 
         foreach ((int, int) idPair in idPairs)
         {
-            IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
-                          .TryAddGamePair(out Game? game, idPair.Item1, idPair.Item2,
-                                          TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                          TournamentsListViewModel.SelectedTournament.OrganizerId,
-                                          RoundRobin.NewTourNumber);
-            if (game != null)
+            InsertResult result = IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+                                                .TryAddGamePair(out Game? game, idPair.Item1, idPair.Item2,
+                                                                TournamentsListViewModel.SelectedTournament!
+                                                                   .TournamentId,
+                                                                TournamentsListViewModel.SelectedTournament
+                                                                   .OrganizerId,
+                                                                RoundRobin.NewTourNumber);
+
+            if (result == InsertResult.Fail)
             {
-                GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game));
+                MessageBox.Show("Ошибка в веденных данных! Возможно пара с такими данными уже существует,"
+                              + " либо вы не заполнили важные данные", "Ошибка при добавлении пары",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
         }
 
         TourAddedEvent.OnTourAdded(this, new TourAddedEventArgs(RoundRobin.NewTourNumber));

@@ -29,6 +29,7 @@ public class RoundRobin : IRoundRobin
 
     private void ConfigureTours()
     {
+        PlayersIds.Sort();
         for (var tourNumber = 1; tourNumber <= PlayersIds.Count / 2; tourNumber++)
         {
             _pairsForTour.TryAdd(tourNumber, ConfigurePairs());
@@ -43,8 +44,6 @@ public class RoundRobin : IRoundRobin
 
     private HashSet<(int, int)> ConfigurePairs()
     {
-        PlayersIds.Sort();
-
         IEnumerable<int> whiteIds = PlayersIds.Take(PlayersIds.Count / 2);
         IEnumerable<int> blackIds = PlayersIds.Skip(PlayersIds.Count / 2).Reverse();
 
@@ -56,10 +55,20 @@ public class RoundRobin : IRoundRobin
     public IEnumerable<(int, int)> StartNewTour(int currentTour)
     {
         NewTourNumber = currentTour + 1;
-        return _pairsForTour[currentTour + 1].Where(p => !GamesHistory.Contains(p));
+        int tour = NewTourNumber;
+        foreach ((int, int) pair in _pairsForTour[tour])
+        {
+            if (GamesHistory.Contains(pair))
+            {
+                tour++;
+                continue;
+            }
+
+            yield return pair;
+        }
     }
 
     public HashSet<(int, int)> GamesHistory { get; }
 
-    public int NewTourNumber { get; set; }
+    public int NewTourNumber { get; private set; }
 }

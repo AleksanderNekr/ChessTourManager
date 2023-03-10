@@ -244,16 +244,11 @@ internal class InsertQueries : IInsertQueries
         }
         catch (DbUpdateException)
         {
-            MessageBox.Show("Ошибка в веденных данных! Возможно пара с такими данными уже существует,"
-                          + " либо вы не заполнили важные данные", "Ошибка при добавлении пары",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
             game = null;
             return InsertResult.Fail;
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении пары",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
             game = null;
             return InsertResult.Fail;
         }
