@@ -53,7 +53,8 @@ public class Game
         {
             if (IsPlayed)
             {
-                return _result ??= WhitePoints + " – " + BlackPoints;
+                return _result ??= WhitePoints.ToString(CultureInfo.InvariantCulture) + " – "
+                                 + BlackPoints.ToString(CultureInfo.InvariantCulture);
             }
 
             if (Math.Abs(WhitePoints - 1) < 0.0001)
