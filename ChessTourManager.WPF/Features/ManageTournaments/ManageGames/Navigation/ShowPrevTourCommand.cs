@@ -1,6 +1,6 @@
 ﻿using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.Navigation;
 
 public class ShowPrevTourCommand : CommandBase
 {
