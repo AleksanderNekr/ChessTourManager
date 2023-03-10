@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
+using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
@@ -18,5 +20,7 @@ public partial class PairsGridControl : UserControl
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)
     {
         PairsGridViewModel.PairsContext.SaveChanges();
+
+        ResultChangedEvent.OnResultChanged(sender, new ResultChangedEventArgs(DataGrid.CurrentCell.Item as Game));
     }
 }

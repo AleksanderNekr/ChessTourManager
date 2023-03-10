@@ -77,9 +77,6 @@ public class Game
                 return;
             }
 
-            // Restore old values.
-            RestoreOldValues();
-
             string[] res = value.Split(" – ");
             switch (res[0])
             {

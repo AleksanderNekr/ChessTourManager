@@ -6,6 +6,7 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
@@ -43,6 +44,13 @@ public class ManageRatingsViewModel : ViewModelBase
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
         GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
+
+        ResultChangedEvent.ResultChanged += ResultChangedEvent_ResultChanged;
+    }
+
+    private void ResultChangedEvent_ResultChanged(object? sender, ResultChangedEventArgs e)
+    {
+        UpdateRating();
     }
 
     private void PlayerEditedEvent_PlayerEdited(PlayerEditedEventArgs e)

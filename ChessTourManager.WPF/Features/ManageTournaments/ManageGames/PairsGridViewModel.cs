@@ -15,7 +15,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
 public class PairsGridViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext PairsContext = new();
+    internal static readonly ChessTourContext PairsContext = PlayersViewModel.PlayersContext;
 
     private int                         _currentTour;
     private ObservableCollection<Game>? _pairs;
