@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 
 public class GameAddedEvent
 {

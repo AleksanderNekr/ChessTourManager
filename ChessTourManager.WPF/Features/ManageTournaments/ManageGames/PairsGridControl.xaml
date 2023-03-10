@@ -41,6 +41,8 @@
             </StackPanel>
             <DataGrid
                 Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
                 CanUserAddRows="False"
                 CanUserSortColumns="False"
                 CanUserReorderColumns="False"

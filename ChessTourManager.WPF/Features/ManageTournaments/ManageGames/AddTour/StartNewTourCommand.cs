@@ -4,7 +4,7 @@ using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Models;
 using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 
 public class StartNewTourCommand : CommandBase
 {
@@ -35,5 +35,7 @@ public class StartNewTourCommand : CommandBase
                 GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game));
             }
         }
+
+        TourAddedEvent.OnTourAdded(this, new TourAddedEventArgs(RoundRobin.NewTourNumber));
     }
 }

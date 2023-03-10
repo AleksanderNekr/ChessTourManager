@@ -5,6 +5,7 @@ using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
@@ -26,15 +27,13 @@ public class PairsGridViewModel : ViewModelBase
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        GameAddedEvent.GameAdded               += GameAddedEvent_GameAdded;
+        TourAddedEvent.TourAdded               += GameAddedEvent_GameAdded;
     }
 
-    private void GameAddedEvent_GameAdded(object sender, GameAddedEventArgs e)
+    private void GameAddedEvent_GameAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
     {
-        if (e.Game.TournamentId == _tournament?.TournamentId)
-        {
-            UpdatePairs();
-        }
+        UpdatePairs();
+        CurrentTour = tourAddedEventArgs.TourNumber;
     }
 
     public string ToursInfo
