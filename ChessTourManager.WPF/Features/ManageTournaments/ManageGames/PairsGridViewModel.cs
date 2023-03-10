@@ -109,6 +109,12 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdateCurrentTour()
     {
+        if (Pairs.Count == 0)
+        {
+            SetField(ref _currentTour, 0);
+            return;
+        }
+
         int maxTour = Pairs.Max(p => p.TourNumber);
         SetField(ref _currentTour, maxTour);
     }

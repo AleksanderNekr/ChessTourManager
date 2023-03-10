@@ -111,10 +111,19 @@ public class ManageRatingsViewModel : ViewModelBase
                    .TryGetGames(LoginViewModel.CurrentUser!.UserId,
                                 TournamentsListViewModel.SelectedTournament!.TournamentId,
                                 out IEnumerable<Game>? games);
-        // Get the number of the last tour.
-        int lastTourNumber = games?.Max(g => g.TourNumber) ?? 0;
 
-        Title = $"Рейтинг-лист после {lastTourNumber} тура";
+        IEnumerable<Game>? gamesEnum = games as Game[] ?? games.ToArray();
+        if (games != null && !gamesEnum.Any())
+        {
+            Title = "Рейтинг-лист";
+        }
+        else
+        {
+            // Get the number of the last tour.
+            int lastTourNumber = gamesEnum?.Max(g => g.TourNumber) ?? 0;
+
+            Title = $"Рейтинг-лист после {lastTourNumber} тура";
+        }
 
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
 
