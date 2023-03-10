@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
@@ -27,8 +29,15 @@ public partial class PlayersGridControl
         PlayersViewModel.TrySavePlayers();
     }
 
-    private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void Team_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        PlayersViewModel.TrySavePlayers();
         TeamChangedEvent.OnTeamChanged(new TeamChangedEventArgs(null!));
+    }
+
+    private void Group_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        PlayersViewModel.TrySavePlayers();
+        GroupChangedEvent.OnGroupChanged(new GroupChangedEventArgs(null!));
     }
 }

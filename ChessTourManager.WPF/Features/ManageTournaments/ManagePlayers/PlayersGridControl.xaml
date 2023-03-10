@@ -39,7 +39,7 @@
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
             dgx:Tools.ForceCommitOnLostFocus="True"
-            SelectedCellsChanged="DataGrid_CurrentCellChanged"
+            CurrentCellChanged="DataGrid_CurrentCellChanged"
             LoadingRow="DataGrid_LoadingRow"
             LostFocus="DataGrid_LostFocus">
             <DataGrid.CellStyle>
@@ -149,7 +149,7 @@
                                                    ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.TeamsAvailable,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                SelectionChanged="Selector_SelectionChanged">
+                                SelectionChanged="Team_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -176,7 +176,7 @@
                                                    ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.GroupsAvailable,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                SelectionChanged="Selector_SelectionChanged">
+                                SelectionChanged="Group_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock

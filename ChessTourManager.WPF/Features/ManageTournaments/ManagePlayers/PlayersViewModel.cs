@@ -8,11 +8,13 @@ using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
+using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.DeleteTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
@@ -35,14 +37,19 @@ public class PlayersViewModel : ViewModelBase
     public PlayersViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        PlayerAddedEvent.PlayerAdded           += PlayerAddedEvent_PlayerAdded;
-        PlayerDeletedEvent.PlayerDeleted       += PlayerDeletedEvent_PlayerDeleted;
-        TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamChanged           += TeamChangedEvent_TeamChanged;
-        TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
-        GroupAddedEvent.GroupAdded             += GroupAddedEvent_GroupAdded;
-        GroupChangedEvent.GroupChanged         += GroupChangedEvent_GroupChanged;
-        GroupDeletedEvent.GroupDeleted         += GroupDeletedEvent_GroupDeleted;
+        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
+
+        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
+
+        TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
+
+        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
     }
 
     public ObservableCollection<Player>? PlayersCollection
@@ -111,6 +118,16 @@ public class PlayersViewModel : ViewModelBase
         set { SetField(ref _groupsAvailable, value); }
     }
 
+    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    {
+        UpdatePlayers();
+    }
+
+    private void PlayerEditedEvent_PlayerEdited(PlayerEditedEventArgs e)
+    {
+        UpdatePlayers();
+    }
+
     private void GroupDeletedEvent_GroupDeleted(GroupDeletedEventArgs e)
     {
         UpdateGroups();
@@ -146,7 +163,14 @@ public class PlayersViewModel : ViewModelBase
     {
         try
         {
-            PlayersContext.SaveChanges();
+            PlayersContext.ChangeTracker.DetectChanges();
+
+            // If there are no changes, don't try to save.
+            if (PlayersContext.ChangeTracker.HasChanges())
+            {
+                PlayersContext.SaveChanges();
+                PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(null!));
+            }
         }
         catch (DbUpdateException)
         {
