@@ -221,22 +221,24 @@ internal class InsertQueries : IInsertQueries
         }
     }
 
-    public InsertResult TryAddGamePair(int whiteId, int blackId, int tournamentId, int organizerId, int tourNumber,
+    public InsertResult TryAddGamePair(out Game? game, int whiteId, int blackId, int tournamentId, int organizerId,
+                                       int tourNumber,
                                        int whitePointsResult = 0, int blackPointsResult = 0, bool isPlayed = false)
     {
         try
         {
-            _context.Games.Add(new Game
-                               {
-                                   WhiteId      = whiteId,
-                                   BlackId      = blackId,
-                                   TournamentId = tournamentId,
-                                   OrganizerId  = organizerId,
-                                   TourNumber   = tourNumber,
-                                   WhitePoints  = whitePointsResult,
-                                   BlackPoints  = blackPointsResult,
-                                   IsPlayed     = isPlayed
-                               });
+            game = new Game
+                   {
+                       WhiteId      = whiteId,
+                       BlackId      = blackId,
+                       TournamentId = tournamentId,
+                       OrganizerId  = organizerId,
+                       TourNumber   = tourNumber,
+                       WhitePoints  = whitePointsResult,
+                       BlackPoints  = blackPointsResult,
+                       IsPlayed     = isPlayed
+                   };
+            _context.Games.Add(game);
             _context.SaveChanges();
             return InsertResult.Success;
         }
@@ -245,12 +247,14 @@ internal class InsertQueries : IInsertQueries
             MessageBox.Show("Ошибка в веденных данных! Возможно пара с такими данными уже существует,"
                           + " либо вы не заполнили важные данные", "Ошибка при добавлении пары",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            game = null;
             return InsertResult.Fail;
         }
         catch (Exception e)
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при добавлении пары",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            game = null;
             return InsertResult.Fail;
         }
     }

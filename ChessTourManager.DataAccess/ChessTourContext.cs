@@ -4,13 +4,14 @@ using System.IO;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.TableViews;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
 namespace ChessTourManager.DataAccess;
 
 public class ChessTourContext : DbContext
 {
-    public DbSet<Game> Games { get; set; }
+    public DbSet<Game?> Games { get; set; }
 
     public DbSet<Group?> Groups { get; set; }
 

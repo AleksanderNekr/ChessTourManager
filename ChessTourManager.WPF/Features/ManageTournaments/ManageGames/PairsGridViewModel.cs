@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -18,10 +19,22 @@ public class PairsGridViewModel : ViewModelBase
     private ObservableCollection<Game>? _pairsForSelectedTour;
     private int?                        _selectedTour;
     private Tournament?                 _tournament;
+    private StartNewTourCommand?        _startNewTour;
+    private ShowPrevTourCommand?        _showPrevTour;
+    private ShowNextTourCommand?        _showNextTour;
 
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        GameAddedEvent.GameAdded               += GameAddedEvent_GameAdded;
+    }
+
+    private void GameAddedEvent_GameAdded(object sender, GameAddedEventArgs e)
+    {
+        if (e.Game.TournamentId == _tournament?.TournamentId)
+        {
+            UpdatePairs();
+        }
     }
 
     public string ToursInfo
@@ -77,13 +90,11 @@ public class PairsGridViewModel : ViewModelBase
     {
         get
         {
-            if (Pairs.Count == 0)
+            if (Pairs.Count != 0)
             {
-                return 0;
+                Game currentPair = Pairs.Last();
+                SetField(ref _currentTour, currentPair.TourNumber);
             }
-
-            Game currentPair = Pairs.Last();
-            SetField(ref _currentTour, currentPair.TourNumber);
 
             return _currentTour;
         }
@@ -91,6 +102,8 @@ public class PairsGridViewModel : ViewModelBase
         {
             SetField(ref _currentTour, value);
             SelectedTour = _currentTour;
+            OnPropertyChanged(nameof(ToursInfo));
+            OnPropertyChanged(nameof(PairsForSelectedTour));
         }
     }
 
@@ -101,13 +114,17 @@ public class PairsGridViewModel : ViewModelBase
             if (_pairsForSelectedTour is null)
             {
                 SetField(ref _pairsForSelectedTour,
-                         new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == CurrentTour)));
+                         new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == SelectedTour)));
             }
 
             return _pairsForSelectedTour!;
         }
         set { SetField(ref _pairsForSelectedTour, value); }
     }
+
+    public ICommand StartNewTour => _startNewTour ??= new StartNewTourCommand(this);
+    public ICommand ShowPrevTour => _showPrevTour ??= new ShowPrevTourCommand(this);
+    public ICommand ShowNextTour => _showNextTour ??= new ShowNextTourCommand(this);
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {

@@ -6,73 +6,83 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:manageGames="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGames"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
              FontSize="14">
     <UserControl.DataContext>
         <manageGames:PairsGridViewModel />
     </UserControl.DataContext>
     <StackPanel>
-        <StackPanel
-            Orientation="Horizontal">
-            <TextBlock
-                Margin="2"
-                Padding="5,5,10,5"
-                Text="{Binding ToursInfo}" />
-            <Button
-                Content="Предыдущий"
-                VerticalAlignment="Center"
-                Margin="0,0,10,0" />
-            <Button
-                Content="Следующий"
-                VerticalAlignment="Center"
-                Margin="0,0,10,0" />
-            <Button
-                Content="Начать новый"
-                VerticalAlignment="Center"
-                Margin="0,0,10,0" />
-        </StackPanel>
-        <DataGrid
-            CanUserAddRows="False"
-            CanUserSortColumns="False"
-            CanUserReorderColumns="False"
-            AutoGenerateColumns="False"
-            ItemsSource="{Binding PairsForSelectedTour}"
-            CurrentCellChanged="DataGrid_CurrentCellChanged"
-            LoadingRow="DataGrid_LoadingRow">
-            <DataGrid.Columns>
-                <DataGridTextColumn
-                    IsReadOnly="True"
-                    Header="Белые"
-                    Binding="{Binding PlayerWhite.PlayerFullName}" />
-                <DataGridTextColumn
-                    IsReadOnly="True"
-                    Header="Очки"
-                    Binding="{Binding PlayerWhite.PointsCount}" />
-                <DataGridComboBoxColumn
-                    IsReadOnly="False"
-                    Header="Результат"
-                    SelectedValueBinding="{Binding Result}">
-                    <DataGridComboBoxColumn.ItemsSource>
-                        <x:Array
-                            Type="{x:Type system:String}">
-                            <system:String>1 – 0</system:String>
-                            <system:String>0 – 1</system:String>
-                            <system:String>0.5 – 0.5</system:String>
-                            <system:String>+ – -</system:String>
-                            <system:String>- – +</system:String>
-                            <system:String>0 – 0</system:String>
-                        </x:Array>
-                    </DataGridComboBoxColumn.ItemsSource>
-                </DataGridComboBoxColumn>
-                <DataGridTextColumn
-                    IsReadOnly="True"
-                    Header="Черные"
-                    Binding="{Binding PlayerBlack.PlayerFullName}" />
-                <DataGridTextColumn
-                    IsReadOnly="True"
-                    Header="Очки"
-                    Binding="{Binding PlayerBlack.PointsCount}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <TextBlock
+            Margin="2"
+            Padding="5,5,10,5"
+            Text="{Binding ToursInfo}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button
+                    Content="Начать новый"
+                    VerticalAlignment="Center"
+                    Margin="10"
+                    Command="{Binding StartNewTour}" />
+                <Button
+                    Content="Предыдущий"
+                    VerticalAlignment="Center"
+                    Margin="10"
+                    Command="{Binding ShowPrevTour}" />
+                <Button
+                    Content="Следующий"
+                    VerticalAlignment="Center"
+                    Margin="10"
+                    Command="{Binding ShowNextTour}" />
+            </StackPanel>
+            <DataGrid
+                Grid.Column="1"
+                CanUserAddRows="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="False"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding PairsForSelectedTour}"
+                CurrentCellChanged="DataGrid_CurrentCellChanged"
+                LoadingRow="DataGrid_LoadingRow">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        IsReadOnly="True"
+                        Header="Белые"
+                        Binding="{Binding PlayerWhite.PlayerFullName}" />
+                    <DataGridTextColumn
+                        IsReadOnly="True"
+                        Header="Очки"
+                        Binding="{Binding PlayerWhite.PointsCount}" />
+                    <DataGridComboBoxColumn
+                        IsReadOnly="False"
+                        Header="Результат"
+                        SelectedValueBinding="{Binding Result}">
+                        <DataGridComboBoxColumn.ItemsSource>
+                            <x:Array
+                                Type="{x:Type system:String}">
+                                <system:String>1 – 0</system:String>
+                                <system:String>0 – 1</system:String>
+                                <system:String>0.5 – 0.5</system:String>
+                                <system:String>+ – -</system:String>
+                                <system:String>- – +</system:String>
+                                <system:String>0 – 0</system:String>
+                            </x:Array>
+                        </DataGridComboBoxColumn.ItemsSource>
+                    </DataGridComboBoxColumn>
+                    <DataGridTextColumn
+                        IsReadOnly="True"
+                        Header="Черные"
+                        Binding="{Binding PlayerBlack.PlayerFullName}" />
+                    <DataGridTextColumn
+                        IsReadOnly="True"
+                        Header="Очки"
+                        Binding="{Binding PlayerBlack.PointsCount}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </StackPanel>
 </UserControl>

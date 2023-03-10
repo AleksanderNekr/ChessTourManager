@@ -61,7 +61,7 @@ public interface IInsertQueries
     /// <summary>
     ///     Добавление пары игроков в список пар тура.
     /// </summary>
-    public InsertResult TryAddGamePair(int  whiteId, int blackId, int tournamentId, int organizerId, int tourNumber,
+    public InsertResult TryAddGamePair(out Game? game, int  whiteId, int blackId, int tournamentId, int organizerId, int tourNumber,
                                        int  whitePointsResult = 0,
                                        int  blackPointsResult = 0,
                                        bool isPlayed          = false);
