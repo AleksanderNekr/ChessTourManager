@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGro
 
 public delegate void GroupDeletedHandler(GroupDeletedEventArgs e);
 
-public class GroupDeletedEvent
+public static class GroupDeletedEvent
 {
     public static event GroupDeletedHandler? GroupDeleted;
 

@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.DeleteTeam
 
 public delegate void TeamDeletedHandler(TeamDeletedEventArgs e);
 
-public class TeamDeletedEvent
+public static class TeamDeletedEvent
 {
     public static event TeamDeletedHandler? TeamDeleted;
 

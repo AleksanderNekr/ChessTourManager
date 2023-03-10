@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlay
 
 public delegate void PlayerEditedHandler(PlayerEditedEventArgs e);
 
-public class PlayerEditedEvent
+public static class PlayerEditedEvent
 {
     public static event PlayerEditedHandler? PlayerEdited;
 

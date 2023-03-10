@@ -2,7 +2,7 @@
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 
-public class TourAddedEvent
+public static class TourAddedEvent
 {
     public delegate void TourAddedEventHandler(object sender, TourAddedEventArgs e);
 

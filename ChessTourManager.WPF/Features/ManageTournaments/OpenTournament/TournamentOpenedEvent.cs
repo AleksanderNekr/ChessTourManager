@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
-public class TournamentOpenedEvent
+public static class TournamentOpenedEvent
 {
     /// <summary>
     ///     Delegate on handling TournamentOpenedEvent.
@@ -20,7 +20,7 @@ public class TournamentOpenedEvent
 
 public class TournamentOpenedEventArgs : EventArgs
 {
-    public Tournament OpenedTournament;
+    public readonly Tournament OpenedTournament;
 
     public TournamentOpenedEventArgs(Tournament openedTournament)
     {

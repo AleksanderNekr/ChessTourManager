@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup;
 
 public delegate void GroupAddedHandler(GroupAddedEventArgs e);
 
-public class GroupAddedEvent
+public static class GroupAddedEvent
 {
     public static event GroupAddedHandler? GroupAdded;
 

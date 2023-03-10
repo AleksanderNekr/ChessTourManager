@@ -1,7 +1,6 @@
-﻿using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
-using ChessTourManager.WPF.Helpers;
+﻿using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageTournaments;
+namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 
 public class StartEditTournamentCommand : CommandBase
 {

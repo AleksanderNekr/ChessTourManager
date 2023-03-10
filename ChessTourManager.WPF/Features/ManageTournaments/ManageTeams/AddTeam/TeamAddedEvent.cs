@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
 
 public delegate void TeamAddedHandler(TeamAddedEventArgs e);
 
-public class TeamAddedEvent
+public static class TeamAddedEvent
 {
     public static event TeamAddedHandler? TeamAdded;
 

@@ -5,7 +5,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup
 
 public delegate void GroupChangedHandler(GroupChangedEventArgs e);
 
-public class GroupChangedEvent
+public static class GroupChangedEvent
 {
     public static event GroupChangedHandler? GroupChanged;
 

@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 
-public class PlayerAddedEvent
+public static class PlayerAddedEvent
 {
     /// <summary>
     ///     Delegate on handling UserSuccessLogin event.

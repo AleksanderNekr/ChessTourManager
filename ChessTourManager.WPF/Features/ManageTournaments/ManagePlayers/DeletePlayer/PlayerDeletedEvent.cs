@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
 
-public class PlayerDeletedEvent
+public static class PlayerDeletedEvent
 {
     /// <summary>
     ///     Delegate on handling UserSuccessLogin event.
