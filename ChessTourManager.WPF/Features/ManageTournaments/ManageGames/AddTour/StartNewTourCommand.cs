@@ -3,7 +3,7 @@ using System.Windows;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
-using ChessTourManager.Domain.Models;
+using ChessTourManager.Domain.Algorithms;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;

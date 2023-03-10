@@ -2,7 +2,7 @@
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
-namespace ChessTourManager.Domain.Models;
+namespace ChessTourManager.Domain.Algorithms;
 
 public interface IRoundRobin
 {

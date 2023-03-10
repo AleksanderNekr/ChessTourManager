@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 
-namespace ChessTourManager.Domain.Models;
+namespace ChessTourManager.Domain.Algorithms;
 
 public class RoundRobin : IRoundRobin
 {
