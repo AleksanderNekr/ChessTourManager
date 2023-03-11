@@ -30,7 +30,13 @@ public class TournamentsListViewModel : ViewModelBase
         TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
         TournamentEditedEvent.TournamentEdited   += TournamentEditedEvent_TournamentEdited;
+        TournamentDeletedEvent.TournamentDeleted  += TournamentDeletedEvent_TournamentDeleted;
 
+        UpdateTournamentsList();
+    }
+
+    private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
+    {
         UpdateTournamentsList();
     }
 

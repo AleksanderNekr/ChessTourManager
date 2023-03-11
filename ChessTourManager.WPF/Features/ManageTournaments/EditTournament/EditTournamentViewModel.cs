@@ -13,7 +13,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 
 public class EditTournamentViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext            EditTournamentContext = new();
+    internal static readonly ChessTourContext            EditTournamentContext = TournamentsListViewModel.TournamentsListContext;
     private                  ApplyEditTournamentCommand? _applyEditTournamentCommand;
 
     private int _selectedMaxTeamPlayers = 4;

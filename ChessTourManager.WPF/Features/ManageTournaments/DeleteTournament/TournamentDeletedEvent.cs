@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
 
-public static class DeleteTournamentEvent
+public static class TournamentDeletedEvent
 {
     public delegate void DeleteTournamentHandler(DeleteTournamentEventArgs e);
 

@@ -5,13 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 public delegate void TeamChangedHandler(TeamChangedEventArgs e);
 
-public static class TeamChangedEvent
+public static class TeamEditedEvent
 {
-    public static event TeamChangedHandler? TeamChanged;
+    public static event TeamChangedHandler? TeamEdited;
 
     internal static void OnTeamChanged(TeamChangedEventArgs e)
     {
-        TeamChanged?.Invoke(e);
+        TeamEdited?.Invoke(e);
     }
 }
 

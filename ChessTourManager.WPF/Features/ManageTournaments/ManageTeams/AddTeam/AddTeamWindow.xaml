@@ -51,7 +51,6 @@
             Content="Добавить"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            IsDefault="True"
             Command="{Binding CompleteAddTeam}" />
     </Grid>
 </Window>

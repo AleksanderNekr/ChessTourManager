@@ -35,7 +35,7 @@ public class DeleteTournamentCommand : CommandBase
                 MessageBox.Show("Турнир успешно удален!", "Удаление турнира", MessageBoxButton.OK,
                                 MessageBoxImage.Information);
 
-                DeleteTournamentEvent.OnTournamentDeleted(new DeleteTournamentEventArgs(tournament));
+                TournamentDeletedEvent.OnTournamentDeleted(new DeleteTournamentEventArgs(tournament));
             }
         }
     }

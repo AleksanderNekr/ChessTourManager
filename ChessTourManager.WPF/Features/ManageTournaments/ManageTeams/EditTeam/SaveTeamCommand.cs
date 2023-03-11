@@ -39,7 +39,7 @@ public class SaveTeamCommand : CommandBase
         ManageTeamsViewModel.TeamsContext.Teams.Update(_editTeamViewModel.Team);
         ManageTeamsViewModel.TeamsContext.SaveChanges();
 
-        TeamChangedEvent.OnTeamChanged(new TeamChangedEventArgs(_editTeamViewModel.Team));
+        TeamEditedEvent.OnTeamChanged(new TeamChangedEventArgs(_editTeamViewModel.Team));
 
         MessageBox.Show("Изменения в команде успешно сохранены!", "Сохранение изменений",
                         MessageBoxButton.OK, MessageBoxImage.Information);

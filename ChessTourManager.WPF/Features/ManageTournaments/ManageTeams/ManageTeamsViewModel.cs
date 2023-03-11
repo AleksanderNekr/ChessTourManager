@@ -28,6 +28,9 @@ public class ManageTeamsViewModel : ViewModelBase
         DeleteTeamCommand                      =  new DeleteTeamCommand();
         EditTeamCommand                        =  new EditTeamCommand();
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
+        TeamEditedEvent.TeamEdited           += TeamEditedEventTeamEdited;
+        TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
     }
 
     public ObservableCollection<Team> TeamsWithPlayers
@@ -56,7 +59,7 @@ public class ManageTeamsViewModel : ViewModelBase
         UpdateTeams();
     }
 
-    private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
     {
         UpdateTeams();
     }
@@ -68,9 +71,6 @@ public class ManageTeamsViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
-        TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
-        TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
         UpdateTeams();
     }
 

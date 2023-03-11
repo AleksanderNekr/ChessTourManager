@@ -1,0 +1,19 @@
+﻿using System.Windows;
+using ChessTourManager.DataAccess.Entities;
+
+namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
+
+public partial class AddPlayerWindow : Window
+{
+    public AddPlayerWindow()
+    {
+        InitializeComponent();
+    }
+
+    public AddPlayerWindow(Team team)
+    {
+        InitializeComponent();
+        DataContext = new AddPlayerViewModel(team);
+    }
+}
+

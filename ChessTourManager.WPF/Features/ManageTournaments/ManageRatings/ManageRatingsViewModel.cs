@@ -63,7 +63,7 @@ public class ManageRatingsViewModel : ViewModelBase
         UpdateRating();
     }
 
-    private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
     {
         UpdateRating();
     }
@@ -131,7 +131,7 @@ public class ManageRatingsViewModel : ViewModelBase
         PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
         PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
 
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
 
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;

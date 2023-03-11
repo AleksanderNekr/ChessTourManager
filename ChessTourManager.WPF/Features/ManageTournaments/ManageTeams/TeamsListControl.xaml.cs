@@ -8,10 +8,10 @@ public partial class TeamsListControl : UserControl
     public TeamsListControl()
     {
         InitializeComponent();
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
     }
 
-    private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
     {
         // Update tree view
         TreeView.Items.Refresh();

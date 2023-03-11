@@ -135,7 +135,7 @@ public class PlayersViewModel : ViewModelBase
         UpdateTeams();
     }
 
-    private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
     {
         UpdateTeams();
     }
@@ -210,7 +210,7 @@ public class PlayersViewModel : ViewModelBase
         PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
 
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamChanged += TeamChangedEvent_TeamChanged;
+        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
 
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;

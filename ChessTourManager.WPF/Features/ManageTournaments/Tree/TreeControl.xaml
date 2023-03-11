@@ -10,26 +10,86 @@
     <UserControl.DataContext>
         <tree:TreeViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ContextMenu x:Key="TournamentContextMenu">
+            <MenuItem
+                Header="Добавить турнир"
+                Click="AddTournamentMenuItem_OnClick" />
+            <MenuItem
+                Header="Добавить команду"
+                Click="AddTeamMenuItem_OnClick" />
+            <MenuItem
+                Header="Редактировать турнир"
+                Click="EditTournamentMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить турнир"
+                Click="DeleteTournamentMenuItem_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="TeamContextMenu">
+            <MenuItem
+                Header="Добавить игрока"
+                Click="AddPlayerMenuItem_OnClick" />
+            <MenuItem
+                Header="Редактировать команду"
+                Click="EditTeamMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить команду"
+                Click="DeleteTeamMenuItem_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="PlayerContextMenu">
+            <MenuItem
+                Header="Редактировать игрока"
+                Click="EditPlayerMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить игрока" />
+        </ContextMenu>
+    </UserControl.Resources>
     <Grid>
         <TreeView
-            ItemsSource="{Binding TournamentsRoot}">
+            x:Name="TreeView"
+            ItemsSource="{Binding TournamentsRoot}"
+            PreviewMouseRightButtonUp="TreeView_OnPreviewMouseRightButtonUp">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="ContextMenu"
+                            Value="{StaticResource TournamentContextMenu}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
             <TreeView.Resources>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Tournament}"
                     ItemsSource="{Binding Teams}">
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="ContextMenu"
+                                    Value="{StaticResource TeamContextMenu}" />
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
                     <TextBlock
                         Text="{Binding TournamentName}" />
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Team}"
                     ItemsSource="{Binding Players}">
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="ContextMenu"
+                                    Value="{StaticResource PlayerContextMenu}" />
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
                     <TextBlock
                         Text="{Binding TeamName}" />
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate
                     DataType="{x:Type entities:Player}">
-                    <TextBox
-                        Text="{Binding PlayerLastName}" />
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Text="{Binding PlayerFullName}"
+                            Margin="0,0,10,0" />
+                        <TextBlock
+                            Text="{Binding Gender}" />
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>

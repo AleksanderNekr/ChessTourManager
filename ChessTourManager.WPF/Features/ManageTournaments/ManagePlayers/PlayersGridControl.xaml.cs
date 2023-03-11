@@ -32,7 +32,7 @@ public partial class PlayersGridControl
     private void Team_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         PlayersViewModel.TrySavePlayers();
-        TeamChangedEvent.OnTeamChanged(new TeamChangedEventArgs(null!));
+        TeamEditedEvent.OnTeamChanged(new TeamChangedEventArgs(null!));
     }
 
     private void Group_SelectionChanged(object sender, SelectionChangedEventArgs e)
