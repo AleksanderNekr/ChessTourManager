@@ -33,10 +33,9 @@ public class EditTeamViewModel : ViewModelBase, IValidatableObject
         set { SetField(ref _name, value); }
     }
 
-    [MaxLength(3)]
     public string Attribute
     {
-        get { return _attribute ??= Team?.TeamAttribute ?? string.Empty; }
+        get { return _attribute ??= Team?.TeamAttribute ?? "---"; }
         set { SetField(ref _attribute, value); }
     }
 

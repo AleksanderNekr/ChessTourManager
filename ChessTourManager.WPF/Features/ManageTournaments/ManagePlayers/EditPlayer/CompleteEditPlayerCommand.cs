@@ -31,8 +31,8 @@ public class CompleteEditPlayerCommand : CommandBase
             return;
         }
 
-        _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName;
-        _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName;
+        _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName.Trim();
+        _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName.Trim();
         _editPlayerViewModel.Player.Gender          = _editPlayerViewModel.Gender;
 
         PlayersViewModel.PlayersContext.Players.Update(_editPlayerViewModel.Player);

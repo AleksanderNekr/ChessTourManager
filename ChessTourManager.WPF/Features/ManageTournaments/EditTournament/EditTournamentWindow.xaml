@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.EditTournament"
+        xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         mc:Ignorable="d"
         Title="EditTournamentWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -102,8 +103,18 @@
                     Width="280"
                     Text="Название турнира" />
                 <TextBox
-                    MinWidth="200"
-                    Text="{Binding TournamentNameText}" />
+                    x:Name="TournamentNameTextBox"
+                    MinWidth="200">
+                    <TextBox.Text>
+                        <Binding
+                            Path="TournamentNameText"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
@@ -112,8 +123,18 @@
                     Width="280"
                     Text="Место проведения" />
                 <TextBox
-                    MinWidth="200"
-                    Text="{Binding TournamentPlaceText}" />
+                    x:Name="TournamentPlaceTextBox"
+                    MinWidth="200">
+                    <TextBox.Text>
+                        <Binding
+                            Path="TournamentPlaceText"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
@@ -150,8 +171,18 @@
                     Width="280"
                     Text="Название организации" />
                 <TextBox
-                    MinWidth="200"
-                    Text="{Binding OrgNameText}" />
+                    x:Name="OrgNameTextBox"
+                    MinWidth="200">
+                    <TextBox.Text>
+                        <Binding
+                            Path="OrgNameText"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Margin="5"
@@ -186,7 +217,36 @@
                 HorizontalAlignment="Center"
                 Width="100"
                 Content="Подтвердить изменения"
-                Command="{Binding ApplyEditTournamentCommand}" />
+                Command="{Binding ApplyEditTournamentCommand}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding ElementName=TournamentNameTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=TournamentPlaceTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=OrgNameTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

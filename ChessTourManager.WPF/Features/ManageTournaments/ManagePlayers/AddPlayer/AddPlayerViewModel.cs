@@ -25,13 +25,13 @@ public class AddPlayerViewModel : ViewModelBase
 
     public string PlayerFirstName
     {
-        get { return _playerFirstName ?? string.Empty; }
+        get { return _playerFirstName ?? "Введите имя"; }
         set { SetField(ref _playerFirstName, value); }
     }
 
     public string PlayerLastName
     {
-        get { return _playerLastName ?? string.Empty; }
+        get { return _playerLastName ?? "Введите фамилию"; }
         set { SetField(ref _playerLastName, value); }
     }
 

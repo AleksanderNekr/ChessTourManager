@@ -18,7 +18,7 @@ public class ManageTeamsViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext TeamsContext = PlayersViewModel.PlayersContext;
     private                  AddTeamCommand?  _addTeamCommand;
-    private                  string           _teamName;
+    private                  string?          _teamName;
 
     private ObservableCollection<Team> _teamsWithPlayers;
 
@@ -46,7 +46,7 @@ public class ManageTeamsViewModel : ViewModelBase
 
     public string TeamName
     {
-        get { return _teamName; }
+        get { return _teamName ?? "Введите название команды"; }
         set { SetField(ref _teamName, value); }
     }
 

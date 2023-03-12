@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         mc:Ignorable="d"
         Title="EditPlayerWindow" Height="250" Width="400">
     <Window.DataContext>
@@ -49,8 +50,16 @@
                     FontSize="14"
                     Text="Фамилия" />
                 <TextBox
-                    Text="{Binding PlayerLastName}"
-                    MinWidth="100" />
+                    x:Name="LastNameTextBox"
+                    MinWidth="100">
+                    <TextBox.Text>
+                        <Binding Path="PlayerLastName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Grid.Row="1"
@@ -63,8 +72,16 @@
                     FontSize="14"
                     Text="Имя" />
                 <TextBox
-                    Text="{Binding PlayerFirstName}"
-                    MinWidth="100" />
+                    x:Name="FirstNameTextBox"
+                    MinWidth="100">
+                    <TextBox.Text>
+                        <Binding Path="PlayerFirstName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
 
             <StackPanel
@@ -97,7 +114,29 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Content="Сохранить"
-                Command="{Binding CompleteEditPlayerCommand}" />
+                Command="{Binding CompleteEditPlayerCommand}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding ElementName=LastNameTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=FirstNameTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Window>

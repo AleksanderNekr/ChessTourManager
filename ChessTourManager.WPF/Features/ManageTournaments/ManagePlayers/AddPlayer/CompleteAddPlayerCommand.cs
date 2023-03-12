@@ -18,9 +18,12 @@ public class CompleteAddPlayerCommand : CommandBase
     public override void Execute(object? parameter)
     {
         IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
-                      .TryAddPlayer(out Player? player, TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                    LoginViewModel.CurrentUser!.UserId, _addPlayerViewModel.PlayerLastName,
-                                    _addPlayerViewModel.PlayerFirstName, gender:_addPlayerViewModel.Gender,
+                      .TryAddPlayer(out Player? player,
+                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                    LoginViewModel.CurrentUser!.UserId,
+                                    _addPlayerViewModel.PlayerLastName.Trim(),
+                                    _addPlayerViewModel.PlayerFirstName.Trim(),
+                                    gender: _addPlayerViewModel.Gender,
                                     teamId: _addPlayerViewModel.Team.TeamId);
 
 

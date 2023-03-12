@@ -4,9 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:manageTeams="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams"
+        xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         mc:Ignorable="d"
         Height="200"
-        Width="300"
+        Width="400"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <manageTeams:ManageTeamsViewModel />
@@ -37,12 +38,20 @@
                 FontSize="14"
                 Text="Название команды:" />
             <TextBox
+                x:Name="TeamNameTextBox"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontWeight="SemiBold"
                 FontSize="14"
-                MinWidth="100"
-                Text="{Binding TeamName}" />
+                MinWidth="100">
+                <TextBox.Text>
+                    <Binding Path="TeamName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:TextValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
         <Button
             Grid.Row="3"
@@ -51,6 +60,20 @@
             Content="Добавить"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Command="{Binding CompleteAddTeam}" />
+            Command="{Binding CompleteAddTeam}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ElementName=TeamNameTextBox, Path=(Validation.HasError)}"
+                            Value="True">
+                            <Setter
+                                Property="IsEnabled"
+                                Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

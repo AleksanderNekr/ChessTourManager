@@ -28,19 +28,19 @@ public class CreateTournamentCommand : CommandBase
                              .TryAddTournament(
                                                out Tournament? tournament,
                                                LoginViewModel.CurrentUser.UserId,
-                                               _createViewModel.TournamentNameText,
+                                               _createViewModel.TournamentNameText.Trim(),
                                                _createViewModel.SelectedTournamentSystem
                                                                .SystemId,
                                                _createViewModel.SelectedTournamentKind
                                                                .KindId,
                                                _createViewModel
                                                   .SelectedTournamentRoundsCount,
-                                               _createViewModel.TournamentPlaceText,
+                                               _createViewModel.TournamentPlaceText.Trim(),
                                                DateOnly.FromDateTime(_createViewModel.SelectedDate),
                                                _createViewModel.SelectedTime,
                                                _createViewModel.SelectedDurationHours,
                                                _createViewModel.SelectedMaxTeamPlayers,
-                                               _createViewModel.OrgNameText,
+                                               _createViewModel.OrgNameText.Trim(),
                                                _createViewModel.IsMixedGroupsAllowed
                                               );
         if (result == InsertResult.Success)

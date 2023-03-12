@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:editTeam="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam"
+        xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         mc:Ignorable="d"
         Title="EditTeamWindow"
         Height="250" Width="300"
@@ -50,8 +51,16 @@
                     FontSize="14"
                     Text="Название" />
                 <TextBox
-                    Text="{Binding Name}"
-                    MinWidth="100" />
+                    x:Name="NameTextBox"
+                    MinWidth="100">
+                    <TextBox.Text>
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:TextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Grid.Row="1"
@@ -64,8 +73,16 @@
                     FontSize="14"
                     Text="Атрибут" />
                 <TextBox
-                    Text="{Binding Attribute}"
-                    MinWidth="100" />
+                    x:Name="AttributeTextBox"
+                    MinWidth="100">
+                    <TextBox.Text>
+                        <Binding Path="Attribute" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules:AttributeValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <!-- Is active -->
             <StackPanel
@@ -87,7 +104,29 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Content="Сохранить"
-                Command="{Binding SaveCommand}" />
+                Command="{Binding SaveCommand}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding ElementName=NameTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=AttributeTextBox, Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Window>
