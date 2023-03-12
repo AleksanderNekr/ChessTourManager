@@ -65,7 +65,7 @@ public class PlayersViewModel : ViewModelBase
 
     public ICommand DeletePlayerCommand
     {
-        get { return _deletePlayerCommand ??= new DeletePlayerCommand(this); }
+        get { return _deletePlayerCommand ??= new DeletePlayerCommand(); }
     }
 
     public ObservableCollection<Team> TeamsAvailable

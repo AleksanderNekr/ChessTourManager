@@ -41,12 +41,12 @@
                 Header="Редактировать игрока"
                 Click="EditPlayerMenuItem_OnClick" />
             <MenuItem
-                Header="Удалить игрока" />
+                Header="Удалить игрока"
+                Click="DeletePlayerMenuItem_OnClick" />
         </ContextMenu>
     </UserControl.Resources>
     <Grid>
         <TreeView
-            x:Name="TreeView"
             ItemsSource="{Binding TournamentsRoot}"
             PreviewMouseRightButtonUp="TreeView_OnPreviewMouseRightButtonUp">
             <TreeView.ItemContainerStyle>

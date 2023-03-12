@@ -1,4 +1,5 @@
-﻿using ChessTourManager.DataAccess.Entities;
+﻿using System.Windows;
+using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Delete;
 using ChessTourManager.WPF.Helpers;
 
@@ -6,13 +7,6 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePl
 
 public class DeletePlayerCommand : CommandBase
 {
-    private readonly PlayersViewModel _playersViewModel;
-
-    public DeletePlayerCommand(PlayersViewModel playersViewModel)
-    {
-        _playersViewModel = playersViewModel;
-    }
-
     public override void Execute(object? parameter)
     {
         if (parameter is not Player player)
@@ -25,6 +19,9 @@ public class DeletePlayerCommand : CommandBase
         if (response == DeleteResult.Success)
         {
             PlayerDeletedEvent.OnPlayerDeleted(new PlayerDeletedEventArgs(player));
+
+            MessageBox.Show("Игрок успешно удален!", "Удаление игрока",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

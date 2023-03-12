@@ -16,7 +16,7 @@ public class EditPlayerViewModel : ViewModelBase
     {
     }
 
-    public EditPlayerViewModel(Player player)
+    public EditPlayerViewModel(Player? player)
     {
         Player          = player;
         PlayerLastName  = Player.PlayerLastName;

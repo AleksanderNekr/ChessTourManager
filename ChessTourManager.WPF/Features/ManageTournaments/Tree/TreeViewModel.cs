@@ -20,7 +20,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
 public class TreeViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
+    internal static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
 
     private ObservableCollection<Tournament>? _tournaments;
     private Tournament?                       _selectedTournament;
@@ -109,13 +109,13 @@ public class TreeViewModel : ViewModelBase
         set { SetField(ref _selectedTournament, value); }
     }
 
-    public Team SelectedTeam
+    public Team? SelectedTeam
     {
         get { return _selectedTeam ??= new Team(); }
         set { SetField(ref _selectedTeam, value); }
     }
 
-    public Player SelectedPlayer
+    public Player? SelectedPlayer
     {
         get { return _selectedPlayer ??= new Player(); }
         set { SetField(ref _selectedPlayer, value); }

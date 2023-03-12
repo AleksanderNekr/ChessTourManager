@@ -11,7 +11,7 @@ public partial class EditPlayerWindow : Window
     }
 
 
-    public EditPlayerWindow(Player player)
+    public EditPlayerWindow(Player? player)
     {
         InitializeComponent();
         DataContext = new EditPlayerViewModel(player);

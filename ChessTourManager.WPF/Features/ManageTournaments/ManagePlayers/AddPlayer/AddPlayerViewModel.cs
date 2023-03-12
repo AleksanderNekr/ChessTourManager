@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Windows.Input;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Helpers;
 
@@ -11,9 +12,9 @@ public class AddPlayerViewModel : ViewModelBase
     private CompleteAddPlayerCommand? _completeAddPlayerCommand;
     private char?                     _gender;
 
-    public Team Team { get; }
+    public Team? Team { get; }
 
-    public AddPlayerViewModel(Team team)
+    public AddPlayerViewModel(Team? team)
     {
         Team = team;
     }
@@ -21,7 +22,6 @@ public class AddPlayerViewModel : ViewModelBase
     public AddPlayerViewModel()
     {
     }
-
 
     public string PlayerFirstName
     {

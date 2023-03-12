@@ -49,7 +49,8 @@
                     FontSize="14"
                     Text="Фамилия" />
                 <TextBox
-                    Text="{Binding PlayerLastName}"
+                    Text="{Binding PlayerLastName,
+                        UpdateSourceTrigger=PropertyChanged}"
                     MinWidth="100" />
             </StackPanel>
             <StackPanel
@@ -63,7 +64,8 @@
                     FontSize="14"
                     Text="Имя" />
                 <TextBox
-                    Text="{Binding PlayerFirstName}"
+                    Text="{Binding PlayerFirstName,
+                        UpdateSourceTrigger=PropertyChanged}"
                     MinWidth="100" />
             </StackPanel>
 
