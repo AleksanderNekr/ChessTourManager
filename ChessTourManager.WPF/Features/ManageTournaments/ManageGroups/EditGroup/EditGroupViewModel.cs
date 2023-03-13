@@ -7,7 +7,7 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 
-public class EditGroupViewModel : ViewModelBase, IValidatableObject
+public class EditGroupViewModel : ViewModelBase
 {
     private string? _groupIdentity;
     private string? _groupName;
@@ -38,26 +38,5 @@ public class EditGroupViewModel : ViewModelBase, IValidatableObject
     {
         get { return _groupIdentity ??= Group?.Identity ?? string.Empty; }
         set { SetField(ref _groupIdentity, value); }
-    }
-
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-    {
-        if (string.IsNullOrWhiteSpace(GroupName))
-        {
-            yield return new ValidationResult("Название группы обязательно!", new[] { nameof(GroupName) });
-        }
-
-        if (string.IsNullOrWhiteSpace(GroupName))
-        {
-            yield return new ValidationResult("Название группы обязательно!", new[] { nameof(GroupName) });
-        }
-
-        // Check if the group name is unique
-        if (ManageGroupsViewModel.GroupsContext.Groups.Any(t => Group != null && t.GroupName == GroupName
-                                                             && t.GroupId                    != Group.GroupId))
-        {
-            yield return new ValidationResult("Группа с таким названием уже существует!",
-                                              new[] { nameof(GroupName) });
-        }
     }
 }

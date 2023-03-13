@@ -7,7 +7,7 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
-public class EditTeamViewModel : ViewModelBase, IValidatableObject
+public class EditTeamViewModel : ViewModelBase
 {
     private string? _attribute;
     private bool?   _isActive;
@@ -46,19 +46,4 @@ public class EditTeamViewModel : ViewModelBase, IValidatableObject
     }
 
     public ICommand SaveCommand { get; }
-
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-    {
-        if (string.IsNullOrWhiteSpace(Name))
-        {
-            yield return new ValidationResult("Имя команды обязательно!", new[] { nameof(Name) });
-        }
-
-        // Check if the team name is unique
-        if (ManageTeamsViewModel.TeamsContext.Teams.Any(t => Team != null && t.TeamName == Name
-                                                                          && t.TeamId   != Team.TeamId))
-        {
-            yield return new ValidationResult("Команда с таким именем уже существует!", new[] { nameof(Name) });
-        }
-    }
 }

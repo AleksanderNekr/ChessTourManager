@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <ContextMenu x:Key="TournamentContextMenu">
             <MenuItem
+                Icon="{StaticResource New}"
                 Header="Добавить турнир"
                 Click="AddTournamentMenuItem_OnClick" />
             <MenuItem

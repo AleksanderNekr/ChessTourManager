@@ -114,6 +114,10 @@
                 </DataGrid>
             </TabItem>
             <TabItem
+                Header="Дерево турниров">
+                <tree:TreeControl />
+            </TabItem>
+            <TabItem
                 Header="{Binding SelectedTournamentObservable.TournamentName,
                                  FallbackValue=''}"
                 IsEnabled="{Binding IsOpened}"
@@ -139,10 +143,6 @@
                         <manageRatings:RatingGridControl />
                     </TabItem>
                 </TabControl>
-            </TabItem>
-            <TabItem
-                Header="Дерево турниров">
-                <tree:TreeControl />
             </TabItem>
         </TabControl>
     </Grid>

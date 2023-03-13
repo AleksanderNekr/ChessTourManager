@@ -1,0 +1,365 @@
+﻿@startuml Authentication
+
+skinparam classAttributeIconSize 0
+
+class Authentication.Login.AuthWindow {
+    +void AuthWindow()
+}
+
+
+class Authentication.Login.LoginViewModel {
+    +void LoginViewModel()
+    +string Login <<get/set>>
+    +string Password <<get/set>>
+    +ICommand LoginCommand <<get/set>>
+    +static User? CurrentUser <<get/set>>
+    #static ChessTourContext LoginContext
+}
+
+class Authentication.Register.RegisterWindow {
+    +void AuthWindow()
+}
+
+class Authentication.Register.RegisterViewModel {
+    +void RegisterViewModel()
+    +string Login <<get/set>>
+    +string Password <<get/set>>
+    +string PasswordConfirm <<get/set>>
+    +ICommand RegisterCommand <<get/set>>
+    #static ChessTourContext RegisterContext
+}
+
+abstract Helpers.ViewModelBase {
+    +void ViewModelBase()
+    +void OnPropertyChanged(string propertyName)
+    ~bool SetField<T>(ref T field, T value, string propertyName)
+}
+
+Authentication.Login.AuthWindow -u-|> Window
+Authentication.Login.LoginViewModel --|> ViewModelBase
+Authentication.Login.AuthWindow --* Authentication.Login.LoginViewModel
+
+Authentication.Register.RegisterWindow --|> Window
+Authentication.Register.RegisterViewModel --|> ViewModelBase
+Authentication.Register.RegisterWindow --* Authentication.Register.RegisterViewModel
+
+' Auth window can launch the register window
+Authentication.Login.AuthWindow o-l- Authentication.Register.RegisterWindow
+
+ViewModelBase --() INotifyPropertyChanged
+
+Authentication.Login.LoginViewModel --o DataAccess.ChessTourContext
+Authentication.Register.RegisterViewModel --o DataAccess.ChessTourContext
+
+@enduml
+
+@startuml ManageTournaments
+
+skinparam classAttributeIconSize 0
+
+skinparam ClassFontSize 16
+
+class ManageTournaments.TournamentsListViewModel {
+    +void TournamentsListViewModel()
+    +Tournament? SelectedTournament
+    +ObservableCollection<Tournament>? TournamentsCollection
+    +ICommand OpenTournamentCommand
+    +ICommand DeleteTournamentCommand
+    +ICommand StartEditTournamentCommand
+    #static ChessTourContext TournamentsListContext
+    +void UpdateTournamentsList()
+}
+
+class ManageTournaments.MainWindow {
+    +void MainWindow()
+}
+
+
+ManageTournaments.MainWindow -u-* ManageTournaments.TournamentsListViewModel
+
+
+class ManageTournaments.CreateTournament.CreateTournamentWindow {
+    +void CreateTournamentWindow()
+}
+
+class ManageTournaments.CreateTournament.CreateTournamentViewModel{
+ #ChessTourContext CreateTournamentContext
+ +ObservableCollection<Kind> TournamentKinds <<get/set>>
+    +ObservableCollection<System> TournamentSystems <<get/set>>
+    +ObservableCollection<int> TournamentRoundsCountItems <<get/set>>
+    +ObservableCollection<TimeOnly> TimeItems <<get/set>>
+    +ObservableCollection<int> DurationHoursItems <<get/set>>
+    +string OrgNameText <<get/set>>
+    +bool IsMixedGroupsAllowed <<get/set>>
+    +ICommand CreateTournamentCommand <<get/set>>
+    +Kind SelectedTournamentKind <<get/set>>
+    +System SelectedTournamentSystem <<get/set>>
+    +int SelectedTournamentRoundsCount <<get/set>>
+    +TimeOnly SelectedTime <<get/set>>
+    +int SelectedDurationHours <<get/set>>
+    +ObservableCollection<int> TeamPlayersCountItems <<get/set>>
+    +int SelectedMaxTeamPlayers <<get/set>>
+    +Visibility VisibleIfTeamsAllowed <<get/set>>
+    +void CreateTournamentViewModel()
+}
+
+ManageTournaments.CreateTournament.CreateTournamentWindow --* ManageTournaments.CreateTournament.CreateTournamentViewModel
+ManageTournaments.CreateTournament.CreateTournamentWindow -u-o ManageTournaments.MainWindow
+
+class ManageTournaments.EditTournament.EditTournamentWindow {
+    +void EditTournamentWindow()
+}
+
+class ManageTournaments.EditTournament.EditTournamentViewModel{
+    +void EditTournamentViewModel()
+    #ChessTourContext EditTournamentContext
+    +ObservableCollection<Kind> TournamentKinds <<get/set>>
+    +ObservableCollection<System> TournamentSystems <<get/set>>
+    +ObservableCollection<int> TournamentRoundsCountItems <<get/set>>
+    +ObservableCollection<TimeOnly> TimeItems <<get/set>>
+    +ObservableCollection<int> DurationHoursItems <<get/set>>
+    +string OrgNameText <<get/set>>
+    +bool IsMixedGroupsAllowed <<get/set>>
+    +ICommand EditTournamentCommand <<get/set>>
+    +Kind SelectedTournamentKind <<get/set>>
+    +System SelectedTournamentSystem <<get/set>>
+    +int SelectedTournamentRoundsCount <<get/set>>
+    +TimeOnly SelectedTime <<get/set>>
+    +int SelectedDurationHours <<get/set>>
+    +ObservableCollection<int> TeamPlayersCountItems <<get/set>>
+    +int SelectedMaxTeamPlayers <<get/set>>
+    +Visibility VisibleIfTeamsAllowed <<get/set>>
+}
+
+ManageTournaments.EditTournament.EditTournamentWindow --* ManageTournaments.EditTournament.EditTournamentViewModel
+ManageTournaments.EditTournament.EditTournamentWindow -u-o ManageTournaments.MainWindow
+
+
+@enduml
+
+@startuml ManagePlayers
+
+skinparam classAttributeIconSize 0
+skinparam ClassFontSize 16
+
+class ManageTournaments.ManagePlayers.ManagePlayersControl {
+    +void ManagePlayersControl()
+}
+ManageTournaments.ManagePlayers.ManagePlayersControl ---|> UserControl
+
+class ManageTournaments.ManagePlayers.PlayersViewModel {
+    +void PlayersViewModel()
+    +static ChessTourContext PlayersContext <<get/set>>
+    +ObservableCollection<Player>? PlayersCollection <<get/set>>
+    +ICommand AddPlayerCommand <<get/set>>
+    +ICommand DeletePlayerCommand <<get/set>>
+    +ObservableCollection<Team> TeamsAvailable <<get/set>>
+    +ObservableCollection<int> BirthYears <<get/set>>
+    +ObservableCollection<Group> GroupsAvailable <<get/set>>
+    +void UpdatePlayersList()
+    +void UpdateTeams()
+    +void UpdateGroups()
+}
+ManageTournaments.ManagePlayers.PlayersViewModel *-- ManageTournaments.ManagePlayers.ManagePlayersControl
+
+class ManageTournaments.ManagePlayers.AddPlayer.AddPlayerWindow {
+    +void AddPlayerWindow()
+}
+
+class ManageTournaments.ManagePlayers.AddPlayer.AddPlayerViewModel{
+    +void AddPlayerViewModel()
+    +string PlayerFirstName <<get/set>>
+    +string PlayerLastName <<get/set>>
+    +char Gender <<get/set>>
+    +ICommand CompleteAddPlayerCommand <<get/set>>
+}
+
+ManageTournaments.ManagePlayers.AddPlayer.AddPlayerViewModel *-- ManageTournaments.ManagePlayers.AddPlayer.AddPlayerWindow
+
+ManageTournaments.ManagePlayers.AddPlayer.AddPlayerWindow -u-o ManageTournaments.ManagePlayers.ManagePlayersControl
+
+class ManageTournaments.ManagePlayers.EditPlayer.EditPlayerWindow {
+    +void EditPlayerWindow()
+}
+
+class ManageTournaments.ManagePlayers.EditPlayer.EditPlayerViewModel {
+    #Player? Player <<get/set>>
+    +string PlayerFirstName <<get/set>>
+    +string PlayerLastName <<get/set>>
+    +char Gender <<get/set>>
+    +ICommand CompleteEditPlayerCommand <<get/set>>
+}
+
+ManageTournaments.ManagePlayers.EditPlayer.EditPlayerViewModel *-- ManageTournaments.ManagePlayers.EditPlayer.EditPlayerWindow
+
+ManageTournaments.ManagePlayers.EditPlayer.EditPlayerWindow -l-o ManageTournaments.ManagePlayers.ManagePlayersControl
+@enduml
+
+@startuml ManageRatings
+
+skinparam classAttributeIconSize 0
+skinparam ClassFontSize 16
+
+class ManageTournaments.ManageRatings.ManageRatingsControl {
+    +void ManageRatingsControl()
+}
+
+ManageTournaments.ManageRatings.ManageRatingsControl ---|> UserControl
+
+class ManageTournaments.ManageRatings.RatingsViewModel {
+    +ObservableCollection<Rating>? PlayersSorted <<get/set>>
+    +string Title <<get/set>>
+    -static ChessTourContext RatingsContext
+    +void RatingsViewModel()
+    -void UpdateRating()
+}
+
+ManageTournaments.ManageRatings.RatingsViewModel *-- ManageTournaments.ManageRatings.ManageRatingsControl
+
+@enduml
+
+@startuml ManageTeams
+
+skinparam classAttributeIconSize 0
+skinparam ClassFontSize 16
+
+class ManageTournaments.ManageTeams.ManageTeamsControl {
+    +void ManageTeamsControl()
+}
+
+class ManageTournaments.ManageTeams.ManageTeamsViewModel {
+    +ObservableCollection<Team>? TeamsCollection <<get/set>>
+    +ICommand AddTeamCommand <<get/set>>
+    +ICommand DeleteTeamCommand <<get/set>>
+    +ICommand EditTeamCommand <<get/set>>
+    +string TeamName <<get/set>>
+    #static readonly ChessTourContext TeamsContext
+    +void ManageTeamsViewModel()
+    -void UpdateTeams()
+}
+
+ManageTournaments.ManageTeams.ManageTeamsViewModel *-- ManageTournaments.ManageTeams.ManageTeamsControl
+
+class ManageTournaments.ManageTeams.AddTeam.AddTeamWindow {
+    +void AddTeamWindow()
+}
+
+ManageTournaments.ManageTeams.AddTeam.AddTeamWindow --* ManageTournaments.ManageTeams.ManageTeamsViewModel
+
+class ManageTournaments.ManageTeams.EditTeam.EditTeamWindow {
+    +void EditTeamWindow()
+}
+
+class ManageTournaments.ManageTeams.EditTeam.EditTeamViewModel {
+    +void EditTeamViewModel()
+    +string Name <<get/set>>
+    +string Attribute <<get/set>>
+    +bool IsActive <<get/set>>
+    +ICommand SaveCommand <<get/set>>
+    #Team? Team <<get/set>>
+}
+
+ManageTournaments.ManageTeams.EditTeam.EditTeamViewModel *-- ManageTournaments.ManageTeams.EditTeam.EditTeamWindow
+
+ManageTournaments.ManageTeams.EditTeam.EditTeamWindow --o ManageTournaments.ManageTeams.ManageTeamsViewModel
+
+@enduml
+
+@startuml ManagePairs
+
+skinparam classAttributeIconSize 0
+skinparam ClassFontSize 16
+
+class ManageTournaments.ManageGames.PairsGridControl {
+    +void PairsGridControl()
+}
+
+ManageTournaments.ManageGames.PairsGridControl ---|> UserControl
+
+class ManageTournaments.ManageGames.PairsGridViewModel {
+    +void PairsGridViewModel()
+    +string ToursInfo <<get/set>>
+    +ObservableCollection<Pair>? Pairs <<get/set>>
+    +ObservableCollection<Pair>? PairsForSelectedTour <<get/set>>
+    +int SelectedTour <<get/set>>
+    +int CurrentTour <<get/set>>
+    + ICommand StartNewTour <<get/set>>
+    + ICommand ShowPrevTour <<get/set>>
+    + ICommand ShowNextTour <<get/set>>
+    -void UpdateCurrentTour()
+    -void UpdatePairs()
+    -void UpdatePairsForSelectedTour()
+}
+
+ManageTournaments.ManageGames.PairsGridViewModel *-- ManageTournaments.ManageGames.PairsGridControl
+
+@enduml
+
+@startuml ManageGroups
+
+skinparam classAttributeIconSize 0
+
+class ManageTournaments.ManageGroups.GroupsListControl {
+    +void GroupsListControl()
+}
+
+class ManageTournaments.ManageGroups.ManageGroupsViewModel {
+    +void GroupsListViewModel()
+    +ObservableCollection<Group>? GroupsCollection <<get/set>>
+    +ICommand AddGroupCommand <<get/set>>
+    +ICommand DeleteGroupCommand <<get/set>>
+    +ICommand EditGroupCommand <<get/set>>
+    +string GroupName <<get/set>>
+    +string GroupIdentifier <<get/set>>
+    #static readonly ChessTourContext GroupsContext
+    -void UpdateGroups()
+}
+
+ManageTournaments.ManageGroups.ManageGroupsViewModel *-- ManageTournaments.ManageGroups.GroupsListControl
+
+class ManageTournaments.ManageGroups.AddGroup.AddGroupWindow {
+    +void AddGroupWindow()
+}
+
+ManageTournaments.ManageGroups.AddGroup.AddGroupWindow --* ManageTournaments.ManageGroups.ManageGroupsViewModel
+
+class ManageTournaments.ManageGroups.EditGroup.EditGroupWindow {
+    +void EditGroupWindow()
+}
+
+class ManageTournaments.ManageGroups.EditGroup.EditGroupViewModel {
+    +void EditGroupViewModel()
+    +string GroupName <<get/set>>
+    +string GroupIdentity <<get/set>>
+    +ICommand SaveCommand <<get/set>>
+    #Group? Group <<get/set>>
+}
+
+ManageTournaments.ManageGroups.EditGroup.EditGroupViewModel *-- ManageTournaments.ManageGroups.EditGroup.EditGroupWindow
+
+ManageTournaments.ManageGroups.EditGroup.EditGroupWindow --o ManageTournaments.ManageGroups.ManageGroupsViewModel
+
+@enduml
+
+@startuml Tree
+
+skinparam classAttributeIconSize 0
+
+class ManageTournaments.TreeControl {
+    +void TreeControl()
+}
+
+class ManageTournaments.TreeViewModel {
+    +void TreeViewModel()
+    #static readonly ChessTourContext TreeContext
+    +ObservableCollection<Tournament>? TournamentsCollection <<get/set>>
+    +Tournament? SelectedTournament <<get/set>>
+    +Team? SelectedTeam <<get/set>>
+    +Player? SelectedPlayer <<get/set>>
+    -UpdateTournaments()
+}
+
+ManageTournaments.TreeViewModel *-- ManageTournaments.TreeControl
+
+@enduml
+

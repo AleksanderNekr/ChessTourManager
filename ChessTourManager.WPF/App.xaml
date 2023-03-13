@@ -27,6 +27,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+                    <ImageBrush x:Key="New" ImageSource="assets/new.ico" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
