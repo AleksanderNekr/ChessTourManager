@@ -5,9 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.EditTournament"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="EditTournamentWindow" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <local:EditTournamentViewModel />
     </Window.DataContext>

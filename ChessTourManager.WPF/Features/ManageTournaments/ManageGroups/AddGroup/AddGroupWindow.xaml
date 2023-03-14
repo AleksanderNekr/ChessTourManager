@@ -4,12 +4,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         MinHeight="300"
         MinWidth="500"
         Height="300"
         Width="500"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <manageGroups:ManageGroupsViewModel />
     </Window.DataContext>

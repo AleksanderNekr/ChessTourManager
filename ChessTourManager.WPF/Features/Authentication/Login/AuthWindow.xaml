@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:login="clr-namespace:ChessTourManager.WPF.Features.Authentication.Login"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="AuthWindow" Height="500" Width="400"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <login:LoginViewModel />
@@ -62,6 +65,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Button
+                HorizontalAlignment="Center"
                 IsDefault="True"
                 FontSize="14"
                 Content="Войти"

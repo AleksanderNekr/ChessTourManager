@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True"
         Title="EditPlayerWindow" Height="250" Width="400">
     <Window.DataContext>
         <local:EditPlayerViewModel />

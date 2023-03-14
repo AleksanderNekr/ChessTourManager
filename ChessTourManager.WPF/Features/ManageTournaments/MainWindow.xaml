@@ -10,11 +10,14 @@
         xmlns:tree="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.Tree"
         xmlns:manageTeams="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams"
         xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         Title="MainWindow"
         MinHeight="700"
         MinWidth="520"
         Width="800"
         Height="700"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <manageTournaments:TournamentsListViewModel />

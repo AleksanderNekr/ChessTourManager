@@ -1,0 +1,2849 @@
+{
+  "version": 2,
+  "warnings": [
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\EditTeam\\EditTeamWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Player.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 289462508,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Team.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.Domain\\obj\\Debug\\net6.0-windows\\.NETCoreApp,Version\u003dv6.0.AssemblyAttributes.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 8177592,
+            "nextLine": 193925,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.Domain"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\obj\\Debug\\net6.0-windows\\.NETCoreApp,Version\u003dv6.0.AssemblyAttributes.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 8177592,
+            "nextLine": 193925,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Ratio.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\EditTeam\\EditTeamCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 880649163,
+            "nextLine": -1439428799,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\PairsGridControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 6206697,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\ManageTeamsViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": -1559829902,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\EditGroup\\EditGroupViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 1377993116,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\AddPlayer\\AddPlayerViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1377993116,
+            "nextLine": -1117125049,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\EditTournament\\EditTournamentViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\CreateTournament\\TournamentCreatedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\Authentication\\Login\\LoginViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1117125049,
+            "nextLine": 1427783415,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.Domain\\Algorithms\\RoundRobin.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 6206697,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.Domain"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\EditTeam\\TeamEditedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\obj\\Debug\\net6.0-windows\\ChessTourManager.DataAccess.AssemblyInfo.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1736731,
+            "nextLine": 8250322,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\Tree\\TreeViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": -1559829902,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageAccount\\ProfileControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -347063120,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Get\\IGetQueries.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\PairsGridViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": -1559829902,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\AddTeam\\AddTeamCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1439428799,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\TableViews\\SingleRatingListView.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -774745199,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\AddPlayer\\AddPlayerCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 880649163,
+            "nextLine": 527374862,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\AddPlayer\\AddPlayerWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\Tree\\TreeControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": -347063120,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\AddTeam\\CompleteAddTeamCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\EditPlayer\\CompleteEditPlayerCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V052",
+      "cwe": 0,
+      "level": 0,
+      "positions": [],
+      "message": "A JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\nA JSON parsing exception occurred in [C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\global.json], offset 105 (line 7, column 1): Missing a name for object member. \r\n",
+      "projects": [],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\App.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\TableViews\\PlayersListView.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -774745199,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\ManageGroupsViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": -1559829902,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\DeletePlayer\\DeletePlayerCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.Domain\\obj\\Debug\\net6.0-windows\\ChessTourManager.Domain.AssemblyInfo.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1736731,
+            "nextLine": 8250322,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.Domain"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\AssemblyInfo.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\PlayersViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Helpers\\ValidationRules\\AttributeValidationRule.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1117233805,
+            "nextLine": -347063120,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\EditTournament\\ApplyEditTournamentCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\CreateTournament\\CreateTournamentWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 110813155,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Tournament.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageRatings\\RatingGridControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -347063120,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Kind.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\System.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\AddTeam\\AddTeamWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 888496269,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\GroupsListControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -347063120,
+            "nextLine": -1483428298,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Insert\\InsertQueries.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\Authentication\\Login\\LoginCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\DeleteTeam\\DeleteTeamCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 1427783415,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\EditPlayer\\EditPlayerViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1117125049,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\AddTour\\GameAddedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\TeamsListControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -347063120,
+            "nextLine": 1776543181,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Insert\\IInsertQueries.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\ChessTourContext.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\DeleteTeam\\TeamDeletedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\AddGroup\\CompleteAddGroupCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\EditTeam\\SaveTeamCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": -1439428799,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\AddTeam\\TeamAddedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\obj\\Debug\\net6.0-windows\\.NETCoreApp,Version\u003dv6.0.AssemblyAttributes.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 8177592,
+            "nextLine": 193925,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\DeleteGroup\\GroupDeletedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\EditPlayer\\EditPlayerWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\AddPlayer\\CompleteAddPlayerCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\DeletePlayer\\PlayerDeletedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\PlayersGridControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Game.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 289462508,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\OpenTournament\\TournamentOpenedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\Authentication\\Login\\SuccessLoginEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\MainWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\Navigation\\ShowPrevTourCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1439428799,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\DeleteTournament\\TournamentDeletedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Helpers\\PasswordHasher.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 6206697,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\EditTournament\\EditTournamentWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\TableViews\\TeamsListView.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -774745199,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Helpers\\CommandBase.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": -1117125049,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\TournamentsListViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\Navigation\\ShowNextTourCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1439428799,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\EditGroup\\EditGroupCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 880649163,
+            "nextLine": -1439428799,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\MenuBarControl.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": -347063120,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\AddGroup\\AddGroupCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1439428799,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\CreateTournament\\CreateTournamentViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\AddGroup\\GroupAddedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\EditGroup\\GroupChangedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\Authentication\\Login\\AuthWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": -1834592855,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Get\\GetQueries.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 6206697,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\CreateTournament\\CreateTournamentCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\AddTour\\TourAddedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\EditTournament\\StartEditTournamentCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1439428799,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Helpers\\ViewModelBase.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 2060538374,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\obj\\Debug\\net6.0-windows\\ChessTourManager.WPF.AssemblyInfo.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1736731,
+            "nextLine": 8250322,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Helpers\\ValidationRules\\TextValidationRule.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -1117233805,
+            "nextLine": -347063120,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\Authentication\\Register\\RegisterWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 1246233453,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\User.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 1513122742,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\OpenTournament\\OpenTournamentCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 880649163,
+            "nextLine": -1439428799,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Delete\\DeleteQuery.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Entities\\Group.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\EditGroup\\EditGroupWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageTeams\\EditTeam\\EditTeamViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 1377993116,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\ResultChangedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\TableViews\\TeamView.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -774745199,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\DeleteTournament\\DeleteTournamentCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\AddPlayer\\PlayerAddedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\Queries\\Delete\\IDeleteQueries.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 880649163,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.Domain\\Algorithms\\IRoundRobin.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 1427783415,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.Domain"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManagePlayers\\EditPlayer\\PlayerEditedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.DataAccess\\TableViews\\TeamRatingListView.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -774745199,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.DataAccess"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\EditTournament\\TournamentEditedEvent.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 193925,
+            "nextLine": 880649163,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\EditGroup\\SaveGroupCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": -1439428799,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\AddGroup\\AddGroupWindow.xaml.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": -740811337,
+            "nextLine": 0,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGroups\\DeleteGroup\\DeleteGroupCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 49653817,
+            "nextLine": 1427783415,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageRatings\\ManageRatingsViewModel.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": -1559829902,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V009",
+      "cwe": 0,
+      "level": 0,
+      "positions": [
+        {
+          "file": "C:\\Users\\aleks\\RiderProjects\\ChessTourManager\\ChessTourManager.WPF\\Features\\ManageTournaments\\ManageGames\\AddTour\\StartNewTourCommand.cs",
+          "line": 1,
+          "endLine": 1,
+          "column": 1,
+          "endColumn": 1,
+          "navigation": {
+            "previousLine": 0,
+            "currentLine": 1513122742,
+            "nextLine": 49653817,
+            "columns": 0
+          }
+        }
+      ],
+      "message": "To use free version of PVS-Studio, source code files are required to start with a special comment.",
+      "projects": [
+        "ChessTourManager.WPF"
+      ],
+      "favorite": false,
+      "falseAlarm": false
+    }
+  ]
+}

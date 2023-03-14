@@ -4,10 +4,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:editGroup="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="EditGroupWindow"
         Height="250" Width="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <editGroup:EditGroupViewModel />
     </Window.DataContext>

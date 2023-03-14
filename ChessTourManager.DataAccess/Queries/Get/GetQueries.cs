@@ -17,7 +17,7 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetUserById(int id, out User? user)
     {
-        IEnumerable<User> usersLocal = _context.Users.Include(u => u.Tournaments.AsQueryable());
+        IEnumerable<User> usersLocal = _context.Users.Include(u => u.Tournaments);
         user = usersLocal.FirstOrDefault(u => u.UserId == id);
 
         return user is not null
@@ -38,7 +38,7 @@ internal class GetQueries : IGetQueries
     {
         if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
-            tournaments = organiser!.Tournaments.AsQueryable();
+            tournaments = organiser!.Tournaments;
             return GetResult.Success;
         }
 
@@ -49,7 +49,7 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments)
     {
-        if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
+        if (TryGetUserById(organiserId, out User? _) == GetResult.Success)
         {
             tournaments = _context.Tournaments
                                   .Where(t => t.OrganizerId == organiserId)

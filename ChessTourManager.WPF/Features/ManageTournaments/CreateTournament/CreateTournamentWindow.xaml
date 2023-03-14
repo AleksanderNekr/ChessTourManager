@@ -5,12 +5,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:createTournament="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.CreateTournament"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="CreateTournamentWindow"
         MinHeight="500" MinWidth="550"
         Height="500" Width="600"
         FontSize="14"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ui:ThemeManager.RequestedTheme="Light"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <createTournament:CreateTournamentViewModel />
     </Window.DataContext>
