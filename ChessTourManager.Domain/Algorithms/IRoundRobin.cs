@@ -11,7 +11,7 @@ public interface IRoundRobin
 
     public IEnumerable<(int, int)> StartNewTour(int currentTour);
 
-    public HashSet<(int, int)> GamesHistory { get; }
+    public HashSet<(int, int)>? GamesHistory { get; }
 
     public int NewTourNumber { get; }
 }

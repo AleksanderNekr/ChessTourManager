@@ -8,8 +8,8 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="CreateTournamentWindow"
-        MinHeight="500" MinWidth="550"
-        Height="500" Width="600"
+        MinHeight="600" MinWidth="550"
+        Height="604" Width="600"
         FontSize="14"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"
@@ -190,27 +190,21 @@
                 ToolTip="Разрешить игрокам из разных групп играть вместе?"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="280"
                     Text="Разрешить смешивать группы?" />
                 <StackPanel
-                    Orientation="Horizontal"
-                    Margin="5, 0">
+                    Orientation="Horizontal">
                     <RadioButton
+                        Focusable="False"
+                        Content="Да"
                         GroupName="MixedGroupsChoice"
-                        IsChecked="{Binding IsMixedGroupsAllowed}"
-                        VerticalContentAlignment="Center" />
-                    <TextBlock
-                        Text="Да" />
-                </StackPanel>
-                <StackPanel
-                    Orientation="Horizontal"
-                    Margin="5, 0">
+                        IsChecked="{Binding IsMixedGroupsAllowed}" />
                     <RadioButton
+                        Focusable="False"
+                        Content="Нет"
                         GroupName="MixedGroupsChoice"
-                        IsChecked="{Binding !IsMixedGroupsAllowed}"
-                        VerticalContentAlignment="Center" />
-                    <TextBlock
-                        Text="Нет" />
+                        IsChecked="{Binding !IsMixedGroupsAllowed}" Width="69" />
                 </StackPanel>
             </StackPanel>
             <Button
@@ -221,7 +215,8 @@
                 Command="{Binding CreateTournamentCommand}">
                 <Button.Style>
                     <Style
-                        TargetType="Button">
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding ElementName=NameTextBox,

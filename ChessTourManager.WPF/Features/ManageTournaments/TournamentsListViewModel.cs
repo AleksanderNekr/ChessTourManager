@@ -18,20 +18,20 @@ namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class TournamentsListViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext         TournamentsListContext = new();
-    private                  DeleteTournamentCommand? _deleteTournamentCommand;
-    private                  bool                     _isOpened;
+    internal static readonly ChessTourContext TournamentsListContext = new();
+    private DeleteTournamentCommand? _deleteTournamentCommand;
+    private bool _isOpened;
 
-    private OpenTournamentCommand?            _openTournamentCommand;
-    private StartEditTournamentCommand?       _startEditTournamentCommand;
+    private OpenTournamentCommand? _openTournamentCommand;
+    private StartEditTournamentCommand? _startEditTournamentCommand;
     private ObservableCollection<Tournament>? _tournamentsCollection;
 
     public TournamentsListViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
-        TournamentEditedEvent.TournamentEdited   += TournamentEditedEvent_TournamentEdited;
-        TournamentDeletedEvent.TournamentDeleted  += TournamentDeletedEvent_TournamentDeleted;
+        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
+        TournamentDeletedEvent.TournamentDeleted += TournamentDeletedEvent_TournamentDeleted;
 
         UpdateTournamentsList();
     }

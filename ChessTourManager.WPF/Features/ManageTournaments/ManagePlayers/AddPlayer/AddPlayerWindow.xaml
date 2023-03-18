@@ -48,15 +48,18 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"
                     Text="Фамилия" />
                 <TextBox
                     x:Name="LastNameTextBox"
-                    MinWidth="100">
+                    MinWidth="100" Width="140">
                     <TextBox.Text>
-                        <Binding Path="PlayerLastName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding
+                            Path="PlayerLastName"
+                            UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validationRules:TextValidationRule />
                             </Binding.ValidationRules>
@@ -70,13 +73,14 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"
                     Text="Имя" />
                 <TextBox
                     x:Name="FirstNameTextBox"
-                    MinWidth="100">
+                    MinWidth="100" Width="140">
                     <TextBox.Text>
                         <Binding Path="PlayerFirstName" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -93,13 +97,14 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"
                     Text="Пол" />
                 <ComboBox
                     SelectedItem="{Binding Gender}"
-                    MinWidth="100">
+                    MinWidth="140">
                     <ComboBox.ItemsSource>
                         <x:Array
                             Type="{x:Type system:Char}">
@@ -120,7 +125,8 @@
                 Command="{Binding CompleteAddPlayerCommand}">
                 <Button.Style>
                     <Style
-                        TargetType="Button">
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding ElementName=LastNameTextBox, Path=(Validation.HasError)}"

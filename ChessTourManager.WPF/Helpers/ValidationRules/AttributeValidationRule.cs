@@ -13,7 +13,7 @@ public class AttributeValidationRule : ValidationRule
             return new ValidationResult(false, null);
         }
 
-        return input.Length == 0 || input.Length > 3 || input.Contains(" ")
+        return input.Length is 0 or > 3 || input.Contains(" ")
                    ? new ValidationResult(false,
                                           "Ячейка должна быть заполнена без пробелов и должна содержать не более 3 символов")
                    : new ValidationResult(true, null);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -46,7 +47,7 @@ public class ManageTeamsViewModel : ViewModelBase
 
     public string TeamName
     {
-        get { return _teamName ?? "Введите название команды"; }
+        get { return _teamName ?? string.Empty; }
         set { SetField(ref _teamName, value); }
     }
 

@@ -15,6 +15,6 @@ public class TextValidationRule : ValidationRule
 
         return input.Length == 0
                    ? new ValidationResult(false, "Ячейка должна быть заполнена")
-                   : new ValidationResult(true,  null);
+                   : new ValidationResult(true, null);
     }
 }

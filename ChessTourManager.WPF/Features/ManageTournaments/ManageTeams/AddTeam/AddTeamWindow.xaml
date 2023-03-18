@@ -42,13 +42,16 @@
                 Text="Название команды:" />
             <TextBox
                 x:Name="TeamNameTextBox"
+                ui:ControlHelper.PlaceholderText="Введите название команды"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontWeight="SemiBold"
                 FontSize="14"
                 MinWidth="100">
                 <TextBox.Text>
-                    <Binding Path="TeamName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding
+                        Path="TeamName"
+                        UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validationRules:TextValidationRule />
                         </Binding.ValidationRules>
@@ -65,7 +68,9 @@
             VerticalAlignment="Center"
             Command="{Binding CompleteAddTeam}">
             <Button.Style>
-                <Style TargetType="Button">
+                <Style
+                    TargetType="Button"
+                    BasedOn="{StaticResource AccentButtonStyle}">
                     <Style.Triggers>
                         <DataTrigger
                             Binding="{Binding ElementName=TeamNameTextBox, Path=(Validation.HasError)}"

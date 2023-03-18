@@ -11,7 +11,9 @@ public class RoundRobin : IRoundRobin
     public RoundRobin(ChessTourContext context, Tournament tournament)
     {
         IGetQueries.CreateInstance(context)
-                   .TryGetGames(tournament.OrganizerId, tournament.TournamentId, out IEnumerable<Game>? games);
+                   .TryGetGames(tournament.OrganizerId,
+                                tournament.TournamentId,
+                                out IEnumerable<Game>? games);
         if (games is not null)
         {
             GamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
@@ -39,7 +41,7 @@ public class RoundRobin : IRoundRobin
         }
     }
 
-    private Dictionary<int, HashSet<(int, int)>> _pairsForTour = new();
+    private readonly Dictionary<int, HashSet<(int, int)>> _pairsForTour = new();
 
     private HashSet<(int, int)> ConfigurePairs()
     {
@@ -57,7 +59,7 @@ public class RoundRobin : IRoundRobin
         int tour = NewTourNumber;
         foreach ((int, int) pair in _pairsForTour[tour])
         {
-            if (GamesHistory.Contains(pair))
+            if (GamesHistory != null && GamesHistory.Contains(pair))
             {
                 tour++;
                 continue;
@@ -67,7 +69,7 @@ public class RoundRobin : IRoundRobin
         }
     }
 
-    public HashSet<(int, int)> GamesHistory { get; }
+    public HashSet<(int, int)>? GamesHistory { get; }
 
     public int NewTourNumber { get; private set; }
 }

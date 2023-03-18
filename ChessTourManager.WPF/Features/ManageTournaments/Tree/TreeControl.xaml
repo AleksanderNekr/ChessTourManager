@@ -50,7 +50,9 @@
             ItemsSource="{Binding TournamentsRoot}"
             PreviewMouseRightButtonUp="TreeView_OnPreviewMouseRightButtonUp">
             <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
+                <Style 
+                    TargetType="{x:Type TreeViewItem}"
+                    BasedOn="{StaticResource DefaultTreeViewItemStyle}">
                     <Setter Property="ContextMenu"
                             Value="{StaticResource TournamentContextMenu}" />
                 </Style>
@@ -60,7 +62,9 @@
                     DataType="{x:Type entities:Tournament}"
                     ItemsSource="{Binding Teams}">
                     <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
+                        <Style 
+                            TargetType="{x:Type TreeViewItem}"
+                            BasedOn="{StaticResource DefaultTreeViewItemStyle}">
                             <Setter Property="ContextMenu"
                                     Value="{StaticResource TeamContextMenu}" />
                         </Style>
@@ -72,7 +76,9 @@
                     DataType="{x:Type entities:Team}"
                     ItemsSource="{Binding Players}">
                     <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
+                        <Style
+                            TargetType="{x:Type TreeViewItem}"
+                            BasedOn="{StaticResource DefaultTreeViewItemStyle}">
                             <Setter Property="ContextMenu"
                                     Value="{StaticResource PlayerContextMenu}" />
                         </Style>

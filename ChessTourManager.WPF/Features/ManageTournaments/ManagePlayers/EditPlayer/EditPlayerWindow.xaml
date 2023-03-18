@@ -120,7 +120,8 @@
                 Command="{Binding CompleteEditPlayerCommand}">
                 <Button.Style>
                     <Style
-                        TargetType="Button">
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding ElementName=LastNameTextBox, Path=(Validation.HasError)}"

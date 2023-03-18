@@ -52,6 +52,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
+                                        Style="{DynamicResource AccentButtonStyle}"
                                         Content="Открыть"
                                         Command="{Binding DataContext.OpenTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -59,7 +60,7 @@
                                         CommandParameter="{Binding CurrentItem}"
 
                                         DataContext="{Binding
-                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -67,11 +68,11 @@
                             Header="Название"
                             Binding="{Binding TournamentName}" />
                         <DataGridTextColumn
-                            Header="Дата"
+                            Header="Дата проведения"
                             Binding="{Binding DateStart}" />
-                        <DataGridTextColumn
-                            Header="Туры"
-                            Binding="{Binding ToursCount}" />
+                        <!-- <DataGridTextColumn -->
+                        <!--     Header="Туры" -->
+                        <!--     Binding="{Binding ToursCount}" /> -->
                         <DataGridTextColumn
                             Header="Место"
                             Binding="{Binding Place}" />

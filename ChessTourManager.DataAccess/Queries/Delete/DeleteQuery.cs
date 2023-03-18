@@ -24,7 +24,8 @@ internal class DeleteQuery : IDeleteQueries
         }
         catch (DbUpdateException)
         {
-            MessageBox.Show("Нельзя удалить игрока, который участвует в игре!", "Ошибка при удалении игрока",
+            MessageBox.Show("Нельзя удалить игрока, который участвует в игре!", 
+                            "Ошибка при удалении игрока", 
                             MessageBoxButton.OK, MessageBoxImage.Error);
             _context.Entry(player).State = EntityState.Unchanged;
             return DeleteResult.Failed;

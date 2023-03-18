@@ -18,8 +18,8 @@ public class ManageGroupsViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext GroupsContext = PlayersViewModel.PlayersContext;
     private                  AddGroupCommand? _addGroupCommand;
-    private                  string           _groupIdentifier;
-    private                  string           _groupName;
+    private                  string?           _groupIdentifier;
+    private                  string?           _groupName;
 
     private ObservableCollection<Group> _groupsWithPlayers;
 
@@ -44,13 +44,13 @@ public class ManageGroupsViewModel : ViewModelBase
 
     public string GroupName
     {
-        get { return _groupName; }
+        get { return _groupName ?? string.Empty; }
         set { SetField(ref _groupName, value); }
     }
 
     public string GroupIdentifier
     {
-        get { return _groupIdentifier; }
+        get { return _groupIdentifier ?? string.Empty; }
         set { SetField(ref _groupIdentifier, value); }
     }
 

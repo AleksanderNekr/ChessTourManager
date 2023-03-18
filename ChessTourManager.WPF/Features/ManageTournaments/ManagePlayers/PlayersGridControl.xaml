@@ -7,7 +7,7 @@
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.DataContext>
         <managePlayers:PlayersViewModel />
     </UserControl.DataContext>
@@ -45,7 +45,8 @@
             <DataGrid.CellStyle>
                 <!-- Add margin to cells -->
                 <Style
-                    TargetType="DataGridCell">
+                    TargetType="DataGridCell"
+                    BasedOn="{StaticResource DefaultDataGridCellStyle}">
                     <Setter
                         Property="Margin"
                         Value="1,0,0,0" />
@@ -54,7 +55,8 @@
             <!-- Set column header content to center. -->
             <DataGrid.ColumnHeaderStyle>
                 <Style
-                    TargetType="DataGridColumnHeader">
+                    TargetType="DataGridColumnHeader"
+                    BasedOn="{StaticResource DefaultDataGridColumnHeaderStyle}">
                     <Setter
                         Property="HorizontalContentAlignment"
                         Value="Center" />
@@ -63,7 +65,8 @@
             <!-- Set row header content to center. -->
             <DataGrid.RowHeaderStyle>
                 <Style
-                    TargetType="DataGridRowHeader">
+                    TargetType="DataGridRowHeader"
+                    BasedOn="{StaticResource DefaultDataGridRowHeaderStyle}">
                     <Setter
                         Property="HorizontalContentAlignment"
                         Value="Center" />
@@ -76,7 +79,8 @@
                     <DataGridTextColumn.ElementStyle>
                         <!-- Set to center -->
                         <Style
-                            TargetType="TextBlock">
+                            TargetType="TextBlock"
+                            BasedOn="{StaticResource DataGridTextBlockStyle}">
                             <Setter
                                 Property="VerticalAlignment"
                                 Value="Center" />
@@ -212,17 +216,21 @@
                     Header="Активен">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsActive}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      IsEnabled="False" />
+                            <CheckBox
+                                Style="{StaticResource DataGridCheckBoxStyle}"
+                                IsChecked="{Binding IsActive}"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                IsEnabled="False" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsActive}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center" />
+                            <CheckBox
+                                Style="{StaticResource DataGridCheckBoxStyle}"
+                                IsChecked="{Binding IsActive}"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

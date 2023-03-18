@@ -7,7 +7,7 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="EditTournamentWindow" Height="450" Width="800"
+        Title="EditTournamentWindow" Height="617" Width="800"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
@@ -198,32 +198,25 @@
                     Orientation="Horizontal"
                     Margin="5, 0">
                     <RadioButton
+                        Content="Да"
                         GroupName="MixedGroupsChoice"
-                        IsChecked="{Binding IsMixedGroupsAllowed}"
-                        VerticalContentAlignment="Center" />
-                    <TextBlock
-                        Text="Да" />
-                </StackPanel>
-                <StackPanel
-                    Orientation="Horizontal"
-                    Margin="5, 0">
+                        IsChecked="{Binding IsMixedGroupsAllowed}" />
                     <RadioButton
+                        Content="Нет"
                         GroupName="MixedGroupsChoice"
-                        IsChecked="{Binding !IsMixedGroupsAllowed}"
-                        VerticalContentAlignment="Center" />
-                    <TextBlock
-                        Text="Нет" />
+                        IsChecked="{Binding !IsMixedGroupsAllowed}" />
                 </StackPanel>
             </StackPanel>
             <Button
                 Margin="20"
                 HorizontalAlignment="Center"
-                Width="100"
+                Width="195"
                 Content="Подтвердить изменения"
                 Command="{Binding ApplyEditTournamentCommand}">
                 <Button.Style>
                     <Style
-                        TargetType="Button">
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding ElementName=TournamentNameTextBox, Path=(Validation.HasError)}"

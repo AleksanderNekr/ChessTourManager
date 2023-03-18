@@ -37,6 +37,7 @@
             Grid.Row="2"
             Orientation="Horizontal">
             <TextBlock
+                x:Name="GroupNameTb"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="0,0,10,0"
@@ -44,6 +45,7 @@
                 FontSize="14"
                 Text="Полное название группы:" />
             <TextBox
+                ui:ControlHelper.PlaceholderText="Введите полное название группы"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontWeight="SemiBold"
@@ -58,6 +60,7 @@
 полное название группы – Мальчики до 12 лет, то идентификатор
 может быть М12">
             <TextBlock
+                x:Name="GroupIdTb"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="0,0,10,0"
@@ -65,6 +68,7 @@
                 FontSize="14"
                 Text="Идентификатор группы:" />
             <TextBox
+                ui:ControlHelper.PlaceholderText="Введите краткий идентификатор"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontWeight="SemiBold"
@@ -80,6 +84,29 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             IsDefault="True"
-            Command="{Binding CompleteAddGroup}" />
+            Command="{Binding CompleteAddGroup}">
+            <Button.Style>
+                <Style
+                    TargetType="Button"
+                    BasedOn="{StaticResource AccentButtonStyle}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ElementName=GroupNameTb, Path=(Validation.HasError)}"
+                            Value="True">
+                            <Setter
+                                Property="IsEnabled"
+                                Value="False" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding ElementName=GroupIdTb, Path=(Validation.HasError)}"
+                            Value="True">
+                            <Setter
+                                Property="IsEnabled"
+                                Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>
