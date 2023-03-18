@@ -59,7 +59,7 @@ public class RoundRobin : IRoundRobin
         int tour = NewTourNumber;
         foreach ((int, int) pair in _pairsForTour[tour])
         {
-            if (GamesHistory != null && GamesHistory.Contains(pair))
+            if (GamesHistory.Contains(pair))
             {
                 tour++;
                 continue;
