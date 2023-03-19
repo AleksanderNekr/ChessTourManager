@@ -15,23 +15,24 @@ internal class InsertQueries : IInsertQueries
         _context = context;
     }
 
-    public InsertResult TryAddUser(string lastName, string firstName, string email, string password,
-                                   string patronymic       = "-",
-                                   int    tournamentsLimit = 50)
+    public InsertResult TryAddUser(out User? user, string lastName, string firstName, string email, string password,
+                                   string    patronymic       = "-",
+                                   int       tournamentsLimit = 50)
     {
         try
         {
-            _context.Users.Add(new User
-                               {
-                                   UserLastname   = lastName,
-                                   UserFirstname  = firstName,
-                                   Email          = email,
-                                   PassHash       = PasswordHasher.HashPassword(password),
-                                   UserPatronymic = patronymic,
-                                   TournamentsLim = tournamentsLimit,
-                                   RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
-                                   RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
-                               });
+            user = new User
+                   {
+                       UserLastname   = lastName,
+                       UserFirstname  = firstName,
+                       Email          = email,
+                       PassHash       = PasswordHasher.HashPassword(password),
+                       UserPatronymic = patronymic,
+                       TournamentsLim = tournamentsLimit,
+                       RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
+                       RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
+                   };
+            _context.Users.Add(user);
             _context.SaveChanges();
             return InsertResult.Success;
         }
@@ -39,26 +40,28 @@ internal class InsertQueries : IInsertQueries
         {
             MessageBox.Show("Ошибка в веденных данных! Возможно пользователь с таким email уже существует!",
                             "Ошибка при регистрации", MessageBoxButton.OK, MessageBoxImage.Error);
+            user = null;
             return InsertResult.Fail;
         }
         catch (Exception e)
         {
             MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при регистрации",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            user = null;
             return InsertResult.Fail;
         }
     }
 
-    public InsertResult TryAddTournament(
-        out Tournament? addedTournament, int organiserId, string tournamentName, int systemId, int kindId,
-        int             toursCount          = 7,
-        string          place               = "-",
-        DateOnly?       tournamentDateStart = null,
-        TimeOnly?       tournamentTimeStart = null,
-        int             duration            = 0,
-        int             maxTeamPlayers      = 5,
-        string          organizationName    = "-",
-        bool            isMixedGroups       = true)
+    public InsertResult TryAddTournament(out Tournament? addedTournament, int organiserId, string tournamentName,
+                                         int             systemId,        int kindId,
+                                         int             toursCount          = 7,
+                                         string          place               = "-",
+                                         DateOnly?       tournamentDateStart = null,
+                                         TimeOnly?       tournamentTimeStart = null,
+                                         int             duration            = 0,
+                                         int             maxTeamPlayers      = 5,
+                                         string          organizationName    = "-",
+                                         bool            isMixedGroups       = true)
     {
         try
         {

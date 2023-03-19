@@ -13,23 +13,23 @@ public interface IInsertQueries
     /// <summary>
     ///     Добавление пользователя.
     /// </summary>
-    public InsertResult TryAddUser(string lastName, string firstName, string email, string password,
-                                   string patronymic       = "-",
-                                   int    tournamentsLimit = 50);
+    public InsertResult TryAddUser(out User? user, string lastName, string firstName, string email, string password,
+                                   string    patronymic       = "-",
+                                   int       tournamentsLimit = 50);
 
     /// <summary>
     ///     Добавление турнира пользователя по его ID.
     /// </summary>
-    public InsertResult TryAddTournament(
-        out Tournament? addedTournament, int organiserId, string tournamentName, int systemId, int kindId,
-        int             toursCount          = 7,
-        string          place               = "-",
-        DateOnly?       tournamentDateStart = null,
-        TimeOnly?       tournamentTimeStart = null,
-        int             duration            = 0,
-        int             maxTeamPlayers      = 5,
-        string          organizationName    = "-",
-        bool            isMixedGroups       = true);
+    public InsertResult TryAddTournament(out Tournament? addedTournament, int organiserId, string tournamentName,
+                                         int             systemId,        int kindId,
+                                         int             toursCount          = 7,
+                                         string          place               = "-",
+                                         DateOnly?       tournamentDateStart = null,
+                                         TimeOnly?       tournamentTimeStart = null,
+                                         int             duration            = 0,
+                                         int             maxTeamPlayers      = 5,
+                                         string          organizationName    = "-",
+                                         bool            isMixedGroups       = true);
 
     /// <summary>
     ///     Добавление игрока в список в турнире пользователя.
@@ -61,8 +61,9 @@ public interface IInsertQueries
     /// <summary>
     ///     Добавление пары игроков в список пар тура.
     /// </summary>
-    public InsertResult TryAddGamePair(out Game? game, int  whiteId, int blackId, int tournamentId, int organizerId, int tourNumber,
-                                       int  whitePointsResult = 0,
-                                       int  blackPointsResult = 0,
-                                       bool isPlayed          = false);
+    public InsertResult TryAddGamePair(out Game? game, int whiteId, int blackId, int tournamentId, int organizerId,
+                                       int       tourNumber,
+                                       int       whitePointsResult = 0,
+                                       int       blackPointsResult = 0,
+                                       bool      isPlayed          = false);
 }

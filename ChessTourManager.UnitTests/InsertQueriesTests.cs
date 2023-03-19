@@ -23,7 +23,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(email: null!,
+        InsertResult result = queries.TryAddUser(out User _,email: null!,
                                                  password: null!,
                                                  lastName: null!,
                                                  firstName: null!);
@@ -41,7 +41,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(email: "petre@live.com",
+        InsertResult result = queries.TryAddUser(out User _, email: "petre@live.com",
                                                  password: "password",
                                                  lastName: "Petrov",
                                                  firstName: "Petr");
@@ -59,7 +59,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(email: "petrov_p@yandex.ru",
+        InsertResult result = queries.TryAddUser(out User _, email: "petrov_p@yandex.ru",
                                                  password: "password",
                                                  lastName: "Petrov",
                                                  firstName: "Petr");
@@ -77,7 +77,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(email: "petrov_p@ya",
+        InsertResult result = queries.TryAddUser(out User _, email: "petrov_p@ya",
                                                  password: "password",
                                                  lastName: "Petrov",
                                                  firstName: "Petr");
