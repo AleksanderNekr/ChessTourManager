@@ -4,7 +4,6 @@ using ChessTourManager.DataAccess.Queries.Delete;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Algorithms;
-using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.UnitTests
 {

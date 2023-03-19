@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
+﻿using System.Windows;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;

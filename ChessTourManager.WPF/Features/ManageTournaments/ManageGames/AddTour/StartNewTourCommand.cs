@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Algorithms;
 using ChessTourManager.WPF.Helpers;

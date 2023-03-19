@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Helpers;
 

@@ -6,7 +6,6 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
-using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;

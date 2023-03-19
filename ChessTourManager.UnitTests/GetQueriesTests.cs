@@ -1,7 +1,6 @@
 ﻿using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
-using NUnit.Framework;
 
 namespace ChessTourManager.UnitTests;
 

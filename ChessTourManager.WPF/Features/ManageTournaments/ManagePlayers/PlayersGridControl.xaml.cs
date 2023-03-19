@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
-using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
