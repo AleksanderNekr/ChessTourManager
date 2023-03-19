@@ -10,8 +10,8 @@
                     <ResourceDictionary.MergedDictionaries>
                         <ui:ThemeResources />
                         <ui:XamlControlsResources />
-                        <ui:IntellisenseResources/>
-                        <ui:ColorPaletteResources/>
+                        <ui:IntellisenseResources />
+                        <ui:ColorPaletteResources />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

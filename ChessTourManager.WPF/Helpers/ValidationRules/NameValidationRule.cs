@@ -6,9 +6,9 @@ namespace ChessTourManager.WPF.Helpers.ValidationRules;
 
 public class NameValidationRule : ValidationRule
 {
-    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
     {
-        string name = value.ToString() ?? string.Empty;
+        string name = value?.ToString() ?? string.Empty;
         if (!string.IsNullOrWhiteSpace(name) && name.Length > 2)
         {
             return ValidationResult.ValidResult;

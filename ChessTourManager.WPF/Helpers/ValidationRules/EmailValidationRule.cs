@@ -8,12 +8,12 @@ namespace ChessTourManager.WPF.Helpers.ValidationRules;
 public class EmailValidationRule : ValidationRule
 {
     /// <inheritdoc />
-    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo)
     {
         // Check email in regexp.
-        Regex regex = new(@"^([a-zA-Z0-9\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        Regex regex = new(@"^([a-zA-Z0-9_\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
-        if (regex.IsMatch(value.ToString() ?? string.Empty))
+        if (regex.IsMatch(value?.ToString() ?? string.Empty))
         {
             return ValidationResult.ValidResult;
         }
