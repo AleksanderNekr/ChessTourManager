@@ -9,7 +9,7 @@ public interface IRoundRobin
     public static IRoundRobin Initialize(ChessTourContext context, Tournament tournament) =>
         new RoundRobin(context, tournament);
 
-    public IEnumerable<(int, int)> StartNewTour(int currentTour);
+    public IList<(int, int)> StartNewTour(int currentTour);
 
     public HashSet<(int, int)>? GamesHistory { get; }
 

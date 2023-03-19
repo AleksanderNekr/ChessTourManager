@@ -22,7 +22,7 @@ internal class DeleteQuery : IDeleteQueries
             _context.SaveChanges();
             return DeleteResult.Success;
         }
-        catch (DbUpdateException)
+        catch (InvalidOperationException)
         {
             MessageBox.Show("Нельзя удалить игрока, который участвует в игре!", 
                             "Ошибка при удалении игрока", 
