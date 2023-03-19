@@ -6,11 +6,15 @@
         xmlns:login="clr-namespace:ChessTourManager.WPF.Features.Authentication.Login"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
+        xmlns:helpers="clr-namespace:ChessTourManager.WPF.Helpers"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="500" Width="400"
+        Title="Авторизация" Height="500" Width="400"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="AuthWindow_Closing">
     <Window.DataContext>
         <login:LoginViewModel />
     </Window.DataContext>
@@ -43,30 +47,33 @@
             FontSize="14"
             Width="200">
             <TextBox.Text>
-                <Binding Path="Login" UpdateSourceTrigger="PropertyChanged">
+                <Binding
+                    Path="Login"
+                    UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validationRules:TextValidationRule />
+                        <validationRules:EmailValidationRule />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox
+        <helpers:BindablePasswordBox
             x:Name="PasswordTb"
-            Style="{DynamicResource DefaultTextBoxStyle}"
             Grid.Row="4"
             Margin="0, 10, 0, 0"
             ui:ControlHelper.PlaceholderText="Введите пароль"
             ui:ControlHelper.Header="Пароль"
             FontSize="14"
             Width="200">
-            <TextBox.Text>
-                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
+            <helpers:BindablePasswordBox.Password>
+                <Binding
+                    Path="Password"
+                    UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validationRules:TextValidationRule />
+                        <validationRules:PasswordValidationRule />
                     </Binding.ValidationRules>
                 </Binding>
-            </TextBox.Text>
-        </TextBox>
+            </helpers:BindablePasswordBox.Password>
+        </helpers:BindablePasswordBox>
         <StackPanel
             Grid.Row="6"
             HorizontalAlignment="Center"
@@ -81,7 +88,7 @@
                     <Style
                         TargetType="Button">
                         <Style.BasedOn>
-                            <StaticResource ResourceKey="AccentButtonStyle"/>
+                            <StaticResource ResourceKey="AccentButtonStyle" />
                         </Style.BasedOn>
                         <Style.Triggers>
                             <DataTrigger

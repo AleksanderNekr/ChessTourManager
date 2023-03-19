@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Helpers;

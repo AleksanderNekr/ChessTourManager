@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using ChessTourManager.WPF.Features.Authentication.Register;
 using ChessTourManager.WPF.Features.ManageTournaments;
 
@@ -25,5 +26,10 @@ public partial class AuthWindow : Window
     {
         new RegisterWindow().Show();
         Close();
+    }
+
+    private void AuthWindow_Closing(object? sender, CancelEventArgs e)
+    {
+        SuccessLoginEvent.UserSuccessLogin -= LoginViewModel_UserSuccessLogin;
     }
 }
