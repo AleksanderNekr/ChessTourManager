@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.UnitTests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{747ED979-715C-4B24-940D-183B84774654}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.IntegrationTests", "ChessTourManager.IntegrationTests\ChessTourManager.IntegrationTests.csproj", "{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{35FDD597-F9DF-4076-95ED-C19554968885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35FDD597-F9DF-4076-95ED-C19554968885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35FDD597-F9DF-4076-95ED-C19554968885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{35FDD597-F9DF-4076-95ED-C19554968885} = {747ED979-715C-4B24-940D-183B84774654}
+		{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0} = {747ED979-715C-4B24-940D-183B84774654}
 	EndGlobalSection
 EndGlobal
