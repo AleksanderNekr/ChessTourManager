@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -10,39 +11,80 @@ public class RoundRobin : IRoundRobin
 {
     public RoundRobin(ChessTourContext context, Tournament tournament)
     {
+        _tournament = tournament;
+        _context    = context;
         IGetQueries.CreateInstance(context)
                    .TryGetGames(tournament.OrganizerId,
                                 tournament.TournamentId,
                                 out IEnumerable<Game>? games);
         if (games is not null)
         {
-            GamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
+            IEnumerable<Game> gamesEnum = games.ToList();
+            GamesHistory = gamesEnum.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
+
+            if (gamesEnum.Any())
+            {
+                NewTourNumber = gamesEnum.Max(g => g.TourNumber) + 1;
+            }
+            else
+            {
+                NewTourNumber = 1;
+            }
+        }
+        else
+        {
+            GamesHistory  = new HashSet<(int, int)>();
+            NewTourNumber = 1;
         }
 
-        IGetQueries.CreateInstance(context)
-                   .TryGetPlayers(tournament.OrganizerId, tournament.TournamentId,
-                                  out IEnumerable<Player>? players);
+        IEnumerable<Player>? players = GetPlayers(context, tournament);
 
-        PlayersIds = players?.Select(p => p.PlayerId).ToList() ?? new List<int>();
+        _playersIds = GetPlayersIds(players);
 
         ConfigureTours();
     }
 
+    private static IEnumerable<Player>? GetPlayers(ChessTourContext context, Tournament tournament)
+    {
+        IGetQueries.CreateInstance(context)
+                   .TryGetPlayers(tournament.OrganizerId, tournament.TournamentId,
+                                  out IEnumerable<Player>? players);
+        return players;
+    }
+
+    private static List<int> GetPlayersIds(IEnumerable<Player>? players)
+    {
+        return players?.Where(p => p.IsActive ?? false)
+                       .Select(p => p.PlayerId).ToList() ?? new List<int>();
+    }
+
+    private Tournament       _tournament;
+    private ChessTourContext _context;
+
     private void ConfigureTours()
     {
-        PlayersIds.Sort();
-        if (PlayersIds.Count % 2 != 0)
+        _playersIds.Sort();
+
+        // Add a dummy player to make the number of players even.
+        if (_playersIds.Count % 2 != 0)
         {
-            PlayersIds.Add(-1);
+            _playersIds.Add(-1);
         }
 
-        for (var tourNumber = 1; tourNumber <= PlayersIds.Count / 2; tourNumber++)
+        for (var tourNumber = 1; tourNumber <= _playersIds.Count; tourNumber++)
         {
-            _pairsForTour.TryAdd(tourNumber, ConfigurePairs());
+            if (_pairsForTour.ContainsKey(tourNumber))
+            {
+                _pairsForTour[tourNumber] = ConfigurePairs();
+            }
+            else
+            {
+                _pairsForTour.Add(tourNumber, ConfigurePairs());
+            }
 
-            // Rotate players, so that the first player is always the same
-            PlayersIds.Add(PlayersIds[0]);
-            PlayersIds.RemoveAt(0);
+            // Rotate players, so that the first player is always the same.
+            _playersIds.Add(_playersIds[0]);
+            _playersIds.RemoveAt(0);
         }
     }
 
@@ -50,20 +92,38 @@ public class RoundRobin : IRoundRobin
 
     private HashSet<(int, int)> ConfigurePairs()
     {
-        IEnumerable<int> whiteIds = PlayersIds.Take(PlayersIds.Count / 2);
-        IEnumerable<int> blackIds = PlayersIds.Skip(PlayersIds.Count / 2).Reverse();
+        IEnumerable<int> whiteIds;
+        IEnumerable<int> blackIds;
+
+        // Swap colors for even tours.
+        if (NewTourNumber % 2 == 0)
+        {
+            whiteIds = _playersIds.Take(_playersIds.Count / 2);
+            blackIds = _playersIds.Skip(_playersIds.Count / 2).Reverse();
+        }
+        else
+        {
+            whiteIds = _playersIds.Take(_playersIds.Count / 2).Reverse();
+            blackIds = _playersIds.Skip(_playersIds.Count / 2);
+        }
 
         return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (w, b)));
     }
 
-    private List<int> PlayersIds { get; }
+    private List<int> _playersIds;
 
     public IList<(int, int)> StartNewTour(int currentTour)
     {
+        ReconfigureIdsIfPlayersChanged();
+
         NewTourNumber = currentTour + 1;
         int tour = NewTourNumber;
-        if (tour >= _pairsForTour.Count)
+        if (tour >= _pairsForTour.Count || _playersIds.Count < 3)
         {
+            MessageBox.Show("Недостаточно игроков для "
+                          + "проведения следующего тура.",
+                            "Ошибка", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
             return new List<(int, int)>();
         }
 
@@ -80,6 +140,28 @@ public class RoundRobin : IRoundRobin
         }
 
         return result;
+    }
+
+    private void ReconfigureIdsIfPlayersChanged()
+    {
+        // If players changed, reconfigure the tours.
+        List<int> ids = GetPlayersIds(GetPlayers(_context, _tournament));
+        if (ids.Count != _playersIds.Count)
+        {
+            _playersIds = ids;
+            ConfigureTours();
+            return;
+        }
+
+        for (var i = 0; i < _playersIds.Count; i++)
+        {
+            if (_playersIds[i] != ids[i])
+            {
+                _playersIds = ids;
+                ConfigureTours();
+                break;
+            }
+        }
     }
 
     public HashSet<(int, int)>? GamesHistory { get; }
