@@ -23,8 +23,8 @@ internal class InsertQueries : IInsertQueries
         {
             user = new User
                    {
-                       UserLastname   = lastName,
-                       UserFirstname  = firstName,
+                       UserLastName   = lastName,
+                       UserFirstName  = firstName,
                        Email          = email,
                        PassHash       = PasswordHasher.HashPassword(password),
                        UserPatronymic = patronymic,

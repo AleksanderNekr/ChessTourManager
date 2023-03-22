@@ -122,10 +122,10 @@ public class ChessTourContext : DbContext
                                       entity.Property(e => e.TournamentsLim)
                                             .HasDefaultValueSql("50")
                                             .HasColumnName("tournaments_lim");
-                                      entity.Property(e => e.UserFirstname)
+                                      entity.Property(e => e.UserFirstName)
                                             .HasMaxLength(255)
                                             .HasColumnName("user_firstname");
-                                      entity.Property(e => e.UserLastname)
+                                      entity.Property(e => e.UserLastName)
                                             .HasMaxLength(255)
                                             .HasColumnName("user_lastname");
                                       entity.Property(e => e.UserPatronymic)

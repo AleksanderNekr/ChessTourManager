@@ -7,9 +7,9 @@ public class User
 {
     public int UserId { get; set; }
 
-    public string UserLastname { get; set; } = null!;
+    public string UserLastName { get; set; } = null!;
 
-    public string UserFirstname { get; set; } = null!;
+    public string UserFirstName { get; set; } = null!;
 
     public string UserPatronymic { get; set; } = null!;
 
