@@ -22,12 +22,69 @@ public class StartNewTourCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
+        // Check if there are any dummy players and make them inactive if there are odd number of players.
+        if (TournamentsListViewModel.SelectedTournament!.Players.Contains(_pairsGridViewModel.DummyPlayer)
+         && TournamentsListViewModel.SelectedTournament!.Players.Count % 2 == 1)
+        {
+            _pairsGridViewModel.DummyPlayer!.IsActive = false;
+            PairsGridViewModel.PairsContext.SaveChanges();
+        }
+
         List<(int, int)> idPairs = new(RoundRobin.StartNewTour(_pairsGridViewModel.CurrentTour));
 
         foreach ((int, int) idPair in idPairs)
         {
+            Game? game;
+
+            // If id = -1 then it means that the player is absent.
+            // Then add a game with the result of 0:1 and mark as not played.
+            // Also add new dummy player to the database.
+            if (idPair.Item1 == -1)
+            {
+                IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+                              .TryAddPlayer(out Player? dummyPlayer,
+                                            TournamentsListViewModel.SelectedTournament.TournamentId,
+                                            TournamentsListViewModel.SelectedTournament.OrganizerId,
+                                            "<Пусто>", "<Пусто>");
+                IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+                              .TryAddGamePair(out game, dummyPlayer!.PlayerId, idPair.Item2,
+                                              TournamentsListViewModel.SelectedTournament!
+                                                                      .TournamentId,
+                                              TournamentsListViewModel.SelectedTournament.OrganizerId,
+                                              RoundRobin.NewTourNumber);
+                game.WhitePoints                = 0;
+                game.BlackPoints                = 1;
+                game.IsPlayed                   = false;
+                _pairsGridViewModel.DummyPlayer = dummyPlayer;
+
+                GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
+                continue;
+            }
+
+            if (idPair.Item2 == -1)
+            {
+                IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+                              .TryAddPlayer(out Player? dummyPlayer,
+                                            TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                            TournamentsListViewModel.SelectedTournament.OrganizerId,
+                                            "<Пусто>", "<Пусто>");
+                IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+                              .TryAddGamePair(out game, idPair.Item1, dummyPlayer!.PlayerId,
+                                              TournamentsListViewModel.SelectedTournament!
+                                                                      .TournamentId,
+                                              TournamentsListViewModel.SelectedTournament.OrganizerId,
+                                              RoundRobin.NewTourNumber);
+                game.WhitePoints                = 1;
+                game.BlackPoints                = 0;
+                game.IsPlayed                   = false;
+                _pairsGridViewModel.DummyPlayer = dummyPlayer;
+
+                GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
+                continue;
+            }
+
             InsertResult result = IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
-                                                .TryAddGamePair(out Game? game, idPair.Item1, idPair.Item2,
+                                                .TryAddGamePair(out game, idPair.Item1, idPair.Item2,
                                                                 TournamentsListViewModel.SelectedTournament!
                                                                    .TournamentId,
                                                                 TournamentsListViewModel.SelectedTournament

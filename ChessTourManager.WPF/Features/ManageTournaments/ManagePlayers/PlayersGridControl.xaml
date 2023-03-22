@@ -27,7 +27,11 @@
                 Content="Добавить игрока"
                 Command="{Binding AddPlayerCommand}" />
         </StackPanel>
+        <!-- dgx:DataGridFilterColumn.ActiveFilter="True" -->
+        <!-- dgx:DataGridFilterColumn.Template="{StaticResource DataGridFilterColumnTemplate}" -->
+        <!-- dgx:DataGridFilterColumn.FilterHost="True" -->
         <DataGrid
+            dgx:DataGridFilterColumn.IsFilterVisible="True"
             Grid.Column="1"
             FontSize="14"
             AutoGenerateColumns="False"

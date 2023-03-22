@@ -163,11 +163,6 @@ public class PlayersViewModel : ViewModelBase
         {
             MessageBox.Show("Возможно игрок с такими параметрами уже существует.", "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
-            // Undo changes.
-            PlayersContext.ChangeTracker
-                          .Entries()
-                          .ToList()
-                          .ForEach(entry => { entry.State = EntityState.Unchanged; });
         }
     }
 
@@ -210,7 +205,7 @@ public class PlayersViewModel : ViewModelBase
         PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
 
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
+        TeamEditedEvent.TeamEdited   += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
 
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;

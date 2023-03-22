@@ -143,6 +143,7 @@ public class PairsGridViewModel : ViewModelBase
     public ICommand StartNewTour => _startNewTour ??= new StartNewTourCommand(this);
     public ICommand ShowPrevTour => _showPrevTour ??= new ShowPrevTourCommand(this);
     public ICommand ShowNextTour => _showNextTour ??= new ShowNextTourCommand(this);
+    public Player?  DummyPlayer  { get; set; }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {

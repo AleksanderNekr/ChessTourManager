@@ -12,6 +12,8 @@
                         <ui:XamlControlsResources />
                         <ui:IntellisenseResources />
                         <ui:ColorPaletteResources />
+                        <!-- Redefine validation error result for password box to set ui:ControlHelper.Description text to (Validation.Errors)[0].ErrorContent -->
+
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

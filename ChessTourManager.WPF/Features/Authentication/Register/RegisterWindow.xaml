@@ -153,6 +153,7 @@
         <StackPanel
             Grid.Row="6">
             <Button
+                IsDefault="True"
                 FontSize="14"
                 Content="Зарегистрироваться"
                 Command="{Binding RegisterCommand}"

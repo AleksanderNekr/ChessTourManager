@@ -17,10 +17,10 @@ public static class GameAddedEvent
 
 public class GameAddedEventArgs : EventArgs
 {
-    public GameAddedEventArgs(Game game)
+    public GameAddedEventArgs(Game? game)
     {
         Game = game;
     }
 
-    public Game Game { get; }
+    public Game? Game { get; }
 }
