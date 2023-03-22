@@ -7,7 +7,7 @@ namespace ChessTourManager.WPF.Features.Authentication.Register;
 /// <summary>
 ///     Interaction logic for RegisterWindow.xaml
 /// </summary>
-public partial class RegisterWindow : Window
+public partial class RegisterWindow
 {
     public RegisterWindow()
     {

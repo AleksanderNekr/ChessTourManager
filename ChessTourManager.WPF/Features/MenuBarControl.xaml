@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:manageTournaments="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Menu
@@ -10,7 +11,7 @@
         FontSize="14">
         <MenuItem Header="Создать турнир"
                   Click="CreateTournamentMenuItem_Click" />
-        <MenuItem Header="Печать">
+        <MenuItem Header="Экспорт">
             <MenuItem Header="Список игроков" />
             <MenuItem Header="Список пар" />
             <MenuItem Header="Рейтинг-лист" />

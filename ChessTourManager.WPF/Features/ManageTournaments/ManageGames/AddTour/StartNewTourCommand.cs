@@ -24,7 +24,7 @@ public class StartNewTourCommand : CommandBase
     {
         // Check if there are any dummy players and make them inactive if there are odd number of players.
         if (TournamentsListViewModel.SelectedTournament!.Players.Contains(_pairsGridViewModel.DummyPlayer)
-         && TournamentsListViewModel.SelectedTournament!.Players.Count % 2 == 1)
+         && TournamentsListViewModel.SelectedTournament.Players.Count % 2 == 1)
         {
             _pairsGridViewModel.DummyPlayer!.IsActive = false;
             PairsGridViewModel.PairsContext.SaveChanges();
@@ -45,9 +45,14 @@ public class StartNewTourCommand : CommandBase
                               .TryAddPlayer(out Player? dummyPlayer,
                                             TournamentsListViewModel.SelectedTournament.TournamentId,
                                             TournamentsListViewModel.SelectedTournament.OrganizerId,
-                                            "<Пусто>", "<Пусто>");
+                                            "<Пусто>", "");
+                if (dummyPlayer is null)
+                {
+                    continue;
+                }
+
                 IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
-                              .TryAddGamePair(out game, dummyPlayer!.PlayerId, idPair.Item2,
+                              .TryAddGamePair(out game, dummyPlayer.PlayerId, idPair.Item2,
                                               TournamentsListViewModel.SelectedTournament!
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,
@@ -65,11 +70,16 @@ public class StartNewTourCommand : CommandBase
             {
                 IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
                               .TryAddPlayer(out Player? dummyPlayer,
-                                            TournamentsListViewModel.SelectedTournament!.TournamentId,
+                                            TournamentsListViewModel.SelectedTournament.TournamentId,
                                             TournamentsListViewModel.SelectedTournament.OrganizerId,
                                             "<Пусто>", "<Пусто>");
+                if (dummyPlayer is null)
+                {
+                    continue;
+                }
+
                 IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
-                              .TryAddGamePair(out game, idPair.Item1, dummyPlayer!.PlayerId,
+                              .TryAddGamePair(out game, idPair.Item1, dummyPlayer.PlayerId,
                                               TournamentsListViewModel.SelectedTournament!
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,

@@ -2,14 +2,10 @@ using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
-using ChessTourManager.Domain.Algorithms;
 using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Features.ManageTournaments;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
-using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
-using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace ChessTourManager.IntegrationTests;
 
