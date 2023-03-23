@@ -1,10 +1,14 @@
-﻿using ChessTourManager.WPF.Features.Authentication.Login;
+﻿using System.Windows.Input;
+using ChessTourManager.WPF.Features.Authentication.Login;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageAccount;
 
 public class ProfileViewModel : ViewModelBase
 {
+    private SaveChangesCommand?    _saveChanges;
+    private ChangePasswordCommand? _changePasswordCommand;
+
     public string GreetMessage
     {
         get { return $"Добро пожаловать, {FirstName}!"; }
@@ -56,5 +60,25 @@ public class ProfileViewModel : ViewModelBase
                 LoginViewModel.CurrentUser.UserPatronymic = value!;
             }
         }
+    }
+
+    public string RegisterDateText
+    {
+        get
+        {
+            return @$"Дата регистрации: {
+                LoginViewModel.CurrentUser?.RegisterDate.ToString("dd.MM.yyyy")
+             ?? string.Empty}";
+        }
+    }
+
+    public ICommand SaveChanges
+    {
+        get { return _saveChanges ??= new SaveChangesCommand(); }
+    }
+
+    public ICommand ChangePasswordCommand
+    {
+        get { return _changePasswordCommand ??= new ChangePasswordCommand(); }
     }
 }

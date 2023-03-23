@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:manageAccount="clr-namespace:ChessTourManager.WPF.Features.ManageAccount"
+             xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d"
              d:DesignHeight="900" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <manageAccount:ProfileViewModel />
+    </UserControl.DataContext>
     <Grid
         HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="0.2*" />
+                Height="0.05*" />
             <RowDefinition
                 Height="Auto" />
             <RowDefinition
@@ -19,20 +25,14 @@
             <RowDefinition
                 Height="*" />
         </Grid.RowDefinitions>
+        <!-- Добро пожаловать, Пользователь -->
         <TextBlock
             Grid.Row="1"
             TextAlignment="Center"
             TextTrimming="CharacterEllipsis"
             FontSize="25"
             FontWeight="DemiBold"
-            Text="Добро пожаловать," />
-        <TextBlock
-            Grid.Row="2"
-            TextAlignment="Center"
-            TextTrimming="CharacterEllipsis"
-            FontSize="20"
-            FontWeight="DemiBold"
-            Text="Пользователь" />
+            Text="{Binding GreetMessage}" />
         <TextBlock
             Grid.Row="3"
             FontSize="16"
@@ -45,78 +45,137 @@
             CanVerticallyScroll="True"
             HorizontalAlignment="Center"
             Margin="0, 30">
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="20, 10"
-                MaxWidth="900">
-                <TextBlock
-                    Width="80"
-                    FontSize="14"
-                    Padding="0,0,10,0"
-                    Text="Фамилия" />
-                <TextBox
-                    FontSize="14"
-                    Text="Ваша фамилия"
-                    MinWidth="150" />
-            </StackPanel>
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="20,10"
-                MaxWidth="900">
-                <TextBlock
-                    Width="80"
-                    FontSize="14"
-                    Padding="0,0,10,0"
-                    Text="Имя" />
-                <TextBox
-                    FontSize="14"
-                    Text="Ваше имя"
-                    MinWidth="150" />
-            </StackPanel>
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="20,10"
-                MaxWidth="900">
-                <TextBlock
-                    Width="80"
-                    FontSize="14"
-                    Padding="0,0,10,0"
-                    Text="Отчество" />
-                <TextBox
-                    FontSize="14"
-                    Text="Ваше отчество"
-                    MinWidth="150" />
-            </StackPanel>
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="20,10"
-                MaxWidth="900">
-                <TextBlock
-                    Width="80"
-                    FontSize="14"
-                    Padding="0,0,10,0"
-                    Text="Email" />
-                <TextBox
-                    FontSize="14"
-                    Text="Ваш email"
-                    MinWidth="150" />
-            </StackPanel>
+            <TextBox
+                Margin="0, 5"
+                MaxWidth="900"
+                ui:ControlHelper.Header="Фамилия"
+                ui:ControlHelper.PlaceholderText="Введите вашу фамилию"
+                x:Name="LastNameTb"
+                FontSize="14"
+                MinWidth="150">
+                <TextBox.Text>
+                    <Binding
+                        Path="LastName"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:NameValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox
+                Margin="0, 5"
+                MaxWidth="900"
+                ui:ControlHelper.Header="Имя"
+                ui:ControlHelper.PlaceholderText="Введите ваше имя"
+                FontSize="14"
+                MinWidth="150">
+                <TextBox.Text>
+                    <Binding
+                        Path="FirstName"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:NameValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox
+                Margin="0, 5"
+                MaxWidth="900"
+                ui:ControlHelper.Header="Отчество"
+                ui:ControlHelper.PlaceholderText="Необязательно"
+                x:Name="PatronymicTb"
+                FontSize="14"
+                MinWidth="150">
+                <TextBox.Text>
+                    <Binding
+                        Path="Patronymic"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:PatronymicValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox
+                Margin="0, 5"
+                MaxWidth="900"
+                ui:ControlHelper.Header="Email"
+                ui:ControlHelper.PlaceholderText="Введите ваш email"
+                x:Name="EmailTb"
+                FontSize="14"
+                MinWidth="150">
+                <TextBox.Text>
+                    <Binding
+                        Path="Email"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:EmailValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button
+                Margin="0, 10, 0, 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Content="Подтвердить изменения"
+                Command="{Binding SaveChanges}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding ElementName=LastNameTb,
+                                        Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=FirstNameTb,
+                                        Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=PatronymicTb,
+                                        Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding ElementName=EmailTb,
+                                        Path=(Validation.HasError)}"
+                                Value="True">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Margin="30"
+                Margin="20"
                 FontSize="14"
-                Content="Сменить пароль" />
-            <TextBlock
-                FontSize="14"
-                Padding="20,10,0,10"
-                HorizontalAlignment="Left"
-                Text="Свободных мест для турниров: 50" />
+                Content="Сменить пароль"
+                Command="{Binding ChangePasswordCommand}"/>
+            <!-- Дата регистрации: 11.11.2011 -->
             <TextBlock
                 FontSize="14"
                 Padding="20,10,0,0"
-                HorizontalAlignment="Left"
-                Text="Дата регистрации: 11.11.2011" />
+                HorizontalAlignment="Center"
+                Text="{Binding RegisterDateText, Mode=OneTime}" />
         </StackPanel>
     </Grid>
 </UserControl>
