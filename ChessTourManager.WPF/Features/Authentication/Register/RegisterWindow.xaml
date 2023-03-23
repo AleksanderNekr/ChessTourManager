@@ -7,6 +7,7 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:helpers="clr-namespace:ChessTourManager.WPF.Helpers"
         xmlns:register="clr-namespace:ChessTourManager.WPF.Features.Authentication.Register"
+        xmlns:bindablePassword="clr-namespace:ChessTourManager.WPF.Helpers.BindablePassword"
         mc:Ignorable="d"
         Title="Регистрация" Height="600" Width="400"
         WindowStyle="ToolWindow"
@@ -113,15 +114,12 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock
-                FontSize="14"
-                Margin="0, 5, 0, 0"
-                Text="Пароль" />
-            <helpers:BindablePasswordBox
+            <bindablePassword:BindablePasswordBox
                 x:Name="PassBoxInit"
                 FontSize="14"
-                ui:ControlHelper.PlaceholderText="Придумайте пароль">
-                <helpers:BindablePasswordBox.Password>
+                Header="Пароль"
+                PlaceholderText="Придумайте пароль">
+                <bindablePassword:BindablePasswordBox.Password>
                     <Binding
                         Path="PasswordInit"
                         UpdateSourceTrigger="PropertyChanged">
@@ -129,17 +127,14 @@
                             <validationRules:PasswordValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
-                </helpers:BindablePasswordBox.Password>
-            </helpers:BindablePasswordBox>
-            <TextBlock
-                FontSize="14"
-                Margin="0, 5, 0, 0"
-                Text="Повторите пароль" />
-            <helpers:BindablePasswordBox
+                </bindablePassword:BindablePasswordBox.Password>
+            </bindablePassword:BindablePasswordBox>
+            <bindablePassword:BindablePasswordBox
                 x:Name="PassBoxConfirm"
                 FontSize="14"
-                ui:ControlHelper.PlaceholderText="Пароли должны совпадать">
-                <helpers:BindablePasswordBox.Password>
+                Header="Повторите пароль"
+                PlaceholderText="Пароли должны совпадать">
+                <bindablePassword:BindablePasswordBox.Password>
                     <Binding
                         Path="PasswordConfirm"
                         UpdateSourceTrigger="PropertyChanged">
@@ -147,8 +142,8 @@
                             <validationRules:PasswordValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
-                </helpers:BindablePasswordBox.Password>
-            </helpers:BindablePasswordBox>
+                </bindablePassword:BindablePasswordBox.Password>
+            </bindablePassword:BindablePasswordBox>
         </StackPanel>
         <StackPanel
             Grid.Row="6">
@@ -169,40 +164,35 @@
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=FirstNTb, Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=EmailTb, Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=PassBoxInit, Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=PassBoxConfirm, Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -211,8 +201,7 @@
             <TextBlock
                 Text="или"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-            </TextBlock>
+                VerticalAlignment="Center" />
             <Button
                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                 FontSize="13"

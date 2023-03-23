@@ -7,6 +7,7 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:helpers="clr-namespace:ChessTourManager.WPF.Helpers"
+        xmlns:bindablePassword="clr-namespace:ChessTourManager.WPF.Helpers.BindablePassword"
         mc:Ignorable="d"
         Title="Авторизация" Height="500" Width="400"
         WindowStyle="ToolWindow"
@@ -56,15 +57,15 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <helpers:BindablePasswordBox
+        <bindablePassword:BindablePasswordBox
             x:Name="PasswordTb"
             Grid.Row="4"
             Margin="0, 10, 0, 0"
-            ui:ControlHelper.PlaceholderText="Введите пароль"
-            ui:ControlHelper.Header="Пароль"
+            PlaceholderText="Введите пароль"
+            Header="Пароль"
             FontSize="14"
             Width="200">
-            <helpers:BindablePasswordBox.Password>
+            <bindablePassword:BindablePasswordBox.Password>
                 <Binding
                     Path="Password"
                     UpdateSourceTrigger="PropertyChanged">
@@ -72,8 +73,8 @@
                         <validationRules:PasswordValidationRule />
                     </Binding.ValidationRules>
                 </Binding>
-            </helpers:BindablePasswordBox.Password>
-        </helpers:BindablePasswordBox>
+            </bindablePassword:BindablePasswordBox.Password>
+        </bindablePassword:BindablePasswordBox>
         <StackPanel
             Grid.Row="6"
             HorizontalAlignment="Center"
@@ -96,16 +97,14 @@
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=PasswordTb, Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
