@@ -1,3 +1,5 @@
+![ChessTourManagerLogo](https://user-images.githubusercontent.com/59678267/227247806-2777591d-a01a-4f51-bec7-5d172ad2865e.png)
+
 # ChessTourManager
 
 A project of implementing chess-drawing system using client-server and layered architecture.
@@ -6,4 +8,3 @@ Using:
 - WPF
 - Entity Framework 7
 
-![ProjectDiagram](https://user-images.githubusercontent.com/59678267/221235902-cc033621-c3df-49eb-94db-5ca0870f93bf.png)
