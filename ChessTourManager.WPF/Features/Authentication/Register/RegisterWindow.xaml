@@ -91,7 +91,7 @@
                         Path="Patronymic"
                         UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validationRules:NameValidationRule />
+                            <validationRules:PatronymicValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
