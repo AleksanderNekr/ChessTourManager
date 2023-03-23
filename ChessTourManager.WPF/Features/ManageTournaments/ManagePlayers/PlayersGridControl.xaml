@@ -31,7 +31,7 @@
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Content="Экспортировать список игроков"
+                Content="Экспорт списка"
                 Command="{Binding ExportPlayersListCommand}"
                 CommandParameter="{Binding ElementName=PlayersDataGrid}" />
         </StackPanel>
