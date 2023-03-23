@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments;
 
@@ -10,5 +11,10 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+    }
+
+    private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
+    {
+        e.Row.Header = e.Row.GetIndex() + 1;
     }
 }

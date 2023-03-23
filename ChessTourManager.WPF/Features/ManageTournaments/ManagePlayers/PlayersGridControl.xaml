@@ -7,7 +7,7 @@
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="2000">
     <UserControl.DataContext>
         <managePlayers:PlayersViewModel />
     </UserControl.DataContext>
@@ -27,11 +27,8 @@
                 Content="Добавить игрока"
                 Command="{Binding AddPlayerCommand}" />
         </StackPanel>
-        <!-- dgx:DataGridFilterColumn.ActiveFilter="True" -->
-        <!-- dgx:DataGridFilterColumn.Template="{StaticResource DataGridFilterColumnTemplate}" -->
-        <!-- dgx:DataGridFilterColumn.FilterHost="True" -->
         <DataGrid
-            dgx:DataGridFilterColumn.IsFilterVisible="True"
+            dgx:DataGridFilter.IsAutoFilterEnabled="True"
             Grid.Column="1"
             FontSize="14"
             AutoGenerateColumns="False"
@@ -78,6 +75,7 @@
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn
+                    dgx:DataGridFilterColumn.IsFilterVisible="True"
                     Header="Фамилия"
                     Binding="{Binding PlayerLastName}">
                     <DataGridTextColumn.ElementStyle>
@@ -105,7 +103,8 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn
-                    Header="Пол">
+                    Header="Пол"
+                    SortMemberPath="Gender">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
@@ -142,7 +141,8 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn
-                    Header="Команда">
+                    Header="Команда"
+                    SortMemberPath="Team.TeamName">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
@@ -169,7 +169,8 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
-                    Header="Группа">
+                    Header="Группа"
+                    SortMemberPath="Group.Identity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
@@ -196,7 +197,8 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
-                    Header="Год рождения">
+                    Header="Год рождения"
+                    SortMemberPath="PlayerBirthYear">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
@@ -217,7 +219,8 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
-                    Header="Активен">
+                    Header="Активен"
+                    dgx:DataGridFilterColumn.IsFilterVisible="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox
@@ -240,7 +243,8 @@
                 </DataGridTemplateColumn>
 
                 <!-- Button to delete tournament. -->
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    dgx:DataGridFilterColumn.IsFilterVisible="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button

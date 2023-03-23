@@ -11,6 +11,7 @@
         xmlns:manageTeams="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageTeams"
         xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
         xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
         x:Name="MainUserWindow"
         Title="Главное окно"
         MinHeight="700"
@@ -18,7 +19,6 @@
         Width="800"
         Height="700"
         ui:ThemeManager.RequestedTheme="Light"
-        ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <manageTournaments:TournamentsListViewModel />
@@ -42,18 +42,22 @@
                 IsSelected="True"
                 Header="Список турниров">
                 <DataGrid
+                    dgx:DataGridFilter.IsAutoFilterEnabled="True"
                     AutoGenerateColumns="False"
                     ItemsSource="{Binding TournamentsCollection, Mode=TwoWay}"
                     IsReadOnly="True"
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Left"
+                    LoadingRow="DataGrid_LoadingRow"
+                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}">
                     <DataGrid.Columns>
                         <!-- Button to open tournament -->
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
-                                        Style="{DynamicResource AccentButtonStyle}"
+                                        Style="{DynamicResource DefaultButtonStyle}"
                                         Content="Открыть"
                                         Command="{Binding DataContext.OpenTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -61,7 +65,7 @@
                                         CommandParameter="{Binding CurrentItem}"
 
                                         DataContext="{Binding
-                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -84,7 +88,8 @@
                             Header="Дата изменения"
                             Binding="{Binding DateLastChange}" />
                         <!-- Button to edit tournament -->
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
@@ -100,7 +105,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Button to delete tournament -->
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
