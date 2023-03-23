@@ -32,7 +32,7 @@
             TextTrimming="CharacterEllipsis"
             FontSize="25"
             FontWeight="DemiBold"
-            Text="{Binding GreetMessage}" />
+            Text="{Binding GreetMessage, Mode=OneWay}" />
         <TextBlock
             Grid.Row="3"
             FontSize="16"

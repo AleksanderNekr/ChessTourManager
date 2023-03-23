@@ -22,6 +22,7 @@ public class ProfileViewModel : ViewModelBase
             if (LoginViewModel.CurrentUser != null)
             {
                 LoginViewModel.CurrentUser.UserFirstName = value!;
+                OnPropertyChanged(nameof(GreetMessage));
             }
         }
     }
