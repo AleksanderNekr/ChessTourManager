@@ -1,0 +1,51 @@
+﻿<Window x:Class="ChessTourManager.WPF.Features.AboutAppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="О программе" Height="500" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="25"
+            FontWeight="SemiBold"
+            Text="Программа ChessTourManager" />
+        <TextBlock
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="20"
+            FontStyle="Italic"
+            Text="Программа для управления турнирами по шахматам" />
+        <TextBlock
+            Grid.Row="2"
+            Margin="50, 0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            FontSize="20"
+            TextWrapping="WrapWithOverflow"
+            Text="Данная программа находится под лицензией MIT. Предназначена для личного использования. При использовании программы в коммерческих целях, необходимо согласование с автором." />
+        <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Grid.Row="3">
+            <TextBlock
+                Margin="50, 0, 5 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="20"
+                TextWrapping="WrapWithOverflow"
+                Text="Автор: Александр Некрасов" />
+        </StackPanel>
+    </Grid>
+</Window>

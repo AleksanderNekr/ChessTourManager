@@ -8,25 +8,28 @@
     <Menu
         Margin="0,2"
         FontSize="14">
-        <MenuItem Header="Создать турнир"
-                  Click="CreateTournamentMenuItem_Click" />
+        <MenuItem
+            Header="Создать турнир"
+            Click="CreateTournamentMenuItem_Click" />
         <MenuItem Header="Экспорт">
             <MenuItem Header="Список игроков" />
             <MenuItem Header="Список пар" />
             <MenuItem Header="Рейтинг-лист" />
         </MenuItem>
         <MenuItem Header="Справка">
-            <MenuItem Header="О программе" />
+            <MenuItem
+                Header="О программе"
+                Click="AboutApp_Click"/>
         </MenuItem>
         <MenuItem
             Header="Выход">
             <MenuItem
                 Header="Сменить пользователя"
-                Click="ChangeUser_OnClick"/>
+                Click="ChangeUser_OnClick" />
             <Separator />
             <MenuItem
                 Header="Закрыть программу"
-                Click="CloseAppMenuItem_Click"/>
+                Click="CloseAppMenuItem_Click" />
         </MenuItem>
     </Menu>
 </UserControl>

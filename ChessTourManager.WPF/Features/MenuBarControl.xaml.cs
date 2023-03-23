@@ -29,4 +29,9 @@ public partial class MenuBarControl : UserControl
         // Close the host of this control
         Window.GetWindow(this)?.Close();
     }
+
+    private void AboutApp_Click(object sender, RoutedEventArgs e)
+    {
+        new AboutAppWindow().ShowDialog();
+    }
 }
