@@ -18,5 +18,15 @@
         <MenuItem Header="Справка">
             <MenuItem Header="О программе" />
         </MenuItem>
+        <MenuItem
+            Header="Выход">
+            <MenuItem
+                Header="Сменить пользователя"
+                Click="ChangeUser_OnClick"/>
+            <Separator />
+            <MenuItem
+                Header="Закрыть программу"
+                Click="CloseAppMenuItem_Click"/>
+        </MenuItem>
     </Menu>
 </UserControl>
