@@ -58,7 +58,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(out User _, email: "petrov_p@yandex.ru",
+        InsertResult result = queries.TryAddUser(out User _, email: "petrov_p@yandex.ru" + DateTime.Now.Ticks,
                                                  password: "password",
                                                  lastName: "Petrov",
                                                  firstName: "Petr");

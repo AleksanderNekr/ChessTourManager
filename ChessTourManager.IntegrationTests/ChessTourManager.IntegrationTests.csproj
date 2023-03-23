@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj" />
-      <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
       <ProjectReference Include="..\ChessTourManager.WPF\ChessTourManager.WPF.csproj" />
     </ItemGroup>
 

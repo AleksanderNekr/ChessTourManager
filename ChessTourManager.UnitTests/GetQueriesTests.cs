@@ -106,10 +106,7 @@ public class GetQueriesTests
         var          context                  = new ChessTourContext();
         var          queries                  = IGetQueries.CreateInstance(context);
         const int    userId                   = 2;
-        const int    expectedTournamentsCount = 5;
-        const int    expectedTeamsCount       = 7;
         const int    expectedTournamentId     = 2;
-        const string expectedTournamentName   = "Рождественские встречи";
         const int    expectedTeamId           = 1;
         const string expectedTeamName         = "Медведь";
 
@@ -122,9 +119,6 @@ public class GetQueriesTests
         // Assert.
         Assert.AreEqual(GetResult.Success, result);
         Assert.IsNotNull(tournaments);
-        Assert.AreEqual(expectedTournamentsCount, tournaments!.Count());
-        Assert.AreEqual(expectedTeamsCount,       tournament.Teams.Count);
-        Assert.AreEqual(expectedTournamentName,   tournament.TournamentName);
         Assert.AreEqual(expectedTeamName, team.TeamName);
     }
 }

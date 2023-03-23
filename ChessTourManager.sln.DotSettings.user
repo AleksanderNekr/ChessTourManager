@@ -17,6 +17,8 @@
     &lt;TestId&gt;NUnit3x::E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0::net6.0::ChessTourManager.IntegrationTests.Tests.Test1&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0::net6.0-windows::ChessTourManager.IntegrationTests.Tests.Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0::net6.0-windows::ChessTourManager.IntegrationTests.Tests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::F26C6FF8-6914-4EB4-9DE3-4428F5065E14::net6.0-windows::ChessTourManager.SystemTests.Tests.Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::F26C6FF8-6914-4EB4-9DE3-4428F5065E14::net6.0-windows::ChessTourManager.SystemTests.Tests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
