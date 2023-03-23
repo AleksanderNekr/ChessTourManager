@@ -26,8 +26,17 @@
                 VerticalAlignment="Top"
                 Content="Добавить игрока"
                 Command="{Binding AddPlayerCommand}" />
+            <Button
+                FontSize="14"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Content="Экспортировать список игроков"
+                Command="{Binding ExportPlayersListCommand}"
+                CommandParameter="{Binding ElementName=PlayersDataGrid}" />
         </StackPanel>
         <DataGrid
+            x:Name="PlayersDataGrid"
             dgx:DataGridFilter.IsAutoFilterEnabled="True"
             Grid.Column="1"
             FontSize="14"

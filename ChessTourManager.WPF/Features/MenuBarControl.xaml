@@ -11,11 +11,6 @@
         <MenuItem
             Header="Создать турнир"
             Click="CreateTournamentMenuItem_Click" />
-        <MenuItem Header="Экспорт">
-            <MenuItem Header="Список игроков" />
-            <MenuItem Header="Список пар" />
-            <MenuItem Header="Рейтинг-лист" />
-        </MenuItem>
         <MenuItem Header="Справка">
             <MenuItem
                 Header="О программе"

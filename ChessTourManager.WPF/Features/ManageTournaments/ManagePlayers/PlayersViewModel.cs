@@ -33,6 +33,7 @@ public class PlayersViewModel : ViewModelBase
 
     private ObservableCollection<Player>? _playersCollection;
     private ObservableCollection<Team>?   _teamsAvailable;
+    private ExportPlayersListCommand?     _exportPlayersListCommand;
 
     public PlayersViewModel()
     {
@@ -103,6 +104,11 @@ public class PlayersViewModel : ViewModelBase
             return _groupsAvailable!;
         }
         set { SetField(ref _groupsAvailable, value); }
+    }
+
+    public ICommand ExportPlayersListCommand
+    {
+        get { return _exportPlayersListCommand ??= new ExportPlayersListCommand(); }
     }
 
     private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
