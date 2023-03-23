@@ -224,8 +224,7 @@
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=PlaceTextBox,
@@ -233,8 +232,7 @@
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                             <DataTrigger
                                 Binding="{Binding ElementName=OrgNameTextBox,
@@ -242,8 +240,7 @@
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
-                                    Value="False">
-                                </Setter>
+                                    Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

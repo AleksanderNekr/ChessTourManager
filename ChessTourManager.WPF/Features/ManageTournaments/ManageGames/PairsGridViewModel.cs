@@ -111,12 +111,15 @@ public class PairsGridViewModel : ViewModelBase
     {
         if (Pairs.Count == 0)
         {
-            SetField(ref _currentTour, 0);
-            return;
+            SetField(ref _currentTour, 0, nameof(CurrentTour));
+        }
+        else
+        {
+            int maxTour = Pairs.Max(p => p.TourNumber);
+            SetField(ref _currentTour, maxTour, nameof(CurrentTour));
         }
 
-        int maxTour = Pairs.Max(p => p.TourNumber);
-        SetField(ref _currentTour, maxTour);
+        SetField(ref _selectedTour, _currentTour, nameof(SelectedTour));
     }
 
     public ObservableCollection<Game> PairsForSelectedTour
