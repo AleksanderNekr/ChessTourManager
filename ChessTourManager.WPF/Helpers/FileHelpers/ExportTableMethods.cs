@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,15 +12,11 @@ namespace ChessTourManager.WPF.Helpers.FileHelpers;
 
 public static class ExportTableMethods
 {
-    public static bool TryExportGrid(DataGrid dataGrid)
+    public static bool TryExportGrid(DataGrid dataGrid, int skipFirstColumnsCount = 0, int skipLastColumnsCount = 0)
     {
-        const string fileExtensions = "XLSX files (*.xlsx)|*.xlsx|XLS files (*.xls)|*.xls|"
-                                    + "CSV files (*.csv)|*.csv";
-        SaveFileDialog saveDialog = new()
-                                    {
-                                        FileName = "players",
-                                        Filter   = fileExtensions
-                                    };
+        CheckSkipColumns(dataGrid.Columns.Count, skipFirstColumnsCount, skipLastColumnsCount);
+
+        SaveFileDialog saveDialog = ConfigSaveFileDialog(dataGrid);
         if (saveDialog.ShowDialog() == false)
         {
             return false;
@@ -32,63 +29,109 @@ public static class ExportTableMethods
         {
             case ".xlsx":
             case ".xls":
-                ExportToExcel(dataGrid, fileName);
+                ExportToExcel(dataGrid, fileName, skipFirstColumnsCount, skipLastColumnsCount);
                 break;
             case ".csv":
-                ExportToCsv(dataGrid, fileName);
+                ExportToCsv(dataGrid, fileName, skipFirstColumnsCount, skipLastColumnsCount);
                 break;
         }
 
         return true;
     }
 
-    private static void WriteHeader(StringBuilder sb1, DataGrid dataGrid)
+    private static SaveFileDialog ConfigSaveFileDialog(DataGrid dataGrid)
     {
-        foreach (DataGridColumn? column in dataGrid.Columns)
+        const string fileExtensions = "XLSX files (*.xlsx)|*.xlsx|XLS files (*.xls)|*.xls|"
+                                    + "CSV files (*.csv)|*.csv";
+        string filename = dataGrid.Items[0].GetType().Name + "s";
+
+        SaveFileDialog saveDialog = new()
+                                    {
+                                        FileName = filename,
+                                        Filter   = fileExtensions
+                                    };
+        return saveDialog;
+    }
+
+    private static void CheckSkipColumns(int dataGridColumnsCount, int skipFirstColumnsCount,
+                                         int skipLastColumnsCount)
+    {
+        if (skipFirstColumnsCount < 0)
         {
-            sb1.Append(column.Header);
-            sb1.Append(",");
+            throw new ArgumentOutOfRangeException(nameof(skipFirstColumnsCount),
+                                                  "skipFirstColumnsCount must be >= 0");
         }
 
-        StartNewLine(sb1);
+        if (skipLastColumnsCount < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(skipLastColumnsCount),
+                                                  "skipLastColumnsCount must be >= 0");
+        }
+
+        if (dataGridColumnsCount <= skipFirstColumnsCount + skipLastColumnsCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(skipFirstColumnsCount),
+                                                  "skipFirstColumnsCount + skipLastColumnsCount"
+                                                + " must be < dataGridColumnsCount");
+        }
+    }
+
+    private static void WriteHeader(StringBuilder sb, DataGrid dataGrid, int skipFirstColumnsCount,
+                                    int           skipLastColumnsCount)
+    {
+        for (int i = skipFirstColumnsCount; i < dataGrid.Columns.Count - skipLastColumnsCount; i++)
+        {
+            DataGridColumn? column = dataGrid.Columns[i];
+            sb.Append(column.Header);
+            sb.Append(",");
+        }
+
+        StartNewLine(sb);
     }
 
     private static void StartNewLine(StringBuilder stringBuilder)
     {
-        // Remove the last 2 comma.
-        stringBuilder.Length -= 2;
+        // Remove the last comma.
+        stringBuilder.Length -= 1;
 
         stringBuilder.AppendLine();
     }
 
-    private static void ExportToCsv(DataGrid dataGrid, string fileName)
+    private static void ExportToCsv(DataGrid dataGrid, string fileName, int skipFirstColumnsCount,
+                                    int      skipLastColumnsCount)
     {
         StringBuilder sb = new();
 
-        WriteHeader(sb, dataGrid);
+        WriteHeader(sb, dataGrid, skipFirstColumnsCount, skipLastColumnsCount);
 
-        List<object> data = dataGrid.ItemsSource.Cast<object>().ToList();
+        List<object> objects = dataGrid.ItemsSource.Cast<object>().ToList();
 
+        WriteBody(dataGrid, objects, sb, skipFirstColumnsCount, skipLastColumnsCount);
+
+        File.WriteAllText(fileName, sb.ToString());
+    }
+
+    private static void WriteBody(DataGrid dataGrid,                  List<object> data, StringBuilder sb,
+                                  int      skipFirstColumnsCount = 0, int          skipLastColumnsCount = 0)
+    {
         for (var i = 0; i < data.Count; i++)
         {
             object item = data[i];
-            foreach (DataGridColumn col in dataGrid.Columns)
+            for (int j = skipFirstColumnsCount; j < dataGrid.Columns.Count - skipLastColumnsCount; j++)
             {
-                object? value = GetPropertyValue(item, col.SortMemberPath);
+                object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 sb.Append(value);
                 sb.Append(",");
             }
 
             StartNewLine(sb);
         }
-
-        // Write data to file
-        File.WriteAllText(fileName, sb.ToString());
     }
 
-    private static void ExportToExcel(DataGrid dataGrid, string fileName)
+    private static void ExportToExcel(DataGrid dataGrid, string fileName, int skipFirstColumnsCount,
+                                      int      skipLastColumnsCount)
     {
-        List<object> data = dataGrid.ItemsSource.Cast<object>().ToList();
+        List<object> objects = dataGrid.ItemsSource.Cast<object>().ToList();
 
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         var package = new ExcelPackage();
@@ -100,10 +143,10 @@ public static class ExportTableMethods
             worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
         }
 
-        for (var i = 0; i < data.Count; i++)
+        for (var i = 0; i < objects.Count; i++)
         {
-            object item = data[i];
-            for (var j = 0; j < dataGrid.Columns.Count; j++)
+            object item = objects[i];
+            for (int j = skipFirstColumnsCount; j < dataGrid.Columns.Count - skipLastColumnsCount; j++)
             {
                 object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 worksheet.Cells[i + 2, j + 1].Value = value?.ToString();

@@ -82,7 +82,6 @@ public class PlayersViewModel : ViewModelBase
 
             return _teamsAvailable!;
         }
-        set { SetField(ref _teamsAvailable, value); }
     }
 
     public ObservableCollection<int> BirthYears
