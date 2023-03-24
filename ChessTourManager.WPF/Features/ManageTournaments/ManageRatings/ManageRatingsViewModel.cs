@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -27,6 +28,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private ObservableCollection<Player>? _playersSorted;
     private string?                       _title;
+    private ExportRatingListCommand?      _exportRatingListCommand;
 
     public ManageRatingsViewModel()
     {
@@ -103,6 +105,8 @@ public class ManageRatingsViewModel : ViewModelBase
         private set { SetField(ref _title, value); }
     }
 
+    public ICommand ExportRatingListCommand => _exportRatingListCommand ??= new ExportRatingListCommand();
+
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
         UpdateRating();
@@ -131,7 +135,7 @@ public class ManageRatingsViewModel : ViewModelBase
         PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
         PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
 
-        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
+        TeamEditedEvent.TeamEdited   += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
 
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;

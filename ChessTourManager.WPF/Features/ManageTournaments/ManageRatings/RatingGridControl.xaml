@@ -12,11 +12,26 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition
-                Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- Set button above text box -->
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ZIndex="1"
+            Margin="10"
+            Content="Экспорт рейтинг-листа"
+            Command="{Binding ExportRatingListCommand}"
+            CommandParameter="{Binding ElementName=DataGrid}" />
         <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             TextAlignment="Center"
             TextTrimming="CharacterEllipsis"
             FontWeight="DemiBold"
@@ -24,9 +39,12 @@
             Padding="10"
             Text="{Binding Title, Mode=OneWay}" />
         <DataGrid
+            x:Name="DataGrid"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
             dgx:DataGridFilter.IsAutoFilterEnabled="True"
-            Grid.Row="1"
             IsReadOnly="True"
             FontSize="14"
             AutoGenerateColumns="False"
