@@ -169,6 +169,11 @@ public class PlayersViewModel : ViewModelBase
             MessageBox.Show("Возможно игрок с такими параметрами уже существует.", "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        catch (Exception)
+        {
+            MessageBox.Show("Ошибка при созранении изменений", "Ошибка сохранения",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void UpdateTeams()
