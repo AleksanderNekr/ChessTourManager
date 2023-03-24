@@ -25,6 +25,7 @@ public class PairsGridViewModel : ViewModelBase
     private StartNewTourCommand?        _startNewTour;
     private ShowPrevTourCommand?        _showPrevTour;
     private ShowNextTourCommand?        _showNextTour;
+    private ExportGamesListCommand?     _exportGamesListCommand;
 
     public PairsGridViewModel()
     {
@@ -143,10 +144,12 @@ public class PairsGridViewModel : ViewModelBase
                  nameof(PairsForSelectedTour));
     }
 
-    public ICommand StartNewTour => _startNewTour ??= new StartNewTourCommand(this);
-    public ICommand ShowPrevTour => _showPrevTour ??= new ShowPrevTourCommand(this);
-    public ICommand ShowNextTour => _showNextTour ??= new ShowNextTourCommand(this);
-    public Player?  DummyPlayer  { get; set; }
+    public Player? DummyPlayer { get; set; }
+
+    public ICommand StartNewTour           => _startNewTour ??= new StartNewTourCommand(this);
+    public ICommand ShowPrevTour           => _showPrevTour ??= new ShowPrevTourCommand(this);
+    public ICommand ShowNextTour           => _showNextTour ??= new ShowNextTourCommand(this);
+    public ICommand ExportGamesListCommand => _exportGamesListCommand ??= new ExportGamesListCommand();
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
