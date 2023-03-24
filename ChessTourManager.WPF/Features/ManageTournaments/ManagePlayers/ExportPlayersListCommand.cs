@@ -17,7 +17,7 @@ public class ExportPlayersListCommand : CommandBase
 
         try
         {
-            if (ExportTableMethods.TryExportGrid(dataGrid))
+            if (ExportTableMethods.TryExportGrid(dataGrid, skipLastColumnsCount: 1))
             {
                 MessageBox.Show("Данные успешно экспортированы", "Экспорт списка участников",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
