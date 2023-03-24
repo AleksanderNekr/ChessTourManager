@@ -12,6 +12,8 @@ namespace ChessTourManager.WPF.Helpers.FileHelpers;
 
 public static class ExportTableMethods
 {
+    private const string Separator = ";";
+
     public static bool TryExportGrid(DataGrid dataGrid, int skipFirstColumnsCount = 0, int skipLastColumnsCount = 0)
     {
         CheckSkipColumns(dataGrid.Columns.Count, skipFirstColumnsCount, skipLastColumnsCount);
@@ -83,7 +85,7 @@ public static class ExportTableMethods
         {
             DataGridColumn? column = dataGrid.Columns[i];
             sb.Append(column.Header);
-            sb.Append(",");
+            sb.Append(Separator);
         }
 
         StartNewLine(sb);
@@ -121,7 +123,7 @@ public static class ExportTableMethods
             {
                 object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 sb.Append(value);
-                sb.Append(",");
+                sb.Append(Separator);
             }
 
             StartNewLine(sb);
@@ -138,7 +140,7 @@ public static class ExportTableMethods
 
         ExcelWorksheet? worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-        for (var i = 0; i < dataGrid.Columns.Count; i++)
+        for (int i = skipFirstColumnsCount; i < dataGrid.Columns.Count - skipLastColumnsCount; i++)
         {
             worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
         }
