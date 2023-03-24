@@ -47,7 +47,7 @@
                     ItemsSource="{Binding TournamentsCollection, Mode=TwoWay}"
                     IsReadOnly="True"
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Center"
                     LoadingRow="DataGrid_LoadingRow"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}">
                     <DataGrid.Columns>

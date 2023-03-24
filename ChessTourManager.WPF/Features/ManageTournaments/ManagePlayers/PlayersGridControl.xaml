@@ -47,7 +47,7 @@
             CanUserAddRows="False"
             CanUserDeleteRows="False"
             VerticalAlignment="Top"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             dgx:Tools.ForceCommitOnLostFocus="True"
             CurrentCellChanged="DataGrid_CurrentCellChanged"
             LoadingRow="DataGrid_LoadingRow"

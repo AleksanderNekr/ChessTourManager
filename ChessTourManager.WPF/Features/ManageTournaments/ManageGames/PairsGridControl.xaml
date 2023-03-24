@@ -50,7 +50,7 @@
             <DataGrid
                 x:Name="DataGrid"
                 Grid.Column="1"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 CanUserAddRows="False"
                 CanUserSortColumns="False"
