@@ -8,7 +8,7 @@
         xmlns:register="clr-namespace:ChessTourManager.WPF.Features.Authentication.Register"
         xmlns:bindablePassword="clr-namespace:ChessTourManager.WPF.Helpers.BindablePassword"
         mc:Ignorable="d"
-        Title="Регистрация" Height="600" Width="400"
+        Height="600" Width="400"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
