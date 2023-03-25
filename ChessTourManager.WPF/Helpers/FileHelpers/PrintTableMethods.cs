@@ -55,6 +55,11 @@ public static class PrintTableMethods
             {
                 string cellValue = GetCellValue(column, item);
 
+                if (cellValue == string.Empty)
+                {
+                    continue;
+                }
+
                 TableCell dataCell = new(new Paragraph(new Run(cellValue)))
                                      {
                                          BorderBrush     = Brushes.Gray,
@@ -73,9 +78,13 @@ public static class PrintTableMethods
 
     private static string GetCellValue(DataGridColumn column, object item)
     {
-        return GetPropertyValuesMethods.GetPropertyValue(item, column.SortMemberPath)?.ToString()
-            ?? throw new InvalidOperationException("Не удалось получить значение"
-                                                 + $" свойства {column.Header} объекта {item}");
+        if (column.SortMemberPath == string.Empty)
+        {
+            return string.Empty;
+        }
+
+        var s = GetPropertyValuesMethods.GetPropertyValue(item, column.SortMemberPath)?.ToString();
+        return s ?? " ";
     }
 
     private static void ConfigHeader(DataGrid dataGrid, Table table)
@@ -85,6 +94,11 @@ public static class PrintTableMethods
 
         foreach (DataGridColumn column in dataGrid.Columns)
         {
+            if (column.Header is null)
+            {
+                continue;
+            }
+
             TableCell headerCell = new(new Paragraph(new Run(column.Header.ToString())))
                                    {
                                        Background      = Brushes.LightGray,
