@@ -26,10 +26,10 @@ public class ManageRatingsViewModel : ViewModelBase
 {
     private static readonly ChessTourContext         RatingsContext = PlayersViewModel.PlayersContext;
     private                 ExportRatingListCommand? _exportRatingListCommand;
+    private                 PrintRatingListCommand?  _printRatingListCommand;
 
     private ObservableCollection<Player>? _playersSorted;
     private string?                       _title;
-    private PrintRatingListCommand?        _printRatingListCommand;
 
     public ManageRatingsViewModel()
     {

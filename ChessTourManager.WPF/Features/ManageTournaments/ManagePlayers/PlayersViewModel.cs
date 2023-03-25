@@ -34,6 +34,7 @@ public class PlayersViewModel : ViewModelBase
 
     private ObservableCollection<Player>? _playersCollection;
     private ObservableCollection<Team>?   _teamsAvailable;
+    private PrintPlayersListCommand?      _printPlayersListCommand;
 
     public PlayersViewModel()
     {
@@ -108,6 +109,11 @@ public class PlayersViewModel : ViewModelBase
     public ICommand ExportPlayersListCommand
     {
         get { return _exportPlayersListCommand ??= new ExportPlayersListCommand(); }
+    }
+
+    public ICommand PrintPlayersListCommand
+    {
+        get { return _printPlayersListCommand ??= new PrintPlayersListCommand(); }
     }
 
     private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)

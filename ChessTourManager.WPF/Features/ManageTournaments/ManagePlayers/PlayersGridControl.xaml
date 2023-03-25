@@ -34,6 +34,14 @@
                 Content="Экспорт списка"
                 Command="{Binding ExportPlayersListCommand}"
                 CommandParameter="{Binding ElementName=PlayersDataGrid}" />
+            <Button
+                FontSize="14"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Content="Печать списка"
+                Command="{Binding PrintPlayersListCommand}"
+                CommandParameter="{Binding ElementName=PlayersDataGrid}" />
         </StackPanel>
         <DataGrid
             x:Name="PlayersDataGrid"
