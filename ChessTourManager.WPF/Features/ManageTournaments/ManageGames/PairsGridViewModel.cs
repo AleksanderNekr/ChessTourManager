@@ -18,26 +18,19 @@ public class PairsGridViewModel : ViewModelBase
     internal static readonly ChessTourContext PairsContext = PlayersViewModel.PlayersContext;
 
     private int                         _currentTour;
+    private ExportGamesListCommand?     _exportGamesListCommand;
     private ObservableCollection<Game>? _pairs;
     private ObservableCollection<Game>? _pairsForSelectedTour;
+    private PrintGamesListCommand?      _printGamesListCommand;
     private int?                        _selectedTour;
-    private Tournament?                 _tournament;
-    private StartNewTourCommand?        _startNewTour;
-    private ShowPrevTourCommand?        _showPrevTour;
     private ShowNextTourCommand?        _showNextTour;
-    private ExportGamesListCommand?     _exportGamesListCommand;
+    private ShowPrevTourCommand?        _showPrevTour;
+    private StartNewTourCommand?        _startNewTour;
+    private Tournament?                 _tournament;
 
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-    }
-
-    private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
-    {
-        CurrentTour = tourAddedEventArgs.TourNumber;
-        UpdatePairs();
-        UpdateCurrentTour();
-        UpdatePairsForSelectedTour();
     }
 
     public string ToursInfo
@@ -108,6 +101,55 @@ public class PairsGridViewModel : ViewModelBase
         }
     }
 
+    public ObservableCollection<Game> PairsForSelectedTour
+    {
+        get
+        {
+            if (_pairsForSelectedTour is null)
+            {
+                UpdatePairsForSelectedTour();
+            }
+
+            return _pairsForSelectedTour!;
+        }
+        set { SetField(ref _pairsForSelectedTour, value); }
+    }
+
+    public Player? DummyPlayer { get; set; }
+
+    public ICommand StartNewTour
+    {
+        get { return _startNewTour ??= new StartNewTourCommand(this); }
+    }
+
+    public ICommand ShowPrevTour
+    {
+        get { return _showPrevTour ??= new ShowPrevTourCommand(this); }
+    }
+
+    public ICommand ShowNextTour
+    {
+        get { return _showNextTour ??= new ShowNextTourCommand(this); }
+    }
+
+    public ICommand ExportGamesListCommand
+    {
+        get { return _exportGamesListCommand ??= new ExportGamesListCommand(); }
+    }
+
+    public ICommand PrintGamesListCommand
+    {
+        get { return _printGamesListCommand ??= new PrintGamesListCommand(); }
+    }
+
+    private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
+    {
+        CurrentTour = tourAddedEventArgs.TourNumber;
+        UpdatePairs();
+        UpdateCurrentTour();
+        UpdatePairsForSelectedTour();
+    }
+
     private void UpdateCurrentTour()
     {
         if (Pairs.Count == 0)
@@ -123,33 +165,12 @@ public class PairsGridViewModel : ViewModelBase
         SetField(ref _selectedTour, _currentTour, nameof(SelectedTour));
     }
 
-    public ObservableCollection<Game> PairsForSelectedTour
-    {
-        get
-        {
-            if (_pairsForSelectedTour is null)
-            {
-                UpdatePairsForSelectedTour();
-            }
-
-            return _pairsForSelectedTour!;
-        }
-        set { SetField(ref _pairsForSelectedTour, value); }
-    }
-
     private void UpdatePairsForSelectedTour()
     {
         SetField(ref _pairsForSelectedTour,
                  new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == SelectedTour)),
                  nameof(PairsForSelectedTour));
     }
-
-    public Player? DummyPlayer { get; set; }
-
-    public ICommand StartNewTour           => _startNewTour ??= new StartNewTourCommand(this);
-    public ICommand ShowPrevTour           => _showPrevTour ??= new ShowPrevTourCommand(this);
-    public ICommand ShowNextTour           => _showNextTour ??= new ShowNextTourCommand(this);
-    public ICommand ExportGamesListCommand => _exportGamesListCommand ??= new ExportGamesListCommand();
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
