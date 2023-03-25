@@ -20,14 +20,21 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!-- Set button above text box -->
-        <Button
+        <StackPanel
             Grid.Row="0"
             Grid.Column="0"
-            Grid.ZIndex="1"
-            Margin="10"
-            Content="Экспорт рейтинг-листа"
-            Command="{Binding ExportRatingListCommand}"
-            CommandParameter="{Binding ElementName=DataGrid}" />
+            Grid.ZIndex="1">
+            <Button
+                Margin="10"
+                Content="Экспорт рейтинг-листа"
+                Command="{Binding ExportRatingListCommand}"
+                CommandParameter="{Binding ElementName=DataGrid}" />
+            <Button
+                Margin="10"
+                Content="Печать рейтинг-листа"
+                Command="{Binding PrintRatingListCommand}"
+                CommandParameter="{Binding ElementName=DataGrid}" />
+        </StackPanel>
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"

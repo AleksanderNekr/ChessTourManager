@@ -29,6 +29,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private ObservableCollection<Player>? _playersSorted;
     private string?                       _title;
+    private PrintRatingListCommand?        _printRatingListCommand;
 
     public ManageRatingsViewModel()
     {
@@ -58,6 +59,11 @@ public class ManageRatingsViewModel : ViewModelBase
     public ICommand ExportRatingListCommand
     {
         get { return _exportRatingListCommand ??= new ExportRatingListCommand(); }
+    }
+
+    public ICommand PrintRatingListCommand
+    {
+        get { return _printRatingListCommand ??= new PrintRatingListCommand(); }
     }
 
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs e)
