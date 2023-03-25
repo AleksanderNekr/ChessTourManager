@@ -56,4 +56,9 @@ public class Player
     {
         get { return PlayerLastName + " " + PlayerFirstName; }
     }
+
+    public override string ToString()
+    {
+        return PlayerFullName;
+    }
 }
