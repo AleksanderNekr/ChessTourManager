@@ -6,11 +6,10 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlay
 
 public class EditPlayerViewModel : ViewModelBase
 {
-    internal Player?                    Player { get; set; }
-    private  string                     _playerLastName;
-    private  string                     _playerFirstName;
-    private  CompleteEditPlayerCommand? _completeEditPlayerCommand;
-    private  char                       _gender;
+    private CompleteEditPlayerCommand? _completeEditPlayerCommand;
+    private char                       _gender;
+    private string                     _playerFirstName;
+    private string                     _playerLastName;
 
     public EditPlayerViewModel()
     {
@@ -24,6 +23,8 @@ public class EditPlayerViewModel : ViewModelBase
         Gender          = Player.Gender;
     }
 
+    internal Player? Player { get; set; }
+
     public string PlayerFirstName
     {
         get { return _playerFirstName; }
@@ -36,7 +37,10 @@ public class EditPlayerViewModel : ViewModelBase
         set { SetField(ref _playerLastName, value); }
     }
 
-    public ICommand CompleteEditPlayerCommand => _completeEditPlayerCommand ??= new CompleteEditPlayerCommand(this);
+    public ICommand CompleteEditPlayerCommand
+    {
+        get { return _completeEditPlayerCommand ??= new CompleteEditPlayerCommand(this); }
+    }
 
     public char Gender
     {

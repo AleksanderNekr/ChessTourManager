@@ -6,7 +6,6 @@
         xmlns:login="clr-namespace:ChessTourManager.WPF.Features.Authentication.Login"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
-        xmlns:helpers="clr-namespace:ChessTourManager.WPF.Helpers"
         xmlns:bindablePassword="clr-namespace:ChessTourManager.WPF.Helpers.BindablePassword"
         mc:Ignorable="d"
         Title="Авторизация" Height="500" Width="400"

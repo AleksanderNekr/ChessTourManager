@@ -23,7 +23,7 @@ public class CompleteAddPlayerCommand : CommandBase
                                     LoginViewModel.CurrentUser!.UserId,
                                     _addPlayerViewModel.PlayerLastName.Trim(),
                                     _addPlayerViewModel.PlayerFirstName.Trim(),
-                                    gender: _addPlayerViewModel.Gender,
+                                    _addPlayerViewModel.Gender,
                                     teamId: _addPlayerViewModel.Team.TeamId);
 
 

@@ -20,11 +20,11 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 public class TreeViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
+    private                  Player?          _selectedPlayer;
+    private                  Team?            _selectedTeam;
+    private                  Tournament?      _selectedTournament;
 
     private ObservableCollection<Tournament>? _tournaments;
-    private Tournament?                       _selectedTournament;
-    private Team?                             _selectedTeam;
-    private Player?                           _selectedPlayer;
 
     public TreeViewModel()
     {
@@ -39,6 +39,40 @@ public class TreeViewModel : ViewModelBase
         PlayerAddedEvent.PlayerAdded     += PlayerChangedEvent_PlayerAdded;
         PlayerDeletedEvent.PlayerDeleted += PlayerChangedEvent_PlayerDeleted;
         PlayerEditedEvent.PlayerEdited   += PlayerChangedEvent_PlayerEdited;
+    }
+
+    public ObservableCollection<Tournament> TournamentsRoot
+    {
+        get
+        {
+            if (_tournaments is not null || LoginViewModel.CurrentUser == null)
+            {
+                return _tournaments!;
+            }
+
+            UpdateTournaments();
+
+            return _tournaments!;
+        }
+        set { SetField(ref _tournaments, value); }
+    }
+
+    public Tournament SelectedTournament
+    {
+        get { return _selectedTournament ??= new Tournament(); }
+        set { SetField(ref _selectedTournament, value); }
+    }
+
+    public Team? SelectedTeam
+    {
+        get { return _selectedTeam ??= new Team(); }
+        set { SetField(ref _selectedTeam, value); }
+    }
+
+    public Player? SelectedPlayer
+    {
+        get { return _selectedPlayer ??= new Player(); }
+        set { SetField(ref _selectedPlayer, value); }
     }
 
     private void PlayerChangedEvent_PlayerEdited(PlayerEditedEventArgs e)
@@ -84,40 +118,6 @@ public class TreeViewModel : ViewModelBase
     private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
     {
         UpdateTournaments();
-    }
-
-    public ObservableCollection<Tournament> TournamentsRoot
-    {
-        get
-        {
-            if (_tournaments is not null || LoginViewModel.CurrentUser == null)
-            {
-                return _tournaments!;
-            }
-
-            UpdateTournaments();
-
-            return _tournaments!;
-        }
-        set { SetField(ref _tournaments, value); }
-    }
-
-    public Tournament SelectedTournament
-    {
-        get { return _selectedTournament ??= new Tournament(); }
-        set { SetField(ref _selectedTournament, value); }
-    }
-
-    public Team? SelectedTeam
-    {
-        get { return _selectedTeam ??= new Team(); }
-        set { SetField(ref _selectedTeam, value); }
-    }
-
-    public Player? SelectedPlayer
-    {
-        get { return _selectedPlayer ??= new Player(); }
-        set { SetField(ref _selectedPlayer, value); }
     }
 
     private void UpdateTournaments()

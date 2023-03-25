@@ -29,11 +29,11 @@ public class PlayersViewModel : ViewModelBase
     internal static readonly ChessTourContext             PlayersContext = new();
     private                  ICommand?                    _addPlayerCommand;
     private                  ICommand?                    _deletePlayerCommand;
+    private                  ExportPlayersListCommand?    _exportPlayersListCommand;
     private                  ObservableCollection<Group>? _groupsAvailable;
 
     private ObservableCollection<Player>? _playersCollection;
     private ObservableCollection<Team>?   _teamsAvailable;
-    private ExportPlayersListCommand?     _exportPlayersListCommand;
 
     public PlayersViewModel()
     {

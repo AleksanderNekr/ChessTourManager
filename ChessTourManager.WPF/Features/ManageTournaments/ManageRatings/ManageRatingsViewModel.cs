@@ -24,15 +24,40 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageRatings;
 
 public class ManageRatingsViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext RatingsContext = PlayersViewModel.PlayersContext;
+    private static readonly ChessTourContext         RatingsContext = PlayersViewModel.PlayersContext;
+    private                 ExportRatingListCommand? _exportRatingListCommand;
 
     private ObservableCollection<Player>? _playersSorted;
     private string?                       _title;
-    private ExportRatingListCommand?      _exportRatingListCommand;
 
     public ManageRatingsViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+    }
+
+    public ObservableCollection<Player>? PlayersSorted
+    {
+        get
+        {
+            if (_playersSorted is null)
+            {
+                UpdateRating();
+            }
+
+            return _playersSorted;
+        }
+        private set { SetField(ref _playersSorted, value); }
+    }
+
+    public string Title
+    {
+        get { return _title ?? string.Empty; }
+        private set { SetField(ref _title, value); }
+    }
+
+    public ICommand ExportRatingListCommand
+    {
+        get { return _exportRatingListCommand ??= new ExportRatingListCommand(); }
     }
 
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs e)
@@ -84,28 +109,6 @@ public class ManageRatingsViewModel : ViewModelBase
     {
         UpdateRating();
     }
-
-    public ObservableCollection<Player>? PlayersSorted
-    {
-        get
-        {
-            if (_playersSorted is null)
-            {
-                UpdateRating();
-            }
-
-            return _playersSorted;
-        }
-        private set { SetField(ref _playersSorted, value); }
-    }
-
-    public string Title
-    {
-        get { return _title ?? string.Empty; }
-        private set { SetField(ref _title, value); }
-    }
-
-    public ICommand ExportRatingListCommand => _exportRatingListCommand ??= new ExportRatingListCommand();
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {

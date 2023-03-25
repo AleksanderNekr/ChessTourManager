@@ -6,6 +6,6 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj" />
+        <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj"/>
     </ItemGroup>
 </Project>

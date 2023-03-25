@@ -14,7 +14,7 @@
         <MenuItem Header="Справка">
             <MenuItem
                 Header="О программе"
-                Click="AboutApp_Click"/>
+                Click="AboutApp_Click" />
         </MenuItem>
         <MenuItem
             Header="Выход">

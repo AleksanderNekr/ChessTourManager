@@ -1,8 +1,8 @@
-﻿using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.WPF.Helpers;
+﻿using System;
 using System.Windows;
-using System;
+using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Insert;
+using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.Authentication.Register;
 

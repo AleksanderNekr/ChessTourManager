@@ -17,16 +17,16 @@ namespace ChessTourManager.SystemTests;
 
 public class Tests
 {
-    private RegisterViewModel         _registerViewModel;
-    private LoginViewModel            _loginViewModel;
-    private TournamentsListViewModel  _tournamentsListViewModel;
-    private CreateTournamentViewModel _createTournamentViewModel;
-    private PlayersViewModel          _playersViewModel;
     private AddPlayerViewModel        _addPlayerViewModel;
+    private CreateTournamentViewModel _createTournamentViewModel;
+    private LoginViewModel            _loginViewModel;
     private ManageGroupsViewModel     _manageGroupsViewModel;
+    private ManageRatingsViewModel    _manageRatingsViewModel;
     private ManageTeamsViewModel      _manageTeamsViewModel;
     private PairsGridViewModel        _pairsGridViewModel;
-    private ManageRatingsViewModel    _manageRatingsViewModel;
+    private PlayersViewModel          _playersViewModel;
+    private RegisterViewModel         _registerViewModel;
+    private TournamentsListViewModel  _tournamentsListViewModel;
 
     [SetUp]
     public void Setup()
@@ -44,15 +44,15 @@ public class Tests
     }
 
     /// <summary>
-    /// Testing scenario:
-    /// 1. Register the user.
-    /// 2. Enter the account.
-    /// 3. Create a tournament.
-    /// 4. Open the tournament.
-    /// 5. Fill out a list of participants.
-    /// 6. Fill in the list of teams.
-    /// 7. Fill in the list of groups.
-    /// 8. Conduct the draw for the entire tournament.
+    ///     Testing scenario:
+    ///     1. Register the user.
+    ///     2. Enter the account.
+    ///     3. Create a tournament.
+    ///     4. Open the tournament.
+    ///     5. Fill out a list of participants.
+    ///     6. Fill in the list of teams.
+    ///     7. Fill in the list of groups.
+    ///     8. Conduct the draw for the entire tournament.
     /// </summary>
     [Test]
     public void Test()

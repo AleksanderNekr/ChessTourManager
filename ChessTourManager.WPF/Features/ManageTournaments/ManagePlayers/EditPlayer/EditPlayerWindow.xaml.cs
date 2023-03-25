@@ -17,4 +17,3 @@ public partial class EditPlayerWindow : Window
         DataContext = new EditPlayerViewModel(player);
     }
 }
-

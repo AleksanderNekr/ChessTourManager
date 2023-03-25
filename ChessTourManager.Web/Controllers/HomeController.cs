@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using ChessTourManager.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChessTourManager.Web.Controllers;
 

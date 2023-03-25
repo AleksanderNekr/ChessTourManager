@@ -6,12 +6,14 @@ namespace ChessTourManager.Domain.Algorithms;
 
 public interface IRoundRobin
 {
-    public static IRoundRobin Initialize(ChessTourContext context, Tournament tournament) =>
-        new RoundRobin(context, tournament);
-
-    public IList<(int, int)> StartNewTour(int currentTour);
-
     public HashSet<(int, int)>? GamesHistory { get; }
 
     public int NewTourNumber { get; }
+
+    public static IRoundRobin Initialize(ChessTourContext context, Tournament tournament)
+    {
+        return new RoundRobin(context, tournament);
+    }
+
+    public IList<(int, int)> StartNewTour(int currentTour);
 }

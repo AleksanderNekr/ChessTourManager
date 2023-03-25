@@ -43,7 +43,7 @@ internal class GetQueries : IGetQueries
         }
 
 
-        tournaments = default(IEnumerable<Tournament>);
+        tournaments = default;
         return GetResult.UserNotFound;
     }
 
@@ -59,13 +59,13 @@ internal class GetQueries : IGetQueries
             return GetResult.Success;
         }
 
-        tournaments = default(IEnumerable<Tournament>);
+        tournaments = default;
         return GetResult.UserNotFound;
     }
 
     public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player>? players)
     {
-        players = default(IEnumerable<Player>);
+        players = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -94,7 +94,7 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetPlayersWithTeamsAndGroups(int                      organiserId, int tournamentId,
                                                      out IEnumerable<Player>? players)
     {
-        players = default(IEnumerable<Player>);
+        players = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -126,7 +126,7 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IEnumerable<Team>? teams)
     {
-        teams = default(IEnumerable<Team>);
+        teams = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -156,7 +156,7 @@ internal class GetQueries : IGetQueries
     public GetResult TryGetGroups(int                     organizerId, int tournamentId,
                                   out IEnumerable<Group>? groups)
     {
-        groups = default(IEnumerable<Group>);
+        groups = default;
         if (TryGetUserById(organizerId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;
@@ -183,7 +183,7 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetGames(int organiserId, int tournamentId, out IEnumerable<Game>? games)
     {
-        games = default(IEnumerable<Game>);
+        games = default;
         if (TryGetUserById(organiserId, out User? user) == GetResult.UserNotFound)
         {
             return GetResult.UserNotFound;

@@ -6,8 +6,8 @@ namespace ChessTourManager.WPF.Features.ManageAccount;
 
 public class ProfileViewModel : ViewModelBase
 {
-    private SaveChangesCommand?    _saveChanges;
     private ChangePasswordCommand? _changePasswordCommand;
+    private SaveChangesCommand?    _saveChanges;
 
     public string GreetMessage
     {

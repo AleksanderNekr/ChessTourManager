@@ -6,7 +6,8 @@ namespace ChessTourManager.WPF.Features.Authentication.Register;
 
 public class RegisterViewModel : ViewModelBase
 {
-    private ICommand? _registerCommand;
+    internal static readonly ChessTourContext RegisterContext = new();
+    private                  ICommand?        _registerCommand;
 
     public string? LastName        { get; set; }
     public string? FirstName       { get; set; }
@@ -19,6 +20,4 @@ public class RegisterViewModel : ViewModelBase
     {
         get { return _registerCommand ??= new RegisterCommand(this); }
     }
-
-    internal static readonly ChessTourContext RegisterContext = new();
 }

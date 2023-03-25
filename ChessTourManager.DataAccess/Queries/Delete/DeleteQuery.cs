@@ -42,13 +42,6 @@ internal class DeleteQuery : IDeleteQueries
         }
     }
 
-    private static bool CheckIfInGames(Player player)
-    {
-        bool isInWhiteGames = player.WhiteGamePlayers.Count != 0;
-        bool isInBlackGames = player.BlackGamePlayers.Count != 0;
-        return isInWhiteGames || isInBlackGames;
-    }
-
     public DeleteResult TryDeleteTournament(Tournament tournament)
     {
         try
@@ -78,5 +71,12 @@ internal class DeleteQuery : IDeleteQueries
             _context.Entry(tournament).State = EntityState.Unchanged;
             return DeleteResult.Failed;
         }
+    }
+
+    private static bool CheckIfInGames(Player player)
+    {
+        bool isInWhiteGames = player.WhiteGamePlayers.Count != 0;
+        bool isInBlackGames = player.BlackGamePlayers.Count != 0;
+        return isInWhiteGames || isInBlackGames;
     }
 }

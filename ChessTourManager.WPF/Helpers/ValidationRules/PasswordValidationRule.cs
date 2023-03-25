@@ -24,6 +24,7 @@ public class PasswordValidationRule : ValidationRule
             return ValidationResult.ValidResult;
         }
 
-        return new ValidationResult(false, "Пароль должен содержать только латинские буквы, цифры и специальные символы.");
+        return new ValidationResult(false,
+                                    "Пароль должен содержать только латинские буквы, цифры и специальные символы.");
     }
 }

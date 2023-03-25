@@ -35,11 +35,6 @@ public class TournamentsListViewModel : ViewModelBase
         UpdateTournamentsList();
     }
 
-    private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
-    {
-        UpdateTournamentsList();
-    }
-
     public bool IsOpened
     {
         get { return _isOpened; }
@@ -76,6 +71,11 @@ public class TournamentsListViewModel : ViewModelBase
     public ICommand StartEditTournamentCommand
     {
         get { return _startEditTournamentCommand ??= new StartEditTournamentCommand(); }
+    }
+
+    private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
+    {
+        UpdateTournamentsList();
     }
 
     private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)

@@ -103,12 +103,12 @@ public class GetQueriesTests
     public void TryGetTournamentById_WhenTournamentExists_ReturnsSuccess()
     {
         // Arrange.
-        var          context                  = new ChessTourContext();
-        var          queries                  = IGetQueries.CreateInstance(context);
-        const int    userId                   = 2;
-        const int    expectedTournamentId     = 2;
-        const int    expectedTeamId           = 1;
-        const string expectedTeamName         = "Медведь";
+        var          context              = new ChessTourContext();
+        var          queries              = IGetQueries.CreateInstance(context);
+        const int    userId               = 2;
+        const int    expectedTournamentId = 2;
+        const int    expectedTeamId       = 1;
+        const string expectedTeamName     = "Медведь";
 
         // Act.
         GetResult result = queries.TryGetTournamentsWithTeamsAndPlayers(userId,

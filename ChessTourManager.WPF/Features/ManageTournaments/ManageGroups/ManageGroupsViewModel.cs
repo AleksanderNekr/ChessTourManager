@@ -18,8 +18,8 @@ public class ManageGroupsViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext GroupsContext = PlayersViewModel.PlayersContext;
     private                  AddGroupCommand? _addGroupCommand;
-    private                  string?           _groupIdentifier;
-    private                  string?           _groupName;
+    private                  string?          _groupIdentifier;
+    private                  string?          _groupName;
 
     private ObservableCollection<Group> _groupsWithPlayers;
 

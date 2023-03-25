@@ -22,7 +22,7 @@ public class InsertQueriesTests
         var queries = IInsertQueries.CreateInstance(context);
 
         // Act.
-        InsertResult result = queries.TryAddUser(out User _,email: null!,
+        InsertResult result = queries.TryAddUser(out User _, email: null!,
                                                  password: null!,
                                                  lastName: null!,
                                                  firstName: null!);

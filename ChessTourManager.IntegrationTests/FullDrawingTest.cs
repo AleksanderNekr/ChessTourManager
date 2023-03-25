@@ -11,9 +11,9 @@ namespace ChessTourManager.IntegrationTests;
 
 public class Tests
 {
-    private int              _orgId   = 2;
-    private int              _tourId  = 66;
-    private ChessTourContext _context = new();
+    private readonly ChessTourContext _context = new();
+    private readonly int              _orgId   = 2;
+    private readonly int              _tourId  = 66;
 
     [Test]
     public void Test1()

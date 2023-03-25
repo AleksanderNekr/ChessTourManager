@@ -70,7 +70,7 @@ public static class ExportTableMethods
                                                   "skipLastColumnsCount must be >= 0");
         }
 
-        if (dataGridColumnsCount <= skipFirstColumnsCount + skipLastColumnsCount)
+        if (dataGridColumnsCount <= (skipFirstColumnsCount + skipLastColumnsCount))
         {
             throw new ArgumentOutOfRangeException(nameof(skipFirstColumnsCount),
                                                   "skipFirstColumnsCount + skipLastColumnsCount"
@@ -81,7 +81,7 @@ public static class ExportTableMethods
     private static void WriteHeader(StringBuilder sb, DataGrid dataGrid, int skipFirstColumnsCount,
                                     int           skipLastColumnsCount)
     {
-        for (int i = skipFirstColumnsCount; i < dataGrid.Columns.Count - skipLastColumnsCount; i++)
+        for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
         {
             DataGridColumn? column = dataGrid.Columns[i];
             sb.Append(column.Header);
@@ -119,7 +119,7 @@ public static class ExportTableMethods
         for (var i = 0; i < data.Count; i++)
         {
             object item = data[i];
-            for (int j = skipFirstColumnsCount; j < dataGrid.Columns.Count - skipLastColumnsCount; j++)
+            for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
                 object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 sb.Append(value);
@@ -140,7 +140,7 @@ public static class ExportTableMethods
 
         ExcelWorksheet? worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-        for (int i = skipFirstColumnsCount; i < dataGrid.Columns.Count - skipLastColumnsCount; i++)
+        for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
         {
             worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
         }
@@ -148,7 +148,7 @@ public static class ExportTableMethods
         for (var i = 0; i < objects.Count; i++)
         {
             object item = objects[i];
-            for (int j = skipFirstColumnsCount; j < dataGrid.Columns.Count - skipLastColumnsCount; j++)
+            for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
                 object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 worksheet.Cells[i + 2, j + 1].Value = value?.ToString();

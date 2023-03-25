@@ -9,11 +9,11 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 
 public class StartNewTourCommand : CommandBase
 {
-    private readonly PairsGridViewModel _pairsGridViewModel;
-
     private static readonly IRoundRobin RoundRobin = IRoundRobin.Initialize(PairsGridViewModel.PairsContext,
                                                                             TournamentsListViewModel
                                                                                .SelectedTournament!);
+
+    private readonly PairsGridViewModel _pairsGridViewModel;
 
     public StartNewTourCommand(PairsGridViewModel pairsGridViewModel)
     {
@@ -24,7 +24,7 @@ public class StartNewTourCommand : CommandBase
     {
         // Check if there are any dummy players and make them inactive if there are odd number of players.
         if (TournamentsListViewModel.SelectedTournament!.Players.Contains(_pairsGridViewModel.DummyPlayer)
-         && TournamentsListViewModel.SelectedTournament.Players.Count % 2 == 1)
+         && (TournamentsListViewModel.SelectedTournament.Players.Count % 2) == 1)
         {
             _pairsGridViewModel.DummyPlayer!.IsActive = false;
             PairsGridViewModel.PairsContext.SaveChanges();

@@ -13,7 +13,7 @@ public partial class AddPlayerWindow : Window
     public AddPlayerWindow(Team? team)
     {
         InitializeComponent();
-        DataContext = new AddPlayerViewModel(team);
+        DataContext                  =  new AddPlayerViewModel(team);
         PlayerAddedEvent.PlayerAdded += PlayerAddedEvent_PlayerAdded;
     }
 
@@ -22,4 +22,3 @@ public partial class AddPlayerWindow : Window
         Close();
     }
 }
-

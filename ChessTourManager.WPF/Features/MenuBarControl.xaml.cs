@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using ChessTourManager.WPF.Features.Authentication.Login;
-using ChessTourManager.WPF.Features.ManageTournaments;
 using ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 
 namespace ChessTourManager.WPF.Features;

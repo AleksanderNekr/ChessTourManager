@@ -169,7 +169,7 @@
                 Margin="20"
                 FontSize="14"
                 Content="Сменить пароль"
-                Command="{Binding ChangePasswordCommand}"/>
+                Command="{Binding ChangePasswordCommand}" />
             <!-- Дата регистрации: 11.11.2011 -->
             <TextBlock
                 FontSize="14"

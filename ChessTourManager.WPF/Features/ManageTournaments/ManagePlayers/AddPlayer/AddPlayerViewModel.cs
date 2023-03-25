@@ -6,12 +6,10 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlaye
 
 public class AddPlayerViewModel : ViewModelBase
 {
-    private string?                   _playerLastName;
-    private string?                   _playerFirstName;
     private CompleteAddPlayerCommand? _completeAddPlayerCommand;
     private char?                     _gender;
-
-    public Team? Team { get; }
+    private string?                   _playerFirstName;
+    private string?                   _playerLastName;
 
     public AddPlayerViewModel(Team? team)
     {
@@ -21,6 +19,8 @@ public class AddPlayerViewModel : ViewModelBase
     public AddPlayerViewModel()
     {
     }
+
+    public Team? Team { get; }
 
     public string PlayerFirstName
     {
@@ -34,7 +34,10 @@ public class AddPlayerViewModel : ViewModelBase
         set { SetField(ref _playerLastName, value); }
     }
 
-    public ICommand CompleteAddPlayerCommand => _completeAddPlayerCommand ??= new CompleteAddPlayerCommand(this);
+    public ICommand CompleteAddPlayerCommand
+    {
+        get { return _completeAddPlayerCommand ??= new CompleteAddPlayerCommand(this); }
+    }
 
     public char Gender
     {
