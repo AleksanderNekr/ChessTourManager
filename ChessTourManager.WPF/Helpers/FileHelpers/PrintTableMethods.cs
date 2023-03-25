@@ -73,20 +73,9 @@ public static class PrintTableMethods
 
     private static string GetCellValue(DataGridColumn column, object item)
     {
-        FrameworkElement cellContent = column.GetCellContent(item)
-                                    ?? throw new InvalidOperationException();
-
-        return cellContent switch
-               {
-                   TextBlock textBlock => textBlock.Text,
-                   CheckBox checkBox => checkBox.IsChecked == true
-                                            ? "Да"
-                                            : "Нет",
-                   ComboBox comboBox     => comboBox.Text,
-                   DatePicker datePicker => datePicker.Text,
-                   TextBox textBox       => textBox.Text,
-                   _                     => string.Empty
-               };
+        return GetPropertyValuesMethods.GetPropertyValue(item, column.SortMemberPath)?.ToString()
+            ?? throw new InvalidOperationException("Не удалось получить значение"
+                                                 + $" свойства {column.Header} объекта {item}");
     }
 
     private static void ConfigHeader(DataGrid dataGrid, Table table)

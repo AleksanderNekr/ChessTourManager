@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -121,7 +120,7 @@ public static class ExportTableMethods
             object item = data[i];
             for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
-                object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
+                object? value = GetPropertyValuesMethods.GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 sb.Append(value);
                 sb.Append(Separator);
             }
@@ -150,35 +149,11 @@ public static class ExportTableMethods
             object item = objects[i];
             for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
-                object? value = GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
+                object? value = GetPropertyValuesMethods.GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 worksheet.Cells[i + 2, j + 1].Value = value?.ToString();
             }
         }
 
         package.SaveAs(new FileInfo(fileName));
-    }
-
-    /// Function to get the value of a property with a path that may have multiple levels.
-    private static object? GetPropertyValue(object obj, string propertyPath)
-    {
-        string[] propertyNames = propertyPath.Split('.');
-        object?  propertyValue = obj;
-
-        foreach (string propertyName in propertyNames)
-        {
-            PropertyInfo? property = propertyValue.GetType().GetProperty(propertyName);
-            if (property == null)
-            {
-                return null;
-            }
-
-            propertyValue = property.GetValue(propertyValue, null);
-            if (propertyValue == null)
-            {
-                return null;
-            }
-        }
-
-        return propertyValue;
     }
 }
