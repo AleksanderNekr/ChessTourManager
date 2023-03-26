@@ -158,6 +158,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn
+                    x:Name="TeamColumn"
                     Header="Команда"
                     SortMemberPath="Team.TeamName">
                     <DataGridTemplateColumn.CellTemplate>

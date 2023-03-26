@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
+using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 
@@ -11,6 +12,14 @@ public partial class PlayersGridControl
     public PlayersGridControl()
     {
         InitializeComponent();
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+    }
+
+    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    {
+        TeamColumn.Visibility = e.OpenedTournament.Kind.KindName == "single"
+                                    ? Visibility.Collapsed
+                                    : Visibility.Visible;
     }
 
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)
