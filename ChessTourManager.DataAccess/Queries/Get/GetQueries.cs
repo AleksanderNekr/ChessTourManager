@@ -38,7 +38,10 @@ internal class GetQueries : IGetQueries
     {
         if (TryGetUserById(organiserId, out User? organiser) == GetResult.Success)
         {
-            tournaments = organiser!.Tournaments;
+            tournaments = _context.Tournaments
+                                  .Where(t => t.OrganizerId == organiserId)
+                                  .Include(t => t.Kind)
+                                  .Include(t => t.System);
             return GetResult.Success;
         }
 
@@ -54,7 +57,9 @@ internal class GetQueries : IGetQueries
             tournaments = _context.Tournaments
                                   .Where(t => t.OrganizerId == organiserId)
                                   .Include(t => t.Teams)
-                                  .ThenInclude(t => t.Players);
+                                  .ThenInclude(t => t.Players)
+                                  .Include(t => t.Kind)
+                                  .Include(t => t.System);
 
             return GetResult.Success;
         }
