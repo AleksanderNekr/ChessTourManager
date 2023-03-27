@@ -1,8 +1,6 @@
-﻿using System.Windows;
+﻿namespace ChessTourManager.WPF.Features.ManageAccount.ChangePassword;
 
-namespace ChessTourManager.WPF.Features.ManageAccount;
-
-public partial class ChangePasswordWindow : Window
+public partial class ChangePasswordWindow
 {
     public ChangePasswordWindow()
     {

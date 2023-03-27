@@ -1,8 +1,6 @@
-﻿using System.Windows;
+﻿namespace ChessTourManager.WPF.Features;
 
-namespace ChessTourManager.WPF.Features;
-
-public partial class AboutAppWindow : Window
+public partial class AboutAppWindow
 {
     public AboutAppWindow()
     {

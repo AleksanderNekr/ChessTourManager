@@ -31,7 +31,7 @@ public interface IGetQueries
     ///     Если пользователь найден, то он возвращается, результат – Success,
     ///     иначе – null, результат – UserNotFound.
     /// </returns>
-    public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user);
+    public GetResult TryGetUserByLoginAndPass(string? login, string password, out User? user);
 
     /// <summary>
     ///     Получение турниров пользователя по его ID.
@@ -44,7 +44,7 @@ public interface IGetQueries
     /// </returns>
     public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament>? tournaments);
 
-    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments);
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament?>? tournaments);
 
     /// <summary>
     ///     Получение списка игроков в турнире пользователя.

@@ -23,31 +23,43 @@ public class CreateTournamentCommand : CommandBase
             return;
         }
 
+        if (_createViewModel is not { SelectedTournamentSystem: { }, SelectedTournamentKind: { } })
+        {
+            return;
+        }
+
         InsertResult result = IInsertQueries
                              .CreateInstance(CreateTournamentViewModel.CreateTournamentContext)
                              .TryAddTournament(
                                                out Tournament? tournament,
                                                LoginViewModel.CurrentUser.UserId,
-                                               _createViewModel.TournamentNameText.Trim(),
+                                               _createViewModel.TournamentNameText?.Trim(),
                                                _createViewModel.SelectedTournamentSystem
                                                                .SystemId,
                                                _createViewModel.SelectedTournamentKind
                                                                .KindId,
                                                _createViewModel
                                                   .SelectedTournamentRoundsCount,
-                                               _createViewModel.TournamentPlaceText.Trim(),
+                                               _createViewModel.TournamentPlaceText?.Trim(),
                                                DateOnly.FromDateTime(_createViewModel.SelectedDate),
                                                _createViewModel.SelectedTime,
                                                _createViewModel.SelectedDurationHours,
                                                _createViewModel.SelectedMaxTeamPlayers,
-                                               _createViewModel.OrgNameText.Trim(),
+                                               _createViewModel.OrgNameText?.Trim(),
                                                _createViewModel.IsMixedGroupsAllowed
                                               );
-        if (result == InsertResult.Success)
+        if (result != InsertResult.Success)
         {
-            MessageBox.Show("Турнир успешно создан!", "Создание турнира", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-            TournamentCreatedEvent.OnTournamentCreated(new TournamentCreatedEventArgs(tournament!));
+            return;
         }
+
+        if (tournament is null)
+        {
+            return;
+        }
+
+        MessageBox.Show("Турнир успешно создан!", "Создание турнира", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+        TournamentCreatedEvent.OnTournamentCreated(new TournamentCreatedEventArgs(tournament));
     }
 }

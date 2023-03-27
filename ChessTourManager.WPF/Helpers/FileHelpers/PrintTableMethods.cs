@@ -1,5 +1,4 @@
-﻿using System;
-using System.Printing;
+﻿using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -51,29 +50,34 @@ public static class PrintTableMethods
         {
             TableRow dataRow = new();
 
-            foreach (DataGridColumn column in dataGrid.Columns)
-            {
-                string cellValue = GetCellValue(column, item);
-
-                if (cellValue == string.Empty)
-                {
-                    continue;
-                }
-
-                TableCell dataCell = new(new Paragraph(new Run(cellValue)))
-                                     {
-                                         BorderBrush     = Brushes.Gray,
-                                         BorderThickness = new Thickness(1),
-                                         Padding         = new Thickness(4)
-                                     };
-                dataRow.Cells.Add(dataCell);
-            }
+            PrintRow(dataGrid, item, dataRow);
 
             dataGroup.Rows.Add(dataRow);
         }
 
         table.RowGroups.Add(dataGroup);
         document.Blocks.Add(table);
+    }
+
+    private static void PrintRow(DataGrid dataGrid, object item, TableRow dataRow)
+    {
+        foreach (DataGridColumn column in dataGrid.Columns)
+        {
+            string cellValue = GetCellValue(column, item);
+
+            if (cellValue == string.Empty)
+            {
+                continue;
+            }
+
+            TableCell dataCell = new(new Paragraph(new Run(cellValue)))
+                                 {
+                                     BorderBrush     = Brushes.Gray,
+                                     BorderThickness = new Thickness(1),
+                                     Padding         = new Thickness(4)
+                                 };
+            dataRow.Cells.Add(dataCell);
+        }
     }
 
     private static string GetCellValue(DataGridColumn column, object item)

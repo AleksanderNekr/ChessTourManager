@@ -35,13 +35,13 @@ public class CreateTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (_tournamentKinds != null)
+            if (_tournamentKinds is { })
             {
                 return _tournamentKinds;
             }
 
             IGetQueries.CreateInstance(CreateTournamentContext).GetKinds(out IEnumerable<Kind>? kinds);
-            if (kinds != null)
+            if (kinds is { })
             {
                 _tournamentKinds = new ObservableCollection<Kind>(kinds);
             }
@@ -54,14 +54,14 @@ public class CreateTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (_tournamentSystems != null)
+            if (_tournamentSystems is { })
             {
                 return _tournamentSystems;
             }
 
             IGetQueries.CreateInstance(CreateTournamentContext)
                        .GetSystems(out IEnumerable<DataAccess.Entities.System>? systems);
-            if (systems != null)
+            if (systems is { })
             {
                 _tournamentSystems = new ObservableCollection<DataAccess.Entities.System>(systems);
             }
@@ -75,7 +75,7 @@ public class CreateTournamentViewModel : ViewModelBase
                                                                                5, 6, 7, 8, 9, 10, 11, 12, 13
                                                                            };
 
-    public string TournamentNameText
+    public string? TournamentNameText
     {
         get
         {
@@ -84,13 +84,13 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _tournamentNameText, "Название турнира");
             }
 
-            return _tournamentNameText!;
+            return _tournamentNameText;
         }
         set { SetField(ref _tournamentNameText, value); }
     }
 
 
-    public string TournamentPlaceText
+    public string? TournamentPlaceText
     {
         get
         {
@@ -99,7 +99,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _tournamentPlaceText, "Место проведения турнира");
             }
 
-            return _tournamentPlaceText!;
+            return _tournamentPlaceText;
         }
         set { SetField(ref _tournamentPlaceText, value); }
     }
@@ -118,7 +118,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _selectedDate, DateTime.Now);
             }
 
-            return (DateTime)_selectedDate!;
+            return (DateTime)_selectedDate;
         }
         set { SetField(ref _selectedDate, value); }
     }
@@ -161,7 +161,7 @@ public class CreateTournamentViewModel : ViewModelBase
         }
     }
 
-    public string OrgNameText
+    public string? OrgNameText
     {
         get
         {
@@ -170,7 +170,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _orgNameText, "Название организации");
             }
 
-            return _orgNameText!;
+            return _orgNameText;
         }
         set { SetField(ref _orgNameText, value); }
     }
@@ -182,7 +182,7 @@ public class CreateTournamentViewModel : ViewModelBase
         get { return _createTournamentCommand ??= new CreateTournamentCommand(this); }
     }
 
-    public Kind SelectedTournamentKind
+    public Kind? SelectedTournamentKind
     {
         get
         {
@@ -192,7 +192,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
             }
 
-            return _selectedTournamentKind!;
+            return _selectedTournamentKind;
         }
         set
         {
@@ -201,7 +201,7 @@ public class CreateTournamentViewModel : ViewModelBase
         }
     }
 
-    public DataAccess.Entities.System SelectedTournamentSystem
+    public DataAccess.Entities.System? SelectedTournamentSystem
     {
         get
         {
@@ -210,7 +210,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _selectedTournamentSystem, TournamentSystems.First());
             }
 
-            return _selectedTournamentSystem!;
+            return _selectedTournamentSystem;
         }
         set { SetField(ref _selectedTournamentSystem, value); }
     }
@@ -224,7 +224,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _selectedTournamentRoundsCount, TournamentRoundsCountItems.First());
             }
 
-            return (int)_selectedTournamentRoundsCount!;
+            return (int)_selectedTournamentRoundsCount;
         }
         set { SetField(ref _selectedTournamentRoundsCount, value); }
     }
@@ -238,7 +238,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _selectedTime, TimeItems.First());
             }
 
-            return (TimeOnly)_selectedTime!;
+            return (TimeOnly)_selectedTime;
         }
         set { SetField(ref _selectedTime, value); }
     }
@@ -252,7 +252,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _selectedDurationHours, DurationHoursItems.First());
             }
 
-            return (int)_selectedDurationHours!;
+            return (int)_selectedDurationHours;
         }
         set { SetField(ref _selectedDurationHours, value); }
     }
@@ -278,7 +278,7 @@ public class CreateTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (SelectedTournamentKind.KindName.Contains("team"))
+            if (SelectedTournamentKind is { } && SelectedTournamentKind.KindName.Contains("team"))
             {
                 SetField(ref _visibleIfTeamsAllowed, Visibility.Visible);
             }
@@ -287,7 +287,7 @@ public class CreateTournamentViewModel : ViewModelBase
                 SetField(ref _visibleIfTeamsAllowed, Visibility.Collapsed);
             }
 
-            return (Visibility)_visibleIfTeamsAllowed!;
+            return (Visibility)_visibleIfTeamsAllowed;
         }
         set { SetField(ref _visibleIfTeamsAllowed, value); }
     }

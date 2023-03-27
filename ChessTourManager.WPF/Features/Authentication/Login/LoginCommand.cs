@@ -23,7 +23,7 @@ public class LoginCommand : CommandBase
         switch (result)
         {
             case GetResult.Success:
-                if (user != null)
+                if (user is { })
                 {
                     SuccessLoginEvent.OnUserSuccessLogin(new SuccessLoginEventArgs(user, DateTimeOffset.Now));
                 }

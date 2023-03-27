@@ -15,7 +15,7 @@ using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
-public partial class TreeControl : UserControl
+public partial class TreeControl
 {
     public TreeControl()
     {
@@ -48,9 +48,9 @@ public partial class TreeControl : UserControl
         }
     }
 
-    private TreeViewItem? VisualUpwardSearch(DependencyObject? eOriginalSource)
+    private static TreeViewItem? VisualUpwardSearch(DependencyObject? eOriginalSource)
     {
-        while (eOriginalSource is not null && !(eOriginalSource is TreeViewItem))
+        while (eOriginalSource is { } && eOriginalSource is not TreeViewItem)
         {
             eOriginalSource = VisualTreeHelper.GetParent(eOriginalSource);
         }

@@ -5,10 +5,8 @@ using ChessTourManager.WPF.Features.ManageTournaments;
 
 namespace ChessTourManager.WPF.Features.Authentication.Login;
 
-/// <summary>
-///     Interaction logic for AuthWindow.xaml
-/// </summary>
-public partial class AuthWindow : Window
+/// <inheritdoc cref="System.Windows.Window" />
+public partial class AuthWindow
 {
     public AuthWindow()
     {

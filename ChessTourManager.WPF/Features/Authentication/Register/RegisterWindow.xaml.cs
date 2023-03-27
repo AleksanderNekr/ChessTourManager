@@ -4,9 +4,7 @@ using ChessTourManager.WPF.Features.Authentication.Login;
 
 namespace ChessTourManager.WPF.Features.Authentication.Register;
 
-/// <summary>
-///     Interaction logic for RegisterWindow.xaml
-/// </summary>
+/// <inheritdoc cref="System.Windows.Window" />
 public partial class RegisterWindow
 {
     public RegisterWindow()

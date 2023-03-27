@@ -11,7 +11,7 @@ public class StartNewTourCommand : CommandBase
 {
     private static readonly IRoundRobin RoundRobin = IRoundRobin.Initialize(PairsGridViewModel.PairsContext,
                                                                             TournamentsListViewModel
-                                                                               .SelectedTournament!);
+                                                                               .SelectedTournament);
 
     private readonly PairsGridViewModel _pairsGridViewModel;
 
@@ -22,6 +22,7 @@ public class StartNewTourCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
+        // TODO: fix it
         // Check if there are any dummy players and make them inactive if there are odd number of players.
         if (TournamentsListViewModel.SelectedTournament!.Players.Contains(_pairsGridViewModel.DummyPlayer)
          && (TournamentsListViewModel.SelectedTournament.Players.Count % 2) == 1)

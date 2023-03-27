@@ -6,13 +6,6 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlaye
 
 public class AddPlayerCommand : CommandBase
 {
-    private readonly PlayersViewModel _playersViewModel;
-
-    public AddPlayerCommand(PlayersViewModel viewModel)
-    {
-        _playersViewModel = viewModel;
-    }
-
     public override void Execute(object? parameter)
     {
         if (TournamentsListViewModel.SelectedTournament == null)

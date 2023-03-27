@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="EditPlayerWindow" Height="250" Width="400">
+        Height="300" Width="400">
     <Window.DataContext>
         <local:EditPlayerViewModel />
     </Window.DataContext>

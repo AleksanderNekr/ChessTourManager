@@ -23,13 +23,13 @@ public class CompleteEditPlayerCommand : CommandBase
             return;
         }
 
-        if (_editPlayerViewModel.Player == null)
+        if (_editPlayerViewModel is { Player: null })
         {
             return;
         }
 
-        _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName.Trim();
-        _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName.Trim();
+        _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName?.Trim();
+        _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName?.Trim();
         _editPlayerViewModel.Player.Gender          = _editPlayerViewModel.Gender;
 
         PlayersViewModel.PlayersContext.Players.Update(_editPlayerViewModel.Player);

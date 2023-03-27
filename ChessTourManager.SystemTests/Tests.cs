@@ -57,7 +57,7 @@ public class Tests
     [Test]
     public void Test()
     {
-        string login = "petrov@mail.ru" + DateTime.Now.Ticks;
+        string? login = "petrov@mail.ru" + DateTime.Now.Ticks;
         RegisterNewUser("Петров", "Петр", login, "123qwe");
 
         Login(login, "123qwe");
@@ -130,14 +130,14 @@ public class Tests
         openTournamentCommand.Execute(tournament);
     }
 
-    private void CreateTournament(string name)
+    private void CreateTournament(string? name)
     {
         _createTournamentViewModel.TournamentNameText = name;
         var createTournamentCommand = new CreateTournamentCommand(_createTournamentViewModel);
         createTournamentCommand.Execute(null);
     }
 
-    private void Login(string login, string password)
+    private void Login(string? login, string password)
     {
         _loginViewModel.Login    = login;
         _loginViewModel.Password = password;
@@ -146,7 +146,7 @@ public class Tests
         loginCommand.Execute(null);
     }
 
-    private void RegisterNewUser(string lastName, string firstName, string login, string password)
+    private void RegisterNewUser(string lastName, string firstName, string? login, string password)
     {
         _registerViewModel.LastName        = lastName;
         _registerViewModel.FirstName       = firstName;

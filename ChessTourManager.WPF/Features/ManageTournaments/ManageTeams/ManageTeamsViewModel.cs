@@ -20,7 +20,7 @@ public class ManageTeamsViewModel : ViewModelBase
     private                  AddTeamCommand?  _addTeamCommand;
     private                  string?          _teamName;
 
-    private ObservableCollection<Team> _teamsWithPlayers;
+    private ObservableCollection<Team>? _teamsWithPlayers;
 
     public ManageTeamsViewModel()
     {
@@ -33,7 +33,7 @@ public class ManageTeamsViewModel : ViewModelBase
         TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
     }
 
-    public ObservableCollection<Team> TeamsWithPlayers
+    public ObservableCollection<Team>? TeamsWithPlayers
     {
         get { return _teamsWithPlayers; }
         private set { SetField(ref _teamsWithPlayers, value); }
@@ -76,11 +76,17 @@ public class ManageTeamsViewModel : ViewModelBase
 
     private void UpdateTeams()
     {
+        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(TeamsContext)
-                   .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser!.UserId,
-                                           TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
+                                           TournamentsListViewModel.SelectedTournament.TournamentId,
                                            out IEnumerable<Team>? teams);
-        if (teams is not null)
+
+        if (teams is { })
         {
             TeamsWithPlayers = new ObservableCollection<Team>(teams);
         }

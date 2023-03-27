@@ -44,7 +44,8 @@ public static class ExportTableMethods
     {
         const string fileExtensions = "XLSX files (*.xlsx)|*.xlsx|XLS files (*.xls)|*.xls|"
                                     + "CSV files (*.csv)|*.csv";
-        string filename = dataGrid.Items[0].GetType().Name + "s";
+        Type   itemType = dataGrid.Items[0].GetType();
+        string filename = itemType.Name + "s";
 
         SaveFileDialog saveDialog = new()
                                     {
@@ -105,15 +106,18 @@ public static class ExportTableMethods
 
         WriteHeader(sb, dataGrid, skipFirstColumnsCount, skipLastColumnsCount);
 
-        List<object> objects = dataGrid.ItemsSource.Cast<object>().ToList();
+        IEnumerable<object> objects = dataGrid.ItemsSource.Cast<object>();
 
-        WriteBody(dataGrid, objects, sb, skipFirstColumnsCount, skipLastColumnsCount);
+        WriteBody(dataGrid, objects.ToList(), sb, skipFirstColumnsCount, skipLastColumnsCount);
 
         File.WriteAllText(fileName, sb.ToString());
     }
 
-    private static void WriteBody(DataGrid dataGrid,                  List<object> data, StringBuilder sb,
-                                  int      skipFirstColumnsCount = 0, int          skipLastColumnsCount = 0)
+    private static void WriteBody(DataGrid              dataGrid,
+                                  IReadOnlyList<object> data,
+                                  StringBuilder         sb,
+                                  int                   skipFirstColumnsCount = 0,
+                                  int                   skipLastColumnsCount  = 0)
     {
         for (var i = 0; i < data.Count; i++)
         {
@@ -129,21 +133,33 @@ public static class ExportTableMethods
         }
     }
 
-    private static void ExportToExcel(DataGrid dataGrid, string fileName, int skipFirstColumnsCount,
+    private static void ExportToExcel(DataGrid dataGrid,
+                                      string   fileName,
+                                      int      skipFirstColumnsCount,
                                       int      skipLastColumnsCount)
     {
-        List<object> objects = dataGrid.ItemsSource.Cast<object>().ToList();
+        IEnumerable<object> objects = dataGrid.ItemsSource.Cast<object>();
 
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         var package = new ExcelPackage();
 
-        ExcelWorksheet? worksheet = package.Workbook.Worksheets.Add("Sheet1");
+        ExcelWorksheets? worksheets = package.Workbook.Worksheets;
 
-        for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
-        {
-            worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
-        }
+        ExcelWorksheet? worksheet = worksheets.Add("Sheet1");
 
+        ConfigureExcelHeader(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, worksheet);
+
+        ConfigureExcelBody(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, objects.ToList(), worksheet);
+
+        package.SaveAs(new FileInfo(fileName));
+    }
+
+    private static void ConfigureExcelBody(DataGrid              dataGrid,
+                                           int                   skipFirstColumnsCount,
+                                           int                   skipLastColumnsCount,
+                                           IReadOnlyList<object> objects,
+                                           ExcelWorksheet        worksheet)
+    {
         for (var i = 0; i < objects.Count; i++)
         {
             object item = objects[i];
@@ -153,7 +169,16 @@ public static class ExportTableMethods
                 worksheet.Cells[i + 2, j + 1].Value = value?.ToString();
             }
         }
+    }
 
-        package.SaveAs(new FileInfo(fileName));
+    private static void ConfigureExcelHeader(DataGrid       dataGrid,
+                                             int            skipFirstColumnsCount,
+                                             int            skipLastColumnsCount,
+                                             ExcelWorksheet worksheet)
+    {
+        for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
+        {
+            worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
+        }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using ChessTourManager.DataAccess.Entities;
+﻿using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
-public partial class EditTeamWindow : Window
+public partial class EditTeamWindow
 {
     public EditTeamWindow()
     {

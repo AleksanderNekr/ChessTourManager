@@ -3,9 +3,7 @@ using System.Windows.Data;
 
 namespace ChessTourManager.WPF.Helpers.BindablePassword;
 
-/// <summary>
-///     Логика взаимодействия для BindablePasswordBox.xaml
-/// </summary>
+/// <inheritdoc cref="System.Windows.Controls.UserControl" />
 public partial class BindablePasswordBox
 {
     public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register(

@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using ChessTourManager.DataAccess.Entities;
+﻿using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlayer;
 
-public partial class AddPlayerWindow : Window
+public partial class AddPlayerWindow
 {
     public AddPlayerWindow()
     {

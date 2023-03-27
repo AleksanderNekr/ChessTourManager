@@ -17,10 +17,10 @@ public static class GroupChangedEvent
 
 public class GroupChangedEventArgs : EventArgs
 {
-    public GroupChangedEventArgs(Group group)
+    public GroupChangedEventArgs(Group? group)
     {
         Group = group;
     }
 
-    public Group Group { get; }
+    public Group? Group { get; }
 }

@@ -1,9 +1,8 @@
-﻿using System.Windows.Controls;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
+﻿using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 
-public partial class TeamsListControl : UserControl
+public partial class TeamsListControl
 {
     public TeamsListControl()
     {

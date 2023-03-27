@@ -6,7 +6,7 @@ public interface IDeleteQueries
 {
     public static IDeleteQueries CreateInstance(ChessTourContext? context)
     {
-        if (context != null)
+        if (context is { })
         {
             return new DeleteQuery(context);
         }
@@ -16,7 +16,7 @@ public interface IDeleteQueries
 
     public DeleteResult TryDeletePlayer(Player player);
 
-    public DeleteResult TryDeleteTournament(Tournament tournament);
+    public DeleteResult TryDeleteTournament(Tournament? tournament);
 }
 
 public enum DeleteResult

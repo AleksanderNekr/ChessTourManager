@@ -21,17 +21,17 @@ public class ManageGroupsViewModel : ViewModelBase
     private                  string?          _groupIdentifier;
     private                  string?          _groupName;
 
-    private ObservableCollection<Group> _groupsWithPlayers;
+    private ObservableCollection<Group>? _groupsWithPlayers;
 
     public ManageGroupsViewModel()
     {
         CompleteAddGroup                       =  new CompleteAddGroupCommand(this);
         DeleteGroupCommand                     =  new DeleteGroupCommand();
-        EditGroupCommand                       =  new EditGroupCommand(this);
+        EditGroupCommand                       =  new EditGroupCommand();
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
     }
 
-    public ObservableCollection<Group> GroupsWithPlayers
+    public ObservableCollection<Group>? GroupsWithPlayers
     {
         get { return _groupsWithPlayers; }
         private set { SetField(ref _groupsWithPlayers, value); }
@@ -39,7 +39,7 @@ public class ManageGroupsViewModel : ViewModelBase
 
     public ICommand AddGroupCommand
     {
-        get { return _addGroupCommand ??= new AddGroupCommand(this); }
+        get { return _addGroupCommand ??= new AddGroupCommand(); }
     }
 
     public string GroupName
@@ -83,11 +83,16 @@ public class ManageGroupsViewModel : ViewModelBase
 
     private void UpdateGroups()
     {
+        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(GroupsContext)
-                   .TryGetGroups(LoginViewModel.CurrentUser!.UserId,
-                                 TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetGroups(LoginViewModel.CurrentUser.UserId,
+                                 TournamentsListViewModel.SelectedTournament.TournamentId,
                                  out IEnumerable<Group>? groups);
-        if (groups is not null)
+        if (groups is { })
         {
             GroupsWithPlayers = new ObservableCollection<Group>(groups);
         }

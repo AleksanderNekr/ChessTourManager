@@ -52,15 +52,15 @@ internal class InsertQueries : IInsertQueries
         }
     }
 
-    public InsertResult TryAddTournament(out Tournament? addedTournament, int organiserId, string tournamentName,
+    public InsertResult TryAddTournament(out Tournament? addedTournament, int organiserId, string? tournamentName,
                                          int             systemId,        int kindId,
                                          int             toursCount          = 7,
-                                         string          place               = "-",
+                                         string?         place               = "-",
                                          DateOnly?       tournamentDateStart = null,
                                          TimeOnly?       tournamentTimeStart = null,
                                          int             duration            = 0,
                                          int             maxTeamPlayers      = 5,
-                                         string          organizationName    = "-",
+                                         string?         organizationName    = "-",
                                          bool            isMixedGroups       = true)
     {
         try

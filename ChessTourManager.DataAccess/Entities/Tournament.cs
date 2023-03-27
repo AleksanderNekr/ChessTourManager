@@ -9,11 +9,11 @@ public class Tournament
 
     public int OrganizerId { get; set; }
 
-    public string TournamentName { get; set; } = null!;
+    public string? TournamentName { get; set; } = null!;
 
     public int ToursCount { get; set; }
 
-    public string Place { get; set; } = null!;
+    public string? Place { get; set; } = null!;
 
     public DateOnly DateStart { get; set; }
 
@@ -23,7 +23,7 @@ public class Tournament
 
     public int MaxTeamPlayers { get; set; }
 
-    public string OrganizationName { get; set; } = null!;
+    public string? OrganizationName { get; set; } = null!;
 
     public bool? IsMixedGroups { get; set; }
 
@@ -45,7 +45,7 @@ public class Tournament
 
     public virtual User Organizer { get; set; } = null!;
 
-    public virtual ICollection<Player> Players { get; } = new List<Player>();
+    public virtual ICollection<Player?> Players { get; } = new List<Player?>();
 
     public virtual System System { get; set; } = null!;
 

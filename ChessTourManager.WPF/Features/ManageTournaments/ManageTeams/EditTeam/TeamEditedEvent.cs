@@ -17,10 +17,10 @@ public static class TeamEditedEvent
 
 public class TeamChangedEventArgs : EventArgs
 {
-    public TeamChangedEventArgs(Team team)
+    public TeamChangedEventArgs(Team? team)
     {
         Team = team;
     }
 
-    public Team Team { get; }
+    public Team? Team { get; }
 }

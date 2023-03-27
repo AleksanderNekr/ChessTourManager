@@ -2,9 +2,7 @@
 
 namespace ChessTourManager.WPF.Features.ManageTournaments;
 
-/// <summary>
-///     Interaction logic for MainWindow.xaml
-/// </summary>
+/// <inheritdoc cref="System.Windows.Window" />
 public partial class MainWindow
 {
     public MainWindow()

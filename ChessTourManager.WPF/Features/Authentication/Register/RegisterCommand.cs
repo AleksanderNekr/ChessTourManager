@@ -24,14 +24,14 @@ public class RegisterCommand : CommandBase
             return;
         }
 
-        if (_registerViewModel.Email is null || _registerViewModel.PasswordInit is null)
+        if (_registerViewModel is { Email: null } || _registerViewModel is { PasswordInit: null })
         {
             MessageBox.Show("Не удалось зарегистрироваться! Проблема с логином или паролем",
                             "Регистрация", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (_registerViewModel.LastName is null || _registerViewModel.FirstName is null)
+        if (_registerViewModel is { LastName: null } || _registerViewModel is { FirstName: null })
         {
             MessageBox.Show("Имя и фамилия должны быть заполнены!",
                             "Регистрация", MessageBoxButton.OK, MessageBoxImage.Error);

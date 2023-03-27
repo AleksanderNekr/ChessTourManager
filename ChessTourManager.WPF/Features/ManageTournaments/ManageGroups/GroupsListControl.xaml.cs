@@ -1,9 +1,8 @@
-﻿using System.Windows.Controls;
-using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
+﻿using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups;
 
-public partial class GroupsListControl : UserControl
+public partial class GroupsListControl
 {
     public GroupsListControl()
     {

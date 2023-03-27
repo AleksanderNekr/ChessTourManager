@@ -8,8 +8,8 @@ public class EditPlayerViewModel : ViewModelBase
 {
     private CompleteEditPlayerCommand? _completeEditPlayerCommand;
     private char                       _gender;
-    private string                     _playerFirstName;
-    private string                     _playerLastName;
+    private string?                    _playerFirstName;
+    private string?                    _playerLastName;
 
     public EditPlayerViewModel()
     {
@@ -18,20 +18,23 @@ public class EditPlayerViewModel : ViewModelBase
     public EditPlayerViewModel(Player? player)
     {
         Player          = player;
-        PlayerLastName  = Player.PlayerLastName;
-        PlayerFirstName = Player.PlayerFirstName;
-        Gender          = Player.Gender;
+        PlayerLastName  = Player?.PlayerLastName;
+        PlayerFirstName = Player?.PlayerFirstName;
+        if (Player is { })
+        {
+            Gender = Player.Gender;
+        }
     }
 
-    internal Player? Player { get; set; }
+    internal Player? Player { get; }
 
-    public string PlayerFirstName
+    public string? PlayerFirstName
     {
         get { return _playerFirstName; }
         set { SetField(ref _playerFirstName, value); }
     }
 
-    public string PlayerLastName
+    public string? PlayerLastName
     {
         get { return _playerLastName; }
         set { SetField(ref _playerLastName, value); }

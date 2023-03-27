@@ -2,7 +2,7 @@
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageRatings;
 
-public partial class RatingGridControl : UserControl
+public partial class RatingGridControl
 {
     public RatingGridControl()
     {

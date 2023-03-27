@@ -9,14 +9,14 @@ namespace ChessTourManager.Domain.Algorithms;
 
 public class RoundRobin : IRoundRobin
 {
-    private readonly Dictionary<int, HashSet<(int, int)>> _pairsForTour = new();
     private readonly ChessTourContext                     _context;
+    private readonly Dictionary<int, HashSet<(int, int)>> _pairsForTour = new();
+
+    private readonly Tournament? _tournament;
 
     private List<int> _playersIds;
 
-    private readonly Tournament _tournament;
-
-    public RoundRobin(ChessTourContext context, Tournament tournament)
+    public RoundRobin(ChessTourContext context, Tournament? tournament)
     {
         _tournament = tournament;
         _context    = context;
@@ -24,7 +24,7 @@ public class RoundRobin : IRoundRobin
                    .TryGetGames(tournament.OrganizerId,
                                 tournament.TournamentId,
                                 out IEnumerable<Game>? games);
-        if (games is not null)
+        if (games is { })
         {
             IEnumerable<Game> gamesEnum = games.ToList();
             GamesHistory = gamesEnum.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
@@ -57,19 +57,23 @@ public class RoundRobin : IRoundRobin
 
         NewTourNumber = currentTour + 1;
         int tour = NewTourNumber;
-        if (tour >= _pairsForTour.Count || _playersIds.Count < 3)
+
+        if (!CheckIfCanStart(tour))
         {
-            MessageBox.Show("Недостаточно игроков для "
-                          + "проведения следующего тура.",
-                            "Ошибка", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
             return new List<(int, int)>();
         }
 
+        List<(int, int)> result = GetPairsForTour(tour);
+
+        return result;
+    }
+
+    private List<(int, int)> GetPairsForTour(int tour)
+    {
         List<(int, int)> result = new();
         foreach ((int, int) pair in _pairsForTour[tour])
         {
-            if (GamesHistory.Contains(pair))
+            if (GamesHistory is { } && GamesHistory.Contains(pair))
             {
                 tour++;
                 continue;
@@ -81,11 +85,25 @@ public class RoundRobin : IRoundRobin
         return result;
     }
 
+    private bool CheckIfCanStart(int tourNumber)
+    {
+        bool areAllToursPlayed        = tourNumber        >= _pairsForTour.Count;
+        bool isPlayersCountUnplayable = _playersIds.Count < 3;
+        if (!(areAllToursPlayed || isPlayersCountUnplayable))
+        {
+            return true;
+        }
+
+        MessageBox.Show("Недостаточно игроков для проведения следующего тура.",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        return false;
+    }
+
     public HashSet<(int, int)>? GamesHistory { get; }
 
     public int NewTourNumber { get; private set; }
 
-    private static IEnumerable<Player>? GetPlayers(ChessTourContext context, Tournament tournament)
+    private static IEnumerable<Player>? GetPlayers(ChessTourContext context, Tournament? tournament)
     {
         IGetQueries.CreateInstance(context)
                    .TryGetPlayers(tournament.OrganizerId, tournament.TournamentId,

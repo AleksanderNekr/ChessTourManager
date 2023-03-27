@@ -10,7 +10,7 @@ public interface IRoundRobin
 
     public int NewTourNumber { get; }
 
-    public static IRoundRobin Initialize(ChessTourContext context, Tournament tournament)
+    public static IRoundRobin Initialize(ChessTourContext context, Tournament? tournament)
     {
         return new RoundRobin(context, tournament);
     }

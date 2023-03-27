@@ -11,9 +11,9 @@ public class Player
 
     public int OrganizerId { get; set; }
 
-    public string PlayerLastName { get; set; } = null!;
+    public string? PlayerLastName { get; set; } = null!;
 
-    public string PlayerFirstName { get; set; } = null!;
+    public string? PlayerFirstName { get; set; } = null!;
 
     public char Gender { get; set; }
 

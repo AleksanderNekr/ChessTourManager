@@ -20,16 +20,16 @@ internal class GetQueries : IGetQueries
         IEnumerable<User> usersLocal = _context.Users.Include(u => u.Tournaments);
         user = usersLocal.FirstOrDefault(u => u.UserId == id);
 
-        return user is not null
+        return user is { }
                    ? GetResult.Success
                    : GetResult.UserNotFound;
     }
 
-    public GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
+    public GetResult TryGetUserByLoginAndPass(string? login, string password, out User? user)
     {
         string hash = PasswordHasher.HashPassword(password);
         user = _context.Users.FirstOrDefault(u => u.Email == login && u.PassHash == hash);
-        return user is not null
+        return user is { }
                    ? GetResult.Success
                    : GetResult.UserNotFound;
     }
@@ -50,7 +50,7 @@ internal class GetQueries : IGetQueries
         return GetResult.UserNotFound;
     }
 
-    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments)
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament?>? tournaments)
     {
         if (TryGetUserById(organiserId, out User? _) == GetResult.Success)
         {
@@ -76,7 +76,7 @@ internal class GetQueries : IGetQueries
             return GetResult.UserNotFound;
         }
 
-        if (user!.Tournaments.Count == 0)
+        if (user is { Tournaments.Count: 0 })
         {
             return GetResult.NoTournaments;
         }
@@ -105,7 +105,7 @@ internal class GetQueries : IGetQueries
             return GetResult.UserNotFound;
         }
 
-        if (user!.Tournaments.Count == 0)
+        if (user is { Tournaments.Count: 0 })
         {
             return GetResult.NoTournaments;
         }
@@ -172,7 +172,7 @@ internal class GetQueries : IGetQueries
             return GetResult.NoTournaments;
         }
 
-        IEnumerable<Tournament> tournaments = _context.Tournaments.Where(g => g.OrganizerId == organizerId);
+        IEnumerable<Tournament?> tournaments = _context.Tournaments.Where(g => g.OrganizerId == organizerId);
 
         Tournament? tournament = tournaments.FirstOrDefault(t => t.TournamentId == tournamentId);
         if (tournament is null)

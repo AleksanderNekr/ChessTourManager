@@ -38,11 +38,11 @@ public class PairsGridViewModel : ViewModelBase
         get { return $"Выбранный тур: {SelectedTour}, текущий: {CurrentTour}"; }
     }
 
-    public ObservableCollection<Game> Pairs
+    public ObservableCollection<Game>? Pairs
     {
         get
         {
-            if (_pairs is not null)
+            if (_pairs is { })
             {
                 return _pairs;
             }
@@ -54,9 +54,9 @@ public class PairsGridViewModel : ViewModelBase
 
             UpdatePairs();
 
-            return _pairs!;
+            return _pairs;
         }
-        set
+        private set
         {
             SetField(ref _pairs, value);
             SelectedTour = CurrentTour;
@@ -72,7 +72,12 @@ public class PairsGridViewModel : ViewModelBase
                 SetField(ref _selectedTour, CurrentTour);
             }
 
-            return (int)_selectedTour!;
+            if (_selectedTour is { })
+            {
+                return (int)_selectedTour;
+            }
+
+            return 0;
         }
         set
         {
@@ -86,7 +91,7 @@ public class PairsGridViewModel : ViewModelBase
     {
         get
         {
-            if (Pairs.Count != 0)
+            if (Pairs is { } && Pairs.Count != 0)
             {
                 UpdateCurrentTour();
             }
@@ -101,7 +106,7 @@ public class PairsGridViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<Game> PairsForSelectedTour
+    public ObservableCollection<Game>? PairsForSelectedTour
     {
         get
         {
@@ -110,7 +115,7 @@ public class PairsGridViewModel : ViewModelBase
                 UpdatePairsForSelectedTour();
             }
 
-            return _pairsForSelectedTour!;
+            return _pairsForSelectedTour;
         }
         set { SetField(ref _pairsForSelectedTour, value); }
     }
@@ -152,11 +157,11 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdateCurrentTour()
     {
-        if (Pairs.Count == 0)
+        if (Pairs is { } && Pairs.Count == 0)
         {
             SetField(ref _currentTour, 0, nameof(CurrentTour));
         }
-        else
+        else if (Pairs is { })
         {
             int maxTour = Pairs.Max(p => p.TourNumber);
             SetField(ref _currentTour, maxTour, nameof(CurrentTour));
@@ -167,9 +172,12 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdatePairsForSelectedTour()
     {
-        SetField(ref _pairsForSelectedTour,
-                 new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == SelectedTour)),
-                 nameof(PairsForSelectedTour));
+        if (Pairs is { })
+        {
+            SetField(ref _pairsForSelectedTour,
+                     new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == SelectedTour)),
+                     nameof(PairsForSelectedTour));
+        }
     }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
@@ -184,8 +192,14 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdatePairs()
     {
+        if (_tournament is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(PairsContext)
-                   .TryGetGames(_tournament!.OrganizerId, _tournament.TournamentId, out IEnumerable<Game>? games);
+                   .TryGetGames(_tournament.OrganizerId, _tournament.TournamentId,
+                                out IEnumerable<Game>? games);
 
         if (games is null)
         {

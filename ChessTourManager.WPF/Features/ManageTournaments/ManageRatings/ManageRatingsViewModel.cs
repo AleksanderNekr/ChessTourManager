@@ -26,9 +26,9 @@ public class ManageRatingsViewModel : ViewModelBase
 {
     private static readonly ChessTourContext         RatingsContext = PlayersViewModel.PlayersContext;
     private                 ExportRatingListCommand? _exportRatingListCommand;
-    private                 PrintRatingListCommand?  _printRatingListCommand;
 
     private ObservableCollection<Player>? _playersSorted;
+    private PrintRatingListCommand?       _printRatingListCommand;
     private string?                       _title;
 
     public ManageRatingsViewModel()
@@ -120,24 +120,53 @@ public class ManageRatingsViewModel : ViewModelBase
     {
         UpdateRating();
 
+        UpdateTitle();
+
+        Subscribe();
+    }
+
+    private void UpdateTitle()
+    {
+        if (LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
+        if (TournamentsListViewModel.SelectedTournament is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(RatingsContext)
-                   .TryGetGames(LoginViewModel.CurrentUser!.UserId,
-                                TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetGames(LoginViewModel.CurrentUser.UserId,
+                                TournamentsListViewModel.SelectedTournament.TournamentId,
                                 out IEnumerable<Game>? games);
 
-        IEnumerable<Game>? gamesEnum = games as Game[] ?? games.ToArray();
-        if (games != null && !gamesEnum.Any())
+        if (games is null)
+        {
+            return;
+        }
+
+        UpdateTitle(games);
+    }
+
+    private void UpdateTitle(IEnumerable<Game> games)
+    {
+        IEnumerable<Game> gamesEnum = games as Game[] ?? games.ToArray();
+        if (!gamesEnum.Any())
         {
             Title = "Рейтинг-лист";
         }
         else
         {
             // Get the number of the last tour.
-            int lastTourNumber = gamesEnum?.Max(g => g.TourNumber) ?? 0;
-
+            int lastTourNumber = gamesEnum.Max(g => g.TourNumber);
             Title = $"Рейтинг-лист после {lastTourNumber} тура";
         }
+    }
 
+    private void Subscribe()
+    {
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
 
         PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
@@ -157,25 +186,33 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private void UpdateRating()
     {
-        if (TournamentsListViewModel.SelectedTournament == null)
+        PlayersSorted = new ObservableCollection<Player>(GetRating() ?? Enumerable.Empty<Player>());
+    }
+
+    private static IOrderedEnumerable<Player>? GetRating()
+    {
+        if (TournamentsListViewModel.SelectedTournament is null)
         {
-            return;
+            return null;
+        }
+
+        if (LoginViewModel.CurrentUser is null)
+        {
+            return null;
         }
 
         IGetQueries.CreateInstance(RatingsContext)
-                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
+                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
                                                     TournamentsListViewModel.SelectedTournament.TournamentId,
                                                     out IEnumerable<Player>? players);
 
-        // Sort players descending by PointsCount, RatioSum1 and RatioSum2.
-        IOrderedEnumerable<Player>? playersSorted = players?.OrderByDescending(p => p.PointsCount)
-                                                            .ThenByDescending(p => p.RatioSum1)
-                                                            .ThenByDescending(p => p.RatioSum2);
+        return GetSortedPlayers(players);
+    }
 
-
-        if (playersSorted != null)
-        {
-            PlayersSorted = new ObservableCollection<Player>(playersSorted);
-        }
+    private static IOrderedEnumerable<Player>? GetSortedPlayers(IEnumerable<Player>? players)
+    {
+        return players?.OrderByDescending(p => p.PointsCount)
+                       .ThenByDescending(p => p.RatioSum1)
+                       .ThenByDescending(p => p.RatioSum2);
     }
 }

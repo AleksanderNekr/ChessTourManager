@@ -102,7 +102,7 @@ public class TournamentsListViewModel : ViewModelBase
         switch (result)
         {
             case GetResult.Success:
-                if (tournamentsCollection != null)
+                if (tournamentsCollection is { })
                 {
                     TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
                 }

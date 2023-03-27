@@ -1,6 +1,6 @@
 ﻿using ChessTourManager.WPF.Helpers;
 
-namespace ChessTourManager.WPF.Features.ManageAccount;
+namespace ChessTourManager.WPF.Features.ManageAccount.ChangePassword;
 
 public class ChangePasswordCommand : CommandBase
 {

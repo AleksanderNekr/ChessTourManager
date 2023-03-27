@@ -42,13 +42,14 @@ internal class DeleteQuery : IDeleteQueries
         }
     }
 
-    public DeleteResult TryDeleteTournament(Tournament tournament)
+    public DeleteResult TryDeleteTournament(Tournament? tournament)
     {
         try
         {
             // Drop cascade.
             _context.Games
-                    .Where(g => g.OrganizerId  == tournament.OrganizerId
+                    .Where(g => g              != null
+                             && g.OrganizerId  == tournament.OrganizerId
                              && g.TournamentId == tournament.TournamentId)
                     .ToList()
                     .ForEach(g => _context.Games.Remove(g));

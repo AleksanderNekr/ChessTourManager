@@ -43,9 +43,9 @@ public class GetQueriesTests
     public void TryGetUserByLoginAndPass_WhenLoginIsNotCorrect_ReturnsUserNotFound()
     {
         // Arrange.
-        var          context = new ChessTourContext();
-        var          queries = IGetQueries.CreateInstance(context);
-        const string login   = "incorrect";
+        var           context = new ChessTourContext();
+        var           queries = IGetQueries.CreateInstance(context);
+        const string? login   = "incorrect";
 
         // Users with this password exist in the database.
         const string password = "123qwe";
@@ -68,7 +68,7 @@ public class GetQueriesTests
         const string password = "incorrect";
 
         // User with this login exists in the database.
-        const string login = "petre@live.com";
+        const string? login = "petre@live.com";
 
         // Act.
         GetResult result = queries.TryGetUserByLoginAndPass(login, password, out User? user);
@@ -112,8 +112,8 @@ public class GetQueriesTests
 
         // Act.
         GetResult result = queries.TryGetTournamentsWithTeamsAndPlayers(userId,
-                                                                        out IEnumerable<Tournament>? tournaments);
-        Tournament tournament = tournaments!.Single(t => t.TournamentId == expectedTournamentId);
+                                                                        out IEnumerable<Tournament?>? tournaments);
+        Tournament? tournament = tournaments!.Single(t => t.TournamentId == expectedTournamentId);
         Team       team       = tournament.Teams.Single(t => t.TeamId   == expectedTeamId);
 
         // Assert.

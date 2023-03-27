@@ -10,7 +10,13 @@ public class SaveChangesCommand : CommandBase
     public override void Execute(object? parameter)
     {
         ChessTourContext context = new();
-        context.Users.Update(LoginViewModel.CurrentUser!);
+        if (LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
+        context.Users.Update(LoginViewModel.CurrentUser);
+
         context.SaveChanges();
 
         MessageBox.Show("Изменения сохранены!", "Изменение пользовательских данных",

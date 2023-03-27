@@ -10,13 +10,13 @@ namespace ChessTourManager.DataAccess;
 
 public class ChessTourContext : DbContext
 {
-    public DbSet<Game?> Games { get; set; }
+    public DbSet<Game> Games { get; set; }
 
-    public DbSet<Group?> Groups { get; set; }
+    public DbSet<Group> Groups { get; set; }
 
     public DbSet<Kind> Kinds { get; set; }
 
-    public DbSet<Player?> Players { get; set; }
+    public DbSet<Player> Players { get; set; }
 
     public DbSet<PlayersListView> PlayersListViews { get; set; }
 
@@ -26,7 +26,7 @@ public class ChessTourContext : DbContext
 
     public DbSet<Entities.System> Systems { get; set; }
 
-    public DbSet<Team?> Teams { get; set; }
+    public DbSet<Team> Teams { get; set; }
 
     public DbSet<TeamRatingListView> TeamRatingListViews { get; set; }
 
@@ -34,18 +34,9 @@ public class ChessTourContext : DbContext
 
     public DbSet<TeamsListView> TeamsListViews { get; set; }
 
-    public DbSet<Tournament> Tournaments { get; set; }
+    public DbSet<Tournament?> Tournaments { get; set; }
 
     public DbSet<User> Users { get; set; }
-
-    /// <summary>
-    ///     Factory method of creating instance of the context.
-    /// </summary>
-    /// <returns>The context.</returns>
-    public static ChessTourContext CreateInstance()
-    {
-        return new ChessTourContext();
-    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

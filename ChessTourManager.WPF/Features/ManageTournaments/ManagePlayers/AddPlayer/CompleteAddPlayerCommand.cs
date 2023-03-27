@@ -17,17 +17,22 @@ public class CompleteAddPlayerCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
+        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
         IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                       .TryAddPlayer(out Player? player,
-                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
-                                    LoginViewModel.CurrentUser!.UserId,
+                                    TournamentsListViewModel.SelectedTournament.TournamentId,
+                                    LoginViewModel.CurrentUser.UserId,
                                     _addPlayerViewModel.PlayerLastName.Trim(),
                                     _addPlayerViewModel.PlayerFirstName.Trim(),
                                     _addPlayerViewModel.Gender,
-                                    teamId: _addPlayerViewModel.Team.TeamId);
+                                    teamId: _addPlayerViewModel.Team?.TeamId);
 
 
-        if (player is not null)
+        if (player is { })
         {
             MessageBox.Show("Игрок успешно добавлен!", "Добавление игрока", MessageBoxButton.OK,
                             MessageBoxImage.Information);

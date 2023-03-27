@@ -14,7 +14,7 @@ public class SaveGroupCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (_editGroupViewModel.Group == null)
+        if (_editGroupViewModel is { Group: null })
         {
             MessageBox.Show("Не удалось сохранить изменения. Группа не найдена.",
                             "Ошибка сохранения", MessageBoxButton.OK,

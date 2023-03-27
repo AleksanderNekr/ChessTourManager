@@ -33,8 +33,8 @@ public class PlayersViewModel : ViewModelBase
     private                  ObservableCollection<Group>? _groupsAvailable;
 
     private ObservableCollection<Player>? _playersCollection;
-    private ObservableCollection<Team>?   _teamsAvailable;
     private PrintPlayersListCommand?      _printPlayersListCommand;
+    private ObservableCollection<Team>?   _teamsAvailable;
 
     public PlayersViewModel()
     {
@@ -45,7 +45,7 @@ public class PlayersViewModel : ViewModelBase
     {
         get
         {
-            if (_playersCollection != null)
+            if (_playersCollection is { })
             {
                 return _playersCollection;
             }
@@ -62,7 +62,7 @@ public class PlayersViewModel : ViewModelBase
 
     public ICommand AddPlayerCommand
     {
-        get { return _addPlayerCommand ??= new AddPlayerCommand(this); }
+        get { return _addPlayerCommand ??= new AddPlayerCommand(); }
     }
 
     public ICommand DeletePlayerCommand
@@ -70,18 +70,18 @@ public class PlayersViewModel : ViewModelBase
         get { return _deletePlayerCommand ??= new DeletePlayerCommand(); }
     }
 
-    public ObservableCollection<Team> TeamsAvailable
+    public ObservableCollection<Team>? TeamsAvailable
     {
         get
         {
-            if (_teamsAvailable is not null)
+            if (_teamsAvailable is { })
             {
                 return _teamsAvailable;
             }
 
             UpdateTeams();
 
-            return _teamsAvailable!;
+            return _teamsAvailable;
         }
     }
 
@@ -90,18 +90,18 @@ public class PlayersViewModel : ViewModelBase
         get { return new ObservableCollection<int>(Enumerable.Range(DateTime.UtcNow.Year - 100, 100)); }
     }
 
-    public ObservableCollection<Group> GroupsAvailable
+    public ObservableCollection<Group>? GroupsAvailable
     {
         get
         {
-            if (_groupsAvailable is not null)
+            if (_groupsAvailable is { })
             {
                 return _groupsAvailable;
             }
 
             UpdateGroups();
 
-            return _groupsAvailable!;
+            return _groupsAvailable;
         }
         set { SetField(ref _groupsAvailable, value); }
     }
@@ -167,12 +167,13 @@ public class PlayersViewModel : ViewModelBase
             if (PlayersContext.ChangeTracker.HasChanges())
             {
                 PlayersContext.SaveChanges();
-                PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(null!));
+                PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(null));
             }
         }
         catch (DbUpdateException)
         {
-            MessageBox.Show("Возможно игрок с такими параметрами уже существует.", "Ошибка сохранения",
+            MessageBox.Show("Возможно игрок с такими параметрами уже существует.",
+                            "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception)
@@ -184,9 +185,14 @@ public class PlayersViewModel : ViewModelBase
 
     private void UpdateTeams()
     {
+        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser!.UserId,
-                                           TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
+                                           TournamentsListViewModel.SelectedTournament.TournamentId,
                                            out IEnumerable<Team>? teams);
 
         SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
@@ -194,9 +200,14 @@ public class PlayersViewModel : ViewModelBase
 
     private void UpdateGroups()
     {
+        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetGroups(LoginViewModel.CurrentUser!.UserId,
-                                 TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetGroups(LoginViewModel.CurrentUser.UserId,
+                                 TournamentsListViewModel.SelectedTournament.TournamentId,
                                  out IEnumerable<Group>? groups);
 
         SetField(ref _groupsAvailable, new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>()));
@@ -232,12 +243,17 @@ public class PlayersViewModel : ViewModelBase
 
     private void UpdatePlayers()
     {
+        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(PlayersContext)
-                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser!.UserId,
-                                                    TournamentsListViewModel.SelectedTournament!.TournamentId,
+                   .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
+                                                    TournamentsListViewModel.SelectedTournament.TournamentId,
                                                     out IEnumerable<Player>? players);
 
-        if (players != null)
+        if (players is { })
         {
             PlayersCollection = new ObservableCollection<Player>(players);
         }

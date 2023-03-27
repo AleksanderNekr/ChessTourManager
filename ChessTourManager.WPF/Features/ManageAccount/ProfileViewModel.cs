@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using ChessTourManager.WPF.Features.Authentication.Login;
+using ChessTourManager.WPF.Features.ManageAccount.ChangePassword;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageAccount;
@@ -11,7 +12,7 @@ public class ProfileViewModel : ViewModelBase
 
     public string GreetMessage
     {
-        get { return $"Добро пожаловать, {FirstName}!"; }
+        get { return $"Добро пожаловать, {FirstName}"; }
     }
 
     public string? FirstName
@@ -19,9 +20,9 @@ public class ProfileViewModel : ViewModelBase
         get { return LoginViewModel.CurrentUser?.UserFirstName; }
         set
         {
-            if (LoginViewModel.CurrentUser != null)
+            if (LoginViewModel.CurrentUser is { })
             {
-                LoginViewModel.CurrentUser.UserFirstName = value!;
+                LoginViewModel.CurrentUser.UserFirstName = value;
                 OnPropertyChanged(nameof(GreetMessage));
             }
         }
@@ -32,9 +33,9 @@ public class ProfileViewModel : ViewModelBase
         get { return LoginViewModel.CurrentUser?.UserLastName; }
         set
         {
-            if (LoginViewModel.CurrentUser != null)
+            if (LoginViewModel.CurrentUser is { })
             {
-                LoginViewModel.CurrentUser.UserLastName = value!;
+                LoginViewModel.CurrentUser.UserLastName = value;
             }
         }
     }
@@ -44,9 +45,9 @@ public class ProfileViewModel : ViewModelBase
         get { return LoginViewModel.CurrentUser?.Email; }
         set
         {
-            if (LoginViewModel.CurrentUser != null)
+            if (LoginViewModel.CurrentUser is { })
             {
-                LoginViewModel.CurrentUser.Email = value!;
+                LoginViewModel.CurrentUser.Email = value;
             }
         }
     }
@@ -56,9 +57,9 @@ public class ProfileViewModel : ViewModelBase
         get { return LoginViewModel.CurrentUser?.UserPatronymic; }
         set
         {
-            if (LoginViewModel.CurrentUser != null)
+            if (LoginViewModel.CurrentUser is { })
             {
-                LoginViewModel.CurrentUser.UserPatronymic = value!;
+                LoginViewModel.CurrentUser.UserPatronymic = value;
             }
         }
     }

@@ -9,7 +9,7 @@ public class LoginViewModel : ViewModelBase
 {
     internal static readonly ChessTourContext LoginContext = new();
 
-    private string _login;
+    private string? _login;
 
     private LoginCommand? _loginCommand;
 
@@ -23,7 +23,7 @@ public class LoginViewModel : ViewModelBase
         SuccessLoginEvent.UserSuccessLogin += SuccessLoginEvent_UserSuccessLogin;
     }
 
-    public string Login
+    public string? Login
     {
         get { return _login; }
         set { SetField(ref _login, value); }

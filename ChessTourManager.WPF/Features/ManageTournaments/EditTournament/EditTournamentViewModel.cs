@@ -13,7 +13,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 
 public class EditTournamentViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext
+    private static readonly ChessTourContext
         EditTournamentContext = TournamentsListViewModel.TournamentsListContext;
 
     private ApplyEditTournamentCommand? _applyEditTournamentCommand;
@@ -28,13 +28,13 @@ public class EditTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (_tournamentKinds != null)
+            if (_tournamentKinds is { })
             {
                 return _tournamentKinds;
             }
 
             IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out IEnumerable<Kind>? kinds);
-            if (kinds != null)
+            if (kinds is { })
             {
                 _tournamentKinds = new ObservableCollection<Kind>(kinds);
             }
@@ -47,14 +47,14 @@ public class EditTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (_tournamentSystems != null)
+            if (_tournamentSystems is { })
             {
                 return _tournamentSystems;
             }
 
             IGetQueries.CreateInstance(EditTournamentContext)
                        .GetSystems(out IEnumerable<DataAccess.Entities.System>? systems);
-            if (systems != null)
+            if (systems is { })
             {
                 _tournamentSystems = new ObservableCollection<DataAccess.Entities.System>(systems);
             }
@@ -68,12 +68,12 @@ public class EditTournamentViewModel : ViewModelBase
                                                                                5, 6, 7, 8, 9, 10, 11, 12, 13
                                                                            };
 
-    public string TournamentNameText
+    public string? TournamentNameText
     {
         get { return EditingTournament?.TournamentName ?? "Название турнира"; }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.TournamentName = value;
                 OnPropertyChanged();
@@ -82,12 +82,12 @@ public class EditTournamentViewModel : ViewModelBase
     }
 
 
-    public string TournamentPlaceText
+    public string? TournamentPlaceText
     {
         get { return EditingTournament?.Place ?? "Место проведения"; }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.Place = value;
                 OnPropertyChanged();
@@ -100,7 +100,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.DateStart.ToDateTime(new TimeOnly(0, 0)) ?? DateTime.Now; }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.DateStart = DateOnly.FromDateTime(value);
                 OnPropertyChanged();
@@ -146,12 +146,12 @@ public class EditTournamentViewModel : ViewModelBase
         }
     }
 
-    public string OrgNameText
+    public string? OrgNameText
     {
         get { return EditingTournament?.OrganizationName ?? "Организатор"; }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.OrganizationName = value;
                 OnPropertyChanged();
@@ -166,7 +166,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.Kind ?? TournamentKinds.First(); }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.Kind = value;
                 OnPropertyChanged();
@@ -179,7 +179,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.System ?? TournamentSystems.First(); }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.System = value;
                 OnPropertyChanged();
@@ -192,7 +192,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.ToursCount ?? TournamentRoundsCountItems.First(); }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.ToursCount = value;
                 OnPropertyChanged();
@@ -205,7 +205,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.TimeStart ?? TimeItems.First(); }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.TimeStart = value;
                 OnPropertyChanged();
@@ -218,7 +218,7 @@ public class EditTournamentViewModel : ViewModelBase
         get { return EditingTournament?.Duration ?? DurationHoursItems.First(); }
         set
         {
-            if (EditingTournament != null)
+            if (EditingTournament is { })
             {
                 EditingTournament.Duration = value;
                 OnPropertyChanged();
@@ -256,7 +256,7 @@ public class EditTournamentViewModel : ViewModelBase
                 SetField(ref _visibleIfTeamsAllowed, Visibility.Collapsed);
             }
 
-            return (Visibility)_visibleIfTeamsAllowed!;
+            return (Visibility)_visibleIfTeamsAllowed;
         }
         set { SetField(ref _visibleIfTeamsAllowed, value); }
     }

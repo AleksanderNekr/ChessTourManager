@@ -19,10 +19,10 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
 public class TreeViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
-    private                  Player?          _selectedPlayer;
-    private                  Team?            _selectedTeam;
-    private                  Tournament?      _selectedTournament;
+    private static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
+    private                 Player?          _selectedPlayer;
+    private                 Team?            _selectedTeam;
+    private                 Tournament?      _selectedTournament;
 
     private ObservableCollection<Tournament>? _tournaments;
 
@@ -41,18 +41,18 @@ public class TreeViewModel : ViewModelBase
         PlayerEditedEvent.PlayerEdited   += PlayerChangedEvent_PlayerEdited;
     }
 
-    public ObservableCollection<Tournament> TournamentsRoot
+    public ObservableCollection<Tournament>? TournamentsRoot
     {
         get
         {
-            if (_tournaments is not null || LoginViewModel.CurrentUser == null)
+            if (_tournaments is { } || LoginViewModel.CurrentUser == null)
             {
-                return _tournaments!;
+                return _tournaments;
             }
 
             UpdateTournaments();
 
-            return _tournaments!;
+            return _tournaments;
         }
         set { SetField(ref _tournaments, value); }
     }
@@ -122,12 +122,17 @@ public class TreeViewModel : ViewModelBase
 
     private void UpdateTournaments()
     {
+        if (LoginViewModel.CurrentUser is null)
+        {
+            return;
+        }
+
         IGetQueries.CreateInstance(TreeContext)
                    .TryGetTournamentsWithTeamsAndPlayers(LoginViewModel.CurrentUser.UserId,
-                                                         out IEnumerable<Tournament>? tournaments);
+                                                         out IEnumerable<Tournament?>? tournaments);
 
 
-        if (tournaments is not null)
+        if (tournaments is { })
         {
             SetField(ref _tournaments, new ObservableCollection<Tournament>(tournaments), nameof(TournamentsRoot));
         }
