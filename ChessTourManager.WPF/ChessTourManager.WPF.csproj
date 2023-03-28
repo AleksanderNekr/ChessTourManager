@@ -26,6 +26,9 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -36,4 +39,8 @@
             <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
+    <ItemGroup>
+        <Resource Include="Assets\ChessTourManagerLogo.png"/>
+    </ItemGroup>
+
 </Project>
