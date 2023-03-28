@@ -23,7 +23,7 @@ public class Tournament
 
     public int MaxTeamPlayers { get; set; }
 
-    public string? OrganizationName { get; set; } = null!;
+    public string? OrganizationName { get; set; }
 
     public bool? IsMixedGroups { get; set; }
 

@@ -40,12 +40,8 @@ public class ChessTourContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // Get project directory
-        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName
-                               ?? throw new InvalidOperationException("Directory not found");
-
         IConfigurationBuilder builder = new ConfigurationBuilder()
-                                       .SetBasePath(projectDirectory)
+                                       .SetBasePath(Directory.GetCurrentDirectory())
                                        .AddJsonFile("appsettings.json");
 
         IConfiguration configuration = builder.Build();
