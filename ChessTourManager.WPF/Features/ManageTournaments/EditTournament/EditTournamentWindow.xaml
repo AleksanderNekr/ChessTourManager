@@ -7,7 +7,9 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="EditTournamentWindow" Height="617" Width="800"
+        MinHeight="600" MinWidth="550"
+        Height="604" Width="600"
+        FontSize="14"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
@@ -152,12 +154,11 @@
                     SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     SelectedDateFormat="Short"
                     FirstDayOfWeek="Monday" />
-                <!-- 24 format -->
                 <ComboBox
                     Margin="10, 0"
                     ItemsSource="{Binding TimeItems, Mode=OneTime}"
-                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay,
-                    StringFormat={}{0:hh\:mm}}" />
+                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay}"
+                    ItemTemplate="{StaticResource TimeTo24}" />
             </StackPanel>
             <StackPanel
                 Margin="5"

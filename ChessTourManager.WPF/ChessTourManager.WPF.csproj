@@ -39,6 +39,8 @@
             <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
+
+    <!-- Pictures -->
     <ItemGroup>
         <Resource Include="Assets\ChessTourManagerLogo.png"/>
     </ItemGroup>

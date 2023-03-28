@@ -14,6 +14,17 @@
                         <ui:ColorPaletteResources />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
+                <ResourceDictionary>
+                    <DataTemplate
+                        x:Key="TimeTo24"
+                        DataType="{x:Type ComboBoxItem}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Hour, StringFormat=00}" />
+                            <TextBlock Text=":" />
+                            <TextBlock Text="{Binding Minute, StringFormat=00}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
