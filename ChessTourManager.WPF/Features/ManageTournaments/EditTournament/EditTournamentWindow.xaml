@@ -152,12 +152,11 @@
                     SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     SelectedDateFormat="Short"
                     FirstDayOfWeek="Monday" />
-                <!-- 24 format -->
                 <ComboBox
                     Margin="10, 0"
                     ItemsSource="{Binding TimeItems, Mode=OneTime}"
-                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay,
-                    StringFormat={}{0:hh\:mm}}" />
+                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay}"
+                    ItemTemplate="{StaticResource TimeTo24}" />
             </StackPanel>
             <StackPanel
                 Margin="5"

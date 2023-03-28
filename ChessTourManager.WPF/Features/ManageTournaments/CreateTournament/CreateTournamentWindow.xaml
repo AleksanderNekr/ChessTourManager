@@ -153,8 +153,8 @@
                 <ComboBox
                     Margin="10, 0"
                     ItemsSource="{Binding TimeItems, Mode=OneTime}"
-                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay,
-                    StringFormat=HH:mm}" />
+                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay}"
+                    ItemTemplate="{StaticResource TimeTo24}" />
             </StackPanel>
             <StackPanel
                 Margin="5"
