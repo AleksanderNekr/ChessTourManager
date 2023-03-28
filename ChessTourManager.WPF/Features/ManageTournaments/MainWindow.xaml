@@ -13,7 +13,7 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
         x:Name="MainUserWindow"
-        Title="Главное окно"
+        Title="ChessTourManager"
         MinHeight="700"
         MinWidth="520"
         Width="800"
@@ -74,19 +74,19 @@
                             Binding="{Binding TournamentName}" />
                         <DataGridTextColumn
                             Header="Дата проведения"
-                            Binding="{Binding DateStart}" />
-                        <!-- <DataGridTextColumn -->
-                        <!--     Header="Туры" -->
-                        <!--     Binding="{Binding ToursCount}" /> -->
+                            Binding="{Binding DateStart,
+                            StringFormat={}{0:dd.MM.yyyy}}" />
                         <DataGridTextColumn
                             Header="Место"
                             Binding="{Binding Place}" />
                         <DataGridTextColumn
                             Header="Дата создания"
-                            Binding="{Binding DateCreate}" />
+                            Binding="{Binding DateCreate,
+                            StringFormat={}{0:dd.MM.yyyy}}" />
                         <DataGridTextColumn
                             Header="Дата изменения"
-                            Binding="{Binding DateLastChange}" />
+                            Binding="{Binding DateLastChange,
+                            StringFormat={}{0:dd.MM.yyyy}}" />
                         <!-- Button to edit tournament -->
                         <DataGridTemplateColumn
                             dgx:DataGridFilterColumn.IsFilterVisible="False">

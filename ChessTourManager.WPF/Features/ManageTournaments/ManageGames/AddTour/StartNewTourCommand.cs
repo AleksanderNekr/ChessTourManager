@@ -27,7 +27,7 @@ public class StartNewTourCommand : CommandBase
         if (TournamentsListViewModel.SelectedTournament!.Players.Contains(_pairsGridViewModel.DummyPlayer)
          && (TournamentsListViewModel.SelectedTournament.Players.Count % 2) == 1)
         {
-            _pairsGridViewModel.DummyPlayer!.IsActive = false;
+            _pairsGridViewModel.DummyPlayer.IsActive = false;
             PairsGridViewModel.PairsContext.SaveChanges();
         }
 
@@ -58,12 +58,16 @@ public class StartNewTourCommand : CommandBase
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,
                                               RoundRobin.NewTourNumber);
-                game.WhitePoints                = 0;
-                game.BlackPoints                = 1;
-                game.IsPlayed                   = false;
-                _pairsGridViewModel.DummyPlayer = dummyPlayer;
+                if (game != null)
+                {
+                    game.WhitePoints                = 0;
+                    game.BlackPoints                = 1;
+                    game.IsPlayed                   = false;
+                    _pairsGridViewModel.DummyPlayer = dummyPlayer;
 
-                GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
+                    GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game));
+                }
+
                 continue;
             }
 
@@ -85,12 +89,16 @@ public class StartNewTourCommand : CommandBase
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,
                                               RoundRobin.NewTourNumber);
-                game.WhitePoints                = 1;
-                game.BlackPoints                = 0;
-                game.IsPlayed                   = false;
-                _pairsGridViewModel.DummyPlayer = dummyPlayer;
+                if (game != null)
+                {
+                    game.WhitePoints                = 1;
+                    game.BlackPoints                = 0;
+                    game.IsPlayed                   = false;
+                    _pairsGridViewModel.DummyPlayer = dummyPlayer;
 
-                GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
+                    GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game));
+                }
+
                 continue;
             }
 

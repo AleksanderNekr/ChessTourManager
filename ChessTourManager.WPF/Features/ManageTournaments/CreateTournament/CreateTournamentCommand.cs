@@ -41,7 +41,7 @@ public class CreateTournamentCommand : CommandBase
                                                _createViewModel
                                                   .SelectedTournamentRoundsCount,
                                                _createViewModel.TournamentPlaceText?.Trim(),
-                                               DateOnly.FromDateTime(_createViewModel.SelectedDate),
+                                               DateOnly.FromDateTime((DateTime)_createViewModel.SelectedDate),
                                                _createViewModel.SelectedTime,
                                                _createViewModel.SelectedDurationHours,
                                                _createViewModel.SelectedMaxTeamPlayers,

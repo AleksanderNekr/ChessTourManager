@@ -64,6 +64,7 @@
                 </TextBox.Text>
             </TextBox>
             <TextBox
+                x:Name="FirstNameTb"
                 Margin="0, 5"
                 MaxWidth="900"
                 ui:ControlHelper.Header="Имя"

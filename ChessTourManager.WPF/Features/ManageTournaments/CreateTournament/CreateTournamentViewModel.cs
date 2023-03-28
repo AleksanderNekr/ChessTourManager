@@ -104,12 +104,7 @@ public class CreateTournamentViewModel : ViewModelBase
         set { SetField(ref _tournamentPlaceText, value); }
     }
 
-    public DateOnly MinDate
-    {
-        get { return DateOnly.FromDateTime(DateTime.Now); }
-    }
-
-    public DateTime SelectedDate
+    public DateTime? SelectedDate
     {
         get
         {
@@ -127,26 +122,9 @@ public class CreateTournamentViewModel : ViewModelBase
     {
         get
         {
-            return new ObservableCollection<TimeOnly>
-                   {
-                       TimeOnly.FromDateTime(DateTime.Parse("07:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("08:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("09:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("10:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("11:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("12:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("13:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("14:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("15:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("16:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("17:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("18:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("19:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("20:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("21:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("22:00")),
-                       TimeOnly.FromDateTime(DateTime.Parse("23:00"))
-                   };
+            IEnumerable<TimeOnly> times = Enumerable.Range(6, 18)
+                                                    .Select(i => TimeOnly.FromDateTime(DateTime.Parse($"{i}:00")));
+            return new ObservableCollection<TimeOnly>(times);
         }
     }
 

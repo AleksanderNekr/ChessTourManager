@@ -9,7 +9,6 @@
         xmlns:bindablePassword="clr-namespace:ChessTourManager.WPF.Helpers.BindablePassword"
         mc:Ignorable="d"
         Height="600" Width="400"
-        WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"

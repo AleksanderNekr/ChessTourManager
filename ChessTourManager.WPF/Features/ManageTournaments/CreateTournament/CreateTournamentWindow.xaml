@@ -7,7 +7,6 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="CreateTournamentWindow"
         MinHeight="600" MinWidth="550"
         Height="604" Width="600"
         FontSize="14"
@@ -148,14 +147,14 @@
                 <!-- Blackout Dates are set in the Code Behind -->
                 <DatePicker
                     x:Name="DatePicker"
-                    DisplayDateStart="{Binding MinDate, Mode=OneTime}"
                     SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
                     SelectedDateFormat="Short"
                     FirstDayOfWeek="Monday" />
                 <ComboBox
                     Margin="10, 0"
                     ItemsSource="{Binding TimeItems, Mode=OneTime}"
-                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay}" />
+                    SelectedItem="{Binding Path=SelectedTime, Mode=TwoWay,
+                    StringFormat=HH:mm}" />
             </StackPanel>
             <StackPanel
                 Margin="5"
@@ -203,8 +202,7 @@
                     <RadioButton
                         Focusable="False"
                         Content="Нет"
-                        GroupName="MixedGroupsChoice"
-                        IsChecked="{Binding !IsMixedGroupsAllowed}" Width="69" />
+                        GroupName="MixedGroupsChoice" />
                 </StackPanel>
             </StackPanel>
             <Button
