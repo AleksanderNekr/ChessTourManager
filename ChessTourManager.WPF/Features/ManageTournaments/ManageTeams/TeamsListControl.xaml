@@ -40,14 +40,17 @@
                     <StackPanel
                         Orientation="Horizontal">
                         <TextBlock
+                            VerticalAlignment="Center"
                             Text="{Binding TeamName}" />
                         <Button
-                            Margin="5, 0, 0, 0"
+                            Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
+                            Margin="20, 0, 0, 0"
                             Content="Удалить"
                             Command="{Binding DataContext.DeleteTeamCommand,
                                             RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}" />
                         <Button
+                            Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                             Margin="5, 0, 0, 0"
                             Content="Редактировать"
                             Command="{Binding DataContext.EditTeamCommand,

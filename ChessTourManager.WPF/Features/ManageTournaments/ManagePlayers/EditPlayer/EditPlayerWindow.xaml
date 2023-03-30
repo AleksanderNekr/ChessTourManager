@@ -10,7 +10,9 @@
         mc:Ignorable="d"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Height="300" Width="400">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Height="300" Width="350">
     <Window.DataContext>
         <local:EditPlayerViewModel />
     </Window.DataContext>
@@ -48,6 +50,7 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"
@@ -70,13 +73,15 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"
                     Text="Имя" />
                 <TextBox
                     x:Name="FirstNameTextBox"
-                    MinWidth="100">
+                    MinWidth="100"
+                    MaxWidth="120">
                     <TextBox.Text>
                         <Binding Path="PlayerFirstName" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -93,6 +98,7 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
+                    VerticalAlignment="Center"
                     Width="60"
                     Margin="0,0,10,0"
                     FontSize="14"

@@ -43,6 +43,7 @@
     <!-- Pictures -->
     <ItemGroup>
         <Resource Include="Assets\ChessTourManagerLogo.png"/>
+        <Resource Include="Assets\ChessTourManagerLogoLarge.png"/>
     </ItemGroup>
 
 </Project>

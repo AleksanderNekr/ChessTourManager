@@ -8,9 +8,11 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="AddPlayerWindow" Height="250" Width="400">
+        Height="250" Width="350">
     <Window.DataContext>
         <local:AddPlayerViewModel />
     </Window.DataContext>
@@ -27,7 +29,7 @@
             Grid.Row="0"
             FontWeight="SemiBold"
             FontSize="18"
-            Text="Редактирование игрока"
+            Text="Добавить игрока"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
         <Grid

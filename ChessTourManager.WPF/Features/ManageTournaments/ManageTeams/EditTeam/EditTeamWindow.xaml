@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="EditTeamWindow"
-        Height="250" Width="300"
+        ResizeMode="NoResize"
+        Height="270" Width="300"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <editTeam:EditTeamViewModel />
@@ -110,7 +110,8 @@
                 Command="{Binding SaveCommand}">
                 <Button.Style>
                     <Style
-                        TargetType="Button">
+                        TargetType="Button"
+                        BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding ElementName=NameTextBox, Path=(Validation.HasError)}"

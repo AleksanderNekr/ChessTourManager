@@ -24,10 +24,10 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageRatings;
 
 public class ManageRatingsViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext         RatingsContext = PlayersViewModel.PlayersContext;
-    private                 ExportRatingListCommand? _exportRatingListCommand;
+    private static readonly ChessTourContext RatingsContext = PlayersViewModel.PlayersContext;
 
     private ObservableCollection<Player>? _playersSorted;
+    private ExportRatingListCommand?      _exportRatingListCommand;
     private PrintRatingListCommand?       _printRatingListCommand;
     private string?                       _title;
 

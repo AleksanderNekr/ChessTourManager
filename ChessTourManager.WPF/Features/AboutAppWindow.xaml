@@ -5,47 +5,57 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="О программе" Height="500" Width="800">
+        ResizeMode="NoResize"
+        Title="О программе" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition />
+            <RowDefinition
+                Height="Auto" />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition
+                Height="0.1*" />
         </Grid.RowDefinitions>
+        <Image
+            Grid.Row="0"
+            Source="/Assets/ChessTourManagerLogo.png" />
         <TextBlock
+            Grid.Row="1"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontSize="25"
             FontWeight="SemiBold"
-            Text="Программа ChessTourManager" />
+            Text="ChessTourManager" />
         <TextBlock
-            Grid.Row="1"
+            Grid.Row="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontSize="20"
             FontStyle="Italic"
             Text="Программа для управления турнирами по шахматам" />
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="50, 0"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             FontSize="20"
             TextWrapping="WrapWithOverflow"
-            Text="Данная программа находится под лицензией MIT. Предназначена для личного использования. При использовании программы в коммерческих целях, необходимо согласование с автором." />
+            Text="Данная программа находится под лицензией MIT. Предназначена для личного использования. При использовании программы в коммерческих целях необходимо согласование с автором." />
         <StackPanel
             Orientation="Horizontal"
             VerticalAlignment="Center"
-            Grid.Row="3">
+            Grid.Row="4">
             <TextBlock
                 Margin="50, 0, 5 0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="20"
                 TextWrapping="WrapWithOverflow"
-                Text="Автор: Александр Некрасов" />
+                Text="Автор: Александр Некрасов">
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Window>

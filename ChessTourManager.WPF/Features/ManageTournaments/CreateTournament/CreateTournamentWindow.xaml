@@ -7,9 +7,9 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        MinHeight="600" MinWidth="550"
-        Height="604" Width="600"
+        Height="610" Width="610"
         FontSize="14"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
@@ -19,7 +19,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="0.3*" />
+                Height="0.4*" />
             <RowDefinition
                 Height="Auto" />
             <RowDefinition
@@ -206,7 +206,7 @@
                 </StackPanel>
             </StackPanel>
             <Button
-                Margin="20"
+                Margin="0, 30, 0, 0"
                 HorizontalAlignment="Center"
                 Width="100"
                 Content="Создать"

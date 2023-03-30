@@ -7,9 +7,9 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        MinHeight="600" MinWidth="550"
-        Height="604" Width="600"
+        Height="620" Width="650"
         FontSize="14"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
@@ -109,7 +109,7 @@
                     Text="Название турнира" />
                 <TextBox
                     x:Name="TournamentNameTextBox"
-                    MinWidth="200">
+                    MaxWidth="270">
                     <TextBox.Text>
                         <Binding
                             Path="TournamentNameText"
@@ -129,7 +129,7 @@
                     Text="Место проведения" />
                 <TextBox
                     x:Name="TournamentPlaceTextBox"
-                    MinWidth="200">
+                    MaxWidth="270">
                     <TextBox.Text>
                         <Binding
                             Path="TournamentPlaceText"
