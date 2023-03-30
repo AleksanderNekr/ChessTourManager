@@ -6,27 +6,8 @@ namespace ChessTourManager.DataAccess.Entities;
 
 public class Game
 {
-    private (decimal RatioSum1, decimal RatioSum2)           _prevBlackRatios;
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevBlackStats;
-
-    [NotMapped]
-    private (double, double) _prevPointsSum;
-
-    [NotMapped]
-    private (double, double) _prevResult;
-
-    private (decimal RatioSum1, decimal RatioSum2) _prevWhiteRatios;
-
-    private (int WinsCount, int DrawsCount, int LossesCount) _prevWhiteStats;
-
     private string? _result;
-
-    public Game()
-    {
-        UpdatePreviousValues();
-    }
-
-    public int WhiteId { get; set; }
+    public  int     WhiteId { get; set; }
 
     public int BlackId { get; set; }
 
@@ -67,24 +48,23 @@ public class Game
                 return _result ??= "- – +";
             }
 
-            return _result ??= "0 – 0";
+            return _result ??= "–";
         }
         set
         {
             _result = value;
-            if (_result.Equals(_prevResult.Item1 + " – " + _prevResult.Item2))
+
+            if (value is "–" or "0 – 0")
             {
+                WhitePoints = 0;
+                BlackPoints = 0;
+                IsPlayed    = false;
                 return;
             }
 
             string[] res = value.Split(" – ");
             switch (res[0])
             {
-                case "0" when res[1] == "0":
-                    WhitePoints = double.Parse(res[0], CultureInfo.InvariantCulture);
-                    BlackPoints = double.Parse(res[1], CultureInfo.InvariantCulture);
-                    IsPlayed    = false;
-                    break;
                 case "+":
                     WhitePoints = 1;
                     BlackPoints = 0;
@@ -101,37 +81,6 @@ public class Game
                     IsPlayed    = true;
                     break;
             }
-
-            UpdatePreviousValues();
         }
-    }
-
-    private void UpdatePreviousValues()
-    {
-        if (PlayerWhite is null || PlayerBlack is null)
-        {
-            return;
-        }
-
-        _prevResult = (WhitePoints, BlackPoints);
-
-        _prevPointsSum = (PlayerWhite.PointsCount, PlayerBlack.PointsCount);
-
-        _prevWhiteStats  = (PlayerWhite.WinsCount, PlayerWhite.DrawsCount, PlayerWhite.LossesCount);
-        _prevWhiteRatios = (PlayerWhite.RatioSum1, PlayerWhite.RatioSum2);
-
-        _prevBlackStats  = (PlayerBlack.WinsCount, PlayerBlack.DrawsCount, PlayerBlack.LossesCount);
-        _prevBlackRatios = (PlayerBlack.RatioSum1, PlayerBlack.RatioSum2);
-    }
-
-    private void RestoreOldValues()
-    {
-        (PlayerWhite.PointsCount, PlayerBlack.PointsCount) = _prevPointsSum;
-
-        (PlayerWhite.WinsCount, PlayerWhite.DrawsCount, PlayerWhite.LossesCount) = _prevWhiteStats;
-        (PlayerWhite.RatioSum1, PlayerWhite.RatioSum2)                           = _prevWhiteRatios;
-
-        (PlayerBlack.WinsCount, PlayerBlack.DrawsCount, PlayerBlack.LossesCount) = _prevBlackStats;
-        (PlayerBlack.RatioSum1, PlayerBlack.RatioSum2)                           = _prevBlackRatios;
     }
 }
