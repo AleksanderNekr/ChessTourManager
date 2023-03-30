@@ -147,6 +147,8 @@ public class PairsGridViewModel : ViewModelBase
         get { return _printGamesListCommand ??= new PrintGamesListCommand(); }
     }
 
+    public string Result { get; set; }
+
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
     {
         CurrentTour = tourAddedEventArgs.TourNumber;
@@ -157,7 +159,7 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdateCurrentTour()
     {
-        if (Pairs is { } && Pairs.Count == 0)
+        if (Pairs is { Count: 0 })
         {
             SetField(ref _currentTour, 0, nameof(CurrentTour));
         }

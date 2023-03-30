@@ -92,8 +92,20 @@
                                 <system:String>+ – -</system:String>
                                 <system:String>- – +</system:String>
                                 <system:String>0 – 0</system:String>
+                                <system:String>–</system:String>
                             </x:Array>
                         </DataGridComboBoxColumn.ItemsSource>
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <!-- Center text -->
+                            <Style TargetType="ComboBox">
+                                <Setter
+                                    Property="HorizontalContentAlignment"
+                                    Value="Center" />
+                                <Setter
+                                    Property="VerticalContentAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
                     </DataGridComboBoxColumn>
                     <DataGridTextColumn
                         IsReadOnly="True"

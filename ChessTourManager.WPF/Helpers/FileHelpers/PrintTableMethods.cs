@@ -1,4 +1,5 @@
-﻿using System.Printing;
+﻿using System;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -21,7 +22,8 @@ public static class PrintTableMethods
 
         FlowDocument document = new()
                                 {
-                                    ColumnWidth = printDialog.PrintableAreaWidth
+                                    ColumnWidth           = printDialog.PrintableAreaWidth,
+                                    IsColumnWidthFlexible = true
                                 };
 
         Table table = new()
@@ -31,36 +33,24 @@ public static class PrintTableMethods
                           BorderThickness = new Thickness(1),
                           FontStyle       = FontStyles.Normal,
                           FontWeight      = FontWeights.Normal,
-                          TextAlignment   = TextAlignment.Left
+                          TextAlignment   = TextAlignment.Center,
+                          FontFamily      = new FontFamily("Tahoma")
                       };
 
-        ConfigHeader(dataGrid, table);
 
-        ConfigBody(dataGrid, table, document);
-
-        printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Print DataGrid");
-        return true;
-    }
-
-    private static void ConfigBody(DataGrid dataGrid, Table table, FlowDocument document)
-    {
-        TableRowGroup dataGroup = new();
-
-        foreach (object? item in dataGrid.Items)
-        {
-            TableRow dataRow = new();
-
-            PrintRow(dataGrid, item, dataRow);
-
-            dataGroup.Rows.Add(dataRow);
-        }
-
-        table.RowGroups.Add(dataGroup);
+        table.RowGroups.Add(ConfigHeader(dataGrid));
+        table.RowGroups.Add(ConfigBody(dataGrid));
         document.Blocks.Add(table);
+
+        printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Print data");
+        return true;
     }
 
     private static void PrintRow(DataGrid dataGrid, object item, TableRow dataRow)
     {
+        // Row number column specified width.
+        dataRow.Cells.Add(GetDataCell((dataGrid.Items.IndexOf(item) + 1).ToString()));
+
         foreach (DataGridColumn column in dataGrid.Columns)
         {
             string cellValue = GetCellValue(column, item);
@@ -70,14 +60,22 @@ public static class PrintTableMethods
                 continue;
             }
 
-            TableCell dataCell = new(new Paragraph(new Run(cellValue)))
-                                 {
-                                     BorderBrush     = Brushes.Gray,
-                                     BorderThickness = new Thickness(1),
-                                     Padding         = new Thickness(4)
-                                 };
-            dataRow.Cells.Add(dataCell);
+            dataRow.Cells.Add(GetDataCell(cellValue));
         }
+    }
+
+    private static TableCell GetDataCell(string cellValue)
+    {
+        return new TableCell(new Paragraph(new Run(cellValue)))
+               {
+                   BorderBrush     = Brushes.Gray,
+                   BorderThickness = new Thickness(1),
+                   Padding         = new Thickness(1),
+                   TextAlignment   = TextAlignment.Center,
+                   FontStyle       = FontStyles.Normal,
+                   FontWeight      = FontWeights.Normal,
+                   FontFamily      = new FontFamily("Tahoma")
+               };
     }
 
     private static string GetCellValue(DataGridColumn column, object item)
@@ -91,10 +89,13 @@ public static class PrintTableMethods
         return s ?? " ";
     }
 
-    private static void ConfigHeader(DataGrid dataGrid, Table table)
+    private static TableRowGroup ConfigHeader(DataGrid dataGrid)
     {
         TableRowGroup headerGroup = new();
         TableRow      headerRow   = new();
+
+        // Number column.
+        headerRow.Cells.Add(GetHeaderCell("№"));
 
         foreach (DataGridColumn column in dataGrid.Columns)
         {
@@ -103,20 +104,44 @@ public static class PrintTableMethods
                 continue;
             }
 
-            TableCell headerCell = new(new Paragraph(new Run(column.Header.ToString())))
-                                   {
-                                       Background      = Brushes.LightGray,
-                                       BorderBrush     = Brushes.Gray,
-                                       BorderThickness = new Thickness(1),
-                                       Padding         = new Thickness(4),
-                                       FontStyle       = FontStyles.Normal,
-                                       FontWeight      = FontWeights.Bold
-                                   };
-            headerRow.Cells.Add(headerCell);
+            headerRow.Cells.Add(GetHeaderCell(column.Header.ToString() ?? string.Empty));
         }
 
         headerGroup.Rows.Add(headerRow);
-        table.RowGroups.Add(headerGroup);
+        return headerGroup;
+    }
+
+    private static TableCell GetHeaderCell(string header)
+    {
+        var run  = new Run(header);
+        var para = new Paragraph(run);
+        var cell = new TableCell(para)
+                   {
+                       Background      = Brushes.LightGray,
+                       BorderBrush     = Brushes.Gray,
+                       BorderThickness = new Thickness(1),
+                       Padding         = new Thickness(1),
+                       FontStyle       = FontStyles.Normal,
+                       FontWeight      = FontWeights.Bold
+                   };
+
+        return cell;
+    }
+
+    private static TableRowGroup ConfigBody(DataGrid dataGrid)
+    {
+        TableRowGroup dataGroup = new();
+
+        foreach (object? item in dataGrid.Items)
+        {
+            TableRow dataRow = new();
+
+            PrintRow(dataGrid, item, dataRow);
+
+            dataGroup.Rows.Add(dataRow);
+        }
+
+        return dataGroup;
     }
 
     private static void ConfigPage(PrintDialog printDialog)
