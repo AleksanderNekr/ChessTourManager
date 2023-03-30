@@ -1,89 +1,177 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Printing;
+﻿using System;
+using System.IO;
+using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Xps.Packaging;
 
 namespace ChessTourManager.WPF.Helpers.FileHelpers;
 
 public static class PrintMethods
 {
-    public static bool TryPrintFrameworkElement(FrameworkElement frameworkElement)
+    public static void ShowPrintDataGridPreview(DataGrid dataGrid)
     {
-        //        PrintDialog printDialog = new();
-        //
-        //        if (printDialog.ShowDialog() == false)
-        //        {
-        //            return false;
-        //        }
-        return (bool)ShowPrintPreview(GetFixedDocument(frameworkElement, new PrintDialog()));
-        //        Size pageSize = new(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight);
-        //
-        //        frameworkElement.Measure(pageSize);
-        //        frameworkElement.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
-        //
-        //        printDialog.PrintVisual(frameworkElement, "Printed data");
-    }
+        PrintDialog printDialog = new();
 
-    public static FixedDocument GetFixedDocument(FrameworkElement element, PrintDialog printDialog)
-    {
-        PrintCapabilities capabilities = printDialog.PrintQueue.GetPrintCapabilities(printDialog.PrintTicket);
-        Size              pageSize     = new(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight);
-        Size visibleSize = new(capabilities.PageImageableArea.ExtentWidth,
-                               capabilities.PageImageableArea.ExtentHeight);
-        FixedDocument fixedDoc = new();
-        //If the toPrint visual is not displayed on screen we neeed to measure and arrange it
-        element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-        element.Arrange(new Rect(new Point(0, 0), element.DesiredSize));
-        //
-        Size size = element.DesiredSize;
-        //Will assume for simplicity the control fits horizontally on the page
-        double yOffset = 0;
-        while (yOffset < size.Height)
-        {
-            VisualBrush vb = new(element)
-                             {
-                                 Stretch      = Stretch.None,
-                                 AlignmentX   = AlignmentX.Center,
-                                 AlignmentY   = AlignmentY.Top,
-                                 ViewboxUnits = BrushMappingMode.Absolute,
-                                 TileMode     = TileMode.None,
-                                 // Centered on the page.
-                                 Viewbox = new Rect(0, yOffset, size.Width, size.Height)
-                             };
-            PageContent pageContent = new();
-            FixedPage   page        = new();
-            ((IAddChild)pageContent).AddChild(page);
-            fixedDoc.Pages.Add(pageContent);
-            page.Width  = pageSize.Width;
-            page.Height = pageSize.Height;
-            Canvas canvas = new();
-            FixedPage.SetLeft(canvas, capabilities.PageImageableArea.OriginWidth);
-            FixedPage.SetTop(canvas, capabilities.PageImageableArea.OriginHeight);
-            canvas.Width      = visibleSize.Width;
-            canvas.Height     = visibleSize.Height;
-            canvas.Background = vb;
-            page.Children.Add(canvas);
-            yOffset += visibleSize.Height;
-        }
-
-        return fixedDoc;
-    }
-
-    private static bool? ShowPrintPreview(IDocumentPaginatorSource fixedDoc)
-    {
-        Window wnd = new();
-        DocumentViewer viewer = new()
+        FlowDocument document = new()
                                 {
-                                    Document = fixedDoc
+                                    ColumnWidth           = printDialog.PrintableAreaWidth,
+                                    IsColumnWidthFlexible = true,
+                                    TextAlignment         = TextAlignment.Justify,
+                                    IsHyphenationEnabled = true
                                 };
 
-        wnd.Content = viewer;
-        return wnd.ShowDialog();
+        Table table = new()
+                      {
+                          CellSpacing     = 0,
+                          BorderBrush     = Brushes.Gray,
+                          BorderThickness = new Thickness(1),
+                          FontStyle       = FontStyles.Normal,
+                          FontWeight      = FontWeights.Normal,
+                          TextAlignment   = TextAlignment.Center,
+                          FontFamily      = new FontFamily("Tahoma"),
+                          FontSize        = 12,
+                          Padding         = new Thickness(0),
+                          Margin          = new Thickness(0)
+                      };
+
+        table.RowGroups.Add(ConfigHeader(dataGrid, table));
+        table.RowGroups.Add(ConfigBody(dataGrid));
+        document.Blocks.Add(table);
+        document.TextAlignment = TextAlignment.Center;
+
+        // Album landscape orientation.
+        document.PageWidth  = printDialog.PrintableAreaHeight;
+        document.PageHeight = printDialog.PrintableAreaWidth;
+
+        FixedDocument fixedDoc = FlowToFixedDoc(document);
+
+        PrintPreview preview = new() { DataContext = fixedDoc };
+        preview.ShowDialog();
+    }
+
+    private static FixedDocument FlowToFixedDoc(FlowDocument flowDocument)
+    {
+        DocumentPaginator? paginator = ((IDocumentPaginatorSource)flowDocument).DocumentPaginator;
+        Package            package   = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
+        Uri                packUri   = new("pack://temp.xps");
+
+        PackageStore.RemovePackage(packUri);
+        PackageStore.AddPackage(packUri, package);
+
+        using XpsDocument xps = new(package, CompressionOption.NotCompressed, packUri.ToString());
+        XpsDocument.CreateXpsDocumentWriter(xps).Write(paginator);
+        FixedDocument doc = xps.GetFixedDocumentSequence().References[0].GetDocument(true) ?? new FixedDocument();
+
+        return doc;
+    }
+
+    private static void PrintRow(DataGrid dataGrid, object item, TableRow dataRow)
+    {
+        // Row number column specified width.
+        dataRow.Cells.Add(GetDataCell((dataGrid.Items.IndexOf(item) + 1).ToString()));
+
+        foreach (DataGridColumn column in dataGrid.Columns)
+        {
+            string cellValue = GetCellValue(column, item);
+
+            if (cellValue == string.Empty)
+            {
+                continue;
+            }
+
+            dataRow.Cells.Add(GetDataCell(cellValue));
+        }
+    }
+
+    private static TableCell GetDataCell(string cellValue)
+    {
+        return new TableCell(new Paragraph(new Run(cellValue)))
+               {
+                   BorderBrush     = Brushes.Gray,
+                   BorderThickness = new Thickness(1),
+                   Padding         = new Thickness(1),
+                   TextAlignment   = TextAlignment.Center,
+                   FontStyle       = FontStyles.Normal,
+                   FontWeight      = FontWeights.Normal,
+                   FontFamily      = new FontFamily("Tahoma")
+               };
+    }
+
+    private static string GetCellValue(DataGridColumn column, object item)
+    {
+        if (column.SortMemberPath == string.Empty)
+        {
+            return string.Empty;
+        }
+
+        var s = GetPropertyValuesMethods.GetPropertyValue(item, column.SortMemberPath)?.ToString();
+        return s ?? " ";
+    }
+
+    private static TableRowGroup ConfigHeader(DataGrid dataGrid, Table table)
+    {
+        TableRowGroup headerGroup = new();
+        TableRow      headerRow   = new();
+
+        table.Columns.Add(new TableColumn
+                          {
+                              Width = new GridLength(40)
+                          });
+        // Number column.
+        headerRow.Cells.Add(GetHeaderCell("№"));
+
+        foreach (DataGridColumn column in dataGrid.Columns)
+        {
+            if (column.Header is null)
+            {
+                continue;
+            }
+
+            table.Columns.Add(new TableColumn
+                              {
+                                  Width = new GridLength(column.ActualWidth)
+                              });
+
+            headerRow.Cells.Add(GetHeaderCell(column.Header?.ToString() ?? string.Empty));
+        }
+
+        headerGroup.Rows.Add(headerRow);
+        return headerGroup;
+    }
+
+    private static TableCell GetHeaderCell(string header)
+    {
+        var run  = new Run(header);
+        var para = new Paragraph(run);
+        var cell = new TableCell(para)
+                   {
+                       Background      = Brushes.LightGray,
+                       BorderBrush     = Brushes.Gray,
+                       BorderThickness = new Thickness(1),
+                       Padding         = new Thickness(1),
+                       FontStyle       = FontStyles.Normal,
+                       FontWeight      = FontWeights.Bold
+                   };
+
+        return cell;
+    }
+
+    private static TableRowGroup ConfigBody(DataGrid dataGrid)
+    {
+        TableRowGroup dataGroup = new();
+
+        foreach (object? item in dataGrid.Items)
+        {
+            TableRow dataRow = new();
+
+            PrintRow(dataGrid, item, dataRow);
+
+            dataGroup.Rows.Add(dataRow);
+        }
+
+        return dataGroup;
     }
 }

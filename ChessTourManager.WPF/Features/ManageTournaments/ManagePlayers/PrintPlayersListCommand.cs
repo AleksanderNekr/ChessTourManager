@@ -17,11 +17,7 @@ public class PrintPlayersListCommand : CommandBase
 
         try
         {
-            if (PrintMethods.TryPrintFrameworkElement(dataGrid))
-            {
-                MessageBox.Show("Данные успешно отправлены на печать", "Печать списка игроков",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            PrintMethods.ShowPrintDataGridPreview(dataGrid);
         }
         catch (Exception e)
         {
