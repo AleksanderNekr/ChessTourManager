@@ -20,7 +20,7 @@ public static class PrintMethods
                                     ColumnWidth           = printDialog.PrintableAreaWidth,
                                     IsColumnWidthFlexible = true,
                                     TextAlignment         = TextAlignment.Justify,
-                                    IsHyphenationEnabled = true
+                                    IsHyphenationEnabled  = true
                                 };
 
         Table table = new()
@@ -116,12 +116,8 @@ public static class PrintMethods
         TableRowGroup headerGroup = new();
         TableRow      headerRow   = new();
 
-        table.Columns.Add(new TableColumn
-                          {
-                              Width = new GridLength(40)
-                          });
         // Number column.
-        headerRow.Cells.Add(GetHeaderCell("№"));
+        AddHeader(table, headerRow, "№", 40);
 
         foreach (DataGridColumn column in dataGrid.Columns)
         {
@@ -130,16 +126,20 @@ public static class PrintMethods
                 continue;
             }
 
-            table.Columns.Add(new TableColumn
-                              {
-                                  Width = new GridLength(column.ActualWidth)
-                              });
-
-            headerRow.Cells.Add(GetHeaderCell(column.Header?.ToString() ?? string.Empty));
+            AddHeader(table, headerRow, column.Header.ToString() ?? " ", column.ActualWidth);
         }
 
         headerGroup.Rows.Add(headerRow);
         return headerGroup;
+    }
+
+    private static void AddHeader(Table table, TableRow headerRow, string name, double width)
+    {
+        table.Columns.Add(new TableColumn
+                          {
+                              Width = new GridLength(width)
+                          });
+        headerRow.Cells.Add(GetHeaderCell(name));
     }
 
     private static TableCell GetHeaderCell(string header)
@@ -151,7 +151,7 @@ public static class PrintMethods
                        Background      = Brushes.LightGray,
                        BorderBrush     = Brushes.Gray,
                        BorderThickness = new Thickness(1),
-                       Padding         = new Thickness(1),
+                       Padding         = new Thickness(0),
                        FontStyle       = FontStyles.Normal,
                        FontWeight      = FontWeights.Bold
                    };
