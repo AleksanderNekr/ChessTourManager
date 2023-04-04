@@ -108,7 +108,12 @@ public static class PrintMethods
         }
 
         var s = GetPropertyValuesMethods.GetPropertyValue(item, column.SortMemberPath)?.ToString();
-        return s ?? " ";
+        if (string.IsNullOrEmpty(s))
+        {
+            return " ";
+        }
+
+        return s;
     }
 
     private static TableRowGroup ConfigHeader(DataGrid dataGrid, Table table)
