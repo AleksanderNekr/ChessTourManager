@@ -20,7 +20,7 @@ public class Tests
     {
         // Get tournament.
         IGetQueries.CreateInstance(_context)
-                   .TryGetTournaments(_orgId, out IEnumerable<Tournament>? tournaments);
+                   .TryGetTournaments(_orgId, out List<Tournament>? tournaments);
         Tournament tournament = tournaments?.Single(t => t.TournamentId == _tourId)
                              ?? throw new InvalidOperationException();
 
@@ -48,7 +48,7 @@ public class Tests
     {
         // Get tournament.
         IGetQueries.CreateInstance(_context)
-                   .TryGetTournaments(_orgId, out IEnumerable<Tournament>? tournaments);
+                   .TryGetTournaments(_orgId, out List<Tournament>? tournaments);
         Tournament tournament = tournaments?.Single(t => t.TournamentId == _tourId)
                              ?? throw new InvalidOperationException();
 

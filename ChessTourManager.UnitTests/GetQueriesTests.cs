@@ -112,7 +112,7 @@ public class GetQueriesTests
 
         // Act.
         GetResult result = queries.TryGetTournamentsWithTeamsAndPlayers(userId,
-                                                                        out IEnumerable<Tournament?>? tournaments);
+                                                                        out List<Tournament?>? tournaments);
         Tournament? tournament = tournaments!.Single(t => t.TournamentId == expectedTournamentId);
         Team       team       = tournament.Teams.Single(t => t.TeamId   == expectedTeamId);
 

@@ -42,7 +42,7 @@ public class RoundRobinTests
     private const    int              TourId   = 53;
     private readonly ChessTourContext _context = new();
     private          Tournament?      _tournament;
-    private          IRoundRobin      _roundAlgorithm;
+    private          IDrawingAlgorithm      _roundAlgorithm;
 
     // 1.1.1 The list of players is empty.
     [Test]
@@ -50,11 +50,11 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -71,14 +71,14 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
 
 
         AddPlayers(new[] { ("Петров", "Петр") }, false);
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -97,7 +97,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -109,7 +109,7 @@ public class RoundRobinTests
         };
         AddPlayers(players, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -128,7 +128,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -141,7 +141,7 @@ public class RoundRobinTests
         };
         AddPlayers(players, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -160,13 +160,13 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
 
         AddPlayers(new[] { ("Петров", "Петр") });
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -184,14 +184,14 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
 
         AddPlayers(new[] { ("Петров", "Петр") });
         AddPlayers(new[] { ("Сидоров", "Сидор") }, false);
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -210,7 +210,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -222,7 +222,7 @@ public class RoundRobinTests
             ("Смирнов", "Сергей"), ("Кузнецов", "Андрей")
         };
         AddPlayers(players, false);
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -241,7 +241,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -254,7 +254,7 @@ public class RoundRobinTests
             ("Петров", "Андрей")
         };
         AddPlayers(players, false);
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -273,7 +273,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -285,7 +285,7 @@ public class RoundRobinTests
         };
         AddPlayers(playerNames);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -303,7 +303,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -316,7 +316,7 @@ public class RoundRobinTests
         AddPlayers(playerNames);
         AddPlayers(new[] { ("Алексеев", "Алексей") }, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -334,7 +334,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -352,7 +352,7 @@ public class RoundRobinTests
         };
         AddPlayers(inactivePlayers, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -370,7 +370,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -389,7 +389,7 @@ public class RoundRobinTests
         };
         AddPlayers(inactivePlayers, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -407,7 +407,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -419,7 +419,7 @@ public class RoundRobinTests
         };
         AddPlayers(playerNames);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -438,7 +438,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -451,7 +451,7 @@ public class RoundRobinTests
         AddPlayers(playerNames);
         AddPlayers(new[] { ("Андреев", "Андрей") }, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -470,7 +470,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -483,7 +483,7 @@ public class RoundRobinTests
         AddPlayers(playerNames);
         AddPlayers(new[] { ("Андреев", "Андрей"), ("Антонов", "Антон") }, false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -502,7 +502,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -520,7 +520,7 @@ public class RoundRobinTests
                    },
                    false);
 
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
 
         // Act.
         IEnumerable<(int, int)> result = _roundAlgorithm.StartNewTour(0);
@@ -539,7 +539,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -548,7 +548,7 @@ public class RoundRobinTests
             ("Петров", "Петр"), ("Иванов", "Иван"),
             ("Сидоров", "Сидор"), ("Сергеев", "Сергей")
         };
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
         AddPlayers(playerNames);
 
         // Act.
@@ -574,7 +574,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -583,7 +583,7 @@ public class RoundRobinTests
             ("Петров", "Петр"), ("Иванов", "Иван"),
             ("Сидоров", "Сидор"), ("Сергеев", "Сергей")
         };
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
         AddPlayers(playerNames);
 
         // Act.
@@ -610,7 +610,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -621,7 +621,7 @@ public class RoundRobinTests
             ("Алексеев", "Алексей"), ("Андреев", "Андрей"),
             ("Антонов", "Антон")
         };
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
         AddPlayers(playerNames);
 
         // Act.
@@ -652,7 +652,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
         _tournament = tournaments.Single(t => t.TournamentId == TourId);
         // Arrange.
         ClearPlayers();
@@ -663,7 +663,7 @@ public class RoundRobinTests
             ("Алексеев", "Алексей"), ("Андреев", "Андрей"),
             ("Антонов", "Антон"), ("Артемов", "Артем")
         };
-        _roundAlgorithm = IRoundRobin.Initialize(_context, _tournament);
+        _roundAlgorithm = IDrawingAlgorithm.Initialize(_context, _tournament);
         AddPlayers(playerNames);
 
         // Act.
@@ -712,7 +712,7 @@ public class RoundRobinTests
     {
         IGetQueries.CreateInstance(_context)
                    .TryGetPlayers(OrgId, TourId,
-                                  out IEnumerable<Player>? players);
+                                  out List<Player>? players);
         if (players is { })
         {
             IEnumerable<Player> playersEnum = players.ToArray();
