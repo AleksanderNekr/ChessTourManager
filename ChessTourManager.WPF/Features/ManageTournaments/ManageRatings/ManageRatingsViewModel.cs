@@ -140,7 +140,7 @@ public class ManageRatingsViewModel : ViewModelBase
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetGames(LoginViewModel.CurrentUser.UserId,
                                 TournamentsListViewModel.SelectedTournament.TournamentId,
-                                out IEnumerable<Game>? games);
+                                out List<Game>? games);
 
         if (games is null)
         {
@@ -204,7 +204,7 @@ public class ManageRatingsViewModel : ViewModelBase
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
                                                     TournamentsListViewModel.SelectedTournament.TournamentId,
-                                                    out IEnumerable<Player>? players);
+                                                    out List<Player>? players);
 
         return GetSortedPlayers(players);
     }

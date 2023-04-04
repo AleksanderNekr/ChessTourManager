@@ -193,7 +193,7 @@ public class PlayersViewModel : ViewModelBase
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
                                            TournamentsListViewModel.SelectedTournament.TournamentId,
-                                           out IEnumerable<Team>? teams);
+                                           out List<Team>? teams);
 
         SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
     }
@@ -208,7 +208,7 @@ public class PlayersViewModel : ViewModelBase
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.UserId,
                                  TournamentsListViewModel.SelectedTournament.TournamentId,
-                                 out IEnumerable<Group>? groups);
+                                 out List<Group>? groups);
 
         SetField(ref _groupsAvailable, new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>()));
     }
@@ -251,7 +251,7 @@ public class PlayersViewModel : ViewModelBase
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
                                                     TournamentsListViewModel.SelectedTournament.TournamentId,
-                                                    out IEnumerable<Player>? players);
+                                                    out List<Player>? players);
 
         if (players is { })
         {

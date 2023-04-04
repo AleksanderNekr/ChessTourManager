@@ -129,7 +129,7 @@ public class TreeViewModel : ViewModelBase
 
         IGetQueries.CreateInstance(TreeContext)
                    .TryGetTournamentsWithTeamsAndPlayers(LoginViewModel.CurrentUser.UserId,
-                                                         out IEnumerable<Tournament?>? tournaments);
+                                                         out List<Tournament?>? tournaments);
 
 
         if (tournaments is { })

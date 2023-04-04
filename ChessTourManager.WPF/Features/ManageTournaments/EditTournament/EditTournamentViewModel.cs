@@ -33,7 +33,7 @@ public class EditTournamentViewModel : ViewModelBase
                 return _tournamentKinds;
             }
 
-            IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out IEnumerable<Kind>? kinds);
+            IGetQueries.CreateInstance(EditTournamentContext).GetKinds(out List<Kind>? kinds);
             if (kinds is { })
             {
                 _tournamentKinds = new ObservableCollection<Kind>(kinds);
@@ -53,7 +53,7 @@ public class EditTournamentViewModel : ViewModelBase
             }
 
             IGetQueries.CreateInstance(EditTournamentContext)
-                       .GetSystems(out IEnumerable<DataAccess.Entities.System>? systems);
+                       .GetSystems(out List<DataAccess.Entities.System>? systems);
             if (systems is { })
             {
                 _tournamentSystems = new ObservableCollection<DataAccess.Entities.System>(systems);

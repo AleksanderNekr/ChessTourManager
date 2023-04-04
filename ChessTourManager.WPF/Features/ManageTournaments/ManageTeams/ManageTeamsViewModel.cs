@@ -84,7 +84,7 @@ public class ManageTeamsViewModel : ViewModelBase
         IGetQueries.CreateInstance(TeamsContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
                                            TournamentsListViewModel.SelectedTournament.TournamentId,
-                                           out IEnumerable<Team>? teams);
+                                           out List<Team>? teams);
 
         if (teams is { })
         {

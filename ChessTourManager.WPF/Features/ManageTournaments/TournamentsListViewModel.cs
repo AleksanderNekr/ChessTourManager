@@ -97,7 +97,7 @@ public class TournamentsListViewModel : ViewModelBase
 
         GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
-                                                         out IEnumerable<Tournament>? tournamentsCollection);
+                                                         out List<Tournament>? tournamentsCollection);
 
         switch (result)
         {

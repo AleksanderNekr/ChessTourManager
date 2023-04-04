@@ -91,7 +91,7 @@ public class ManageGroupsViewModel : ViewModelBase
         IGetQueries.CreateInstance(GroupsContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.UserId,
                                  TournamentsListViewModel.SelectedTournament.TournamentId,
-                                 out IEnumerable<Group>? groups);
+                                 out List<Group>? groups);
         if (groups is { })
         {
             GroupsWithPlayers = new ObservableCollection<Group>(groups);

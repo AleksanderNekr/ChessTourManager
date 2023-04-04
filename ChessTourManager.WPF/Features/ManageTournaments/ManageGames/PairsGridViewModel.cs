@@ -147,8 +147,6 @@ public class PairsGridViewModel : ViewModelBase
         get { return _printGamesListCommand ??= new PrintGamesListCommand(); }
     }
 
-    public string Result { get; set; }
-
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
     {
         CurrentTour = tourAddedEventArgs.TourNumber;
@@ -201,7 +199,7 @@ public class PairsGridViewModel : ViewModelBase
 
         IGetQueries.CreateInstance(PairsContext)
                    .TryGetGames(_tournament.OrganizerId, _tournament.TournamentId,
-                                out IEnumerable<Game>? games);
+                                out List<Game>? games);
 
         if (games is null)
         {

@@ -9,7 +9,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 
 public class StartNewTourCommand : CommandBase
 {
-    private static readonly IRoundRobin RoundRobin = IRoundRobin.Initialize(PairsGridViewModel.PairsContext,
+    private static readonly IDrawingAlgorithm DrawingAlgorithm = IDrawingAlgorithm.Initialize(PairsGridViewModel.PairsContext,
                                                                             TournamentsListViewModel
                                                                                .SelectedTournament);
 
@@ -31,7 +31,7 @@ public class StartNewTourCommand : CommandBase
             PairsGridViewModel.PairsContext.SaveChanges();
         }
 
-        List<(int, int)> idPairs = new(RoundRobin.StartNewTour(_pairsGridViewModel.CurrentTour));
+        List<(int, int)> idPairs = new(DrawingAlgorithm.StartNewTour(_pairsGridViewModel.CurrentTour));
 
         foreach ((int, int) idPair in idPairs)
         {
@@ -57,7 +57,7 @@ public class StartNewTourCommand : CommandBase
                                               TournamentsListViewModel.SelectedTournament!
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,
-                                              RoundRobin.NewTourNumber);
+                                              DrawingAlgorithm.NewTourNumber);
                 if (game != null)
                 {
                     game.WhitePoints                = 0;
@@ -88,7 +88,7 @@ public class StartNewTourCommand : CommandBase
                                               TournamentsListViewModel.SelectedTournament!
                                                                       .TournamentId,
                                               TournamentsListViewModel.SelectedTournament.OrganizerId,
-                                              RoundRobin.NewTourNumber);
+                                              DrawingAlgorithm.NewTourNumber);
                 if (game != null)
                 {
                     game.WhitePoints                = 1;
@@ -108,7 +108,7 @@ public class StartNewTourCommand : CommandBase
                                                                    .TournamentId,
                                                                 TournamentsListViewModel.SelectedTournament
                                                                    .OrganizerId,
-                                                                RoundRobin.NewTourNumber);
+                                                                DrawingAlgorithm.NewTourNumber);
 
             if (result == InsertResult.Fail)
             {
@@ -121,6 +121,6 @@ public class StartNewTourCommand : CommandBase
             GameAddedEvent.OnGameAdded(this, new GameAddedEventArgs(game!));
         }
 
-        TourAddedEvent.OnTourAdded(this, new TourAddedEventArgs(RoundRobin.NewTourNumber));
+        TourAddedEvent.OnTourAdded(this, new TourAddedEventArgs(DrawingAlgorithm.NewTourNumber));
     }
 }
