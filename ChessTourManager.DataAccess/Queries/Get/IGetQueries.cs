@@ -42,9 +42,9 @@ public interface IGetQueries
     ///     Если пользователь найден, то возвращается список его турниров, результат – Success,
     ///     иначе – пустой список, результат – UserNotFound.
     /// </returns>
-    public GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament>? tournaments);
+    public GetResult TryGetTournaments(int organiserId, out List<Tournament>? tournaments);
 
-    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament?>? tournaments);
+    public GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out List<Tournament?>? tournaments);
 
     /// <summary>
     ///     Получение списка игроков в турнире пользователя.
@@ -57,10 +57,10 @@ public interface IGetQueries
     ///     если пользователь не имеет турниров, то возвращается NoTournaments, если турнир с заданным ID не найден,
     ///     то TournamentNotFound, иначе – список игроков и результат – Success.
     /// </returns>
-    public GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player>? players);
+    public GetResult TryGetPlayers(int organiserId, int tournamentId, out List<Player>? players);
 
     public GetResult TryGetPlayersWithTeamsAndGroups(int                      organiserId, int tournamentId,
-                                                     out IEnumerable<Player>? players);
+                                                     out List<Player>? players);
 
     /// <summary>
     ///     Получение списка команд в турнире пользователя.
@@ -73,32 +73,32 @@ public interface IGetQueries
     ///     если пользователь не имеет турниров, то возвращается NoTournaments, если турнир с заданным ID не найден,
     ///     то TournamentNotFound, иначе – список команд и результат – Success.
     /// </returns>
-    public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IEnumerable<Team>? teams);
+    public GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out List<Team>? teams);
 
 
     /// <summary>
     ///     Получение списка групп в турнире пользователя.
     /// </summary>
     public GetResult TryGetGroups(int                     organizerId, int tournamentId,
-                                  out IEnumerable<Group>? groups);
+                                  out List<Group>? groups);
 
 
     /// <summary>
     ///     Получение списка игр тура в турнире пользователя.
     /// </summary>
-    public GetResult TryGetGames(int organiserId, int tournamentId, out IEnumerable<Game>? games);
+    public GetResult TryGetGames(int organiserId, int tournamentId, out List<Game>? games);
 
     /// <summary>
     ///     Получение видов турниров.
     /// </summary>
     /// <param name="kinds">Выходной параметр – список видов турниров.</param>
     /// <returns>Список видов турниров и результат – Success. </returns>
-    public GetResult GetKinds(out IEnumerable<Kind>? kinds);
+    public GetResult GetKinds(out List<Kind>? kinds);
 
     /// <summary>
     ///     Получение списка систем турниров.
     /// </summary>
     /// <param name="systems">Выходной параметр – список систем турниров.</param>
     /// <returns>Список систем турниров и результат – Success. </returns>
-    public GetResult GetSystems(out IEnumerable<Entities.System>? systems);
+    public GetResult GetSystems(out List<Entities.System>? systems);
 }
