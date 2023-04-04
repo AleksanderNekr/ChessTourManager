@@ -40,13 +40,16 @@ public class ChessTourContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        // Get project directory
+        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName
+                               ?? throw new InvalidOperationException("Directory not found");
+
         IConfigurationBuilder builder = new ConfigurationBuilder()
-                                       .SetBasePath(Directory.GetCurrentDirectory())
+                                       .SetBasePath(projectDirectory)
                                        .AddJsonFile("appsettings.json");
 
-        IConfiguration configuration = builder.Build();
-        string connectionString = configuration.GetConnectionString("DefaultConnection")
-                               ?? throw new InvalidOperationException("Connection string not found");
+        IConfiguration configuration    = builder.Build();
+        string         connectionString = configuration.GetConnectionString("DefaultConnection");
 
         optionsBuilder.UseNpgsql(connectionString);
     }
