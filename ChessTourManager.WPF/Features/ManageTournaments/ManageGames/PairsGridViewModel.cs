@@ -15,126 +15,58 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
 public class PairsGridViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext PairsContext = PlayersViewModel.PlayersContext;
+    internal static readonly ChessTourContext        PairsContext = PlayersViewModel.PlayersContext;
+    private                  ExportGamesListCommand? _exportGamesListCommand;
+    private                  PrintGamesListCommand?  _printGamesListCommand;
+    private                  ShowNextTourCommand?    _showNextTour;
+    private                  ShowPrevTourCommand?    _showPrevTour;
+    private                  int                     _selectedTour;
 
-    private int                         _currentTour;
-    private ExportGamesListCommand?     _exportGamesListCommand;
-    private ObservableCollection<Game>? _pairs;
-    private ObservableCollection<Game>? _pairsForSelectedTour;
-    private PrintGamesListCommand?      _printGamesListCommand;
-    private int?                        _selectedTour;
-    private ShowNextTourCommand?        _showNextTour;
-    private ShowPrevTourCommand?        _showPrevTour;
-    private StartNewTourCommand?        _startNewTour;
-    private Tournament?                 _tournament;
+    private int                  _toursAmount;
+    private StartNewTourCommand? _startNewTour;
+    private int                  _currentTour;
 
     public PairsGridViewModel()
     {
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
     }
 
+    internal List<Game>? Games { get; private set; }
+
     public string ToursInfo
     {
-        get { return $"Выбранный тур: {SelectedTour}, текущий: {CurrentTour}"; }
+        get { return $"Список пар {SelectedTour} тура из {ToursAmount}. Текущий тур: {CurrentTour}"; }
     }
 
-    public ObservableCollection<Game>? Pairs
+    internal int ToursAmount
     {
-        get
-        {
-            if (_pairs is { })
-            {
-                return _pairs;
-            }
-
-            if (_tournament is null)
-            {
-                return new ObservableCollection<Game>();
-            }
-
-            UpdatePairs();
-
-            return _pairs;
-        }
+        get { return _toursAmount; }
         private set
         {
-            SetField(ref _pairs, value);
-            SelectedTour = CurrentTour;
+            SetField(ref _toursAmount, value);
+            OnPropertyChanged(nameof(ToursInfo));
         }
     }
 
-    public int SelectedTour
+    internal int SelectedTour
     {
-        get
-        {
-            if (_selectedTour is null)
-            {
-                SetField(ref _selectedTour, CurrentTour);
-            }
-
-            if (_selectedTour is { })
-            {
-                return (int)_selectedTour;
-            }
-
-            return 0;
-        }
+        get { return _selectedTour; }
         set
         {
             SetField(ref _selectedTour, value);
-            UpdatePairsForSelectedTour();
             OnPropertyChanged(nameof(ToursInfo));
+            OnPropertyChanged(nameof(GamesForSelectedTour));
         }
     }
 
-    public int CurrentTour
+    public ObservableCollection<Game> GamesForSelectedTour
     {
         get
         {
-            if (Pairs is { } && Pairs.Count != 0)
-            {
-                UpdateCurrentTour();
-            }
-
-            return _currentTour;
+            return Games is null
+                       ? new ObservableCollection<Game>()
+                       : new ObservableCollection<Game>(Games.Where(game => game.TourNumber == SelectedTour));
         }
-        set
-        {
-            SetField(ref _currentTour, value);
-            SelectedTour = _currentTour;
-            OnPropertyChanged(nameof(ToursInfo));
-        }
-    }
-
-    public ObservableCollection<Game>? PairsForSelectedTour
-    {
-        get
-        {
-            if (_pairsForSelectedTour is null)
-            {
-                UpdatePairsForSelectedTour();
-            }
-
-            return _pairsForSelectedTour;
-        }
-        set { SetField(ref _pairsForSelectedTour, value); }
-    }
-
-    public Player? DummyPlayer { get; set; }
-
-    public ICommand StartNewTour
-    {
-        get { return _startNewTour ??= new StartNewTourCommand(this); }
-    }
-
-    public ICommand ShowPrevTour
-    {
-        get { return _showPrevTour ??= new ShowPrevTourCommand(this); }
-    }
-
-    public ICommand ShowNextTour
-    {
-        get { return _showNextTour ??= new ShowNextTourCommand(this); }
     }
 
     public ICommand ExportGamesListCommand
@@ -147,65 +79,53 @@ public class PairsGridViewModel : ViewModelBase
         get { return _printGamesListCommand ??= new PrintGamesListCommand(); }
     }
 
-    private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs tourAddedEventArgs)
+    public ICommand ShowPrevTour
     {
-        CurrentTour = tourAddedEventArgs.TourNumber;
-        UpdatePairs();
-        UpdateCurrentTour();
-        UpdatePairsForSelectedTour();
+        get { return _showPrevTour ??= new ShowPrevTourCommand(this); }
     }
 
-    private void UpdateCurrentTour()
+    public ICommand ShowNextTour
     {
-        if (Pairs is { Count: 0 })
-        {
-            SetField(ref _currentTour, 0, nameof(CurrentTour));
-        }
-        else if (Pairs is { })
-        {
-            int maxTour = Pairs.Max(p => p.TourNumber);
-            SetField(ref _currentTour, maxTour, nameof(CurrentTour));
-        }
-
-        SetField(ref _selectedTour, _currentTour, nameof(SelectedTour));
+        get { return _showNextTour ??= new ShowNextTourCommand(this); }
     }
 
-    private void UpdatePairsForSelectedTour()
+    public ICommand StartNewTour
     {
-        if (Pairs is { })
+        get { return _startNewTour; }
+    }
+
+    public int CurrentTour
+    {
+        get { return _currentTour; }
+        set
         {
-            SetField(ref _pairsForSelectedTour,
-                     new ObservableCollection<Game>(Pairs.Where(p => p.TourNumber == SelectedTour)),
-                     nameof(PairsForSelectedTour));
+            SetField(ref _currentTour, value);
+            UpdateGames();
+            OnPropertyChanged(nameof(ToursInfo));
+            OnPropertyChanged(nameof(GamesForSelectedTour));
         }
     }
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
-        TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
-
-        _tournament = e.OpenedTournament;
-        UpdatePairs();
-        UpdateCurrentTour();
-        UpdatePairsForSelectedTour();
+        OpenedTournament = e.OpenedTournament;
+        UpdateGames();
+        ToursAmount = e.OpenedTournament.ToursCount;
+        SelectedTour = Games?.Count > 0
+                           ? Games.Max(game => game.TourNumber)
+                           : 0;
+        CurrentTour = SelectedTour;
+        SetField(ref _startNewTour, new StartNewTourCommand(this), nameof(StartNewTour));
     }
 
-    private void UpdatePairs()
+    internal Tournament OpenedTournament { get; private set; }
+
+    private void UpdateGames()
     {
-        if (_tournament is null)
-        {
-            return;
-        }
-
         IGetQueries.CreateInstance(PairsContext)
-                   .TryGetGames(_tournament.OrganizerId, _tournament.TournamentId,
+                   .TryGetGames(TournamentsListViewModel.SelectedTournament.OrganizerId,
+                                TournamentsListViewModel.SelectedTournament.TournamentId,
                                 out List<Game>? games);
-
-        if (games is null)
-        {
-            return;
-        }
-
-        Pairs = new ObservableCollection<Game>(games);
+        Games = games;
     }
 }

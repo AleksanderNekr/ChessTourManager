@@ -50,7 +50,7 @@ public partial class TreeControl
 
     private static TreeViewItem? VisualUpwardSearch(DependencyObject? eOriginalSource)
     {
-        while (eOriginalSource is { } && eOriginalSource is not TreeViewItem)
+        while (eOriginalSource is { } and not TreeViewItem)
         {
             eOriginalSource = VisualTreeHelper.GetParent(eOriginalSource);
         }

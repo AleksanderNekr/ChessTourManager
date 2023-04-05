@@ -13,16 +13,17 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 
 public class CreateTournamentViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext            CreateTournamentContext = new();
-    private                  CreateTournamentCommand?    _createTournamentCommand;
-    private                  string?                     _orgNameText;
-    private                  DateTime?                   _selectedDate;
-    private                  int?                        _selectedDurationHours;
-    private                  int                         _selectedMaxTeamPlayers = 4;
-    private                  TimeOnly?                   _selectedTime;
-    private                  Kind?                       _selectedTournamentKind;
-    private                  int?                        _selectedTournamentRoundsCount;
-    private                  DataAccess.Entities.System? _selectedTournamentSystem;
+    internal static readonly ChessTourContext CreateTournamentContext = new();
+
+    private CreateTournamentCommand?    _createTournamentCommand;
+    private string?                     _orgNameText;
+    private DateTime?                   _selectedDate;
+    private int?                        _selectedDurationHours;
+    private int                         _selectedMaxTeamPlayers = 4;
+    private TimeOnly?                   _selectedTime;
+    private Kind?                       _selectedTournamentKind;
+    private int?                        _selectedTournamentRoundsCount;
+    private DataAccess.Entities.System? _selectedTournamentSystem;
 
     private ObservableCollection<Kind>? _tournamentKinds;
 
@@ -81,7 +82,7 @@ public class CreateTournamentViewModel : ViewModelBase
         {
             if (_tournamentNameText is null)
             {
-                SetField(ref _tournamentNameText, "Название турнира");
+                SetField(ref _tournamentNameText, string.Empty);
             }
 
             return _tournamentNameText;
@@ -96,7 +97,7 @@ public class CreateTournamentViewModel : ViewModelBase
         {
             if (_tournamentPlaceText is null)
             {
-                SetField(ref _tournamentPlaceText, "Место проведения турнира");
+                SetField(ref _tournamentPlaceText, string.Empty);
             }
 
             return _tournamentPlaceText;
@@ -145,7 +146,7 @@ public class CreateTournamentViewModel : ViewModelBase
         {
             if (_orgNameText is null)
             {
-                SetField(ref _orgNameText, "Название организации");
+                SetField(ref _orgNameText, string.Empty);
             }
 
             return _orgNameText;

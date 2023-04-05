@@ -82,7 +82,7 @@ public class Tests
             _pairsGridViewModel.CurrentTour = i;
             _pairsGridViewModel.StartNewTour.Execute(null);
             Assert.AreEqual(i + 1, _pairsGridViewModel.CurrentTour);
-            Assert.AreEqual(3,     _pairsGridViewModel.Pairs.Count);
+            Assert.AreEqual(3,     _pairsGridViewModel.GamesForSelectedTour.Count);
         }
     }
 

@@ -108,10 +108,13 @@
                     Width="280"
                     Text="Название турнира" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите название"
                     x:Name="NameTextBox"
                     MinWidth="200">
                     <TextBox.Text>
-                        <Binding Path="TournamentNameText" UpdateSourceTrigger="PropertyChanged">
+                        <Binding
+                            Path="TournamentNameText"
+                            UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validationRules:TextValidationRule />
                             </Binding.ValidationRules>
@@ -126,10 +129,13 @@
                     Width="280"
                     Text="Место проведения" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите место проведения"
                     x:Name="PlaceTextBox"
                     MinWidth="200">
                     <TextBox.Text>
-                        <Binding Path="TournamentPlaceText" UpdateSourceTrigger="PropertyChanged">
+                        <Binding
+                            Path="TournamentPlaceText"
+                            UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validationRules:TextValidationRule />
                             </Binding.ValidationRules>
@@ -173,10 +179,13 @@
                     Width="280"
                     Text="Название организации" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите организацию"
                     x:Name="OrgNameTextBox"
                     MinWidth="200">
                     <TextBox.Text>
-                        <Binding Path="OrgNameText" UpdateSourceTrigger="PropertyChanged">
+                        <Binding
+                            Path="OrgNameText"
+                            UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validationRules:TextValidationRule />
                             </Binding.ValidationRules>
@@ -206,6 +215,7 @@
                 </StackPanel>
             </StackPanel>
             <Button
+                IsDefault="True"
                 Margin="0, 30, 0, 0"
                 HorizontalAlignment="Center"
                 Width="100"

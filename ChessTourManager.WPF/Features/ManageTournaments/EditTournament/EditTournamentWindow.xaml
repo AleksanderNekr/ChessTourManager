@@ -108,6 +108,7 @@
                     Width="280"
                     Text="Название турнира" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите название"
                     x:Name="TournamentNameTextBox"
                     MaxWidth="270">
                     <TextBox.Text>
@@ -128,6 +129,7 @@
                     Width="280"
                     Text="Место проведения" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите место проведения"
                     x:Name="TournamentPlaceTextBox"
                     MaxWidth="270">
                     <TextBox.Text>
@@ -177,6 +179,7 @@
                     Width="280"
                     Text="Название организации" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите организацию"
                     x:Name="OrgNameTextBox"
                     MinWidth="200">
                     <TextBox.Text>
@@ -210,6 +213,7 @@
                 </StackPanel>
             </StackPanel>
             <Button
+                IsDefault="True"
                 Margin="20"
                 HorizontalAlignment="Center"
                 Width="195"

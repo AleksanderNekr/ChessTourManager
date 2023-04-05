@@ -38,11 +38,11 @@ public class RoundRobinTests
     // 2.3. Active players are even.
     // 2.4. Active players are an odd number.
 
-    private const    int              OrgId    = 16;
-    private const    int              TourId   = 53;
-    private readonly ChessTourContext _context = new();
-    private          Tournament?      _tournament;
-    private          IDrawingAlgorithm      _roundAlgorithm;
+    private const    int                OrgId    = 16;
+    private const    int                TourId   = 53;
+    private readonly ChessTourContext   _context = new();
+    private          Tournament?        _tournament;
+    private          IDrawingAlgorithm? _roundAlgorithm;
 
     // 1.1.1 The list of players is empty.
     [Test]

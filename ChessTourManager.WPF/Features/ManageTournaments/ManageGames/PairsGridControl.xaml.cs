@@ -9,6 +9,7 @@ public partial class PairsGridControl
     public PairsGridControl()
     {
         InitializeComponent();
+        DataGrid.ColumnWidth = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
     }
 
     private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
