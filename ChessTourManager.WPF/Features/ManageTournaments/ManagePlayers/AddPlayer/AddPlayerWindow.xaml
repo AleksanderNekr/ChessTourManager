@@ -12,18 +12,16 @@
         ResizeMode="NoResize"
         ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Height="250" Width="350">
+        Height="250"
+        Width="350">
     <Window.DataContext>
         <local:AddPlayerViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition
-                Height="0.05*" />
-            <RowDefinition
-                Height="Auto" />
-            <RowDefinition
-                Height="0.01*" />
+            <RowDefinition Height="0.05*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0.01*" />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
@@ -35,14 +33,10 @@
         <Grid
             Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <StackPanel
@@ -86,7 +80,9 @@
                     x:Name="FirstNameTextBox"
                     MinWidth="100" Width="140">
                     <TextBox.Text>
-                        <Binding Path="PlayerFirstName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding
+                            Path="PlayerFirstName"
+                            UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validationRules:TextValidationRule />
                             </Binding.ValidationRules>
@@ -133,14 +129,16 @@
                         BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger
-                                Binding="{Binding ElementName=LastNameTextBox, Path=(Validation.HasError)}"
+                                Binding="{Binding ElementName=LastNameTextBox,
+                                                Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"
                                     Value="False" />
                             </DataTrigger>
                             <DataTrigger
-                                Binding="{Binding ElementName=FirstNameTextBox, Path=(Validation.HasError)}"
+                                Binding="{Binding ElementName=FirstNameTextBox,
+                                                Path=(Validation.HasError)}"
                                 Value="True">
                                 <Setter
                                     Property="IsEnabled"

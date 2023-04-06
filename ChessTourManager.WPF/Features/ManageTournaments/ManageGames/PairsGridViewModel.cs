@@ -101,8 +101,7 @@ public class PairsGridViewModel : ViewModelBase
         {
             SetField(ref _currentTour, value);
             UpdateGames();
-            OnPropertyChanged(nameof(ToursInfo));
-            OnPropertyChanged(nameof(GamesForSelectedTour));
+            SelectedTour = _currentTour;
         }
     }
 
