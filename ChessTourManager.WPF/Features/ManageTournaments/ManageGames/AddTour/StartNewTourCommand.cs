@@ -53,6 +53,5 @@ public class StartNewTourCommand : CommandBase
         }
 
         TourAddedEvent.OnTourAdded(this, new TourAddedEventArgs(_drawingAlgorithm.NewTourNumber));
-        _pairsGridViewModel.CurrentTour++;
     }
 }
