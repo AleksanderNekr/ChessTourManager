@@ -26,11 +26,11 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 
 public class PlayersViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext             PlayersContext = new();
-    private                  ICommand?                    _addPlayerCommand;
-    private                  ICommand?                    _deletePlayerCommand;
-    private                  ExportPlayersListCommand?    _exportPlayersListCommand;
-    private                  ObservableCollection<Group>? _groupsAvailable;
+    internal static ChessTourContext             PlayersContext = new();
+    private         ICommand?                    _addPlayerCommand;
+    private         ICommand?                    _deletePlayerCommand;
+    private         ExportPlayersListCommand?    _exportPlayersListCommand;
+    private         ObservableCollection<Group>? _groupsAvailable;
 
     private ObservableCollection<Player>? _playersCollection;
     private PrintPlayersListCommand?      _printPlayersListCommand;
@@ -156,8 +156,11 @@ public class PlayersViewModel : ViewModelBase
         UpdateTeams();
     }
 
-
-    public static void TrySavePlayers()
+    /// <summary>
+    /// Try to save changes in players.
+    /// </summary>
+    /// <returns>True – no errors. False – error occured.</returns>
+    public static bool TrySavePlayers()
     {
         try
         {
@@ -169,21 +172,27 @@ public class PlayersViewModel : ViewModelBase
                 PlayersContext.SaveChanges();
                 PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(null));
             }
+
+            return true;
         }
         catch (DbUpdateException)
         {
             MessageBox.Show("Возможно игрок с такими параметрами уже существует.",
                             "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            PlayersContext = new ChessTourContext();
+            return false;
         }
         catch (Exception)
         {
-            MessageBox.Show("Ошибка при созранении изменений", "Ошибка сохранения",
+            MessageBox.Show("Ошибка при сохранении изменений", "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+            PlayersContext = new ChessTourContext();
+            return false;
         }
     }
 
-    private void UpdateTeams()
+    internal void UpdateTeams()
     {
         if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
         {
@@ -198,7 +207,7 @@ public class PlayersViewModel : ViewModelBase
         SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
     }
 
-    private void UpdateGroups()
+    internal void UpdateGroups()
     {
         if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
         {
@@ -241,7 +250,7 @@ public class PlayersViewModel : ViewModelBase
         UpdatePlayers();
     }
 
-    private void UpdatePlayers()
+    internal void UpdatePlayers()
     {
         if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
         {

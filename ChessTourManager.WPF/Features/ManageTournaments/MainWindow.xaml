@@ -19,7 +19,8 @@
         Width="800"
         Height="700"
         ui:ThemeManager.RequestedTheme="Light"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Window.DataContext>
         <manageTournaments:TournamentsListViewModel />
     </Window.DataContext>

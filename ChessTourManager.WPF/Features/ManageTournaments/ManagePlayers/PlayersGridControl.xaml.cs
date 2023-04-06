@@ -24,7 +24,12 @@ public partial class PlayersGridControl
 
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)
     {
-        PlayersViewModel.TrySavePlayers();
+        if (!PlayersViewModel.TrySavePlayers())
+        {
+            ((PlayersViewModel)DataContext).UpdatePlayers();
+            ((PlayersViewModel)DataContext).UpdateGroups();
+            ((PlayersViewModel)DataContext).UpdateTeams();
+        }
     }
 
     private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
@@ -34,18 +39,39 @@ public partial class PlayersGridControl
 
     private void DataGrid_LostFocus(object sender, RoutedEventArgs e)
     {
-        PlayersViewModel.TrySavePlayers();
+        if (!PlayersViewModel.TrySavePlayers())
+        {
+            ((PlayersViewModel)DataContext).UpdatePlayers();
+            ((PlayersViewModel)DataContext).UpdateGroups();
+            ((PlayersViewModel)DataContext).UpdateTeams();
+        }
     }
 
     private void Team_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PlayersViewModel.TrySavePlayers();
-        TeamEditedEvent.OnTeamChanged(new TeamChangedEventArgs(null));
+        if (!PlayersViewModel.TrySavePlayers())
+        {
+            ((PlayersViewModel)DataContext).UpdatePlayers();
+            ((PlayersViewModel)DataContext).UpdateGroups();
+            ((PlayersViewModel)DataContext).UpdateTeams();
+        }
+        else
+        {
+            TeamEditedEvent.OnTeamChanged(new TeamChangedEventArgs(null));
+        }
     }
 
     private void Group_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PlayersViewModel.TrySavePlayers();
-        GroupChangedEvent.OnGroupChanged(new GroupChangedEventArgs(null));
+        if (!PlayersViewModel.TrySavePlayers())
+        {
+            ((PlayersViewModel)DataContext).UpdatePlayers();
+            ((PlayersViewModel)DataContext).UpdateGroups();
+            ((PlayersViewModel)DataContext).UpdateTeams();
+        }
+        else
+        {
+            GroupChangedEvent.OnGroupChanged(new GroupChangedEventArgs(null));
+        }
     }
 }

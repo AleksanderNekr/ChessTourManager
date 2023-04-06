@@ -56,6 +56,7 @@
                     FontSize="14"
                     Text="Фамилия" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите фамилию"
                     x:Name="LastNameTextBox"
                     MinWidth="100" Width="140">
                     <TextBox.Text>
@@ -81,6 +82,7 @@
                     FontSize="14"
                     Text="Имя" />
                 <TextBox
+                    ui:ControlHelper.PlaceholderText="Введите имя"
                     x:Name="FirstNameTextBox"
                     MinWidth="100" Width="140">
                     <TextBox.Text>

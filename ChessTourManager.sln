@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessTourManager.DataAccess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.UnitTests", "ChessTourManager.UnitTests\ChessTourManager.UnitTests.csproj", "{35FDD597-F9DF-4076-95ED-C19554968885}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{747ED979-715C-4B24-940D-183B84774654}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{747ED979-715C-4B24-940D-183B84774654}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.IntegrationTests", "ChessTourManager.IntegrationTests\ChessTourManager.IntegrationTests.csproj", "{E4EA9CAB-B802-4EBC-8758-F7CAC2E34CC0}"
 EndProject
