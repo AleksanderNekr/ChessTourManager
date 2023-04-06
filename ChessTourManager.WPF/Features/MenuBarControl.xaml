@@ -16,8 +16,7 @@
                 Header="О программе"
                 Click="AboutApp_Click" />
         </MenuItem>
-        <MenuItem
-            Header="Выход">
+        <MenuItem Header="Выход">
             <MenuItem
                 Header="Сменить пользователя"
                 Click="ChangeUser_OnClick" />
