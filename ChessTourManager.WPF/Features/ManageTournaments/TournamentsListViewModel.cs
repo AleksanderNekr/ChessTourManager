@@ -17,10 +17,10 @@ namespace ChessTourManager.WPF.Features.ManageTournaments;
 
 public class TournamentsListViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext         TournamentsListContext = new();
-    private                  DeleteTournamentCommand? _deleteTournamentCommand;
-    private                  bool                     _isOpened;
+    internal static readonly ChessTourContext TournamentsListContext = new();
 
+    private bool                              _isOpened;
+    private DeleteTournamentCommand?          _deleteTournamentCommand;
     private OpenTournamentCommand?            _openTournamentCommand;
     private StartEditTournamentCommand?       _startEditTournamentCommand;
     private ObservableCollection<Tournament>? _tournamentsCollection;
@@ -76,6 +76,10 @@ public class TournamentsListViewModel : ViewModelBase
     private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
     {
         UpdateTournamentsList();
+        if (OpenedTournament?.Equals(e.DeletedTournament) ?? false)
+        {
+            IsOpened = false;
+        }
     }
 
     private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
@@ -102,11 +106,7 @@ public class TournamentsListViewModel : ViewModelBase
         switch (result)
         {
             case GetResult.Success:
-                if (tournamentsCollection is { })
-                {
-                    TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
-                }
-
+                TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
                 break;
             case GetResult.UserNotFound:
                 MessageBox.Show("Пользователь не найден!", "Ошибка получения списка турниров",
@@ -119,6 +119,9 @@ public class TournamentsListViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
     {
+        OpenedTournament = e.OpenedTournament;
         OnPropertyChanged(nameof(SelectedTournamentObservable));
     }
+
+    private Tournament? OpenedTournament { get; set; }
 }
