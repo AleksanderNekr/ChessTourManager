@@ -167,16 +167,20 @@ public class CreateTournamentViewModel : ViewModelBase
         {
             if (_selectedTournamentKind is null)
             {
-                SetField(ref _selectedTournamentKind, TournamentKinds.First());
-                OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+                if (SetField(ref _selectedTournamentKind, TournamentKinds.First()))
+                {
+                    OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+                }
             }
 
             return _selectedTournamentKind;
         }
         set
         {
-            SetField(ref _selectedTournamentKind, value);
-            OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+            if (SetField(ref _selectedTournamentKind, value))
+            {
+                OnPropertyChanged(nameof(VisibleIfTeamsAllowed));
+            }
         }
     }
 

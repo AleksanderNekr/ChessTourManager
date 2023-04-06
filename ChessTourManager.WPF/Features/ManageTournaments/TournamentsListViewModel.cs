@@ -40,7 +40,7 @@ public class TournamentsListViewModel : ViewModelBase
         get { return _isOpened; }
         set
         {
-            SetField(ref _isOpened, value);
+            _isOpened = value;
             OnPropertyChanged();
         }
     }

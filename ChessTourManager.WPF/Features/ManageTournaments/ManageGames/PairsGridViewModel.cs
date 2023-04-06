@@ -43,8 +43,10 @@ public class PairsGridViewModel : ViewModelBase
         get { return _toursAmount; }
         private set
         {
-            SetField(ref _toursAmount, value);
-            OnPropertyChanged(nameof(ToursInfo));
+            if (SetField(ref _toursAmount, value))
+            {
+                OnPropertyChanged(nameof(ToursInfo));
+            }
         }
     }
 
@@ -53,9 +55,11 @@ public class PairsGridViewModel : ViewModelBase
         get { return _selectedTour; }
         set
         {
-            SetField(ref _selectedTour, value);
-            OnPropertyChanged(nameof(ToursInfo));
-            OnPropertyChanged(nameof(GamesForSelectedTour));
+            if (SetField(ref _selectedTour, value))
+            {
+                OnPropertyChanged(nameof(ToursInfo));
+                OnPropertyChanged(nameof(GamesForSelectedTour));
+            }
         }
     }
 
@@ -99,9 +103,11 @@ public class PairsGridViewModel : ViewModelBase
         get { return _currentTour; }
         set
         {
-            SetField(ref _currentTour, value);
-            UpdateGames();
-            SelectedTour = _currentTour;
+            if (SetField(ref _currentTour, value))
+            {
+                UpdateGames();
+                SelectedTour = _currentTour;
+            }
         }
     }
 
