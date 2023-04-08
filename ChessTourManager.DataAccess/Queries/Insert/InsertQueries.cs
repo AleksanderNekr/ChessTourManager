@@ -241,6 +241,8 @@ internal class InsertQueries : IInsertQueries
                        BlackPoints  = blackPointsResult,
                        IsPlayed     = isPlayed
                    };
+            // Untrack game
+            _context.Entry(game).State = EntityState.Detached;
             _context.Games.Add(game);
             _context.SaveChanges();
             return InsertResult.Success;
