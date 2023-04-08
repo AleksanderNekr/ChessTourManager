@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
         Height="250"
         Width="350">

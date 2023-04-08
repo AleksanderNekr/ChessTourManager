@@ -12,7 +12,6 @@
         Width="500"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <manageGroups:ManageGroupsViewModel />

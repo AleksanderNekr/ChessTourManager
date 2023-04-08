@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         Height="500" Width="400"
         ResizeMode="NoResize"
-        ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen"
         Closing="AuthWindow_Closing">

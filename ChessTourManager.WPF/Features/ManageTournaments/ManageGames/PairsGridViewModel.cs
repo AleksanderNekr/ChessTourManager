@@ -128,11 +128,6 @@ public class PairsGridViewModel : ViewModelBase
             CurrentTour  = _games.Max(game => game.TourNumber);
             SelectedTour = CurrentTour;
         }
-        else
-        {
-            CurrentTour  = 0;
-            SelectedTour = 0;
-        }
 
         SetField(ref _startNewTour, new StartNewTourCommand(this), nameof(StartNewTour));
         TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;

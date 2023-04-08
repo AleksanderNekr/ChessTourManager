@@ -9,7 +9,6 @@
         Height="300" Width="480"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True">
     <Window.DataContext>
         <editGroup:EditGroupViewModel />

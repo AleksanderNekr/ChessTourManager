@@ -7,7 +7,6 @@
         xmlns:validationRules="clr-namespace:ChessTourManager.WPF.Helpers.ValidationRules"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        ui:ThemeManager.RequestedTheme="Light"
         ui:WindowHelper.UseModernWindowStyle="True"
         ResizeMode="NoResize"
         Height="270" Width="300"

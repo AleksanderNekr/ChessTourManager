@@ -18,8 +18,8 @@
         MinWidth="520"
         Width="800"
         Height="700"
-        ui:ThemeManager.RequestedTheme="Light"
         WindowStartupLocation="CenterScreen"
+        ui:WindowHelper.UseModernWindowStyle="True"
         WindowState="Maximized">
     <Window.DataContext>
         <manageTournaments:TournamentsListViewModel />

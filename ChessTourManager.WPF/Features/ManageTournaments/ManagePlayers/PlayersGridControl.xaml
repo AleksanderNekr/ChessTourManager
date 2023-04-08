@@ -173,6 +173,7 @@
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <ComboBox
+                                HorizontalAlignment="Center"
                                 SelectedItem="{Binding Team,
                                                    ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.TeamsAvailable,
@@ -201,6 +202,7 @@
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <ComboBox
+                                HorizontalAlignment="Center"
                                 SelectedItem="{Binding Group,
                                                    ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.GroupsAvailable,
@@ -233,6 +235,7 @@
                                 SelectedItem="{Binding PlayerBirthYear, ValidatesOnExceptions=True}"
                                 ItemsSource="{Binding DataContext.BirthYears,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                HorizontalAlignment="Center"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center" />
                         </DataTemplate>
