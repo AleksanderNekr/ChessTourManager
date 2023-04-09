@@ -7,7 +7,7 @@
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
              xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="2000">
+             d:DesignHeight="300" d:DesignWidth="1000">
     <UserControl.DataContext>
         <managePlayers:PlayersViewModel />
     </UserControl.DataContext>
@@ -63,7 +63,6 @@
             LoadingRow="DataGrid_LoadingRow"
             LostFocus="DataGrid_LostFocus">
             <DataGrid.CellStyle>
-                <!-- Add margin to cells -->
                 <Style
                     TargetType="DataGridCell"
                     BasedOn="{StaticResource DefaultDataGridCellStyle}">
@@ -72,7 +71,6 @@
                         Value="1,0,0,0" />
                 </Style>
             </DataGrid.CellStyle>
-            <!-- Set column header content to center. -->
             <DataGrid.ColumnHeaderStyle>
                 <Style
                     TargetType="DataGridColumnHeader"
@@ -82,7 +80,6 @@
                         Value="Center" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
-            <!-- Set row header content to center. -->
             <DataGrid.RowHeaderStyle>
                 <Style
                     TargetType="DataGridRowHeader"
@@ -93,48 +90,42 @@
                 </Style>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    dgx:DataGridFilterColumn.IsFilterVisible="True"
-                    Binding="{Binding PlayerLastName}"
-                    Header="Фамилия">
-                    <DataGridTextColumn.ElementStyle>
-                        <!-- Set to center -->
-                        <Style
-                            TargetType="TextBlock"
-                            BasedOn="{StaticResource DataGridTextBlockStyle}">
-                            <Setter
-                                Property="VerticalAlignment"
-                                Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn
+                <DataGridTemplateColumn
+                    Header="Фамилия"
+                    SortMemberPath="PlayerLastName">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                Text="{Binding PlayerLastName,
+                                        UpdateSourceTrigger=LostFocus}"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
                     Header="Имя"
-                    Binding="{Binding PlayerFirstName}">
-                    <DataGridTextColumn.ElementStyle>
-                        <!-- Set to center -->
-                        <Style
-                            TargetType="TextBlock">
-                            <Setter
-                                Property="VerticalAlignment"
-                                Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                    SortMemberPath="PlayerFirstName">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                Text="{Binding PlayerFirstName,
+                                        UpdateSourceTrigger=LostFocus}"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Header="Пол"
                     SortMemberPath="Gender">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock
-                                Text="{Binding Gender}"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox SelectedValue="{Binding Gender}">
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                SelectedValue="{Binding Gender,
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalContentAlignment="Center">
                                 <ComboBox.ItemsSource>
                                     <x:Array
                                         Type="{x:Type system:Char}">
@@ -144,38 +135,34 @@
                                 </ComboBox.ItemsSource>
                             </ComboBox>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn
+                <DataGridTemplateColumn
                     Header="Атрибут"
-                    Binding="{Binding PlayerAttribute}">
-                    <DataGridTextColumn.ElementStyle>
-                        <!-- Set to center -->
-                        <Style
-                            TargetType="TextBlock">
-                            <Setter
-                                Property="VerticalAlignment"
-                                Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                    SortMemberPath="PlayerAttribute">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Text="{Binding PlayerAttribute,
+                                        UpdateSourceTrigger=LostFocus}"
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     x:Name="TeamColumn"
                     Header="Команда"
                     SortMemberPath="Team.TeamName">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock
-                                Text="{Binding Team.TeamName}"
-                                VerticalAlignment="Center" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
                             <ComboBox
-                                HorizontalAlignment="Center"
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                HorizontalAlignment="Stretch"
                                 SelectedItem="{Binding Team,
-                                                   ValidatesOnExceptions=True}"
+                                                   ValidatesOnExceptions=True,
+                                                   UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding DataContext.TeamsAvailable,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 SelectionChanged="Team_SelectionChanged">
@@ -187,59 +174,49 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Header="Группа"
                     SortMemberPath="Group.Identity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock
-                                Text="{Binding Group.Identity}"
-                                VerticalAlignment="Center" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
                             <ComboBox
-                                HorizontalAlignment="Center"
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                HorizontalAlignment="Stretch"
                                 SelectedItem="{Binding Group,
-                                                   ValidatesOnExceptions=True}"
+                                                   ValidatesOnExceptions=True,
+                                                   UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding DataContext.GroupsAvailable,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 SelectionChanged="Group_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                                            Text="{Binding GroupName}" />
+                                            Text="{Binding Identity}"
+                                            ToolTip="{Binding GroupName}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Header="Год рождения"
                     SortMemberPath="PlayerBirthYear">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock
-                                Text="{Binding PlayerBirthYear}"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center" />
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                SelectedItem="{Binding PlayerBirthYear,
+                                            ValidatesOnExceptions=True,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding DataContext.BirthYears,
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox
-                                SelectedItem="{Binding PlayerBirthYear, ValidatesOnExceptions=True}"
-                                ItemsSource="{Binding DataContext.BirthYears,
-                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                HorizontalAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Header="Активен"
@@ -249,37 +226,27 @@
                         <DataTemplate>
                             <CheckBox
                                 Style="{StaticResource DataGridCheckBoxStyle}"
-                                IsChecked="{Binding IsActive}"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                IsEnabled="False" />
+                                IsChecked="{Binding IsActive,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <CheckBox
-                                Style="{StaticResource DataGridCheckBoxStyle}"
-                                IsChecked="{Binding IsActive}"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-
-                <!-- Button to delete tournament. -->
                 <DataGridTemplateColumn
                     dgx:DataGridFilterColumn.IsFilterVisible="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
+                                Margin="0, 0, 10, 0"
+                                Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                                 Content="Удалить"
                                 Command="{Binding DataContext.DeletePlayerCommand,
-                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
 
                                 CommandParameter="{Binding CurrentItem}"
 
                                 DataContext="{Binding
-                                                         RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                                RelativeSource={RelativeSource AncestorType=DataGrid}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

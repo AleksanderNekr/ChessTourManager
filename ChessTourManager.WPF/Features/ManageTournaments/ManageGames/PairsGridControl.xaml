@@ -79,34 +79,34 @@
                         IsReadOnly="True"
                         Header="Очки"
                         Binding="{Binding PlayerWhite.PointsCount}" />
-                    <DataGridComboBoxColumn
+                    <DataGridTemplateColumn
                         IsReadOnly="False"
                         Header="Результат"
-                        SelectedValueBinding="{Binding Result}">
-                        <DataGridComboBoxColumn.ItemsSource>
-                            <x:Array
-                                Type="{x:Type system:String}">
-                                <system:String>1 – 0</system:String>
-                                <system:String>0 – 1</system:String>
-                                <system:String>0.5 – 0.5</system:String>
-                                <system:String>+ – -</system:String>
-                                <system:String>- – +</system:String>
-                                <system:String>0 – 0</system:String>
-                                <system:String>–</system:String>
-                            </x:Array>
-                        </DataGridComboBoxColumn.ItemsSource>
-                        <DataGridComboBoxColumn.ElementStyle>
-                            <!-- Center text -->
-                            <Style TargetType="ComboBox">
-                                <Setter
-                                    Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                                <Setter
-                                    Property="VerticalContentAlignment"
-                                    Value="Center" />
-                            </Style>
-                        </DataGridComboBoxColumn.ElementStyle>
-                    </DataGridComboBoxColumn>
+                        SortMemberPath="Result">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    Style="{StaticResource DataGridComboBoxStyle}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    SelectedValue="{Binding Result,
+                                                UpdateSourceTrigger=PropertyChanged}">
+                                    <ComboBox.ItemsSource>
+                                        <x:Array
+                                            Type="{x:Type system:String}">
+                                            <system:String>1 – 0</system:String>
+                                            <system:String>0 – 1</system:String>
+                                            <system:String>0.5 – 0.5</system:String>
+                                            <system:String>+ – -</system:String>
+                                            <system:String>- – +</system:String>
+                                            <system:String>0 – 0</system:String>
+                                            <system:String>–</system:String>
+                                        </x:Array>
+                                    </ComboBox.ItemsSource>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn
                         IsReadOnly="True"
                         Header="Черные"
