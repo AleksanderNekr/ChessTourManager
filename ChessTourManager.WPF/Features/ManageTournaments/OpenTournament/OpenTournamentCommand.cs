@@ -14,11 +14,17 @@ public class OpenTournamentCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (parameter is Tournament tournament)
+        if (parameter is not Tournament tournament)
+        {
+            return;
+        }
+
+        if (MainViewModel.SelectedTournament == null || !MainViewModel.SelectedTournament.Equals(tournament))
         {
             MainViewModel.SelectedTournament = tournament;
-            _mainViewModel.IsOpened          = true;
             TournamentOpenedEvent.OnTournamentOpened(this, new TournamentOpenedEventArgs(tournament));
         }
+
+        _mainViewModel.IsOpened = true;
     }
 }
