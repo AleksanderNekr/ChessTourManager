@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -8,7 +9,6 @@ using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
-using ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGroup;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
@@ -38,6 +38,7 @@ public class PlayersViewModel : ViewModelBase
 
     public PlayersViewModel()
     {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
     }
 
@@ -79,10 +80,10 @@ public class PlayersViewModel : ViewModelBase
                 return _teamsAvailable;
             }
 
-            UpdateTeams();
-
+            UpdateAvailableTeams();
             return _teamsAvailable;
         }
+        set { SetField(ref _teamsAvailable, value); }
     }
 
     public ObservableCollection<int> BirthYears
@@ -99,8 +100,7 @@ public class PlayersViewModel : ViewModelBase
                 return _groupsAvailable;
             }
 
-            UpdateGroups();
-
+            UpdateAvailableGroups();
             return _groupsAvailable;
         }
         set { SetField(ref _groupsAvailable, value); }
@@ -116,83 +116,68 @@ public class PlayersViewModel : ViewModelBase
         get { return _printPlayersListCommand ??= new PrintPlayersListCommand(); }
     }
 
-    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
-    {
-        UpdatePlayers();
-    }
-
-    private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs playerEditedEventArgs)
-    {
-        UpdatePlayers();
-    }
-
     private void GroupDeletedEvent_GroupDeleted(object source, GroupDeletedEventArgs groupDeletedEventArgs)
     {
-        UpdateGroups();
+        UpdateAvailableGroups();
     }
 
     private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
-        UpdateGroups();
+        if (source != this)
+        {
+            UpdateAvailableGroups();
+            UpdatePlayers();
+        }
     }
 
     private void GroupAddedEvent_GroupAdded(object source, GroupAddedEventArgs groupAddedEventArgs)
     {
-        UpdateGroups();
+        UpdateAvailableGroups();
     }
 
     private void TeamDeletedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
-        UpdateTeams();
+        UpdateAvailableTeams();
     }
 
     private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
-        UpdateTeams();
+        if (source != this)
+        {
+            UpdateAvailableTeams();
+            UpdatePlayers();
+        }
     }
 
     private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
-        UpdateTeams();
+        UpdateAvailableTeams();
     }
 
-    /// <summary>
-    /// Try to save changes in players.
-    /// </summary>
-    /// <returns>True – no errors. False – error occured.</returns>
-    public bool TrySavePlayers()
+    private bool TrySaveChanges()
     {
         try
         {
-            PlayersContext.ChangeTracker.DetectChanges();
-
-            // If there are no changes, don't try to save.
-            if (PlayersContext.ChangeTracker.HasChanges())
-            {
-                PlayersContext.SaveChanges();
-                PlayerEditedEvent.OnPlayerEdited(this,new PlayerEditedEventArgs(null));
-            }
-
+            PlayersContext.SaveChanges();
             return true;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
             MessageBox.Show("Возможно игрок с такими параметрами уже существует.",
                             "Ошибка сохранения",
                             MessageBoxButton.OK, MessageBoxImage.Error);
-            PlayersContext = new ChessTourContext();
-            return false;
-        }
-        catch (Exception)
-        {
-            MessageBox.Show("Ошибка при сохранении изменений", "Ошибка сохранения",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-            PlayersContext = new ChessTourContext();
+
+            PlayersContext.ChangeTracker
+                          .Entries()
+                          .ToList()
+                          .ForEach(entry => entry.State = EntityState.Unchanged);
+
+            UpdatePlayers();
             return false;
         }
     }
 
-    internal void UpdateTeams()
+    private void UpdateAvailableTeams()
     {
         if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
@@ -204,10 +189,10 @@ public class PlayersViewModel : ViewModelBase
                                            MainViewModel.SelectedTournament.TournamentId,
                                            out List<Team>? teams);
 
-        SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
+        TeamsAvailable = new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>());
     }
 
-    internal void UpdateGroups()
+    private void UpdateAvailableGroups()
     {
         if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
@@ -219,38 +204,33 @@ public class PlayersViewModel : ViewModelBase
                                  MainViewModel.SelectedTournament.TournamentId,
                                  out List<Group>? groups);
 
-        SetField(ref _groupsAvailable, new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>()));
+        GroupsAvailable = new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>());
     }
 
-    private void PlayerDeletedEvent_PlayerDeleted(object source, PlayerDeletedEventArgs playerDeletedEventArgs)
+    private void TournamentOpenedEvent_TournamentOpened(object                    source,
+                                                        TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
-        UpdatePlayers();
-    }
-
-    private void PlayerAddedEvent_PlayerAdded(object source, PlayerAddedEventArgs playerAddedEventArgs)
-    {
-        UpdatePlayers();
-    }
-
-    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
-    {
-        TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
-
-        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
-        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
-        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
-
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamEditedEvent.TeamEdited   += TeamEditedEventTeamEdited;
+        TeamChangedEvent.TeamEdited  += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
 
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
         GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
         UpdatePlayers();
+        if (_playersCollection == null)
+        {
+            return;
+        }
+
+        foreach (Player player in _playersCollection)
+        {
+            player.PropertyChanged -= Player_PropertyChanged;
+            player.PropertyChanged += Player_PropertyChanged;
+        }
     }
 
-    internal void UpdatePlayers()
+    private void UpdatePlayers()
     {
         if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
@@ -265,6 +245,16 @@ public class PlayersViewModel : ViewModelBase
         if (players is { })
         {
             PlayersCollection = new ObservableCollection<Player>(players);
+        }
+    }
+
+    private void Player_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (TrySaveChanges())
+        {
+            PlayerEditedEvent.OnPlayerEdited(this, new PlayerEditedEventArgs(sender as Player));
+            TeamChangedEvent.OnTeamChanged(this, new TeamChangedEventArgs((sender as Player)?.Team));
+            GroupChangedEvent.OnGroupChanged(this, new GroupChangedEventArgs((sender as Player)?.Group));
         }
     }
 }
