@@ -8,7 +8,7 @@ public partial class AddTeamWindow
         TeamAddedEvent.TeamAdded += TeamAddedEvent_TeamAdded;
     }
 
-    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
+    private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
         Close();
     }

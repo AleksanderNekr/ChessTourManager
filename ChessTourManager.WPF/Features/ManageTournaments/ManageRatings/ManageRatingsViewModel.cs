@@ -76,47 +76,47 @@ public class ManageRatingsViewModel : ViewModelBase
         UpdateRating();
     }
 
-    private void PlayerEditedEvent_PlayerEdited(PlayerEditedEventArgs e)
+    private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs playerEditedEventArgs)
     {
         UpdateRating();
     }
 
-    private void GroupDeletedEvent_GroupDeleted(GroupDeletedEventArgs e)
+    private void GroupDeletedEvent_GroupDeleted(object source, GroupDeletedEventArgs groupDeletedEventArgs)
     {
         UpdateRating();
     }
 
-    private void GroupChangedEvent_GroupChanged(GroupChangedEventArgs e)
+    private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
         UpdateRating();
     }
 
-    private void TeamDeletedEvent_TeamDeleted(TeamDeletedEventArgs e)
+    private void TeamDeletedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
         UpdateRating();
     }
 
-    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
         UpdateRating();
     }
 
-    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
+    private void PlayerDeletedEvent_PlayerDeleted(object source, PlayerDeletedEventArgs playerDeletedEventArgs)
     {
         UpdateRating();
     }
 
-    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)
+    private void PlayerAddedEvent_PlayerAdded(object source, PlayerAddedEventArgs playerAddedEventArgs)
     {
         UpdateRating();
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
     {
         UpdateRating();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         UpdateRating();
 

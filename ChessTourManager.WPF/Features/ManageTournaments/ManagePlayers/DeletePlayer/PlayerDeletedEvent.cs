@@ -5,16 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.DeletePl
 
 public static class PlayerDeletedEvent
 {
-    /// <summary>
-    ///     Delegate on handling UserSuccessLogin event.
-    /// </summary>
-    public delegate void PlayerAddedHandler(PlayerDeletedEventArgs e);
+    public delegate void PlayerAddedHandler(object source, PlayerDeletedEventArgs e);
 
     public static event PlayerAddedHandler? PlayerDeleted;
 
-    internal static void OnPlayerDeleted(PlayerDeletedEventArgs e)
+    internal static void OnPlayerDeleted(object source, PlayerDeletedEventArgs e)
     {
-        PlayerDeleted?.Invoke(e);
+        PlayerDeleted?.Invoke(source,e);
     }
 }
 

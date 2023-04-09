@@ -54,22 +54,22 @@ public class ManageTeamsViewModel : ViewModelBase
     public ICommand DeleteTeamCommand { get; }
     public ICommand EditTeamCommand   { get; }
 
-    private void TeamDeletedEvent_TeamDeleted(TeamDeletedEventArgs e)
+    private void TeamDeletedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
         UpdateTeams();
     }
 
-    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
         UpdateTeams();
     }
 
-    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
+    private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
         UpdateTeams();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         UpdateTeams();
     }
@@ -83,7 +83,7 @@ public class ManageTeamsViewModel : ViewModelBase
 
         IGetQueries.CreateInstance(TeamsContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
-                                           TournamentsListViewModel.SelectedTournament.TournamentId,
+                                           MainViewModel.SelectedTournament.TournamentId,
                                            out List<Team>? teams);
 
         if (teams is { })

@@ -3,15 +3,15 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
 
-public delegate void PlayerEditedHandler(PlayerEditedEventArgs e);
-
 public static class PlayerEditedEvent
 {
+    public delegate void PlayerEditedHandler(object source, PlayerEditedEventArgs e);
+
     public static event PlayerEditedHandler? PlayerEdited;
 
-    internal static void OnPlayerEdited(PlayerEditedEventArgs e)
+    internal static void OnPlayerEdited(object source, PlayerEditedEventArgs e)
     {
-        PlayerEdited?.Invoke(e);
+        PlayerEdited?.Invoke(source, e);
     }
 }
 

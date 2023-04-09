@@ -42,7 +42,7 @@ public class LoginViewModel : ViewModelBase
 
     public static User? CurrentUser { get; private set; }
 
-    private static void SuccessLoginEvent_UserSuccessLogin(SuccessLoginEventArgs e)
+    private static void SuccessLoginEvent_UserSuccessLogin(object source, SuccessLoginEventArgs e)
     {
         CurrentUser = e.User;
     }

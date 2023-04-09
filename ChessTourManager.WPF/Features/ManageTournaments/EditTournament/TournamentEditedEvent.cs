@@ -5,13 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 
 public static class TournamentEditedEvent
 {
-    public delegate void TournamentEditedHandler(TournamentEditedEventArgs e);
+    public delegate void TournamentEditedHandler(object source, TournamentEditedEventArgs e);
 
     public static event TournamentEditedHandler? TournamentEdited;
 
-    internal static void OnTournamentEdited(TournamentEditedEventArgs e)
+    internal static void OnTournamentEdited(object source, TournamentEditedEventArgs e)
     {
-        TournamentEdited?.Invoke(e);
+        TournamentEdited?.Invoke(source, e);
     }
 }
 

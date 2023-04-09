@@ -116,42 +116,42 @@ public class PlayersViewModel : ViewModelBase
         get { return _printPlayersListCommand ??= new PrintPlayersListCommand(); }
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
     {
         UpdatePlayers();
     }
 
-    private void PlayerEditedEvent_PlayerEdited(PlayerEditedEventArgs e)
+    private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs playerEditedEventArgs)
     {
         UpdatePlayers();
     }
 
-    private void GroupDeletedEvent_GroupDeleted(GroupDeletedEventArgs e)
+    private void GroupDeletedEvent_GroupDeleted(object source, GroupDeletedEventArgs groupDeletedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void GroupChangedEvent_GroupChanged(GroupChangedEventArgs e)
+    private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void GroupAddedEvent_GroupAdded(GroupAddedEventArgs e)
+    private void GroupAddedEvent_GroupAdded(object source, GroupAddedEventArgs groupAddedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void TeamDeletedEvent_TeamDeleted(TeamDeletedEventArgs e)
+    private void TeamDeletedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
         UpdateTeams();
     }
 
-    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
         UpdateTeams();
     }
 
-    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
+    private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
         UpdateTeams();
     }
@@ -160,7 +160,7 @@ public class PlayersViewModel : ViewModelBase
     /// Try to save changes in players.
     /// </summary>
     /// <returns>True – no errors. False – error occured.</returns>
-    public static bool TrySavePlayers()
+    public bool TrySavePlayers()
     {
         try
         {
@@ -170,7 +170,7 @@ public class PlayersViewModel : ViewModelBase
             if (PlayersContext.ChangeTracker.HasChanges())
             {
                 PlayersContext.SaveChanges();
-                PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(null));
+                PlayerEditedEvent.OnPlayerEdited(this,new PlayerEditedEventArgs(null));
             }
 
             return true;
@@ -222,17 +222,17 @@ public class PlayersViewModel : ViewModelBase
         SetField(ref _groupsAvailable, new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>()));
     }
 
-    private void PlayerDeletedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
+    private void PlayerDeletedEvent_PlayerDeleted(object source, PlayerDeletedEventArgs playerDeletedEventArgs)
     {
         UpdatePlayers();
     }
 
-    private void PlayerAddedEvent_PlayerAdded(PlayerAddedEventArgs e)
+    private void PlayerAddedEvent_PlayerAdded(object source, PlayerAddedEventArgs playerAddedEventArgs)
     {
         UpdatePlayers();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
 

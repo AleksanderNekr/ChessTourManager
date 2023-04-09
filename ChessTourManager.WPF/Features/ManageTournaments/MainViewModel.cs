@@ -103,17 +103,14 @@ public class MainViewModel : ViewModelBase
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
                                                          out List<Tournament>? tournamentsCollection);
 
-        switch (result)
+        if (result == GetResult.Success)
         {
-            case GetResult.Success:
-                TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
-                break;
-            case GetResult.UserNotFound:
-                MessageBox.Show("Пользователь не найден!", "Ошибка получения списка турниров",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            TournamentsCollection = new ObservableCollection<Tournament>(tournamentsCollection);
+        }
+        else if (result == GetResult.UserNotFound)
+        {
+            MessageBox.Show("Пользователь не найден!", "Ошибка получения списка турниров",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

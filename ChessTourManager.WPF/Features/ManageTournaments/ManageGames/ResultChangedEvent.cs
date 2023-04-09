@@ -5,11 +5,11 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
 public static class ResultChangedEvent
 {
-    public delegate void ResultChangedEventHandler(object? sender, ResultChangedEventArgs e);
+    public delegate void ResultChangedEventHandler(object sender, ResultChangedEventArgs e);
 
     public static event ResultChangedEventHandler? ResultChanged;
 
-    public static void OnResultChanged(object? sender, ResultChangedEventArgs e)
+    public static void OnResultChanged(object sender, ResultChangedEventArgs e)
     {
         ResultChanged?.Invoke(sender, e);
     }

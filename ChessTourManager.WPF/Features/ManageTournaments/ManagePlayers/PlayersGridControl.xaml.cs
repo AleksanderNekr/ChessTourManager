@@ -15,7 +15,7 @@ public partial class PlayersGridControl
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
         TeamColumn.Visibility = e.OpenedTournament.Kind.KindName == "single"
                                     ? Visibility.Collapsed
@@ -27,7 +27,7 @@ public partial class PlayersGridControl
 
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)
     {
-        if (!PlayersViewModel.TrySavePlayers())
+        if (!((PlayersViewModel)DataContext).TrySavePlayers())
         {
             ((PlayersViewModel)DataContext).UpdatePlayers();
             ((PlayersViewModel)DataContext).UpdateGroups();
@@ -42,7 +42,7 @@ public partial class PlayersGridControl
 
     private void DataGrid_LostFocus(object sender, RoutedEventArgs e)
     {
-        if (!PlayersViewModel.TrySavePlayers())
+        if (!((PlayersViewModel)DataContext).TrySavePlayers())
         {
             ((PlayersViewModel)DataContext).UpdatePlayers();
             ((PlayersViewModel)DataContext).UpdateGroups();
@@ -52,7 +52,7 @@ public partial class PlayersGridControl
 
     private void Team_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!PlayersViewModel.TrySavePlayers())
+        if (!((PlayersViewModel)DataContext).TrySavePlayers())
         {
             ((PlayersViewModel)DataContext).UpdatePlayers();
             ((PlayersViewModel)DataContext).UpdateGroups();
@@ -60,13 +60,13 @@ public partial class PlayersGridControl
         }
         else
         {
-            TeamEditedEvent.OnTeamChanged(new TeamChangedEventArgs(null));
+            TeamEditedEvent.OnTeamChanged(this, new TeamChangedEventArgs(null));
         }
     }
 
     private void Group_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!PlayersViewModel.TrySavePlayers())
+        if (!((PlayersViewModel)DataContext).TrySavePlayers())
         {
             ((PlayersViewModel)DataContext).UpdatePlayers();
             ((PlayersViewModel)DataContext).UpdateGroups();
@@ -74,7 +74,7 @@ public partial class PlayersGridControl
         }
         else
         {
-            GroupChangedEvent.OnGroupChanged(new GroupChangedEventArgs(null));
+            GroupChangedEvent.OnGroupChanged(this, new GroupChangedEventArgs(null));
         }
     }
 }

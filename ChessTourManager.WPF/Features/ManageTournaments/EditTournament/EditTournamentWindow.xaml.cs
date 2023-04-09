@@ -18,7 +18,7 @@ public partial class EditTournamentWindow
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
     {
         Close();
     }

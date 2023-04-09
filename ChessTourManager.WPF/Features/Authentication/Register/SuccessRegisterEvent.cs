@@ -5,13 +5,13 @@ namespace ChessTourManager.WPF.Features.Authentication.Register;
 
 public static class SuccessRegisterEvent
 {
-    public delegate void UserSuccessRegisterHandler(SuccessRegisterEventArgs e);
+    public delegate void UserSuccessRegisterHandler(object source, SuccessRegisterEventArgs e);
 
     public static event UserSuccessRegisterHandler? UserSuccessRegister;
 
-    internal static void OnUserSuccessRegister(SuccessRegisterEventArgs e)
+    internal static void OnUserSuccessRegister(object source, SuccessRegisterEventArgs e)
     {
-        UserSuccessRegister?.Invoke(e);
+        UserSuccessRegister?.Invoke(source, e);
     }
 }
 

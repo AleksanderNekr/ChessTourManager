@@ -8,13 +8,13 @@ public static class SuccessLoginEvent
     /// <summary>
     ///     Delegate on handling UserSuccessLogin event.
     /// </summary>
-    public delegate void UserSuccessLoginHandler(SuccessLoginEventArgs e);
+    public delegate void UserSuccessLoginHandler(object source, SuccessLoginEventArgs e);
 
     public static event UserSuccessLoginHandler? UserSuccessLogin;
 
-    internal static void OnUserSuccessLogin(SuccessLoginEventArgs e)
+    internal static void OnUserSuccessLogin(object source, SuccessLoginEventArgs e)
     {
-        UserSuccessLogin?.Invoke(e);
+        UserSuccessLogin?.Invoke(source, e);
     }
 }
 

@@ -20,21 +20,13 @@ public class LoginCommand : CommandBase
         GetResult result = IGetQueries.CreateInstance(LoginViewModel.LoginContext)
                                       .TryGetUserByLoginAndPass(_loginViewModel.Login, _loginViewModel.Password,
                                                                 out User? user);
-        switch (result)
+        if (result == GetResult.Success)
         {
-            case GetResult.Success:
-                if (user is { })
-                {
-                    SuccessLoginEvent.OnUserSuccessLogin(new SuccessLoginEventArgs(user, DateTimeOffset.Now));
-                }
-
-                break;
-            case GetResult.UserNotFound:
-                MessageBox.Show("Неверный логин или пароль!", "Ошибка входа",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            SuccessLoginEvent.OnUserSuccessLogin(this, new SuccessLoginEventArgs(user, DateTimeOffset.Now));
+            return;
         }
+
+        MessageBox.Show("Неверный логин или пароль!", "Ошибка входа",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

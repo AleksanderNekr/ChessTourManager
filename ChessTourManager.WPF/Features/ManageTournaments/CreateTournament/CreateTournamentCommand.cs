@@ -60,6 +60,6 @@ public class CreateTournamentCommand : CommandBase
 
         MessageBox.Show("Турнир успешно создан!", "Создание турнира", MessageBoxButton.OK,
                         MessageBoxImage.Information);
-        TournamentCreatedEvent.OnTournamentCreated(new TournamentCreatedEventArgs(tournament));
+        TournamentCreatedEvent.OnTournamentCreated(this, new TournamentCreatedEventArgs(tournament));
     }
 }

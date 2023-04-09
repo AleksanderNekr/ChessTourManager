@@ -24,14 +24,14 @@ public class RegisterCommand : CommandBase
             return;
         }
 
-        if (_registerViewModel is { Email: null } || _registerViewModel is { PasswordInit: null })
+        if (_registerViewModel is { Email: null } or { PasswordInit: null })
         {
             MessageBox.Show("Не удалось зарегистрироваться! Проблема с логином или паролем",
                             "Регистрация", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if (_registerViewModel is { LastName: null } || _registerViewModel is { FirstName: null })
+        if (_registerViewModel is { LastName: null } or { FirstName: null })
         {
             MessageBox.Show("Имя и фамилия должны быть заполнены!",
                             "Регистрация", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -45,18 +45,16 @@ public class RegisterCommand : CommandBase
                                                         _registerViewModel.PasswordInit,
                                                         _registerViewModel.Patronymic ?? string.Empty);
 
-        switch (result)
+        if (result == InsertResult.Success)
         {
-            case InsertResult.Success:
-                SuccessRegisterEvent
-                   .OnUserSuccessRegister(new SuccessRegisterEventArgs(user, DateTimeOffset.UtcNow));
-                MessageBox.Show("Вы успешно зарегистрировались!",
-                                "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);
-                break;
-            case InsertResult.Fail:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            MessageBox.Show("Вы успешно зарегистрировались!",
+                            "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);
+            SuccessRegisterEvent.OnUserSuccessRegister(this,
+                                                       new SuccessRegisterEventArgs(user, DateTime.UtcNow));
+            return;
         }
+
+        MessageBox.Show("Не удалось зарегистрироваться! Возможно пользователь с такими данными уже существует",
+                        "Регистрация", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

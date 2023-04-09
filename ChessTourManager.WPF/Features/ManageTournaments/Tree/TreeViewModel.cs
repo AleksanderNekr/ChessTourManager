@@ -75,47 +75,47 @@ public class TreeViewModel : ViewModelBase
         set { SetField(ref _selectedPlayer, value); }
     }
 
-    private void PlayerChangedEvent_PlayerEdited(PlayerEditedEventArgs e)
+    private void PlayerChangedEvent_PlayerEdited(object source, PlayerEditedEventArgs playerEditedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void PlayerChangedEvent_PlayerDeleted(PlayerDeletedEventArgs e)
+    private void PlayerChangedEvent_PlayerDeleted(object source, PlayerDeletedEventArgs playerDeletedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void PlayerChangedEvent_PlayerAdded(PlayerAddedEventArgs e)
+    private void PlayerChangedEvent_PlayerAdded(object source, PlayerAddedEventArgs playerAddedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TeamChangedEvent_TeamDeleted(TeamDeletedEventArgs e)
+    private void TeamChangedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TeamChangedEvent_TeamChanged(TeamChangedEventArgs e)
+    private void TeamChangedEvent_TeamChanged(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
+    private void TournamentDeletedEvent_TournamentDeleted(object source, DeleteTournamentEventArgs deleteTournamentEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e)
+    private void TournamentCreatedEvent_TournamentCreated(object source, TournamentCreatedEventArgs tournamentCreatedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TeamAddedEvent_TeamAdded(TeamAddedEventArgs e)
+    private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
     {
         UpdateTournaments();
     }

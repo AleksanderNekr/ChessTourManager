@@ -3,15 +3,15 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.DeleteGroup;
 
-public delegate void GroupDeletedHandler(GroupDeletedEventArgs e);
-
 public static class GroupDeletedEvent
 {
+    public delegate void GroupDeletedHandler(object source, GroupDeletedEventArgs e);
+
     public static event GroupDeletedHandler? GroupDeleted;
 
-    internal static void OnGroupDeleted(GroupDeletedEventArgs e)
+    internal static void OnGroupDeleted(object source, GroupDeletedEventArgs e)
     {
-        GroupDeleted?.Invoke(e);
+        GroupDeleted?.Invoke(source, e);
     }
 }
 

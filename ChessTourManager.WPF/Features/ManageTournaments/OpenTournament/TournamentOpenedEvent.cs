@@ -5,22 +5,19 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
 public static class TournamentOpenedEvent
 {
-    /// <summary>
-    ///     Delegate on handling TournamentOpenedEvent.
-    /// </summary>
-    public delegate void TournamentOpenedEventHandler(TournamentOpenedEventArgs e);
+    public delegate void TournamentOpenedEventHandler(object source, TournamentOpenedEventArgs e);
 
     public static event TournamentOpenedEventHandler? TournamentOpened;
 
-    internal static void OnTournamentOpened(TournamentOpenedEventArgs e)
+    internal static void OnTournamentOpened(object source, TournamentOpenedEventArgs e)
     {
-        TournamentOpened?.Invoke(e);
+        TournamentOpened?.Invoke(source, e);
     }
 }
 
 public class TournamentOpenedEventArgs : EventArgs
 {
-    public readonly Tournament OpenedTournament;
+    public Tournament OpenedTournament;
 
     public TournamentOpenedEventArgs(Tournament openedTournament)
     {

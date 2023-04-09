@@ -24,7 +24,8 @@ public class ApplyEditTournamentCommand : CommandBase
         MessageBox.Show("Турнир успешно отредактирован!", "Редактирование турнира",
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
-        TournamentEditedEvent.OnTournamentEdited(new TournamentEditedEventArgs(EditTournamentViewModel
+        TournamentEditedEvent.OnTournamentEdited(this,
+                                                 new TournamentEditedEventArgs(EditTournamentViewModel
                                                     .EditingTournament));
     }
 }

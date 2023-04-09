@@ -10,7 +10,7 @@ public partial class GroupsListControl
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
     }
 
-    private void GroupChangedEvent_GroupChanged(GroupChangedEventArgs e)
+    private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
         // Update tree view
         TreeView.Items.Refresh();

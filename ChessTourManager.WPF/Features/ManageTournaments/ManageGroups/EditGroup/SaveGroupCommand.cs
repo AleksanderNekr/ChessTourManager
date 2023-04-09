@@ -38,7 +38,7 @@ public class SaveGroupCommand : CommandBase
         ManageGroupsViewModel.GroupsContext.Groups.Update(_editGroupViewModel.Group);
         ManageGroupsViewModel.GroupsContext.SaveChanges();
 
-        GroupChangedEvent.OnGroupChanged(new GroupChangedEventArgs(_editGroupViewModel.Group));
+        GroupChangedEvent.OnGroupChanged(this, new GroupChangedEventArgs(_editGroupViewModel.Group));
 
         MessageBox.Show("Изменения в группе успешно сохранены!", "Сохранение изменений",
                         MessageBoxButton.OK, MessageBoxImage.Information);

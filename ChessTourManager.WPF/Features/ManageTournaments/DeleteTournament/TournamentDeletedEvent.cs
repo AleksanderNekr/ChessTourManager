@@ -5,13 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
 
 public static class TournamentDeletedEvent
 {
-    public delegate void DeleteTournamentHandler(DeleteTournamentEventArgs e);
+    public delegate void DeleteTournamentHandler(object source, DeleteTournamentEventArgs e);
 
     public static event DeleteTournamentHandler? TournamentDeleted;
 
-    internal static void OnTournamentDeleted(DeleteTournamentEventArgs e)
+    internal static void OnTournamentDeleted(object source, DeleteTournamentEventArgs e)
     {
-        TournamentDeleted?.Invoke(e);
+        TournamentDeleted?.Invoke(source, e);
     }
 }
 

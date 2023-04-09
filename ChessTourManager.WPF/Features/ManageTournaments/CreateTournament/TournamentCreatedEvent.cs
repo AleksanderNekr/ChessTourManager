@@ -5,13 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.CreateTournament;
 
 public static class TournamentCreatedEvent
 {
-    public delegate void TournamentCreatedHandler(TournamentCreatedEventArgs e);
+    public delegate void TournamentCreatedHandler(object source, TournamentCreatedEventArgs e);
 
     public static event TournamentCreatedHandler? TournamentCreated;
 
-    internal static void OnTournamentCreated(TournamentCreatedEventArgs e)
+    internal static void OnTournamentCreated(object source, TournamentCreatedEventArgs e)
     {
-        TournamentCreated?.Invoke(e);
+        TournamentCreated?.Invoke(source, e);
     }
 }
 

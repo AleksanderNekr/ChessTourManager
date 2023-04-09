@@ -64,6 +64,7 @@
                         dgx:DataGridFilterColumn.IsFilterVisible="False"
                         Binding="{Binding PlayerFullName}" />
                     <DataGridTextColumn
+                        x:Name="TeamColumn"
                         Header="Команда"
                         Binding="{Binding Team.TeamName}" />
                     <DataGridTextColumn

@@ -3,15 +3,15 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 
-public delegate void GroupChangedHandler(GroupChangedEventArgs e);
-
 public static class GroupChangedEvent
 {
+    public delegate void GroupChangedHandler(object source, GroupChangedEventArgs e);
+
     public static event GroupChangedHandler? GroupChanged;
 
-    internal static void OnGroupChanged(GroupChangedEventArgs e)
+    internal static void OnGroupChanged(object source, GroupChangedEventArgs e)
     {
-        GroupChanged?.Invoke(e);
+        GroupChanged?.Invoke(source,e);
     }
 }
 

@@ -13,7 +13,7 @@ public partial class RegisterWindow
         SuccessRegisterEvent.UserSuccessRegister += RegisterViewModel_UserSuccessRegister;
     }
 
-    private void RegisterViewModel_UserSuccessRegister(SuccessRegisterEventArgs e)
+    private void RegisterViewModel_UserSuccessRegister(object source, SuccessRegisterEventArgs successRegisterEventArgs)
     {
         new AuthWindow().Show();
         Close();

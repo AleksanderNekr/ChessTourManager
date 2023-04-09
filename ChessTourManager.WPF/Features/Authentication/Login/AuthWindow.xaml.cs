@@ -14,7 +14,7 @@ public partial class AuthWindow
         SuccessLoginEvent.UserSuccessLogin += LoginViewModel_UserSuccessLogin;
     }
 
-    private void LoginViewModel_UserSuccessLogin(SuccessLoginEventArgs successLoginEventArgs)
+    private void LoginViewModel_UserSuccessLogin(object source, SuccessLoginEventArgs successLoginEventArgs)
     {
         new MainWindow().Show();
         Close();

@@ -10,7 +10,7 @@ public partial class TeamsListControl
         TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
     }
 
-    private void TeamEditedEventTeamEdited(TeamChangedEventArgs e)
+    private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)
     {
         // Update tree view
         TreeView.Items.Refresh();

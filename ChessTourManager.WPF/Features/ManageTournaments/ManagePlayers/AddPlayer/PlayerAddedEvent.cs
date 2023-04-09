@@ -5,16 +5,13 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.AddPlaye
 
 public static class PlayerAddedEvent
 {
-    /// <summary>
-    ///     Delegate on handling UserSuccessLogin event.
-    /// </summary>
-    public delegate void PlayerAddedHandler(PlayerAddedEventArgs e);
+    public delegate void PlayerAddedHandler(object source,PlayerAddedEventArgs e);
 
     public static event PlayerAddedHandler? PlayerAdded;
 
-    internal static void OnPlayerAdded(PlayerAddedEventArgs e)
+    internal static void OnPlayerAdded(object source,PlayerAddedEventArgs e)
     {
-        PlayerAdded?.Invoke(e);
+        PlayerAdded?.Invoke(source,e);
     }
 }
 

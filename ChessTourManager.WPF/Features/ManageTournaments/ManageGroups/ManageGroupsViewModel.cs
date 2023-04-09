@@ -58,22 +58,22 @@ public class ManageGroupsViewModel : ViewModelBase
     public ICommand DeleteGroupCommand { get; }
     public ICommand EditGroupCommand   { get; }
 
-    private void GroupDeletedEvent_GroupDeleted(GroupDeletedEventArgs e)
+    private void GroupDeletedEvent_GroupDeleted(object source, GroupDeletedEventArgs groupDeletedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void GroupChangedEvent_GroupChanged(GroupChangedEventArgs e)
+    private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void GroupAddedEvent_GroupAdded(GroupAddedEventArgs e)
+    private void GroupAddedEvent_GroupAdded(object source, GroupAddedEventArgs groupAddedEventArgs)
     {
         UpdateGroups();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
