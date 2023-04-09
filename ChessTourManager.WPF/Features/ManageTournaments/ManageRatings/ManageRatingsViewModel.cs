@@ -132,14 +132,14 @@ public class ManageRatingsViewModel : ViewModelBase
             return;
         }
 
-        if (TournamentsListViewModel.SelectedTournament is null)
+        if (MainViewModel.SelectedTournament is null)
         {
             return;
         }
 
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetGames(LoginViewModel.CurrentUser.UserId,
-                                TournamentsListViewModel.SelectedTournament.TournamentId,
+                                MainViewModel.SelectedTournament.TournamentId,
                                 out List<Game>? games);
 
         if (games is null)
@@ -191,7 +191,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private static IOrderedEnumerable<Player>? GetRating()
     {
-        if (TournamentsListViewModel.SelectedTournament is null)
+        if (MainViewModel.SelectedTournament is null)
         {
             return null;
         }
@@ -203,7 +203,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
         IGetQueries.CreateInstance(RatingsContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
-                                                    TournamentsListViewModel.SelectedTournament.TournamentId,
+                                                    MainViewModel.SelectedTournament.TournamentId,
                                                     out List<Player>? players);
 
         return GetSortedPlayers(players);

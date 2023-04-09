@@ -28,7 +28,7 @@ public class Tests
         var viewModel = new PairsGridViewModel();
 
         // Create mock TournamentsList view model.
-        var tournamentsListViewModel = new TournamentsListViewModel();
+        var tournamentsListViewModel = new MainViewModel();
 
         // Invoke open tournament command.
         var openTournamentCommand = new OpenTournamentCommand(tournamentsListViewModel);
@@ -63,7 +63,7 @@ public class Tests
         // Create mock pairs view model.
         var viewModel = new PairsGridViewModel();
         // Create mock TournamentsList view model.
-        var tournamentsListViewModel = new TournamentsListViewModel();
+        var tournamentsListViewModel = new MainViewModel();
 
         // Invoke login command.
         loginCommand.Execute(null);

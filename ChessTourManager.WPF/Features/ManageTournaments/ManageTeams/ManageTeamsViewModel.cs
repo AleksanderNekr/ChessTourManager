@@ -76,7 +76,7 @@ public class ManageTeamsViewModel : ViewModelBase
 
     private void UpdateTeams()
     {
-        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return;
         }

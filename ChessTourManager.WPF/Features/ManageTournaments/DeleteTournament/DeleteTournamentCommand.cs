@@ -7,11 +7,11 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.DeleteTournament;
 
 public class DeleteTournamentCommand : CommandBase
 {
-    private readonly TournamentsListViewModel _tournamentsListViewModel;
+    private readonly MainViewModel _mainViewModel;
 
-    public DeleteTournamentCommand(TournamentsListViewModel tournamentsListViewModel)
+    public DeleteTournamentCommand(MainViewModel mainViewModel)
     {
-        _tournamentsListViewModel = tournamentsListViewModel;
+        _mainViewModel = mainViewModel;
     }
 
     public override void Execute(object? parameter)
@@ -29,11 +29,11 @@ public class DeleteTournamentCommand : CommandBase
             DeleteResult result = IDeleteQueries.CreateInstance(TournamentsListViewModel.TournamentsListContext)
                                                 .TryDeleteTournament(tournament);
 
-            if (result == DeleteResult.Success)
-            {
-                _tournamentsListViewModel.UpdateTournamentsList();
-                MessageBox.Show("Турнир успешно удален!", "Удаление турнира", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+        if (result == DeleteResult.Success)
+        {
+            _mainViewModel.UpdateTournamentsList();
+            MessageBox.Show("Турнир успешно удален!", "Удаление турнира", MessageBoxButton.OK,
+                            MessageBoxImage.Information);
 
                 TournamentDeletedEvent.OnTournamentDeleted(new DeleteTournamentEventArgs(tournament));
             }

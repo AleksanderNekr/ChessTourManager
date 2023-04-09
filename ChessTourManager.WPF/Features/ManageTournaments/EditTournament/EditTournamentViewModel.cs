@@ -14,7 +14,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.EditTournament;
 public class EditTournamentViewModel : ViewModelBase
 {
     private static readonly ChessTourContext
-        EditTournamentContext = TournamentsListViewModel.TournamentsListContext;
+        EditTournamentContext = MainViewModel.MainContext;
 
     private ApplyEditTournamentCommand? _applyEditTournamentCommand;
 

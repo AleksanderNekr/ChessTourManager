@@ -19,7 +19,7 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
 public class TreeViewModel : ViewModelBase
 {
-    private static readonly ChessTourContext TreeContext = TournamentsListViewModel.TournamentsListContext;
+    private static readonly ChessTourContext TreeContext = MainViewModel.MainContext;
     private                 Player?          _selectedPlayer;
     private                 Team?            _selectedTeam;
     private                 Tournament?      _selectedTournament;

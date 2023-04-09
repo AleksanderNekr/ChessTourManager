@@ -26,7 +26,7 @@ public class Tests
     private PairsGridViewModel        _pairsGridViewModel;
     private PlayersViewModel          _playersViewModel;
     private RegisterViewModel         _registerViewModel;
-    private TournamentsListViewModel  _tournamentsListViewModel;
+    private MainViewModel  _mainViewModel;
 
     [SetUp]
     public void Setup()
@@ -37,7 +37,7 @@ public class Tests
         _manageTeamsViewModel      = new ManageTeamsViewModel();
         _playersViewModel          = new PlayersViewModel();
         _addPlayerViewModel        = new AddPlayerViewModel();
-        _tournamentsListViewModel  = new TournamentsListViewModel();
+        _mainViewModel  = new MainViewModel();
         _createTournamentViewModel = new CreateTournamentViewModel();
         _registerViewModel         = new RegisterViewModel();
         _loginViewModel            = new LoginViewModel();
@@ -123,8 +123,8 @@ public class Tests
 
     private void OpenTournament(string name)
     {
-        var openTournamentCommand = new OpenTournamentCommand(_tournamentsListViewModel);
-        Tournament tournament = _tournamentsListViewModel
+        var openTournamentCommand = new OpenTournamentCommand(_mainViewModel);
+        Tournament tournament = _mainViewModel
                                .TournamentsCollection
                                .Single(t => t.TournamentName == name);
         openTournamentCommand.Execute(tournament);

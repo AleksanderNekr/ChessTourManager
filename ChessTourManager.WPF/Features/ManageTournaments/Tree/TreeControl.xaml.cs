@@ -39,11 +39,11 @@ public partial class TreeControl
                 break;
             case Team team:
                 ((TreeViewModel)DataContext).SelectedTeam   = team;
-                TournamentsListViewModel.SelectedTournament = team.Tournament;
+                MainViewModel.SelectedTournament = team.Tournament;
                 break;
             case Player player:
                 ((TreeViewModel)DataContext).SelectedPlayer = player;
-                TournamentsListViewModel.SelectedTournament = player.Team?.Tournament;
+                MainViewModel.SelectedTournament = player.Team?.Tournament;
                 break;
         }
     }
@@ -66,7 +66,7 @@ public partial class TreeControl
 
     private void AddTeamMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        TournamentsListViewModel.SelectedTournament = ((TreeViewModel)DataContext).SelectedTournament;
+        MainViewModel.SelectedTournament = ((TreeViewModel)DataContext).SelectedTournament;
         AddTeamWindow addTeamWindow = new();
         addTeamWindow.ShowDialog();
     }
@@ -78,7 +78,7 @@ public partial class TreeControl
 
     private void DeleteTournamentMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-        new DeleteTournamentCommand(new TournamentsListViewModel())
+        new DeleteTournamentCommand(new MainViewModel())
            .Execute(((TreeViewModel)DataContext).SelectedTournament);
     }
 

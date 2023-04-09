@@ -19,7 +19,7 @@ public class ApplyEditTournamentCommand : CommandBase
 
         EditTournamentViewModel.EditingTournament.DateLastChange = DateOnly.FromDateTime(DateTime.UtcNow);
         EditTournamentViewModel.EditingTournament.TimeLastChange = TimeOnly.FromDateTime(DateTime.UtcNow);
-        TournamentsListViewModel.TournamentsListContext.SaveChanges();
+        MainViewModel.MainContext.SaveChanges();
 
         MessageBox.Show("Турнир успешно отредактирован!", "Редактирование турнира",
                         MessageBoxButton.OK, MessageBoxImage.Information);

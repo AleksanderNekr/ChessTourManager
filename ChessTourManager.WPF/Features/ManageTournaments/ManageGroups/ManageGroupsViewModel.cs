@@ -83,14 +83,14 @@ public class ManageGroupsViewModel : ViewModelBase
 
     private void UpdateGroups()
     {
-        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return;
         }
 
         IGetQueries.CreateInstance(GroupsContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.UserId,
-                                 TournamentsListViewModel.SelectedTournament.TournamentId,
+                                 MainViewModel.SelectedTournament.TournamentId,
                                  out List<Group>? groups);
         if (groups is { })
         {

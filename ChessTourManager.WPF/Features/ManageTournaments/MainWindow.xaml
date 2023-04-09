@@ -22,7 +22,7 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowState="Maximized">
     <Window.DataContext>
-        <manageTournaments:TournamentsListViewModel />
+        <manageTournaments:MainViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -52,13 +52,13 @@
                     LoadingRow="DataGrid_LoadingRow"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}">
                     <DataGrid.Columns>
-                        <!-- Button to open tournament -->
                         <DataGridTemplateColumn
                             dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
-                                        Style="{DynamicResource DefaultButtonStyle}"
+                                        Margin="10, 0"
+                                        Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                                         Content="Открыть"
                                         Command="{Binding DataContext.OpenTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -88,12 +88,13 @@
                             Header="Дата изменения"
                             Binding="{Binding DateLastChange,
                             StringFormat={}{0:dd.MM.yyyy}}" />
-                        <!-- Button to edit tournament -->
                         <DataGridTemplateColumn
                             dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
+                                        Margin="5, 0"
+                                        Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                                         Content="Редактировать"
                                         Command="{Binding DataContext.StartEditTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -105,12 +106,13 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <!-- Button to delete tournament -->
                         <DataGridTemplateColumn
                             dgx:DataGridFilterColumn.IsFilterVisible="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
+                                        Margin="5, 0"
+                                        Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                                         Content="Удалить"
                                         Command="{Binding DataContext.DeleteTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -131,7 +133,8 @@
             </TabItem>
             <TabItem
                 Header="{Binding SelectedTournamentObservable.TournamentName,
-                                 FallbackValue=''}"
+                                 FallbackValue=Турнир не выбран,
+                                 Mode=OneWay}"
                 IsEnabled="{Binding IsOpened}"
                 IsSelected="{Binding IsOpened, Mode=OneWay}">
                 <TabControl
@@ -141,7 +144,9 @@
                         <managePlayers:PlayersGridControl
                             HorizontalContentAlignment="Left" />
                     </TabItem>
-                    <TabItem Header="Список команд">
+                    <TabItem
+                        x:Name="TeamTab"
+                        Header="Список команд">
                         <manageTeams:TeamsListControl />
                     </TabItem>
                     <TabItem

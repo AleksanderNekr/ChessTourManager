@@ -15,9 +15,9 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments;
 
-public class TournamentsListViewModel : ViewModelBase
+public class MainViewModel : ViewModelBase
 {
-    internal static readonly ChessTourContext TournamentsListContext = new();
+    internal static readonly ChessTourContext MainContext = new();
 
     private bool                              _isOpened;
     private DeleteTournamentCommand?          _deleteTournamentCommand;
@@ -25,7 +25,7 @@ public class TournamentsListViewModel : ViewModelBase
     private StartEditTournamentCommand?       _startEditTournamentCommand;
     private ObservableCollection<Tournament>? _tournamentsCollection;
 
-    public TournamentsListViewModel()
+    public MainViewModel()
     {
         TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
@@ -73,7 +73,7 @@ public class TournamentsListViewModel : ViewModelBase
         get { return _startEditTournamentCommand ??= new StartEditTournamentCommand(); }
     }
 
-    private void TournamentDeletedEvent_TournamentDeleted(DeleteTournamentEventArgs e)
+    private void TournamentDeletedEvent_TournamentDeleted(object source, DeleteTournamentEventArgs e)
     {
         UpdateTournamentsList();
         if (OpenedTournament?.Equals(e.DeletedTournament) ?? false)
@@ -82,12 +82,12 @@ public class TournamentsListViewModel : ViewModelBase
         }
     }
 
-    private void TournamentEditedEvent_TournamentEdited(TournamentEditedEventArgs e)
+    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs e)
     {
         UpdateTournamentsList();
     }
 
-    private void TournamentCreatedEvent_TournamentCreated(TournamentCreatedEventArgs e)
+    private void TournamentCreatedEvent_TournamentCreated(object source, TournamentCreatedEventArgs e)
     {
         UpdateTournamentsList();
     }
@@ -99,7 +99,7 @@ public class TournamentsListViewModel : ViewModelBase
             return;
         }
 
-        GetResult result = IGetQueries.CreateInstance(TournamentsListContext)
+        GetResult result = IGetQueries.CreateInstance(MainContext)
                                       .TryGetTournaments(LoginViewModel.CurrentUser.UserId,
                                                          out List<Tournament>? tournamentsCollection);
 
@@ -117,7 +117,7 @@ public class TournamentsListViewModel : ViewModelBase
         }
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
         OpenedTournament = e.OpenedTournament;
         OnPropertyChanged(nameof(SelectedTournamentObservable));

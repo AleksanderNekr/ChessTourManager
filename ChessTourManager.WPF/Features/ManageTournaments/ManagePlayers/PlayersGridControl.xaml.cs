@@ -20,6 +20,9 @@ public partial class PlayersGridControl
         TeamColumn.Visibility = e.OpenedTournament.Kind.KindName == "single"
                                     ? Visibility.Collapsed
                                     : Visibility.Visible;
+        ((MainWindow)Window.GetWindow(this)).TeamTab.Visibility = e.OpenedTournament.Kind.KindName == "single"
+                                                                      ? Visibility.Collapsed
+                                                                      : Visibility.Visible;
     }
 
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)

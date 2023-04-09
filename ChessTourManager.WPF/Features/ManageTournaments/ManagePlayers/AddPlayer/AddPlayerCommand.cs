@@ -8,7 +8,7 @@ public class AddPlayerCommand : CommandBase
 {
     public override void Execute(object? parameter)
     {
-        if (TournamentsListViewModel.SelectedTournament == null)
+        if (MainViewModel.SelectedTournament == null)
         {
             return;
         }

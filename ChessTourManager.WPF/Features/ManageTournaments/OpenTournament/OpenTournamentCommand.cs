@@ -5,20 +5,20 @@ namespace ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
 public class OpenTournamentCommand : CommandBase
 {
-    private readonly TournamentsListViewModel _tournamentsListViewModel;
+    private readonly MainViewModel _mainViewModel;
 
-    public OpenTournamentCommand(TournamentsListViewModel tournamentsListViewModel)
+    public OpenTournamentCommand(MainViewModel mainViewModel)
     {
-        _tournamentsListViewModel = tournamentsListViewModel;
+        _mainViewModel = mainViewModel;
     }
 
     public override void Execute(object? parameter)
     {
         if (parameter is Tournament tournament)
         {
-            TournamentsListViewModel.SelectedTournament = tournament;
-            _tournamentsListViewModel.IsOpened          = true;
-            TournamentOpenedEvent.OnTournamentOpened(new TournamentOpenedEventArgs(tournament));
+            MainViewModel.SelectedTournament = tournament;
+            _mainViewModel.IsOpened          = true;
+            TournamentOpenedEvent.OnTournamentOpened(this, new TournamentOpenedEventArgs(tournament));
         }
     }
 }

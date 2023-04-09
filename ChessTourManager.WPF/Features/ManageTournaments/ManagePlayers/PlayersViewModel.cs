@@ -50,7 +50,7 @@ public class PlayersViewModel : ViewModelBase
                 return _playersCollection;
             }
 
-            if (TournamentsListViewModel.SelectedTournament == null)
+            if (MainViewModel.SelectedTournament == null)
             {
                 return new ObservableCollection<Player>();
             }
@@ -194,14 +194,14 @@ public class PlayersViewModel : ViewModelBase
 
     internal void UpdateTeams()
     {
-        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
             return;
         }
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
-                                           TournamentsListViewModel.SelectedTournament.TournamentId,
+                                           MainViewModel.SelectedTournament.TournamentId,
                                            out List<Team>? teams);
 
         SetField(ref _teamsAvailable, new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>()));
@@ -209,14 +209,14 @@ public class PlayersViewModel : ViewModelBase
 
     internal void UpdateGroups()
     {
-        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
             return;
         }
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.UserId,
-                                 TournamentsListViewModel.SelectedTournament.TournamentId,
+                                 MainViewModel.SelectedTournament.TournamentId,
                                  out List<Group>? groups);
 
         SetField(ref _groupsAvailable, new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>()));
@@ -252,14 +252,14 @@ public class PlayersViewModel : ViewModelBase
 
     internal void UpdatePlayers()
     {
-        if (LoginViewModel.CurrentUser is null || TournamentsListViewModel.SelectedTournament is null)
+        if (LoginViewModel.CurrentUser is null || MainViewModel.SelectedTournament is null)
         {
             return;
         }
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
-                                                    TournamentsListViewModel.SelectedTournament.TournamentId,
+                                                    MainViewModel.SelectedTournament.TournamentId,
                                                     out List<Player>? players);
 
         if (players is { })
