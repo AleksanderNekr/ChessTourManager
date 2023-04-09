@@ -114,13 +114,17 @@ public class PairsGridViewModel : ViewModelBase
         }
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(TournamentOpenedEventArgs e)
+    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
-        OpenedTournament = e.OpenedTournament;
-        if (OpenedTournament != null)
+        if (e.OpenedTournament is null)
         {
-            ToursAmount = OpenedTournament.ToursCount;
+            return;
         }
+
+        ResetProperties();
+
+        OpenedTournament = e.OpenedTournament;
+        ToursAmount      = OpenedTournament.ToursCount;
 
         UpdateGames();
         if (_games?.Count > 0)
@@ -129,8 +133,19 @@ public class PairsGridViewModel : ViewModelBase
             SelectedTour = CurrentTour;
         }
 
-        SetField(ref _startNewTour, new StartNewTourCommand(this), nameof(StartNewTour));
+        _startNewTour            =  new StartNewTourCommand(this);
+        TourAddedEvent.TourAdded -= TourAddedEvent_TourAdded;
         TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
+    }
+
+    private void ResetProperties()
+    {
+        OpenedTournament = null;
+        ToursAmount      = 0;
+        CurrentTour      = 0;
+        SelectedTour     = 0;
+        _games           = null;
+        _startNewTour    = null;
     }
 
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs e)
@@ -145,6 +160,8 @@ public class PairsGridViewModel : ViewModelBase
         IGetQueries.CreateInstance(PairsContext)
                    .TryGetGames(OpenedTournament.OrganizerId, OpenedTournament.TournamentId,
                                 out List<Game>? games);
-        _games = games;
+
+        _games = games?.OrderByDescending(game => game.PlayerWhite.PointsCount + game.PlayerBlack.PointsCount)
+                       .ToList();
     }
 }
