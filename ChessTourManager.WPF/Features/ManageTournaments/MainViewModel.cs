@@ -76,7 +76,7 @@ public class MainViewModel : ViewModelBase
     private void TournamentDeletedEvent_TournamentDeleted(object source, DeleteTournamentEventArgs e)
     {
         UpdateTournamentsList();
-        if (OpenedTournament?.Equals(e.DeletedTournament) ?? false)
+        if (SelectedTournament?.Equals(e.DeletedTournament) ?? false)
         {
             IsOpened = false;
         }
@@ -116,9 +116,6 @@ public class MainViewModel : ViewModelBase
 
     private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
-        OpenedTournament = e.OpenedTournament;
         OnPropertyChanged(nameof(SelectedTournamentObservable));
     }
-
-    private Tournament? OpenedTournament { get; set; }
 }

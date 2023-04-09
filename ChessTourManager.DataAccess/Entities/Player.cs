@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
@@ -7,11 +8,11 @@ namespace ChessTourManager.DataAccess.Entities;
 
 public class Player : INotifyPropertyChanged
 {
-    private string?    _playerLastName  = null!;
-    private string?    _playerFirstName = null!;
+    private string?    _playerLastName;
+    private string?    _playerFirstName;
     private char       _gender;
-    private string     _playerAttribute = null!;
-    private int        _playerBirthYear = 2000;
+    private string?    _playerAttribute;
+    private int        _playerBirthYear = DateTime.Now.Year - 10;
     private bool?      _isActive;
     private double     _pointsCount;
     private int        _winsCount;
@@ -24,7 +25,7 @@ public class Player : INotifyPropertyChanged
     private int?       _groupId;
     private Group?     _group;
     private Team?      _team;
-    private Tournament _tournament = null!;
+    private Tournament _tournament;
     public  int        PlayerId { get; set; }
 
     public int TournamentId { get; set; }
