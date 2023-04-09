@@ -13,13 +13,13 @@ public class EditTeamViewModel : ViewModelBase
     public EditTeamViewModel(Team? team)
     {
         Team        = team;
-        SaveCommand = new SaveTeamCommand(this);
+        SaveCommand = new CompleteEditTeamCommand(this);
     }
 
     public EditTeamViewModel()
     {
         Team        = null;
-        SaveCommand = new SaveTeamCommand(this);
+        SaveCommand = new CompleteEditTeamCommand(this);
     }
 
     internal Team? Team { get; }
@@ -32,7 +32,7 @@ public class EditTeamViewModel : ViewModelBase
 
     public string Attribute
     {
-        get { return _attribute ??= Team?.TeamAttribute ?? "---"; }
+        get { return _attribute ??= Team?.TeamAttribute ?? string.Empty; }
         set { SetField(ref _attribute, value); }
     }
 
