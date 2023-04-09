@@ -29,7 +29,7 @@ public class ManageTeamsViewModel : ViewModelBase
         EditTeamCommand                        =  new EditTeamCommand();
         TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
-        TeamEditedEvent.TeamEdited             += TeamEditedEventTeamEdited;
+        TeamChangedEvent.TeamEdited             += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
     }
 

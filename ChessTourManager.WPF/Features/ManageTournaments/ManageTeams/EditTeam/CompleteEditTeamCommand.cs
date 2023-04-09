@@ -49,13 +49,14 @@ public class CompleteEditTeamCommand : CommandBase
 
             ManageTeamsViewModel.TeamsContext.SaveChanges();
 
-            TeamEditedEvent.OnTeamChanged(this, new TeamChangedEventArgs(_editTeamViewModel.Team));
+            TeamChangedEvent.OnTeamChanged(this, new TeamChangedEventArgs(_editTeamViewModel.Team));
             MessageBox.Show("Изменения в команде успешно сохранены!", "Сохранение изменений",
                             MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception e)
         {
-            MessageBox.Show("Не удалось сохранить изменения в команде!\n" + e.Message,
+            MessageBox.Show("Не удалось сохранить изменения в команде!\n"
+                          + "Возможнно команда с таким именем уже существует",
                             "Ошибка сохранения", MessageBoxButton.OK,
                             MessageBoxImage.Error);
         }

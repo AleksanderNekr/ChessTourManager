@@ -7,7 +7,7 @@ public partial class TeamsListControl
     public TeamsListControl()
     {
         InitializeComponent();
-        TeamEditedEvent.TeamEdited += TeamEditedEventTeamEdited;
+        TeamChangedEvent.TeamEdited += TeamEditedEventTeamEdited;
     }
 
     private void TeamEditedEventTeamEdited(object source, TeamChangedEventArgs teamChangedEventArgs)

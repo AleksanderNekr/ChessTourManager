@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
-public static class TeamEditedEvent
+public static class TeamChangedEvent
 {
     public delegate void TeamChangedHandler(object source, TeamChangedEventArgs e);
 
