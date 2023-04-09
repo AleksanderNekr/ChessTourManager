@@ -33,7 +33,7 @@ public class TreeViewModel : ViewModelBase
         TournamentDeletedEvent.TournamentDeleted += TournamentDeletedEvent_TournamentDeleted;
 
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamEditedEvent.TeamEdited   += TeamChangedEvent_TeamChanged;
+        TeamChangedEvent.TeamEdited   += TeamChangedEvent_TeamChanged;
         TeamDeletedEvent.TeamDeleted += TeamChangedEvent_TeamDeleted;
 
         PlayerAddedEvent.PlayerAdded     += PlayerChangedEvent_PlayerAdded;

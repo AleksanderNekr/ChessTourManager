@@ -8,6 +8,7 @@ using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames.Navigation;
 using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 using ChessTourManager.WPF.Helpers;
 
@@ -136,6 +137,14 @@ public class PairsGridViewModel : ViewModelBase
         _startNewTour            =  new StartNewTourCommand(this);
         TourAddedEvent.TourAdded -= TourAddedEvent_TourAdded;
         TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
+
+        PlayerEditedEvent.PlayerEdited -= PlayerEditedEvent_PlayerEdited;
+        PlayerEditedEvent.PlayerEdited += PlayerEditedEvent_PlayerEdited;
+    }
+
+    private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs e)
+    {
+        OnPropertyChanged(nameof(GamesForSelectedTour));
     }
 
     private void ResetProperties()
@@ -163,5 +172,6 @@ public class PairsGridViewModel : ViewModelBase
 
         _games = games?.OrderByDescending(game => game.PlayerWhite.PointsCount + game.PlayerBlack.PointsCount)
                        .ToList();
+        OnPropertyChanged(nameof(GamesForSelectedTour));
     }
 }
