@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.WPF.Helpers;
@@ -30,8 +31,18 @@ public class DeleteGroupCommand : CommandBase
             return;
         }
 
-        _context.Groups.Remove(group);
-        _context.SaveChanges();
-        GroupDeletedEvent.OnGroupDeleted(new GroupDeletedEventArgs(group));
+        try
+        {
+            _context.Groups.Remove(group);
+            _context.SaveChanges();
+            GroupDeletedEvent.OnGroupDeleted(this, new GroupDeletedEventArgs(group));
+            MessageBox.Show($"Группа {group.GroupName} успешно удалена!", "Удаление группы",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show($"Не удалось удалить группу! Возможно группа уже удалена. {e.Message}",
+                            "Удаление группы", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

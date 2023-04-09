@@ -1,4 +1,6 @@
-﻿using ChessTourManager.DataAccess.Entities;
+﻿using System;
+using System.Windows;
+using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.WPF.Helpers;
 
@@ -13,10 +15,18 @@ public class AddPlayerCommand : CommandBase
             return;
         }
 
-        IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
-                      .TryAddPlayer(out Player? player, TournamentsListViewModel.SelectedTournament.TournamentId,
-                                    TournamentsListViewModel.SelectedTournament.OrganizerId,
-                                    "", "");
-        PlayerAddedEvent.OnPlayerAdded(new PlayerAddedEventArgs(player));
+        InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                            .TryAddPlayer(out Player? player,
+                                                          MainViewModel.SelectedTournament.TournamentId,
+                                                          MainViewModel.SelectedTournament.OrganizerId,
+                                                          string.Empty, string.Empty);
+        if (result == InsertResult.Fail)
+        {
+            MessageBox.Show("Не удалось добавить игрока! Возможно игрок с такими данными уже существует",
+                            "Добавление игрока", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        PlayerAddedEvent.OnPlayerAdded(this, new PlayerAddedEventArgs(player));
     }
 }

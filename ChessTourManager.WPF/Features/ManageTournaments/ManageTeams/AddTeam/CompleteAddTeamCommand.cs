@@ -18,21 +18,26 @@ public class CompleteAddTeamCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return;
         }
 
-        IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext).TryAddTeam(out Team? team,
-            LoginViewModel.CurrentUser.UserId,
-            TournamentsListViewModel.SelectedTournament.TournamentId,
-            _manageTeamsViewModel.TeamName);
+        InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                            .TryAddTeam(out Team? team,
+                                                        LoginViewModel.CurrentUser.UserId,
+                                                        MainViewModel.SelectedTournament.TournamentId,
+                                                        _manageTeamsViewModel.TeamName);
 
-        if (team is { })
+        if (result == InsertResult.Fail)
         {
-            MessageBox.Show("Команда успешно добавлена!", "Добавление команды", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-            TeamAddedEvent.OnTeamAdded(new TeamAddedEventArgs(team));
+            MessageBox.Show("Не удалось добавить команду! Возможно команда с такими данными уже существует",
+                            "Добавление команды", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
         }
+
+        MessageBox.Show("Команда успешно добавлена!", "Добавление команды", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+        TeamAddedEvent.OnTeamAdded(this, new TeamAddedEventArgs(team));
     }
 }

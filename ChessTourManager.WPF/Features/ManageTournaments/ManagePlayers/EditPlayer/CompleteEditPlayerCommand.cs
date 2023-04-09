@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.EditPlayer;
@@ -28,17 +29,25 @@ public class CompleteEditPlayerCommand : CommandBase
             return;
         }
 
-        _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName?.Trim();
-        _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName?.Trim();
-        _editPlayerViewModel.Player.Gender          = _editPlayerViewModel.Gender;
+        try
+        {
+            _editPlayerViewModel.Player.PlayerFirstName = _editPlayerViewModel.PlayerFirstName?.Trim();
+            _editPlayerViewModel.Player.PlayerLastName  = _editPlayerViewModel.PlayerLastName?.Trim();
+            _editPlayerViewModel.Player.Gender          = _editPlayerViewModel.Gender;
 
-        PlayersViewModel.PlayersContext.Players.Update(_editPlayerViewModel.Player);
+            PlayersViewModel.PlayersContext.Players.Update(_editPlayerViewModel.Player);
 
-        PlayersViewModel.PlayersContext.SaveChanges();
+            PlayersViewModel.PlayersContext.SaveChanges();
 
-        MessageBox.Show("Игрок успешно отредактирован!", "Редактирование игрока",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Игрок успешно отредактирован!", "Редактирование игрока",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
 
-        PlayerEditedEvent.OnPlayerEdited(new PlayerEditedEventArgs(_editPlayerViewModel.Player));
+            PlayerEditedEvent.OnPlayerEdited(this, new PlayerEditedEventArgs(_editPlayerViewModel.Player));
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show("Не удалось отредактировать игрока!\n" + e.Message, "Редактирование игрока",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

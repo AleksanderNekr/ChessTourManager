@@ -14,14 +14,17 @@ public class DeletePlayerCommand : CommandBase
             return;
         }
 
-        DeleteResult response = IDeleteQueries.CreateInstance(PlayersViewModel.PlayersContext)
-                                              .TryDeletePlayer(player);
-        if (response == DeleteResult.Success)
+        DeleteResult result = IDeleteQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                            .TryDeletePlayer(player);
+        if (result == DeleteResult.Success)
         {
-            PlayerDeletedEvent.OnPlayerDeleted(new PlayerDeletedEventArgs(player));
-
             MessageBox.Show("Игрок успешно удален!", "Удаление игрока",
                             MessageBoxButton.OK, MessageBoxImage.Information);
+            PlayerDeletedEvent.OnPlayerDeleted(this, new PlayerDeletedEventArgs(player));
+            return;
         }
+
+        MessageBox.Show("Не удалось удалить игрока! Возможно игрок уже удален", "Удаление игрока",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

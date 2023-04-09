@@ -18,12 +18,8 @@ public class CreateTournamentCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (LoginViewModel.CurrentUser == null)
-        {
-            return;
-        }
-
-        if (_createViewModel is not { SelectedTournamentSystem: { }, SelectedTournamentKind: { } })
+        if (LoginViewModel.CurrentUser == null
+         || _createViewModel is not { SelectedTournamentSystem: { }, SelectedTournamentKind: { } })
         {
             return;
         }
@@ -48,13 +44,10 @@ public class CreateTournamentCommand : CommandBase
                                                _createViewModel.OrgNameText?.Trim(),
                                                _createViewModel.IsMixedGroupsAllowed
                                               );
-        if (result != InsertResult.Success)
+        if (result == InsertResult.Fail)
         {
-            return;
-        }
-
-        if (tournament is null)
-        {
+            MessageBox.Show("Не удалось создать турнир! Возможно турнир с такими данными уже существует",
+                            "Создание турнира", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 

@@ -17,26 +17,30 @@ public class CompleteAddPlayerCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return;
         }
 
-        IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
-                      .TryAddPlayer(out Player? player,
-                                    TournamentsListViewModel.SelectedTournament.TournamentId,
-                                    LoginViewModel.CurrentUser.UserId,
-                                    _addPlayerViewModel.PlayerLastName.Trim(),
-                                    _addPlayerViewModel.PlayerFirstName.Trim(),
-                                    _addPlayerViewModel.Gender,
-                                    teamId: _addPlayerViewModel.Team?.TeamId);
+        InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                            .TryAddPlayer(out Player? player,
+                                                          MainViewModel.SelectedTournament.TournamentId,
+                                                          LoginViewModel.CurrentUser.UserId,
+                                                          _addPlayerViewModel.PlayerLastName.Trim(),
+                                                          _addPlayerViewModel.PlayerFirstName.Trim(),
+                                                          _addPlayerViewModel.Gender,
+                                                          teamId: _addPlayerViewModel.Team?.TeamId);
 
 
-        if (player is { })
+        if (result == InsertResult.Fail)
         {
-            MessageBox.Show("Игрок успешно добавлен!", "Добавление игрока", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-            PlayerAddedEvent.OnPlayerAdded(new PlayerAddedEventArgs(player));
+            MessageBox.Show("Не удалось добавить игрока! Возможно игрок с такими данными уже существует",
+                            "Добавление игрока", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
         }
+
+        MessageBox.Show("Игрок успешно добавлен!", "Добавление игрока", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+        PlayerAddedEvent.OnPlayerAdded(this, new PlayerAddedEventArgs(player));
     }
 }

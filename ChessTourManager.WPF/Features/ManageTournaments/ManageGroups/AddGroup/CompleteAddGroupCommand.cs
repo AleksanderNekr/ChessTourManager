@@ -18,20 +18,27 @@ public class CompleteAddGroupCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        if (TournamentsListViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return;
         }
 
-        IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext).TryAddGroup(out Group? group,
-            LoginViewModel.CurrentUser.UserId, TournamentsListViewModel.SelectedTournament.TournamentId,
-            _manageGroupsViewModel.GroupName, _manageGroupsViewModel.GroupIdentifier);
+        InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
+                                            .TryAddGroup(out Group? group,
+                                                         LoginViewModel.CurrentUser.UserId,
+                                                         MainViewModel.SelectedTournament.TournamentId,
+                                                         _manageGroupsViewModel.GroupName,
+                                                         _manageGroupsViewModel.GroupIdentifier);
 
-        if (group is { })
+        if (result == InsertResult.Fail)
         {
-            MessageBox.Show("Группа успешно добавлена!", "Добавление группы", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-            GroupAddedEvent.OnGroupAdded(new GroupAddedEventArgs(group));
+            MessageBox.Show("Не удалось добавить группу! Возможно группа с такими данными уже существует",
+                            "Добавление группы", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
         }
+
+        MessageBox.Show("Группа успешно добавлена!", "Добавление группы", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+        GroupAddedEvent.OnGroupAdded(this, new GroupAddedEventArgs(group));
     }
 }

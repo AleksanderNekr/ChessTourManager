@@ -16,18 +16,16 @@ public class DeleteTournamentCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        MessageBoxResult questResult = MessageBox.Show("Вы действительно хотите удалить турнир?", "Удаление турнира",
-                                                       MessageBoxButton.YesNo, MessageBoxImage.Question);
+        MessageBoxResult boxResult = MessageBox.Show("Вы действительно хотите удалить турнир?", "Удаление турнира",
+                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-        if (questResult == MessageBoxResult.No)
+        if (boxResult == MessageBoxResult.No || parameter is not Tournament tournament)
         {
             return;
         }
 
-        if (parameter is Tournament tournament)
-        {
-            DeleteResult result = IDeleteQueries.CreateInstance(TournamentsListViewModel.TournamentsListContext)
-                                                .TryDeleteTournament(tournament);
+        DeleteResult result = IDeleteQueries.CreateInstance(MainViewModel.MainContext)
+                                            .TryDeleteTournament(tournament);
 
         if (result == DeleteResult.Success)
         {
@@ -35,8 +33,11 @@ public class DeleteTournamentCommand : CommandBase
             MessageBox.Show("Турнир успешно удален!", "Удаление турнира", MessageBoxButton.OK,
                             MessageBoxImage.Information);
 
-                TournamentDeletedEvent.OnTournamentDeleted(new DeleteTournamentEventArgs(tournament));
-            }
+            TournamentDeletedEvent.OnTournamentDeleted(this, new DeleteTournamentEventArgs(tournament));
+            return;
         }
+
+        MessageBox.Show("Не удалось удалить турнир! Возможно турнир уже удален", "Удаление турнира",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
