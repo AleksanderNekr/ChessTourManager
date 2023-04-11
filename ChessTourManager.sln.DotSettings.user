@@ -9,6 +9,10 @@
 	
 	<s:Boolean x:Key="/Default/Environment/InlayHints/GeneralInlayHintsOptions/EnableInlayHints/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=03d8e5a5_002D9637_002D4a0c_002D80db_002D0457488da8d8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InsertQueriesTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
+  &lt;Not&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::35FDD597-F9DF-4076-95ED-C19554968885::net6.0-windows10.0.22621::ChessTourManager.UnitTests.InsertQueriesTests.TryAddUser_WhenUserIsNull_ReturnsUserIsNull&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Not&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

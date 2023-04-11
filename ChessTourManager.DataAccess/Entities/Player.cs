@@ -138,13 +138,13 @@ public class Player : INotifyPropertyChanged
         set { SetField(ref _group, value); }
     }
 
-    public virtual Team? Team
+    public Team? Team
     {
         get { return _team; }
         set { SetField(ref _team, value); }
     }
 
-    public virtual Tournament Tournament
+    public Tournament Tournament
     {
         get { return _tournament; }
         set { SetField(ref _tournament, value); }

@@ -19,31 +19,28 @@ internal class InsertQueries : IInsertQueries
                                    string    patronymic       = "-",
                                    int       tournamentsLimit = 50)
     {
+        user = new User
+               {
+                   UserLastName   = lastName,
+                   UserFirstName  = firstName,
+                   Email          = email,
+                   PassHash       = PasswordHasher.HashPassword(password),
+                   UserPatronymic = patronymic,
+                   TournamentsLim = tournamentsLimit,
+                   RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
+                   RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
+               };
         try
         {
-            user = new User
-                   {
-                       UserLastName   = lastName,
-                       UserFirstName  = firstName,
-                       Email          = email,
-                       PassHash       = PasswordHasher.HashPassword(password),
-                       UserPatronymic = patronymic,
-                       TournamentsLim = tournamentsLimit,
-                       RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
-                       RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
-                   };
+            _context.Entry(user).State = EntityState.Detached;
             _context.Users.Add(user);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
-            user = null;
-            return InsertResult.Fail;
-        }
-        catch (Exception e)
-        {
-            user = null;
+            _context.Entry(user).State = EntityState.Detached;
+            user                       = null;
             return InsertResult.Fail;
         }
     }
@@ -59,41 +56,34 @@ internal class InsertQueries : IInsertQueries
                                          string?         organizationName    = "-",
                                          bool            isMixedGroups       = true)
     {
+        tournamentDateStart ??= DateOnly.FromDateTime(DateTime.UtcNow);
+        tournamentTimeStart ??= TimeOnly.FromDateTime(DateTime.UtcNow);
+        addedTournament = new Tournament
+                          {
+                              OrganizerId      = organiserId,
+                              TournamentName   = tournamentName,
+                              SystemId         = systemId,
+                              KindId           = kindId,
+                              ToursCount       = toursCount,
+                              Place            = place,
+                              DateStart        = (DateOnly)tournamentDateStart,
+                              TimeStart        = (TimeOnly)tournamentTimeStart,
+                              Duration         = duration,
+                              MaxTeamPlayers   = maxTeamPlayers,
+                              OrganizationName = organizationName,
+                              IsMixedGroups    = isMixedGroups
+                          };
         try
         {
-            tournamentDateStart ??= DateOnly.FromDateTime(DateTime.UtcNow);
-
-            tournamentTimeStart ??= TimeOnly.FromDateTime(DateTime.UtcNow);
-
-
-            addedTournament = new Tournament
-                              {
-                                  OrganizerId      = organiserId,
-                                  TournamentName   = tournamentName,
-                                  SystemId         = systemId,
-                                  KindId           = kindId,
-                                  ToursCount       = toursCount,
-                                  Place            = place,
-                                  DateStart        = (DateOnly)tournamentDateStart,
-                                  TimeStart        = (TimeOnly)tournamentTimeStart,
-                                  Duration         = duration,
-                                  MaxTeamPlayers   = maxTeamPlayers,
-                                  OrganizationName = organizationName,
-                                  IsMixedGroups    = isMixedGroups
-                              };
-
+            _context.Entry(addedTournament).State = EntityState.Detached;
             _context.Tournaments.Add(addedTournament);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
-            addedTournament = null;
-            return InsertResult.Fail;
-        }
-        catch (Exception e)
-        {
-            addedTournament = null;
+            _context.Entry(addedTournament).State = EntityState.Detached;
+            addedTournament                       = null;
             return InsertResult.Fail;
         }
     }
@@ -108,35 +98,31 @@ internal class InsertQueries : IInsertQueries
                                      int?        groupId     = null,
                                      bool        isActive    = true)
     {
+        addedPlayer = new Player
+                      {
+                          TournamentId    = tournamentId,
+                          OrganizerId     = organiserId,
+                          PlayerLastName  = lastName,
+                          PlayerFirstName = firstName,
+                          Gender          = gender,
+                          PlayerAttribute = attribute,
+                          PlayerBirthYear = birthYear,
+                          BoardNumber     = boardNumber,
+                          TeamId          = teamId,
+                          GroupId         = groupId,
+                          IsActive        = isActive
+                      };
         try
         {
-            addedPlayer = new Player
-                          {
-                              TournamentId    = tournamentId,
-                              OrganizerId     = organiserId,
-                              PlayerLastName  = lastName,
-                              PlayerFirstName = firstName,
-                              Gender          = gender,
-                              PlayerAttribute = attribute,
-                              PlayerBirthYear = birthYear,
-                              BoardNumber     = boardNumber,
-                              TeamId          = teamId,
-                              GroupId         = groupId,
-                              IsActive        = isActive
-                          };
-
+            _context.Entry(addedPlayer).State = EntityState.Detached;
             _context.Players.Add(addedPlayer);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
-            addedPlayer = null;
-            return InsertResult.Fail;
-        }
-        catch (Exception e)
-        {
-            addedPlayer = null;
+            _context.Entry(addedPlayer).State = EntityState.Detached;
+            addedPlayer                       = null;
             return InsertResult.Fail;
         }
     }
@@ -144,28 +130,25 @@ internal class InsertQueries : IInsertQueries
     public InsertResult TryAddTeam(out Team? addedTeam,       int    organiserId, int tournamentId, string name,
                                    bool      isActive = true, string attribute = "-")
     {
+        addedTeam = new Team
+                    {
+                        OrganizerId   = organiserId,
+                        TournamentId  = tournamentId,
+                        TeamName      = name,
+                        TeamAttribute = attribute,
+                        IsActive      = isActive
+                    };
         try
         {
-            addedTeam = new Team
-                        {
-                            OrganizerId   = organiserId,
-                            TournamentId  = tournamentId,
-                            TeamName      = name,
-                            TeamAttribute = attribute,
-                            IsActive      = isActive
-                        };
+            _context.Entry(addedTeam).State = EntityState.Detached;
             _context.Teams.Add(addedTeam);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
-            addedTeam = null;
-            return InsertResult.Fail;
-        }
-        catch (Exception e)
-        {
-            addedTeam = null;
+            _context.Entry(addedTeam).State = EntityState.Detached;
+            addedTeam                       = null;
             return InsertResult.Fail;
         }
     }
@@ -174,27 +157,24 @@ internal class InsertQueries : IInsertQueries
                                     string     name     = "1",
                                     string     identity = "1")
     {
+        addedGroup = new Group
+                     {
+                         OrganizerId  = organiserId,
+                         TournamentId = tournamentId,
+                         GroupName    = name,
+                         Identity     = identity
+                     };
         try
         {
-            addedGroup = new Group
-                         {
-                             OrganizerId  = organiserId,
-                             TournamentId = tournamentId,
-                             GroupName    = name,
-                             Identity     = identity
-                         };
+            _context.Entry(addedGroup).State = EntityState.Detached;
             _context.Groups.Add(addedGroup);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
+        catch (Exception)
         {
-            addedGroup = null;
-            return InsertResult.Fail;
-        }
-        catch (Exception e)
-        {
-            addedGroup = null;
+            _context.Entry(addedGroup).State = EntityState.Detached;
+            addedGroup                       = null;
             return InsertResult.Fail;
         }
     }
@@ -203,33 +183,28 @@ internal class InsertQueries : IInsertQueries
                                        int tourNumber,
                                        int whitePointsResult = 0, int blackPointsResult = 0, bool isPlayed = false)
     {
+        game = new Game
+               {
+                   WhiteId      = whiteId,
+                   BlackId      = blackId,
+                   TournamentId = tournamentId,
+                   OrganizerId  = organizerId,
+                   TourNumber   = tourNumber,
+                   WhitePoints  = whitePointsResult,
+                   BlackPoints  = blackPointsResult,
+                   IsPlayed     = isPlayed
+               };
         try
         {
-            game = new Game
-                   {
-                       WhiteId      = whiteId,
-                       BlackId      = blackId,
-                       TournamentId = tournamentId,
-                       OrganizerId  = organizerId,
-                       TourNumber   = tourNumber,
-                       WhitePoints  = whitePointsResult,
-                       BlackPoints  = blackPointsResult,
-                       IsPlayed     = isPlayed
-                   };
-            // Untrack game
             _context.Entry(game).State = EntityState.Detached;
             _context.Games.Add(game);
             _context.SaveChanges();
             return InsertResult.Success;
         }
-        catch (DbUpdateException)
-        {
-            game = null;
-            return InsertResult.Fail;
-        }
         catch (Exception)
         {
-            game = null;
+            _context.Entry(game).State = EntityState.Detached;
+            game                       = null;
             return InsertResult.Fail;
         }
     }
