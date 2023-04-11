@@ -10,6 +10,7 @@ public partial class AddTeamWindow
 
     private void TeamAddedEvent_TeamAdded(object source, TeamAddedEventArgs teamAddedEventArgs)
     {
+        TeamAddedEvent.TeamAdded -= TeamAddedEvent_TeamAdded;
         Close();
     }
 }

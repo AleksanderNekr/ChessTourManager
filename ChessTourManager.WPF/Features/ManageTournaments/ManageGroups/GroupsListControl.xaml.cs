@@ -1,8 +1,9 @@
-﻿using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
+﻿using System;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups;
 
-public partial class GroupsListControl
+public partial class GroupsListControl : IDisposable
 {
     public GroupsListControl()
     {
@@ -12,7 +13,12 @@ public partial class GroupsListControl
 
     private void GroupChangedEvent_GroupChanged(object source, GroupChangedEventArgs groupChangedEventArgs)
     {
-        // Update tree view
         TreeView.Items.Refresh();
+    }
+
+    public void Dispose()
+    {
+        GroupChangedEvent.GroupChanged -= GroupChangedEvent_GroupChanged;
+        ((IDisposable)DataContext).Dispose();
     }
 }

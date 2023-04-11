@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -14,23 +15,19 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 
-public class ManageTeamsViewModel : ViewModelBase
+public class ManageTeamsViewModel : ViewModelBase, IDisposable
 {
-    internal static readonly ChessTourContext TeamsContext = PlayersViewModel.PlayersContext;
-    private                  AddTeamCommand?  _addTeamCommand;
-    private                  string?          _teamName;
+    private string? _teamName;
 
+    private AddTeamCommand?             _addTeamCommand;
     private ObservableCollection<Team>? _teamsWithPlayers;
+    private CompleteAddTeamCommand?     _completeAddTeam;
+    private DeleteTeamCommand?          _deleteTeamCommand;
+    private EditTeamCommand?            _editTeamCommand;
 
     public ManageTeamsViewModel()
     {
-        CompleteAddTeam                        =  new CompleteAddTeamCommand(this);
-        DeleteTeamCommand                      =  new DeleteTeamCommand();
-        EditTeamCommand                        =  new EditTeamCommand();
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
-        TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamEdited             += TeamEditedEventTeamEdited;
-        TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
+        Subscribe();
     }
 
     public ObservableCollection<Team>? TeamsWithPlayers
@@ -50,9 +47,20 @@ public class ManageTeamsViewModel : ViewModelBase
         set { SetField(ref _teamName, value); }
     }
 
-    public ICommand CompleteAddTeam   { get; }
-    public ICommand DeleteTeamCommand { get; }
-    public ICommand EditTeamCommand   { get; }
+    public ICommand CompleteAddTeam
+    {
+        get { return _completeAddTeam ??= new CompleteAddTeamCommand(this); }
+    }
+
+    public ICommand DeleteTeamCommand
+    {
+        get { return _deleteTeamCommand ??= new DeleteTeamCommand(); }
+    }
+
+    public ICommand EditTeamCommand
+    {
+        get { return _editTeamCommand ??= new EditTeamCommand(); }
+    }
 
     private void TeamDeletedEvent_TeamDeleted(object source, TeamDeletedEventArgs teamDeletedEventArgs)
     {
@@ -69,9 +77,26 @@ public class ManageTeamsViewModel : ViewModelBase
         UpdateTeams();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
+    private void TournamentOpenedEvent_TournamentOpened(object                    source,
+                                                        TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         UpdateTeams();
+    }
+
+    private void Subscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        TeamAddedEvent.TeamAdded               += TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamEdited            += TeamEditedEventTeamEdited;
+        TeamDeletedEvent.TeamDeleted           += TeamDeletedEvent_TeamDeleted;
+    }
+
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+        TeamAddedEvent.TeamAdded               -= TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamEdited            -= TeamEditedEventTeamEdited;
+        TeamDeletedEvent.TeamDeleted           -= TeamDeletedEvent_TeamDeleted;
     }
 
     private void UpdateTeams()
@@ -81,7 +106,7 @@ public class ManageTeamsViewModel : ViewModelBase
             return;
         }
 
-        IGetQueries.CreateInstance(TeamsContext)
+        IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.UserId,
                                            MainViewModel.SelectedTournament.TournamentId,
                                            out List<Team>? teams);
@@ -90,5 +115,10 @@ public class ManageTeamsViewModel : ViewModelBase
         {
             TeamsWithPlayers = new ObservableCollection<Team>(teams);
         }
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
     }
 }

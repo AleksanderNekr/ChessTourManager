@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -14,10 +15,8 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
-public class PairsGridViewModel : ViewModelBase
+public class PairsGridViewModel : ViewModelBase, IDisposable
 {
-    internal static readonly ChessTourContext PairsContext = PlayersViewModel.PlayersContext;
-
     internal Tournament? OpenedTournament { get; private set; }
 
     private ExportGamesListCommand? _exportGamesListCommand;
@@ -32,7 +31,7 @@ public class PairsGridViewModel : ViewModelBase
 
     public PairsGridViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        Subscribe();
     }
 
     public ICommand ExportGamesListCommand
@@ -134,12 +133,21 @@ public class PairsGridViewModel : ViewModelBase
             SelectedTour = CurrentTour;
         }
 
-        _startNewTour            =  new StartNewTourCommand(this);
-        TourAddedEvent.TourAdded -= TourAddedEvent_TourAdded;
-        TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
+        _startNewTour = new StartNewTourCommand(this);
+    }
 
-        PlayerEditedEvent.PlayerEdited -= PlayerEditedEvent_PlayerEdited;
-        PlayerEditedEvent.PlayerEdited += PlayerEditedEvent_PlayerEdited;
+    private void Subscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        TourAddedEvent.TourAdded               += TourAddedEvent_TourAdded;
+        PlayerEditedEvent.PlayerEdited         += PlayerEditedEvent_PlayerEdited;
+    }
+
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+        TourAddedEvent.TourAdded               -= TourAddedEvent_TourAdded;
+        PlayerEditedEvent.PlayerEdited         -= PlayerEditedEvent_PlayerEdited;
     }
 
     private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs e)
@@ -166,12 +174,22 @@ public class PairsGridViewModel : ViewModelBase
 
     private void UpdateGames()
     {
-        IGetQueries.CreateInstance(PairsContext)
+        if (OpenedTournament == null)
+        {
+            return;
+        }
+
+        IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetGames(OpenedTournament.OrganizerId, OpenedTournament.TournamentId,
                                 out List<Game>? games);
 
         _games = games?.OrderByDescending(game => game.PlayerWhite.PointsCount + game.PlayerBlack.PointsCount)
                        .ToList();
         OnPropertyChanged(nameof(GamesForSelectedTour));
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
     }
 }

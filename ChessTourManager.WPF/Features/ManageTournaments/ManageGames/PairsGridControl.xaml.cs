@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Windows.Controls;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 
-public partial class PairsGridControl
+public partial class PairsGridControl : IDisposable
 {
     public PairsGridControl()
     {
         InitializeComponent();
-        DataGrid.ColumnWidth = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
     }
 
     private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
@@ -19,8 +19,13 @@ public partial class PairsGridControl
 
     private void DataGrid_CurrentCellChanged(object? sender, EventArgs e)
     {
-        PairsGridViewModel.PairsContext.SaveChanges();
+        PlayersViewModel.PlayersContext.SaveChanges();
 
         ResultChangedEvent.OnResultChanged(sender, new ResultChangedEventArgs(DataGrid.CurrentCell.Item as Game));
+    }
+
+    public void Dispose()
+    {
+        ((IDisposable)DataContext).Dispose();
     }
 }

@@ -18,6 +18,7 @@ public partial class AddPlayerWindow
 
     private void PlayerAddedEvent_PlayerAdded(object source, PlayerAddedEventArgs playerAddedEventArgs)
     {
+        PlayerAddedEvent.PlayerAdded -= PlayerAddedEvent_PlayerAdded;
         Close();
     }
 }

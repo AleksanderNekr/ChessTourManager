@@ -10,6 +10,7 @@ public partial class AddGroupWindow
 
     private void GroupAddedEvent_GroupAdded(object source, GroupAddedEventArgs groupAddedEventArgs)
     {
+        GroupAddedEvent.GroupAdded -= GroupAddedEvent_GroupAdded;
         Close();
     }
 }

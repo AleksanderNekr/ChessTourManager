@@ -160,7 +160,8 @@
                                 HorizontalAlignment="Stretch"
                                 SelectedItem="{Binding Team,
                                                    ValidatesOnExceptions=True,
-                                                   UpdateSourceTrigger=PropertyChanged}"
+                                                   UpdateSourceTrigger=PropertyChanged,
+                                                   Mode=TwoWay}"
                                 ItemsSource="{Binding DataContext.TeamsAvailable,
                                                   RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                 <ComboBox.ItemTemplate>

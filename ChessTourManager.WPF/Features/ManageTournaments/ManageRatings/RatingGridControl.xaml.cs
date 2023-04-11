@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageRatings;
 
-public partial class RatingGridControl
+public partial class RatingGridControl : IDisposable
 {
     public RatingGridControl()
     {
@@ -22,5 +23,11 @@ public partial class RatingGridControl
     private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
     {
         e.Row.Header = e.Row.GetIndex() + 1;
+    }
+
+    public void Dispose()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+        ((IDisposable)DataContext).Dispose();
     }
 }

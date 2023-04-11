@@ -24,22 +24,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 
-public class PlayersViewModel : ViewModelBase
+public class PlayersViewModel : ViewModelBase, IDisposable
 {
-    internal static ChessTourContext             PlayersContext = new();
-    private         ICommand?                    _addPlayerCommand;
-    private         ICommand?                    _deletePlayerCommand;
-    private         ExportPlayersListCommand?    _exportPlayersListCommand;
-    private         ObservableCollection<Group>? _groupsAvailable;
+    internal static ChessTourContext PlayersContext = new();
 
+    private AddPlayerCommand?         _addPlayerCommand;
+    private DeletePlayerCommand?      _deletePlayerCommand;
+    private ExportPlayersListCommand? _exportPlayersListCommand;
+    private PrintPlayersListCommand?  _printPlayersListCommand;
+
+    private ObservableCollection<Group>?  _groupsAvailable;
     private ObservableCollection<Player>? _playersCollection;
-    private PrintPlayersListCommand?      _printPlayersListCommand;
     private ObservableCollection<Team>?   _teamsAvailable;
+
+    private bool _arePlayersUpdating;
 
     public PlayersViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        Subscribe();
     }
 
     public ObservableCollection<Player>? PlayersCollection
@@ -83,7 +85,7 @@ public class PlayersViewModel : ViewModelBase
             UpdateAvailableTeams();
             return _teamsAvailable;
         }
-        set { SetField(ref _teamsAvailable, value); }
+        private set { SetField(ref _teamsAvailable, value); }
     }
 
     public ObservableCollection<int> BirthYears
@@ -103,7 +105,7 @@ public class PlayersViewModel : ViewModelBase
             UpdateAvailableGroups();
             return _groupsAvailable;
         }
-        set { SetField(ref _groupsAvailable, value); }
+        private set { SetField(ref _groupsAvailable, value); }
     }
 
     public ICommand ExportPlayersListCommand
@@ -210,6 +212,18 @@ public class PlayersViewModel : ViewModelBase
     private void TournamentOpenedEvent_TournamentOpened(object                    source,
                                                         TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
+        PlayersContext      = new ChessTourContext();
+        _arePlayersUpdating = true;
+        UpdateAvailableTeams();
+        UpdateAvailableGroups();
+        UpdatePlayers();
+        _arePlayersUpdating = false;
+    }
+
+    private void Subscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
         TeamChangedEvent.TeamEdited  += TeamEditedEventTeamEdited;
         TeamDeletedEvent.TeamDeleted += TeamDeletedEvent_TeamDeleted;
@@ -217,16 +231,44 @@ public class PlayersViewModel : ViewModelBase
         GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
         GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
         GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
-        UpdatePlayers();
-        if (_playersCollection == null)
-        {
-            return;
-        }
 
-        foreach (Player player in _playersCollection)
+        PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   += PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted += PlayerDeletedEvent_PlayerDeleted;
+    }
+
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+
+        GroupAddedEvent.GroupAdded     -= GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged -= GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted -= GroupDeletedEvent_GroupDeleted;
+
+        TeamAddedEvent.TeamAdded     -= TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamEdited  -= TeamEditedEventTeamEdited;
+        TeamDeletedEvent.TeamDeleted -= TeamDeletedEvent_TeamDeleted;
+
+        PlayerAddedEvent.PlayerAdded     -= PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   -= PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted -= PlayerDeletedEvent_PlayerDeleted;
+    }
+
+    private void PlayerDeletedEvent_PlayerDeleted(object source, PlayerDeletedEventArgs e)
+    {
+        UpdatePlayers();
+    }
+
+    private void PlayerAddedEvent_PlayerAdded(object source, PlayerAddedEventArgs e)
+    {
+        UpdatePlayers();
+    }
+
+    private void PlayerEditedEvent_PlayerEdited(object source, PlayerEditedEventArgs e)
+    {
+        if (source != this)
         {
-            player.PropertyChanged -= Player_PropertyChanged;
-            player.PropertyChanged += Player_PropertyChanged;
+            UpdatePlayers();
         }
     }
 
@@ -246,15 +288,38 @@ public class PlayersViewModel : ViewModelBase
         {
             PlayersCollection = new ObservableCollection<Player>(players);
         }
+
+
+        if (PlayersCollection != null)
+        {
+            foreach (Player player in PlayersCollection)
+            {
+                player.PropertyChanged -= Player_PropertyChanged;
+                player.PropertyChanged += Player_PropertyChanged;
+            }
+        }
     }
 
     private void Player_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (TrySaveChanges())
+        if (_arePlayersUpdating || !TrySaveChanges())
         {
-            PlayerEditedEvent.OnPlayerEdited(this, new PlayerEditedEventArgs(sender as Player));
+            return;
+        }
+
+        PlayerEditedEvent.OnPlayerEdited(this, new PlayerEditedEventArgs(sender as Player));
+        if (e.PropertyName == nameof(Player.Team))
+        {
             TeamChangedEvent.OnTeamChanged(this, new TeamChangedEventArgs((sender as Player)?.Team));
+        }
+        else if (e.PropertyName == nameof(Player.Group))
+        {
             GroupChangedEvent.OnGroupChanged(this, new GroupChangedEventArgs((sender as Player)?.Group));
         }
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
     }
 }

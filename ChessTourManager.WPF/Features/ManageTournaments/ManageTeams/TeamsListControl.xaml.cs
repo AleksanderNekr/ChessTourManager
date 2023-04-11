@@ -1,8 +1,9 @@
-﻿using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
+﻿using System;
+using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 
-public partial class TeamsListControl
+public partial class TeamsListControl : IDisposable
 {
     public TeamsListControl()
     {
@@ -14,5 +15,11 @@ public partial class TeamsListControl
     {
         // Update tree view
         TreeView.Items.Refresh();
+    }
+
+    public void Dispose()
+    {
+        TeamChangedEvent.TeamEdited -= TeamEditedEventTeamEdited;
+        ((IDisposable)DataContext).Dispose();
     }
 }

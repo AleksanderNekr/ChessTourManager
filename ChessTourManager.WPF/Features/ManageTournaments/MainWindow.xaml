@@ -20,7 +20,8 @@
         Height="700"
         WindowStartupLocation="CenterScreen"
         ui:WindowHelper.UseModernWindowStyle="True"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Closing="MainWindow_OnClosing">
     <Window.DataContext>
         <manageTournaments:MainViewModel />
     </Window.DataContext>
@@ -129,7 +130,7 @@
             </TabItem>
             <TabItem
                 Header="Дерево турниров">
-                <tree:TreeControl />
+                <tree:TreeControl x:Name="TreeControl" />
             </TabItem>
             <TabItem
                 Header="{Binding SelectedTournamentObservable.TournamentName,
@@ -142,22 +143,23 @@
                     <TabItem
                         Header="Список участников">
                         <managePlayers:PlayersGridControl
-                            HorizontalContentAlignment="Left" />
+                            HorizontalContentAlignment="Left"
+                            x:Name="PlayersGridControl"/>
                     </TabItem>
                     <TabItem
                         x:Name="TeamTab"
                         Header="Список команд">
-                        <manageTeams:TeamsListControl />
+                        <manageTeams:TeamsListControl x:Name="TeamsListControl" />
                     </TabItem>
                     <TabItem
                         Header="Список групп">
-                        <manageGroups:GroupsListControl />
+                        <manageGroups:GroupsListControl x:Name="GroupsListControl" />
                     </TabItem>
                     <TabItem Header="Список пар">
-                        <manageGames:PairsGridControl />
+                        <manageGames:PairsGridControl x:Name="PairsGridControl" />
                     </TabItem>
                     <TabItem Header="Рейтинг-лист">
-                        <manageRatings:RatingGridControl />
+                        <manageRatings:RatingGridControl x:Name="RatingGridControl" />
                     </TabItem>
                 </TabControl>
             </TabItem>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ChessTourManager.DataAccess;
@@ -14,21 +15,11 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups;
 
-public class ManageGroupsViewModel : ViewModelBase
+public class ManageGroupsViewModel : ViewModelBase, IDisposable
 {
-    internal static readonly ChessTourContext GroupsContext = PlayersViewModel.PlayersContext;
-    private                  AddGroupCommand? _addGroupCommand;
-    private                  string?          _groupIdentifier;
-    private                  string?          _groupName;
-
-    private ObservableCollection<Group>? _groupsWithPlayers;
-
     public ManageGroupsViewModel()
     {
-        CompleteAddGroup                       =  new CompleteAddGroupCommand(this);
-        DeleteGroupCommand                     =  new DeleteGroupCommand();
-        EditGroupCommand                       =  new EditGroupCommand();
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        Subscribe();
     }
 
     public ObservableCollection<Group>? GroupsWithPlayers
@@ -54,9 +45,34 @@ public class ManageGroupsViewModel : ViewModelBase
         set { SetField(ref _groupIdentifier, value); }
     }
 
-    public ICommand CompleteAddGroup   { get; }
-    public ICommand DeleteGroupCommand { get; }
-    public ICommand EditGroupCommand   { get; }
+    public ICommand CompleteAddGroup
+    {
+        get { return _completeAddGroup ??= new CompleteAddGroupCommand(this); }
+    }
+
+    public ICommand DeleteGroupCommand
+    {
+        get { return _deleteGroupCommand ??= new DeleteGroupCommand(); }
+    }
+
+    public ICommand EditGroupCommand
+    {
+        get { return _editGroupCommand ??= new EditGroupCommand(); }
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
+    }
+
+    private string?                      _groupIdentifier;
+    private string?                      _groupName;
+    private ObservableCollection<Group>? _groupsWithPlayers;
+
+    private AddGroupCommand?         _addGroupCommand;
+    private CompleteAddGroupCommand? _completeAddGroup;
+    private DeleteGroupCommand?      _deleteGroupCommand;
+    private EditGroupCommand?        _editGroupCommand;
 
     private void GroupDeletedEvent_GroupDeleted(object source, GroupDeletedEventArgs groupDeletedEventArgs)
     {
@@ -73,12 +89,26 @@ public class ManageGroupsViewModel : ViewModelBase
         UpdateGroups();
     }
 
-    private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
+    private void TournamentOpenedEvent_TournamentOpened(object                    source,
+                                                        TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
-        GroupAddedEvent.GroupAdded     += GroupAddedEvent_GroupAdded;
-        GroupChangedEvent.GroupChanged += GroupChangedEvent_GroupChanged;
-        GroupDeletedEvent.GroupDeleted += GroupDeletedEvent_GroupDeleted;
         UpdateGroups();
+    }
+
+    private void Subscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        GroupAddedEvent.GroupAdded             += GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged         += GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted         += GroupDeletedEvent_GroupDeleted;
+    }
+
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+        GroupAddedEvent.GroupAdded             -= GroupAddedEvent_GroupAdded;
+        GroupChangedEvent.GroupChanged         -= GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted         -= GroupDeletedEvent_GroupDeleted;
     }
 
     private void UpdateGroups()
@@ -88,7 +118,7 @@ public class ManageGroupsViewModel : ViewModelBase
             return;
         }
 
-        IGetQueries.CreateInstance(GroupsContext)
+        IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.UserId,
                                  MainViewModel.SelectedTournament.TournamentId,
                                  out List<Group>? groups);

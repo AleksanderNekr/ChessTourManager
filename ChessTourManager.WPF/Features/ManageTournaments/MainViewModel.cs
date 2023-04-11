@@ -15,7 +15,7 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments;
 
-public class MainViewModel : ViewModelBase
+public class MainViewModel : ViewModelBase, IDisposable
 {
     internal static readonly ChessTourContext MainContext = new();
 
@@ -27,12 +27,25 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
+        Subscribe();
+
+        UpdateTournamentsList();
+    }
+
+    private void Subscribe()
+    {
         TournamentOpenedEvent.TournamentOpened   += TournamentOpenedEvent_TournamentOpened;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
         TournamentEditedEvent.TournamentEdited   += TournamentEditedEvent_TournamentEdited;
         TournamentDeletedEvent.TournamentDeleted += TournamentDeletedEvent_TournamentDeleted;
+    }
 
-        UpdateTournamentsList();
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened   -= TournamentOpenedEvent_TournamentOpened;
+        TournamentCreatedEvent.TournamentCreated -= TournamentCreatedEvent_TournamentCreated;
+        TournamentEditedEvent.TournamentEdited   -= TournamentEditedEvent_TournamentEdited;
+        TournamentDeletedEvent.TournamentDeleted -= TournamentDeletedEvent_TournamentDeleted;
     }
 
     public bool IsOpened
@@ -117,5 +130,11 @@ public class MainViewModel : ViewModelBase
     private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
         OnPropertyChanged(nameof(SelectedTournamentObservable));
+    }
+
+    public void Dispose()
+    {
+        SelectedTournament = null;
+        Unsubscribe();
     }
 }

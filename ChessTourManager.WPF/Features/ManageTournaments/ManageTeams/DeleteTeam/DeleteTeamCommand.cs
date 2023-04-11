@@ -2,6 +2,7 @@
 using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.DeleteTeam;
@@ -12,7 +13,7 @@ public class DeleteTeamCommand : CommandBase
 
     public DeleteTeamCommand()
     {
-        _context = ManageTeamsViewModel.TeamsContext;
+        _context = PlayersViewModel.PlayersContext;
     }
 
     public override void Execute(object? parameter)

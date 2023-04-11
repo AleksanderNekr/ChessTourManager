@@ -20,6 +20,7 @@ public partial class EditTournamentWindow
 
     private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
     {
+        TournamentEditedEvent.TournamentEdited -= TournamentEditedEvent_TournamentEdited;
         Close();
     }
 }

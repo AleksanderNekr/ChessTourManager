@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
@@ -17,7 +18,7 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
-public class TreeViewModel : ViewModelBase
+public class TreeViewModel : ViewModelBase, IDisposable
 {
     private static readonly ChessTourContext TreeContext = MainViewModel.MainContext;
     private                 Player?          _selectedPlayer;
@@ -28,17 +29,37 @@ public class TreeViewModel : ViewModelBase
 
     public TreeViewModel()
     {
+        Subscribe();
+    }
+
+    private void Subscribe()
+    {
         TournamentEditedEvent.TournamentEdited   += TournamentEditedEvent_TournamentEdited;
         TournamentCreatedEvent.TournamentCreated += TournamentCreatedEvent_TournamentCreated;
         TournamentDeletedEvent.TournamentDeleted += TournamentDeletedEvent_TournamentDeleted;
 
         TeamAddedEvent.TeamAdded     += TeamAddedEvent_TeamAdded;
-        TeamChangedEvent.TeamEdited   += TeamChangedEvent_TeamChanged;
+        TeamChangedEvent.TeamEdited  += TeamChangedEvent_TeamChanged;
         TeamDeletedEvent.TeamDeleted += TeamChangedEvent_TeamDeleted;
 
         PlayerAddedEvent.PlayerAdded     += PlayerChangedEvent_PlayerAdded;
         PlayerDeletedEvent.PlayerDeleted += PlayerChangedEvent_PlayerDeleted;
         PlayerEditedEvent.PlayerEdited   += PlayerChangedEvent_PlayerEdited;
+    }
+
+    private void Unsubscribe()
+    {
+        TournamentEditedEvent.TournamentEdited   -= TournamentEditedEvent_TournamentEdited;
+        TournamentCreatedEvent.TournamentCreated -= TournamentCreatedEvent_TournamentCreated;
+        TournamentDeletedEvent.TournamentDeleted -= TournamentDeletedEvent_TournamentDeleted;
+
+        TeamAddedEvent.TeamAdded     -= TeamAddedEvent_TeamAdded;
+        TeamChangedEvent.TeamEdited  -= TeamChangedEvent_TeamChanged;
+        TeamDeletedEvent.TeamDeleted -= TeamChangedEvent_TeamDeleted;
+
+        PlayerAddedEvent.PlayerAdded     -= PlayerChangedEvent_PlayerAdded;
+        PlayerDeletedEvent.PlayerDeleted -= PlayerChangedEvent_PlayerDeleted;
+        PlayerEditedEvent.PlayerEdited   -= PlayerChangedEvent_PlayerEdited;
     }
 
     public ObservableCollection<Tournament>? TournamentsRoot
@@ -100,12 +121,14 @@ public class TreeViewModel : ViewModelBase
         UpdateTournaments();
     }
 
-    private void TournamentDeletedEvent_TournamentDeleted(object source, DeleteTournamentEventArgs deleteTournamentEventArgs)
+    private void TournamentDeletedEvent_TournamentDeleted(object                    source,
+                                                          DeleteTournamentEventArgs deleteTournamentEventArgs)
     {
         UpdateTournaments();
     }
 
-    private void TournamentCreatedEvent_TournamentCreated(object source, TournamentCreatedEventArgs tournamentCreatedEventArgs)
+    private void TournamentCreatedEvent_TournamentCreated(object                     source,
+                                                          TournamentCreatedEventArgs tournamentCreatedEventArgs)
     {
         UpdateTournaments();
     }
@@ -115,7 +138,8 @@ public class TreeViewModel : ViewModelBase
         UpdateTournaments();
     }
 
-    private void TournamentEditedEvent_TournamentEdited(object source, TournamentEditedEventArgs tournamentEditedEventArgs)
+    private void TournamentEditedEvent_TournamentEdited(object                    source,
+                                                        TournamentEditedEventArgs tournamentEditedEventArgs)
     {
         UpdateTournaments();
     }
@@ -136,5 +160,10 @@ public class TreeViewModel : ViewModelBase
         {
             SetField(ref _tournaments, new ObservableCollection<Tournament>(tournaments), nameof(TournamentsRoot));
         }
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
     }
 }

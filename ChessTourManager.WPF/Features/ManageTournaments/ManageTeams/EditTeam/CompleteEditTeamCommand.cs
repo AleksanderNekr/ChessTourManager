@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
@@ -45,9 +46,9 @@ public class CompleteEditTeamCommand : CommandBase
             _editTeamViewModel.Team.TeamAttribute = _editTeamViewModel.Attribute;
             _editTeamViewModel.Team.IsActive      = _editTeamViewModel.IsActive;
 
-            ManageTeamsViewModel.TeamsContext.Teams.Update(_editTeamViewModel.Team);
+            PlayersViewModel.PlayersContext.Teams.Update(_editTeamViewModel.Team);
 
-            ManageTeamsViewModel.TeamsContext.SaveChanges();
+            PlayersViewModel.PlayersContext.SaveChanges();
 
             TeamChangedEvent.OnTeamChanged(this, new TeamChangedEventArgs(_editTeamViewModel.Team));
             MessageBox.Show("Изменения в команде успешно сохранены!", "Сохранение изменений",

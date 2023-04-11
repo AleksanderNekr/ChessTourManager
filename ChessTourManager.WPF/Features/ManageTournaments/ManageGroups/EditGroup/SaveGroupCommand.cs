@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.EditGroup;
@@ -35,8 +36,8 @@ public class SaveGroupCommand : CommandBase
         _editGroupViewModel.Group.GroupName = _editGroupViewModel.GroupName;
         _editGroupViewModel.Group.Identity  = _editGroupViewModel.GroupIdentity;
 
-        ManageGroupsViewModel.GroupsContext.Groups.Update(_editGroupViewModel.Group);
-        ManageGroupsViewModel.GroupsContext.SaveChanges();
+        PlayersViewModel.PlayersContext.Groups.Update(_editGroupViewModel.Group);
+        PlayersViewModel.PlayersContext.SaveChanges();
 
         GroupChangedEvent.OnGroupChanged(this, new GroupChangedEventArgs(_editGroupViewModel.Group));
 

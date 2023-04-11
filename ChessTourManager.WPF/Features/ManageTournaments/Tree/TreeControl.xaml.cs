@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,7 +16,7 @@ using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.EditTeam;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.Tree;
 
-public partial class TreeControl
+public partial class TreeControl : IDisposable
 {
     public TreeControl()
     {
@@ -108,5 +109,10 @@ public partial class TreeControl
     {
         new DeletePlayerCommand().Execute(((TreeViewModel)DataContext).SelectedPlayer);
         ((TreeViewModel)DataContext).SelectedPlayer = null;
+    }
+
+    public void Dispose()
+    {
+        ((IDisposable)DataContext).Dispose();
     }
 }

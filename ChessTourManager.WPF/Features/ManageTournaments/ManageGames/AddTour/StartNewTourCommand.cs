@@ -4,6 +4,7 @@ using System.Windows;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Algorithms;
+using ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers;
 using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
@@ -17,7 +18,7 @@ public class StartNewTourCommand : CommandBase
     public StartNewTourCommand(PairsGridViewModel pairsGridViewModel)
     {
         _pairsGridViewModel = pairsGridViewModel;
-        _drawingAlgorithm = IDrawingAlgorithm.Initialize(PairsGridViewModel.PairsContext,
+        _drawingAlgorithm = IDrawingAlgorithm.Initialize(PlayersViewModel.PlayersContext,
                                                          pairsGridViewModel.OpenedTournament);
     }
 
@@ -34,7 +35,7 @@ public class StartNewTourCommand : CommandBase
 
         foreach ((int, int) idPair in idPairs.Where(idPair => idPair.Item1 != -1 && idPair.Item2 != -1))
         {
-            InsertResult result = IInsertQueries.CreateInstance(PairsGridViewModel.PairsContext)
+            InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                                 .TryAddGamePair(out Game? game,
                                                                 idPair.Item1, idPair.Item2,
                                                                 _pairsGridViewModel.OpenedTournament.TournamentId,

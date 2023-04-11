@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.Authentication.Login;
@@ -22,10 +22,8 @@ using ChessTourManager.WPF.Helpers;
 
 namespace ChessTourManager.WPF.Features.ManageTournaments.ManageRatings;
 
-public class ManageRatingsViewModel : ViewModelBase
+public class ManageRatingsViewModel : ViewModelBase, IDisposable
 {
-    private static readonly ChessTourContext RatingsContext = PlayersViewModel.PlayersContext;
-
     private ObservableCollection<Player>? _playersSorted;
     private ExportRatingListCommand?      _exportRatingListCommand;
     private PrintRatingListCommand?       _printRatingListCommand;
@@ -33,7 +31,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
     public ManageRatingsViewModel()
     {
-        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
+        Subscribe();
     }
 
     public ObservableCollection<Player>? PlayersSorted
@@ -119,10 +117,7 @@ public class ManageRatingsViewModel : ViewModelBase
     private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs tournamentOpenedEventArgs)
     {
         UpdateRating();
-
         UpdateTitle();
-
-        Subscribe();
     }
 
     private void UpdateTitle()
@@ -137,7 +132,7 @@ public class ManageRatingsViewModel : ViewModelBase
             return;
         }
 
-        IGetQueries.CreateInstance(RatingsContext)
+        IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetGames(LoginViewModel.CurrentUser.UserId,
                                 MainViewModel.SelectedTournament.TournamentId,
                                 out List<Game>? games);
@@ -167,6 +162,7 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private void Subscribe()
     {
+        TournamentOpenedEvent.TournamentOpened += TournamentOpenedEvent_TournamentOpened;
         TournamentEditedEvent.TournamentEdited += TournamentEditedEvent_TournamentEdited;
 
         PlayerAddedEvent.PlayerAdded     += PlayerAddedEvent_PlayerAdded;
@@ -184,6 +180,26 @@ public class ManageRatingsViewModel : ViewModelBase
         TourAddedEvent.TourAdded += TourAddedEvent_TourAdded;
     }
 
+    private void Unsubscribe()
+    {
+        TournamentOpenedEvent.TournamentOpened -= TournamentOpenedEvent_TournamentOpened;
+        TournamentEditedEvent.TournamentEdited -= TournamentEditedEvent_TournamentEdited;
+
+        PlayerAddedEvent.PlayerAdded     -= PlayerAddedEvent_PlayerAdded;
+        PlayerEditedEvent.PlayerEdited   -= PlayerEditedEvent_PlayerEdited;
+        PlayerDeletedEvent.PlayerDeleted -= PlayerDeletedEvent_PlayerDeleted;
+
+        TeamChangedEvent.TeamEdited   -= TeamEditedEventTeamEdited;
+        TeamDeletedEvent.TeamDeleted -= TeamDeletedEvent_TeamDeleted;
+
+        GroupChangedEvent.GroupChanged -= GroupChangedEvent_GroupChanged;
+        GroupDeletedEvent.GroupDeleted -= GroupDeletedEvent_GroupDeleted;
+
+        ResultChangedEvent.ResultChanged -= ResultChangedEvent_ResultChanged;
+
+        TourAddedEvent.TourAdded -= TourAddedEvent_TourAdded;
+    }
+
     private void UpdateRating()
     {
         PlayersSorted = new ObservableCollection<Player>(GetRating() ?? Enumerable.Empty<Player>());
@@ -191,17 +207,12 @@ public class ManageRatingsViewModel : ViewModelBase
 
     private static IOrderedEnumerable<Player>? GetRating()
     {
-        if (MainViewModel.SelectedTournament is null)
+        if (MainViewModel.SelectedTournament is null || LoginViewModel.CurrentUser is null)
         {
             return null;
         }
 
-        if (LoginViewModel.CurrentUser is null)
-        {
-            return null;
-        }
-
-        IGetQueries.CreateInstance(RatingsContext)
+        IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.UserId,
                                                     MainViewModel.SelectedTournament.TournamentId,
                                                     out List<Player>? players);
@@ -214,5 +225,10 @@ public class ManageRatingsViewModel : ViewModelBase
         return players?.OrderByDescending(p => p.PointsCount)
                        .ThenByDescending(p => p.RatioSum1)
                        .ThenByDescending(p => p.RatioSum2);
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
     }
 }

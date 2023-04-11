@@ -45,5 +45,6 @@ public class LoginViewModel : ViewModelBase
     private static void SuccessLoginEvent_UserSuccessLogin(object source, SuccessLoginEventArgs e)
     {
         CurrentUser = e.User;
+        SuccessLoginEvent.UserSuccessLogin -= SuccessLoginEvent_UserSuccessLogin;
     }
 }
