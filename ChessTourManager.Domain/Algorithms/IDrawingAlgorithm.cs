@@ -11,7 +11,5 @@ public interface IDrawingAlgorithm
 
     public IList<(int, int)> StartNewTour(int currentTour);
 
-    public HashSet<(int, int)>? GamesHistory { get; }
-
     public int NewTourNumber { get; }
 }

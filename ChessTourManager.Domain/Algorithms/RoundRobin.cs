@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -19,7 +18,7 @@ public class RoundRobin : IDrawingAlgorithm
                                 out List<Game>? games);
         if (games is not null)
         {
-            GamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
+            _gamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
 
             if (games.Any())
             {
@@ -32,7 +31,7 @@ public class RoundRobin : IDrawingAlgorithm
         }
         else
         {
-            GamesHistory  = new HashSet<(int, int)>();
+            _gamesHistory = new HashSet<(int, int)>();
             NewTourNumber = 1;
         }
 
@@ -57,8 +56,8 @@ public class RoundRobin : IDrawingAlgorithm
                        .Select(p => p.PlayerId).ToList() ?? new List<int>();
     }
 
-    private Tournament       _tournament;
-    private ChessTourContext _context;
+    private readonly Tournament       _tournament;
+    private readonly ChessTourContext _context;
 
     private void ConfigureTours()
     {
@@ -119,17 +118,13 @@ public class RoundRobin : IDrawingAlgorithm
         int tour = NewTourNumber;
         if (tour >= _pairsForTour.Count || _playersIds.Count < 3)
         {
-            MessageBox.Show("Недостаточно игроков для "
-                          + "проведения следующего тура.",
-                            "Ошибка", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
             return new List<(int, int)>();
         }
 
         List<(int, int)> result = new();
         foreach ((int, int) pair in _pairsForTour[tour])
         {
-            if (GamesHistory.Contains(pair))
+            if (_gamesHistory.Contains(pair))
             {
                 tour++;
                 continue;
@@ -163,9 +158,7 @@ public class RoundRobin : IDrawingAlgorithm
         }
     }
 
-    public HashSet<(int, int)>? GamesHistory { get; }
+    private readonly HashSet<(int, int)>? _gamesHistory;
 
     public int NewTourNumber { get; private set; }
 }
-
-

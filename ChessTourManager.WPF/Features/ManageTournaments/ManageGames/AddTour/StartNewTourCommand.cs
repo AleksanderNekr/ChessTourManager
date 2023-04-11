@@ -24,6 +24,13 @@ public class StartNewTourCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
+        if (_pairsGridViewModel.OpenedTournament is null)
+        {
+            MessageBox.Show("Турнир не открыт", "Жеребьевка турнира",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (_pairsGridViewModel.CurrentTour == _pairsGridViewModel.OpenedTournament.ToursCount)
         {
             MessageBox.Show("Турнир завершен", "Жеребьевка турнира",
@@ -32,6 +39,12 @@ public class StartNewTourCommand : CommandBase
         }
 
         List<(int, int)> idPairs = new(_drawingAlgorithm.StartNewTour(_pairsGridViewModel.CurrentTour));
+        if (idPairs.Count == 0)
+        {
+            MessageBox.Show("Недостаточно игроков для проведения тура", "Жеребьевка турнира",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         foreach ((int, int) idPair in idPairs.Where(idPair => idPair.Item1 != -1 && idPair.Item2 != -1))
         {
