@@ -14,6 +14,14 @@ public class DeletePlayerCommand : CommandBase
             return;
         }
 
+        MessageBoxResult isSure = MessageBox.Show("Вы уверены, что хотите удалить игрока "
+                                                + $"{player.PlayerFullName}?", "Удаление игрока",
+                                                  MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (isSure == MessageBoxResult.No)
+        {
+            return;
+        }
+
         DeleteResult result = IDeleteQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                             .TryDeletePlayer(player);
         if (result == DeleteResult.Success)
