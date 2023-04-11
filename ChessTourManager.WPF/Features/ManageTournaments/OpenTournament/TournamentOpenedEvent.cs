@@ -17,7 +17,7 @@ public static class TournamentOpenedEvent
 
 public class TournamentOpenedEventArgs : EventArgs
 {
-    public Tournament OpenedTournament;
+    public readonly Tournament OpenedTournament;
 
     public TournamentOpenedEventArgs(Tournament openedTournament)
     {
