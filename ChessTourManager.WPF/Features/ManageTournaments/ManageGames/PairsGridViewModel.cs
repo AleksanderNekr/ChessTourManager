@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames.AddTour;
@@ -23,11 +22,11 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
     private PrintGamesListCommand?  _printGamesListCommand;
     private ShowNextTourCommand?    _showNextTour;
     private ShowPrevTourCommand?    _showPrevTour;
-    private StartNewTourCommand?    _startNewTour;
     private List<Game>?             _games;
     private int                     _selectedTour;
     private int                     _toursAmount;
     private int                     _currentTour;
+    private StartNewTourCommand?    _startNewTour;
 
     public PairsGridViewModel()
     {
@@ -57,6 +56,11 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
     public ICommand StartNewTour
     {
         get { return _startNewTour; }
+        private set
+        {
+            _startNewTour = (StartNewTourCommand?)value;
+            OnPropertyChanged();
+        }
     }
 
     public string ToursInfo
@@ -133,7 +137,7 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
             SelectedTour = CurrentTour;
         }
 
-        _startNewTour = new StartNewTourCommand(this);
+        StartNewTour = new StartNewTourCommand(this);
     }
 
     private void Subscribe()
@@ -162,7 +166,6 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
         CurrentTour      = 0;
         SelectedTour     = 0;
         _games           = null;
-        _startNewTour    = null;
     }
 
     private void TourAddedEvent_TourAdded(object sender, TourAddedEventArgs e)
