@@ -14,7 +14,7 @@ public class Player : INotifyPropertyChanged
     private string?    _playerAttribute;
     private int        _playerBirthYear = DateTime.Now.Year - 10;
     private bool?      _isActive;
-    private double     _pointsCount;
+    private double     _pointsAmount;
     private int        _winsCount;
     private int        _lossesCount;
     private int        _drawsCount;
@@ -26,7 +26,8 @@ public class Player : INotifyPropertyChanged
     private Group?     _group;
     private Team?      _team;
     private Tournament _tournament;
-    public  int        PlayerId { get; set; }
+
+    public int PlayerId { get; set; }
 
     public int TournamentId { get; set; }
 
@@ -74,10 +75,10 @@ public class Player : INotifyPropertyChanged
         set { SetField(ref _isActive, value); }
     }
 
-    public double PointsCount
+    public double PointsAmount
     {
-        get { return _pointsCount; }
-        set { SetField(ref _pointsCount, value); }
+        get { return _pointsAmount; }
+        set { SetField(ref _pointsAmount, value); }
     }
 
     public int WinsCount
@@ -128,11 +129,11 @@ public class Player : INotifyPropertyChanged
         set { SetField(ref _groupId, value); }
     }
 
-    public virtual ICollection<Game> BlackGamePlayers { get; } = new List<Game>();
+    public ICollection<Game> BlackGamePlayers { get; } = new List<Game>();
 
-    public virtual ICollection<Game> WhiteGamePlayers { get; } = new List<Game>();
+    public ICollection<Game> WhiteGamePlayers { get; } = new List<Game>();
 
-    public virtual Group? Group
+    public Group? Group
     {
         get { return _group; }
         set { SetField(ref _group, value); }
@@ -163,12 +164,12 @@ public class Player : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, value))
             return false;

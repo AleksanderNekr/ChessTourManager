@@ -553,7 +553,7 @@ public class ChessTourContext : DbContext
                                         entity.Property(e => e.PlayerLastName)
                                               .HasMaxLength(255)
                                               .HasColumnName("player_last_name");
-                                        entity.Property(e => e.PointsCount)
+                                        entity.Property(e => e.PointsAmount)
                                               .HasColumnName("points_count");
                                         entity.Property(e => e.RatioSum1)
                                               .HasPrecision(5, 2)
