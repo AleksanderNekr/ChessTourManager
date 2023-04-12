@@ -58,8 +58,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button
-                                        Margin="10, 0"
-                                        Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
+                                        HorizontalAlignment="Stretch"
+                                        Style="{StaticResource DefaultButtonStyle}"
                                         Content="Открыть"
                                         Command="{Binding DataContext.OpenTournamentCommand,
                                                          RelativeSource={RelativeSource AncestorType=DataGrid}}"

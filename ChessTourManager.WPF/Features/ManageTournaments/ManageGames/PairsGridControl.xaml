@@ -10,8 +10,7 @@
     <UserControl.DataContext>
         <manageGames:PairsGridViewModel />
     </UserControl.DataContext>
-    <StackPanel
-        HorizontalAlignment="Center">
+    <StackPanel>
         <TextBlock
             Padding="20,5"
             FontSize="18"
@@ -78,7 +77,7 @@
                     <DataGridTextColumn
                         IsReadOnly="True"
                         Header="Очки"
-                        Binding="{Binding PlayerWhite.PointsCount}" />
+                        Binding="{Binding PlayerWhite.PointsAmount}" />
                     <DataGridTemplateColumn
                         IsReadOnly="False"
                         Header="Результат"
@@ -114,7 +113,7 @@
                     <DataGridTextColumn
                         IsReadOnly="True"
                         Header="Очки"
-                        Binding="{Binding PlayerBlack.PointsCount}" />
+                        Binding="{Binding PlayerBlack.PointsAmount}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

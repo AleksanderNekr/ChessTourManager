@@ -10,7 +10,7 @@
     <UserControl.DataContext>
         <manageRatings:ManageRatingsViewModel />
     </UserControl.DataContext>
-    <Grid HorizontalAlignment="Center">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -57,6 +57,7 @@
                 CanUserResizeColumns="True"
                 ItemsSource="{Binding PlayersSorted}"
                 VerticalAlignment="Top"
+                HorizontalAlignment="Left"
                 LoadingRow="DataGrid_LoadingRow">
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -85,7 +86,7 @@
                     <DataGridTextColumn
                         dgx:DataGridFilterColumn.IsFilterVisible="False"
                         Header="Очки"
-                        Binding="{Binding PointsCount}" />
+                        Binding="{Binding PointsAmount}" />
                     <DataGridTextColumn
                         dgx:DataGridFilterColumn.IsFilterVisible="False"
                         Header="Коэф 1"
