@@ -222,7 +222,7 @@ public class ManageRatingsViewModel : ViewModelBase, IDisposable
 
     private static IOrderedEnumerable<Player>? GetSortedPlayers(IEnumerable<Player>? players)
     {
-        return players?.OrderByDescending(p => p.PointsCount)
+        return players?.OrderByDescending(p => p.PointsAmount)
                        .ThenByDescending(p => p.RatioSum1)
                        .ThenByDescending(p => p.RatioSum2);
     }

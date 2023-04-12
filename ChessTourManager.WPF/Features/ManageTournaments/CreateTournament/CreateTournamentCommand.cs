@@ -24,12 +24,20 @@ public class CreateTournamentCommand : CommandBase
             return;
         }
 
+        string? name = _createViewModel.TournamentNameText?.Trim();
+        if (string.IsNullOrEmpty(name))
+        {
+            MessageBox.Show("Введите название турнира!", "Создание турнира", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+            return;
+        }
+
         InsertResult result = IInsertQueries
                              .CreateInstance(CreateTournamentViewModel.CreateTournamentContext)
                              .TryAddTournament(
                                                out Tournament? tournament,
                                                LoginViewModel.CurrentUser.UserId,
-                                               _createViewModel.TournamentNameText?.Trim(),
+                                              name,
                                                _createViewModel.SelectedTournamentSystem
                                                                .SystemId,
                                                _createViewModel.SelectedTournamentKind

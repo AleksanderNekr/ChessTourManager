@@ -186,7 +186,7 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
                    .TryGetGames(OpenedTournament.OrganizerId, OpenedTournament.TournamentId,
                                 out List<Game>? games);
 
-        _games = games?.OrderByDescending(game => game.PlayerWhite.PointsCount + game.PlayerBlack.PointsCount)
+        _games = games?.OrderByDescending(game => game.PlayerWhite.PointsAmount + game.PlayerBlack.PointsAmount)
                        .ToList();
         OnPropertyChanged(nameof(GamesForSelectedTour));
     }
