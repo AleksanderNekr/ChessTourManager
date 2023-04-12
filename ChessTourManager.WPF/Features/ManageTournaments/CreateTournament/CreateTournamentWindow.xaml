@@ -53,10 +53,9 @@
                     ItemsSource="{Binding TournamentKinds}"
                     SelectedItem="{Binding SelectedTournamentKind}">
                     <ComboBox.ItemTemplate>
-                        <!-- Use DataTemplate to display the Name property of the TournamentKind object -->
                         <DataTemplate>
                             <TextBlock
-                                Text="{Binding KindName}" />
+                                Text="{Binding KindNameLocalized}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -82,10 +81,9 @@
                     ItemsSource="{Binding TournamentSystems}"
                     SelectedItem="{Binding SelectedTournamentSystem}">
                     <ComboBox.ItemTemplate>
-                        <!-- Use DataTemplate to display the Name property of the TournamentSystem object -->
                         <DataTemplate>
                             <TextBlock
-                                Text="{Binding SystemName}" />
+                                Text="{Binding SystemNameLocalized}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

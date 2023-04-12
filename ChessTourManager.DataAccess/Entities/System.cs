@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessTourManager.DataAccess.Entities;
 
@@ -8,5 +9,19 @@ public class System
 
     public string SystemName { get; set; } = null!;
 
-    public virtual ICollection<Tournament> Tournaments { get; } = new List<Tournament>();
+    public IEnumerable<Tournament> Tournaments { get; } = new List<Tournament>();
+
+    [NotMapped]
+    public string SystemNameLocalized
+    {
+        get
+        {
+            return SystemName switch
+                   {
+                       "swiss"       => "Швейцарская",
+                       "round-robin" => "Круговая",
+                       _             => "Неизвестная"
+                   };
+        }
+    }
 }
