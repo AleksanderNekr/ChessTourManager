@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using OfficeOpenXml;
@@ -78,12 +79,17 @@ public static class ExportTableMethods
         }
     }
 
-    private static void WriteHeader(StringBuilder sb, DataGrid dataGrid, int skipFirstColumnsCount,
-                                    int           skipLastColumnsCount)
+    private static void WriteHeaderCsv(StringBuilder sb, DataGrid dataGrid, int skipFirstColumnsCount,
+                                       int           skipLastColumnsCount)
     {
         for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
         {
             DataGridColumn? column = dataGrid.Columns[i];
+            if (column.Visibility != Visibility.Visible)
+            {
+                continue;
+            }
+
             sb.Append(column.Header);
             sb.Append(Separator);
         }
@@ -104,26 +110,31 @@ public static class ExportTableMethods
     {
         StringBuilder sb = new();
 
-        WriteHeader(sb, dataGrid, skipFirstColumnsCount, skipLastColumnsCount);
+        WriteHeaderCsv(sb, dataGrid, skipFirstColumnsCount, skipLastColumnsCount);
 
         IEnumerable<object> objects = dataGrid.ItemsSource.Cast<object>();
 
-        WriteBody(dataGrid, objects.ToList(), sb, skipFirstColumnsCount, skipLastColumnsCount);
+        WriteBodyCsv(dataGrid, objects.ToList(), sb, skipFirstColumnsCount, skipLastColumnsCount);
 
         File.WriteAllText(fileName, sb.ToString());
     }
 
-    private static void WriteBody(DataGrid              dataGrid,
-                                  IReadOnlyList<object> data,
-                                  StringBuilder         sb,
-                                  int                   skipFirstColumnsCount = 0,
-                                  int                   skipLastColumnsCount  = 0)
+    private static void WriteBodyCsv(DataGrid              dataGrid,
+                                     IReadOnlyList<object> data,
+                                     StringBuilder         sb,
+                                     int                   skipFirstColumnsCount = 0,
+                                     int                   skipLastColumnsCount  = 0)
     {
         for (var i = 0; i < data.Count; i++)
         {
             object item = data[i];
             for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
+                if (dataGrid.Columns[j].Visibility != Visibility.Visible)
+                {
+                    continue;
+                }
+
                 object? value = GetPropertyValuesMethods.GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
                 sb.Append(value);
                 sb.Append(Separator);
@@ -147,14 +158,14 @@ public static class ExportTableMethods
 
         ExcelWorksheet? worksheet = worksheets.Add("Sheet1");
 
-        ConfigureExcelHeader(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, worksheet);
+        ConfigureHeaderExcel(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, worksheet);
 
-        ConfigureExcelBody(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, objects.ToList(), worksheet);
+        ConfigureBodyExcel(dataGrid, skipFirstColumnsCount, skipLastColumnsCount, objects.ToList(), worksheet);
 
         package.SaveAs(new FileInfo(fileName));
     }
 
-    private static void ConfigureExcelBody(DataGrid              dataGrid,
+    private static void ConfigureBodyExcel(DataGrid              dataGrid,
                                            int                   skipFirstColumnsCount,
                                            int                   skipLastColumnsCount,
                                            IReadOnlyList<object> objects,
@@ -162,23 +173,37 @@ public static class ExportTableMethods
     {
         for (var i = 0; i < objects.Count; i++)
         {
-            object item = objects[i];
+            object item      = objects[i];
+            var    skipCount = 0;
             for (int j = skipFirstColumnsCount; j < (dataGrid.Columns.Count - skipLastColumnsCount); j++)
             {
+                if (dataGrid.Columns[j].Visibility != Visibility.Visible)
+                {
+                    skipCount++;
+                    continue;
+                }
+
                 object? value = GetPropertyValuesMethods.GetPropertyValue(item, dataGrid.Columns[j].SortMemberPath);
-                worksheet.Cells[i + 2, j + 1].Value = value?.ToString();
+                worksheet.Cells[i + 2, j + 1 - skipCount].Value = value?.ToString();
             }
         }
     }
 
-    private static void ConfigureExcelHeader(DataGrid       dataGrid,
+    private static void ConfigureHeaderExcel(DataGrid       dataGrid,
                                              int            skipFirstColumnsCount,
                                              int            skipLastColumnsCount,
                                              ExcelWorksheet worksheet)
     {
+        var skipCount = 0;
         for (int i = skipFirstColumnsCount; i < (dataGrid.Columns.Count - skipLastColumnsCount); i++)
         {
-            worksheet.Cells[1, i + 1].Value = dataGrid.Columns[i].Header;
+            if (dataGrid.Columns[i].Visibility != Visibility.Visible)
+            {
+                skipCount++;
+                continue;
+            }
+
+            worksheet.Cells[1, i + 1 - skipCount].Value = dataGrid.Columns[i].Header;
         }
     }
 }
