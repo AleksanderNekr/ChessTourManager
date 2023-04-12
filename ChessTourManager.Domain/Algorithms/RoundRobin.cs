@@ -81,8 +81,8 @@ public class RoundRobin : IDrawingAlgorithm
             }
 
             // Rotate players, so that the first player is always the same.
-            _playersIds.Add(_playersIds[0]);
-            _playersIds.RemoveAt(0);
+            _playersIds.Add(_playersIds[1]);
+            _playersIds.RemoveAt(1);
         }
     }
 
@@ -98,14 +98,12 @@ public class RoundRobin : IDrawingAlgorithm
         {
             whiteIds = _playersIds.Take(_playersIds.Count / 2).ToList();
             blackIds = _playersIds.Skip(_playersIds.Count / 2).Reverse().ToList();
-        }
-        else
-        {
-            whiteIds = _playersIds.Take(_playersIds.Count / 2).Reverse().ToList();
-            blackIds = _playersIds.Skip(_playersIds.Count / 2).ToList();
+            return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (w, b)));
         }
 
-        return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (w, b)));
+        whiteIds = _playersIds.Take(_playersIds.Count / 2).Reverse().ToList();
+        blackIds = _playersIds.Skip(_playersIds.Count / 2).ToList();
+        return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (b, w)));
     }
 
     private List<int> _playersIds;
@@ -124,13 +122,14 @@ public class RoundRobin : IDrawingAlgorithm
         List<(int, int)> result = new();
         foreach ((int, int) pair in _pairsForTour[tour])
         {
-            if (_gamesHistory.Contains(pair))
+            if (_gamesHistory.Contains(pair) || _gamesHistory.Contains((pair.Item2, pair.Item1)))
             {
                 tour++;
                 continue;
             }
 
             result.Add(pair);
+            _gamesHistory.Add(pair);
         }
 
         return result;
