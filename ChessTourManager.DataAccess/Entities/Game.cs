@@ -33,32 +33,32 @@ public class Game
     {
         get
         {
-            if (IsPlayed)
+            if (this.IsPlayed)
             {
-                return _result ??= WhitePoints.ToString(CultureInfo.InvariantCulture) + " – "
-                                 + BlackPoints.ToString(CultureInfo.InvariantCulture);
+                return this._result ??= this.WhitePoints.ToString(CultureInfo.InvariantCulture) + " – "
+                                                                                             + this.BlackPoints.ToString(CultureInfo.InvariantCulture);
             }
 
-            if (Math.Abs(WhitePoints - 1) < 0.0001)
+            if (Math.Abs(this.WhitePoints - 1) < 0.0001)
             {
-                return _result ??= "+ – -";
+                return this._result ??= "+ – -";
             }
 
-            if (Math.Abs(BlackPoints - 1) < 0.0001)
+            if (Math.Abs(this.BlackPoints - 1) < 0.0001)
             {
-                return _result ??= "- – +";
+                return this._result ??= "- – +";
             }
 
-            return _result ??= "–";
+            return this._result ??= "–";
         }
         set
         {
-            _result = value;
+            this._result = value;
 
             if (value is "–" or "0 – 0")
             {
-                SetResult(0, 0);
-                IsPlayed = false;
+                this.SetResult(0, 0);
+                this.IsPlayed = false;
                 return;
             }
 
@@ -66,17 +66,17 @@ public class Game
             switch (res[0])
             {
                 case "+":
-                    SetResult(1, 0);
-                    IsPlayed = false;
+                    this.SetResult(1, 0);
+                    this.IsPlayed = false;
                     break;
                 case "-":
-                    SetResult(0, 1);
-                    IsPlayed = false;
+                    this.SetResult(0, 1);
+                    this.IsPlayed = false;
                     break;
                 default:
-                    SetResult(double.Parse(res[0], CultureInfo.InvariantCulture),
-                              double.Parse(res[1], CultureInfo.InvariantCulture));
-                    IsPlayed = true;
+                    this.SetResult(double.Parse(res[0], CultureInfo.InvariantCulture),
+                                   double.Parse(res[1], CultureInfo.InvariantCulture));
+                    this.IsPlayed = true;
                     break;
             }
         }
@@ -84,13 +84,13 @@ public class Game
 
     private void SetResult(double whitePoints, double blackPoints)
     {
-        PlayerWhite.PointsAmount -= WhitePoints;
-        PlayerBlack.PointsAmount -= BlackPoints;
+        this.PlayerWhite.PointsAmount -= this.WhitePoints;
+        this.PlayerBlack.PointsAmount -= this.BlackPoints;
 
-        WhitePoints = whitePoints;
-        BlackPoints = blackPoints;
+        this.WhitePoints = whitePoints;
+        this.BlackPoints    = blackPoints;
 
-        PlayerWhite.PointsAmount += WhitePoints;
-        PlayerBlack.PointsAmount += BlackPoints;
+        this.PlayerWhite.PointsAmount += this.WhitePoints;
+        this.PlayerBlack.PointsAmount += this.BlackPoints;
     }
 }

@@ -16,7 +16,7 @@ public class Kind
     {
         get
         {
-            return KindName switch
+            return this.KindName switch
                    {
                        "single"      => "Личный",
                        "team"        => "Командный",

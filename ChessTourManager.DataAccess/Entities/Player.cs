@@ -35,98 +35,98 @@ public class Player : INotifyPropertyChanged
 
     public string? PlayerLastName
     {
-        get { return _playerLastName; }
-        set { SetField(ref _playerLastName, value); }
+        get { return this._playerLastName; }
+        set { this.SetField(ref this._playerLastName, value); }
     }
 
     public string? PlayerFirstName
     {
-        get { return _playerFirstName; }
+        get { return this._playerFirstName; }
         set
         {
-            if (SetField(ref _playerFirstName, value))
+            if (this.SetField(ref this._playerFirstName, value))
             {
-                OnPropertyChanged(nameof(PlayerFullName));
+                this.OnPropertyChanged(nameof(this.PlayerFullName));
             }
         }
     }
 
     public char Gender
     {
-        get { return _gender; }
-        set { SetField(ref _gender, value); }
+        get { return this._gender; }
+        set { this.SetField(ref this._gender, value); }
     }
 
     public string PlayerAttribute
     {
-        get { return _playerAttribute; }
-        set { SetField(ref _playerAttribute, value); }
+        get { return this._playerAttribute; }
+        set { this.SetField(ref this._playerAttribute, value); }
     }
 
     public int PlayerBirthYear
     {
-        get { return _playerBirthYear; }
-        set { SetField(ref _playerBirthYear, value); }
+        get { return this._playerBirthYear; }
+        set { this.SetField(ref this._playerBirthYear, value); }
     }
 
     public bool? IsActive
     {
-        get { return _isActive; }
-        set { SetField(ref _isActive, value); }
+        get { return this._isActive; }
+        set { this.SetField(ref this._isActive, value); }
     }
 
     public double PointsAmount
     {
-        get { return _pointsAmount; }
-        set { SetField(ref _pointsAmount, value); }
+        get { return this._pointsAmount; }
+        set { this.SetField(ref this._pointsAmount, value); }
     }
 
     public int WinsCount
     {
-        get { return _winsCount; }
-        set { SetField(ref _winsCount, value); }
+        get { return this._winsCount; }
+        set { this.SetField(ref this._winsCount, value); }
     }
 
     public int LossesCount
     {
-        get { return _lossesCount; }
-        set { SetField(ref _lossesCount, value); }
+        get { return this._lossesCount; }
+        set { this.SetField(ref this._lossesCount, value); }
     }
 
     public int DrawsCount
     {
-        get { return _drawsCount; }
-        set { SetField(ref _drawsCount, value); }
+        get { return this._drawsCount; }
+        set { this.SetField(ref this._drawsCount, value); }
     }
 
     public decimal RatioSum1
     {
-        get { return _ratioSum1; }
-        set { SetField(ref _ratioSum1, value); }
+        get { return this._ratioSum1; }
+        set { this.SetField(ref this._ratioSum1, value); }
     }
 
     public decimal RatioSum2
     {
-        get { return _ratioSum2; }
-        set { SetField(ref _ratioSum2, value); }
+        get { return this._ratioSum2; }
+        set { this.SetField(ref this._ratioSum2, value); }
     }
 
     public int BoardNumber
     {
-        get { return _boardNumber; }
-        set { SetField(ref _boardNumber, value); }
+        get { return this._boardNumber; }
+        set { this.SetField(ref this._boardNumber, value); }
     }
 
     public int? TeamId
     {
-        get { return _teamId; }
-        set { SetField(ref _teamId, value); }
+        get { return this._teamId; }
+        set { this.SetField(ref this._teamId, value); }
     }
 
     public int? GroupId
     {
-        get { return _groupId; }
-        set { SetField(ref _groupId, value); }
+        get { return this._groupId; }
+        set { this.SetField(ref this._groupId, value); }
     }
 
     public ICollection<Game> BlackGamePlayers { get; } = new List<Game>();
@@ -135,38 +135,38 @@ public class Player : INotifyPropertyChanged
 
     public Group? Group
     {
-        get { return _group; }
-        set { SetField(ref _group, value); }
+        get { return this._group; }
+        set { this.SetField(ref this._group, value); }
     }
 
     public Team? Team
     {
-        get { return _team; }
-        set { SetField(ref _team, value); }
+        get { return this._team; }
+        set { this.SetField(ref this._team, value); }
     }
 
     public Tournament Tournament
     {
-        get { return _tournament; }
-        set { SetField(ref _tournament, value); }
+        get { return this._tournament; }
+        set { this.SetField(ref this._tournament, value); }
     }
 
     [NotMapped]
     public string PlayerFullName
     {
-        get { return PlayerLastName + " " + PlayerFirstName; }
+        get { return this.PlayerLastName + " " + this.PlayerFirstName; }
     }
 
     public override string ToString()
     {
-        return PlayerId + " " + PlayerFullName;
+        return this.PlayerId + " " + this.PlayerFullName;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
@@ -174,7 +174,7 @@ public class Player : INotifyPropertyChanged
         if (EqualityComparer<T>.Default.Equals(field, value))
             return false;
         field = value;
-        OnPropertyChanged(propertyName);
+        this.OnPropertyChanged(propertyName);
         return true;
     }
 }

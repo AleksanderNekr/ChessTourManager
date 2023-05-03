@@ -24,7 +24,7 @@ internal class InsertQueries : IInsertQueries
                    UserLastName   = lastName,
                    UserFirstName  = firstName,
                    Email          = email,
-                   PassHash       = PasswordHasher.HashPassword(password),
+                   PasswordHash       = PasswordHasher.HashPassword(password),
                    UserPatronymic = patronymic,
                    TournamentsLim = tournamentsLimit,
                    RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
