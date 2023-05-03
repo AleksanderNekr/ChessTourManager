@@ -7,7 +7,6 @@ namespace ChessTourManager.DataAccess.Entities;
 
 public class User : IdentityUser<int>
 {
-    [Key]
     public override int Id { get; set; }
 
     public string? UserLastName { get; set; }
