@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChessTourManager.DataAccess.Entities;
 
-public class User
+public class User : IdentityUser<int>
 {
-    public int UserId { get; set; }
+    public override int Id { get; set; }
 
-    public string? UserLastName { get; set; } = null!;
+    public string? UserLastName { get; set; }
 
-    public string? UserFirstName { get; set; } = null!;
+    public string? UserFirstName { get; set; }
 
-    public string? UserPatronymic { get; set; } = null!;
+    public string? UserPatronymic { get; set; }
 
-    public string? Email { get; set; } = null!;
+    public override string? Email { get; set; }
 
-    public string PassHash { get; set; } = null!;
+    public override string? PasswordHash { get; set; }
 
     public int TournamentsLim { get; set; }
 
@@ -23,5 +25,5 @@ public class User
 
     public TimeOnly RegisterTime { get; set; }
 
-    public virtual ICollection<Tournament> Tournaments { get; } = new List<Tournament>();
+    public ICollection<Tournament> Tournaments { get; } = new List<Tournament>();
 }

@@ -6,7 +6,7 @@ public interface IDeleteQueries
 {
     public static IDeleteQueries CreateInstance(ChessTourContext? context)
     {
-        if (context is { })
+        if (context is not null)
         {
             return new DeleteQuery(context);
         }

@@ -1,4 +1,4 @@
-﻿namespace ChessTourManager.Web.Models;
+namespace ChessTourManager.WEB.Models;
 
 public class ErrorViewModel
 {
@@ -6,6 +6,6 @@ public class ErrorViewModel
 
     public bool ShowRequestId
     {
-        get { return !string.IsNullOrEmpty(RequestId); }
+        get { return !string.IsNullOrEmpty(this.RequestId); }
     }
 }

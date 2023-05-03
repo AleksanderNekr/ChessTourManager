@@ -10,36 +10,36 @@ public class RoundRobin : IDrawingAlgorithm
 {
     public RoundRobin(ChessTourContext context, Tournament tournament)
     {
-        _tournament = tournament;
-        _context    = context;
+        this._tournament = tournament;
+        this._context       = context;
         IGetQueries.CreateInstance(context)
                    .TryGetGames(tournament.OrganizerId,
                                 tournament.TournamentId,
                                 out List<Game>? games);
         if (games is not null)
         {
-            _gamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
+            this._gamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
 
             if (games.Any())
             {
-                NewTourNumber = games.Max(g => g.TourNumber) + 1;
+                this.NewTourNumber = games.Max(g => g.TourNumber) + 1;
             }
             else
             {
-                NewTourNumber = 1;
+                this.NewTourNumber = 1;
             }
         }
         else
         {
-            _gamesHistory = new HashSet<(int, int)>();
-            NewTourNumber = 1;
+            this._gamesHistory = new HashSet<(int, int)>();
+            this.NewTourNumber    = 1;
         }
 
         List<Player>? players = GetPlayers(context, tournament);
 
-        _playersIds = GetPlayersIds(players);
+        this._playersIds = GetPlayersIds(players);
 
-        ConfigureTours();
+        this.ConfigureTours();
     }
 
     private static List<Player>? GetPlayers(ChessTourContext context, Tournament tournament)
@@ -61,28 +61,28 @@ public class RoundRobin : IDrawingAlgorithm
 
     private void ConfigureTours()
     {
-        _playersIds.Sort();
+        this._playersIds.Sort();
 
         // Add a dummy player to make the number of players even.
-        if (_playersIds.Count % 2 != 0)
+        if (this._playersIds.Count % 2 != 0)
         {
-            _playersIds.Add(-1);
+            this._playersIds.Add(-1);
         }
 
-        for (var tourNumber = 1; tourNumber <= _playersIds.Count; tourNumber++)
+        for (var tourNumber = 1; tourNumber <= this._playersIds.Count; tourNumber++)
         {
-            if (_pairsForTour.ContainsKey(tourNumber))
+            if (this._pairsForTour.ContainsKey(tourNumber))
             {
-                _pairsForTour[tourNumber] = ConfigurePairs();
+                this._pairsForTour[tourNumber] = this.ConfigurePairs();
             }
             else
             {
-                _pairsForTour.Add(tourNumber, ConfigurePairs());
+                this._pairsForTour.Add(tourNumber, this.ConfigurePairs());
             }
 
             // Rotate players, so that the first player is always the same.
-            _playersIds.Add(_playersIds[1]);
-            _playersIds.RemoveAt(1);
+            this._playersIds.Add(this._playersIds[1]);
+            this._playersIds.RemoveAt(1);
         }
     }
 
@@ -94,15 +94,15 @@ public class RoundRobin : IDrawingAlgorithm
         List<int> blackIds;
 
         // Swap colors for even tours.
-        if (NewTourNumber % 2 == 0)
+        if (this.NewTourNumber % 2 == 0)
         {
-            whiteIds = _playersIds.Take(_playersIds.Count / 2).ToList();
-            blackIds = _playersIds.Skip(_playersIds.Count / 2).Reverse().ToList();
+            whiteIds = this._playersIds.Take(this._playersIds.Count / 2).ToList();
+            blackIds = this._playersIds.Skip(this._playersIds.Count    / 2).Reverse().ToList();
             return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (w, b)));
         }
 
-        whiteIds = _playersIds.Take(_playersIds.Count / 2).Reverse().ToList();
-        blackIds = _playersIds.Skip(_playersIds.Count / 2).ToList();
+        whiteIds = this._playersIds.Take(this._playersIds.Count / 2).Reverse().ToList();
+        blackIds = this._playersIds.Skip(this._playersIds.Count    / 2).ToList();
         return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (b, w)));
     }
 
@@ -110,26 +110,26 @@ public class RoundRobin : IDrawingAlgorithm
 
     public IList<(int, int)> StartNewTour(int currentTour)
     {
-        ReconfigureIdsIfPlayersChanged();
+        this.ReconfigureIdsIfPlayersChanged();
 
-        NewTourNumber = currentTour + 1;
-        int tour = NewTourNumber;
-        if (tour >= _pairsForTour.Count || _playersIds.Count < 3)
+        this.NewTourNumber = currentTour + 1;
+        int tour = this.NewTourNumber;
+        if (tour >= this._pairsForTour.Count || this._playersIds.Count < 3)
         {
             return new List<(int, int)>();
         }
 
         List<(int, int)> result = new();
-        foreach ((int, int) pair in _pairsForTour[tour])
+        foreach ((int, int) pair in this._pairsForTour[tour])
         {
-            if (_gamesHistory.Contains(pair) || _gamesHistory.Contains((pair.Item2, pair.Item1)))
+            if (this._gamesHistory.Contains(pair) || this._gamesHistory.Contains((pair.Item2, pair.Item1)))
             {
                 tour++;
                 continue;
             }
 
             result.Add(pair);
-            _gamesHistory.Add(pair);
+            this._gamesHistory.Add(pair);
         }
 
         return result;
@@ -138,20 +138,20 @@ public class RoundRobin : IDrawingAlgorithm
     private void ReconfigureIdsIfPlayersChanged()
     {
         // If players changed, reconfigure the tours.
-        List<int> ids = GetPlayersIds(GetPlayers(_context, _tournament));
-        if (ids.Count != _playersIds.Count)
+        List<int> ids = GetPlayersIds(GetPlayers(this._context, this._tournament));
+        if (ids.Count != this._playersIds.Count)
         {
-            _playersIds = ids;
-            ConfigureTours();
+            this._playersIds = ids;
+            this.ConfigureTours();
             return;
         }
 
-        for (var i = 0; i < _playersIds.Count; i++)
+        for (var i = 0; i < this._playersIds.Count; i++)
         {
-            if (_playersIds[i] != ids[i])
+            if (this._playersIds[i] != ids[i])
             {
-                _playersIds = ids;
-                ConfigureTours();
+                this._playersIds = ids;
+                this.ConfigureTours();
                 break;
             }
         }

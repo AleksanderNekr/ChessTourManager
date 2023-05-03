@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -42,10 +43,6 @@ public static class PrintMethods
         document.Blocks.Add(table);
         document.TextAlignment = TextAlignment.Center;
 
-        // Album landscape orientation.
-        document.PageWidth  = printDialog.PrintableAreaHeight;
-        document.PageHeight = printDialog.PrintableAreaWidth;
-
         FixedDocument fixedDoc = FlowToFixedDoc(document);
 
         PrintPreview preview = new() { DataContext = fixedDoc };
@@ -73,7 +70,7 @@ public static class PrintMethods
         // Row number column specified width.
         dataRow.Cells.Add(GetDataCell((dataGrid.Items.IndexOf(item) + 1).ToString()));
 
-        foreach (DataGridColumn column in dataGrid.Columns)
+        foreach (DataGridColumn column in dataGrid.Columns.Where(column => column.Visibility == Visibility.Visible))
         {
             string cellValue = GetCellValue(column, item);
 
@@ -124,13 +121,9 @@ public static class PrintMethods
         // Number column.
         AddHeader(table, headerRow, "№", 40);
 
-        foreach (DataGridColumn column in dataGrid.Columns)
+        foreach (DataGridColumn column in dataGrid.Columns.Where(column => column.Header     != null
+                                                                        && column.Visibility == Visibility.Visible))
         {
-            if (column.Header is null)
-            {
-                continue;
-            }
-
             AddHeader(table, headerRow, column.Header.ToString() ?? " ", column.ActualWidth);
         }
 

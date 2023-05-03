@@ -16,7 +16,7 @@ public class System
     {
         get
         {
-            return SystemName switch
+            return this.SystemName switch
                    {
                        "swiss"       => "Швейцарская",
                        "round-robin" => "Круговая",

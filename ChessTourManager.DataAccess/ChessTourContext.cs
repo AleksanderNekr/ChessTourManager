@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.TableViews;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -38,15 +39,26 @@ public class ChessTourContext : DbContext
 
     public DbSet<User> Users { get; set; }
 
+    public DbSet<IdentityUserClaim<int>> IdentityUserClaims { get; set; }
+
+    public DbSet<IdentityUserLogin<int>> IdentityUserLogins { get; set; }
+
+    public DbSet<IdentityUserToken<int>> IdentityUserTokens { get; set; }
+
+    public DbSet<IdentityRole<int>> IdentityRoles { get; set; }
+
+    public DbSet<IdentityRoleClaim<int>> IdentityRoleClaims { get; set; }
+
+    public DbSet<IdentityUserRole<int>> IdentityUserRoles { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // Get project directory
-        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName
-                               ?? throw new InvalidOperationException("Directory not found");
-
-        IConfigurationBuilder builder = new ConfigurationBuilder()
-                                       .SetBasePath(projectDirectory)
-                                       .AddJsonFile("appsettings.json");
+        // Get connection string from appsettings.json
+        IConfigurationBuilder builder = new ConfigurationBuilder().SetBasePath(Directory
+                                                                          .GetParent(Directory
+                                                                              .GetCurrentDirectory())
+                                                                     + "/ChessTourManager.WEB")
+                                                                  .AddJsonFile("appsettings.json", false, true);
 
         IConfiguration configuration    = builder.Build();
         string         connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -56,6 +68,8 @@ public class ChessTourContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        DefineIdentities(modelBuilder);
+
         DefineGameEntity(modelBuilder);
 
         DefineGroupEntity(modelBuilder);
@@ -85,21 +99,141 @@ public class ChessTourContext : DbContext
         DefineUserEntity(modelBuilder);
     }
 
+    private static void DefineIdentities(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<IdentityUserLogin<int>>(entity =>
+                                                    {
+                                                        entity.HasKey(e => new { e.LoginProvider, e.ProviderKey })
+                                                              .HasName("user_logins_pk");
+
+                                                        entity.ToTable("user_logins");
+
+                                                        entity.HasIndex(e => e.UserId, "user_logins_user_id_idx");
+
+                                                        entity.Property(e => e.LoginProvider)
+                                                              .HasMaxLength(128)
+                                                              .HasColumnName("login_provider");
+                                                        entity.Property(e => e.ProviderKey)
+                                                              .HasMaxLength(128)
+                                                              .HasColumnName("provider_key");
+                                                        entity.Property(e => e.ProviderDisplayName)
+                                                              .HasColumnName("provider_display_name");
+                                                        entity.Property(e => e.UserId)
+                                                              .HasColumnName("user_id")
+                                                              .HasColumnType("integer");
+                                                    });
+
+        modelBuilder.Entity<IdentityUserRole<int>>(entity =>
+                                                   {
+                                                       entity.HasKey(e => new { e.UserId, e.RoleId })
+                                                             .HasName("user_roles_pk");
+
+                                                       entity.ToTable("user_roles");
+
+                                                       entity.HasIndex(e => e.RoleId, "user_roles_role_id_idx");
+
+                                                       entity.Property(e => e.UserId)
+                                                             .HasColumnName("user_id")
+                                                             .HasColumnType("integer");
+                                                       entity.Property(e => e.RoleId)
+                                                             .HasColumnName("role_id")
+                                                             .HasColumnType("integer");
+                                                   });
+
+        modelBuilder.Entity<IdentityUserToken<int>>(entity =>
+                                                    {
+                                                        entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name })
+                                                              .HasName("user_tokens_pk");
+
+                                                        entity.ToTable("user_tokens");
+
+                                                        entity.Property(e => e.UserId)
+                                                              .HasColumnName("user_id")
+                                                              .HasColumnType("integer");
+                                                        entity.Property(e => e.LoginProvider)
+                                                              .HasMaxLength(128)
+                                                              .HasColumnName("login_provider");
+                                                        entity.Property(e => e.Name)
+                                                              .HasMaxLength(128)
+                                                              .HasColumnName("name");
+                                                        entity.Property(e => e.Value)
+                                                              .HasColumnName("value");
+                                                    });
+
+        modelBuilder.Entity<IdentityUserClaim<int>>(entity =>
+                                                    {
+                                                        entity.HasKey(e => e.Id).HasName("user_claims_pk");
+
+                                                        entity.ToTable("user_claims");
+
+                                                        entity.HasIndex(e => e.UserId, "user_claims_user_id_idx");
+
+                                                        entity.Property(e => e.Id)
+                                                              .HasColumnName("user_claim_id")
+                                                              .HasColumnType("integer");
+                                                        entity.Property(e => e.UserId)
+                                                              .HasColumnName("user_id")
+                                                              .HasColumnType("integer");
+                                                        entity.Property(e => e.ClaimType)
+                                                              .HasColumnName("claim_type");
+                                                        entity.Property(e => e.ClaimValue)
+                                                              .HasColumnName("claim_value");
+                                                    });
+
+        modelBuilder.Entity<IdentityRole<int>>(entity =>
+                                               {
+                                                   entity.HasKey(e => e.Id).HasName("roles_pk");
+
+                                                   entity.ToTable("roles");
+
+                                                   entity.HasIndex(e => e.NormalizedName, "roles_name_uq")
+                                                         .IsUnique();
+
+                                                   entity.Property(e => e.Id)
+                                                         .HasColumnName("role_id")
+                                                         .HasColumnType("integer");
+                                                   entity.Property(e => e.Name)
+                                                         .HasColumnName("name");
+                                                   entity.Property(e => e.NormalizedName)
+                                                         .HasColumnName("normalized_name");
+                                               });
+
+        modelBuilder.Entity<IdentityRoleClaim<int>>(entity =>
+                                                    {
+                                                        entity.HasKey(e => e.Id).HasName("role_claims_pk");
+
+                                                        entity.ToTable("role_claims");
+
+                                                        entity.HasIndex(e => e.RoleId, "role_claims_role_id_idx");
+
+                                                        entity.Property(e => e.Id)
+                                                              .HasColumnName("role_claim_id")
+                                                              .HasColumnType("integer");
+                                                        entity.Property(e => e.RoleId)
+                                                              .HasColumnName("role_id")
+                                                              .HasColumnType("integer");
+                                                        entity.Property(e => e.ClaimType)
+                                                              .HasColumnName("claim_type");
+                                                        entity.Property(e => e.ClaimValue)
+                                                              .HasColumnName("claim_value");
+                                                    });
+    }
+
     private static void DefineUserEntity(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(entity =>
                                   {
-                                      entity.HasKey(e => e.UserId).HasName("users_pk");
+                                      entity.HasKey(e => e.Id).HasName("users_pk");
 
                                       entity.ToTable("users");
 
                                       entity.HasIndex(e => e.Email, "users_email_uq").IsUnique();
 
-                                      entity.Property(e => e.UserId).HasColumnName("user_id");
+                                      entity.Property(e => e.Id).HasColumnName("user_id");
                                       entity.Property(e => e.Email)
                                             .HasMaxLength(255)
                                             .HasColumnName("email");
-                                      entity.Property(e => e.PassHash)
+                                      entity.Property(e => e.PasswordHash)
                                             .HasMaxLength(255)
                                             .HasColumnName("pass_hash");
                                       entity.Property(e => e.RegisterDate)

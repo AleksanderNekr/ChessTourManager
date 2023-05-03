@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * jQuery Validation Plugin v1.17.0
  *
  * https://jqueryvalidation.org/
@@ -30,7 +30,7 @@
             }
 
             // Check if a validator for this form was already created
-            let validator = $.data(this[0], "validator");
+            var validator = $.data(this[0], "validator");
             if (validator) {
                 return validator;
             }
@@ -69,7 +69,7 @@
                     }
 
                     function handle() {
-                        let hidden, result;
+                        var hidden, result;
 
                         // Insert a hidden input as a replacement for the missing submit button
                         // The hidden input is inserted in two cases:
@@ -121,7 +121,7 @@
 
         // https://jqueryvalidation.org/valid/
         valid: function () {
-            let valid, validator, errorList;
+            var valid, validator, errorList;
 
             if ($(this[0]).is("form")) {
                 valid = this.validate().form();
@@ -142,8 +142,8 @@
 
         // https://jqueryvalidation.org/rules/
         rules: function (command, argument) {
-            const element = this[0];
-            let settings, staticRules, existingRules, data, param, filtered;
+            var element = this[0],
+                settings, staticRules, existingRules, data, param, filtered;
 
             // If nothing is selected, return empty object; can't chain anyway
             if (element == null) {
@@ -225,7 +225,7 @@
 
         // https://jqueryvalidation.org/filled-selector/
         filled: function (a) {
-            const val = $(a).val();
+            var val = $(a).val();
             return val !== null && !!$.trim("" + val);
         },
 
@@ -246,7 +246,7 @@
     $.validator.format = function (source, params) {
         if (arguments.length === 1) {
             return function () {
-                const args = $.makeArray(arguments);
+                var args = $.makeArray(arguments);
                 args.unshift(source);
                 return $.validator.format.apply(this, args);
             };
@@ -317,7 +317,7 @@
                 // Insert      => 45
                 // Num lock    => 144
                 // AltGr key   => 225
-                const excludedKeys = [
+                var excludedKeys = [
                     16, 17, 18, 20, 35, 36, 37,
                     38, 39, 40, 45, 144, 225
                 ];
@@ -394,8 +394,8 @@
                 this.invalid = {};
                 this.reset();
 
-                const groups = (this.groups = {});
-                let rules;
+                var groups = (this.groups = {}),
+                    rules;
                 $.each(this.settings.groups, function (key, value) {
                     if (typeof value === "string") {
                         value = value.split(/\s/);
@@ -417,7 +417,7 @@
                         this.name = $(this).attr("name");
                     }
 
-                    const validator = $.data(this.form, "validator"),
+                    var validator = $.data(this.form, "validator"),
                         eventType = "on" + event.type.replace(/^validate/, ""),
                         settings = validator.settings;
                     if (settings[eventType] && !$(this).is(settings.ignore)) {
@@ -455,9 +455,7 @@
 
             checkForm: function () {
                 this.prepareForm();
-                let i = 0;
-                const elements = (this.currentElements = this.elements());
-                for (; elements[i]; i++) {
+                for (var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++) {
                     this.check(elements[i]);
                 }
                 return this.valid();
@@ -465,10 +463,10 @@
 
             // https://jqueryvalidation.org/Validator.element/
             element: function (element) {
-                let cleanElement = this.clean(element);
-                const checkElement = this.validationTargetFor(cleanElement),
-                    v = this;
-                let result = true,
+                var cleanElement = this.clean(element),
+                    checkElement = this.validationTargetFor(cleanElement),
+                    v = this,
+                    result = true,
                     rs, group;
 
                 if (checkElement === undefined) {
@@ -517,7 +515,7 @@
             // https://jqueryvalidation.org/Validator.showErrors/
             showErrors: function (errors) {
                 if (errors) {
-                    const validator = this;
+                    var validator = this;
 
                     // Add items to error list and map
                     $.extend(this.errorMap, errors);
@@ -549,7 +547,7 @@
                 this.submitted = {};
                 this.prepareForm();
                 this.hideErrors();
-                const elements = this.elements()
+                var elements = this.elements()
                     .removeData("previousValue")
                     .removeAttr("aria-invalid");
 
@@ -557,7 +555,7 @@
             },
 
             resetElements: function (elements) {
-                let i;
+                var i;
 
                 if (this.settings.unhighlight) {
                     for (i = 0; elements[i]; i++) {
@@ -578,7 +576,7 @@
 
             objectLength: function (obj) {
                 /* jshint unused: false */
-                let count = 0,
+                var count = 0,
                     i;
                 for (i in obj) {
 
@@ -625,14 +623,14 @@
             },
 
             findLastActive: function () {
-                const lastActive = this.lastActive;
+                var lastActive = this.lastActive;
                 return lastActive && $.grep(this.errorList, function (n) {
                     return n.element.name === lastActive.name;
                 }).length === 1 && lastActive;
             },
 
             elements: function () {
-                const validator = this,
+                var validator = this,
                     rulesCache = {};
 
                 // Select all valid inputs inside the form (no submit or reset buttons)
@@ -641,7 +639,7 @@
                     .not(":submit, :reset, :image, :disabled")
                     .not(this.settings.ignore)
                     .filter(function () {
-                        const name = this.name || $(this).attr("name"); // For contenteditable
+                        var name = this.name || $(this).attr("name"); // For contenteditable
                         if (!name && validator.settings.debug && window.console) {
                             console.error("%o has no name assigned", this);
                         }
@@ -667,7 +665,7 @@
             },
 
             errors: function () {
-                const errorClass = this.settings.errorClass.split(" ").join(".");
+                var errorClass = this.settings.errorClass.split(" ").join(".");
                 return $(this.settings.errorElement + "." + errorClass, this.errorContext);
             },
 
@@ -695,9 +693,9 @@
             },
 
             elementValue: function (element) {
-                const $element = $(element),
-                    type = element.type;
-                let val, idx;
+                var $element = $(element),
+                    type = element.type,
+                    val, idx;
 
                 if (type === "radio" || type === "checkbox") {
                     return this.findByName(element.name).filter(":checked").val();
@@ -744,11 +742,11 @@
             check: function (element) {
                 element = this.validationTargetFor(this.clean(element));
 
-                const rules = $(element).rules(),
+                var rules = $(element).rules(),
                     rulesCount = $.map(rules, function (n, i) {
                         return i;
-                    }).length;
-                let dependencyMismatch = false,
+                    }).length,
+                    dependencyMismatch = false,
                     val = this.elementValue(element),
                     result, method, rule, normalizer;
 
@@ -826,13 +824,13 @@
 
             // Return the custom message for the given element name and validation method
             customMessage: function (name, method) {
-                const m = this.settings.messages[name];
+                var m = this.settings.messages[name];
                 return m && (m.constructor === String ? m : m[method]);
             },
 
             // Return the first defined argument, allowing empty strings
             findDefined: function () {
-                for (let i = 0; i < arguments.length; i++) {
+                for (var i = 0; i < arguments.length; i++) {
                     if (arguments[i] !== undefined) {
                         return arguments[i];
                     }
@@ -854,16 +852,16 @@
                     rule = {method: rule};
                 }
 
-                let message = this.findDefined(
-                    this.customMessage(element.name, rule.method),
-                    this.customDataMessage(element, rule.method),
+                var message = this.findDefined(
+                        this.customMessage(element.name, rule.method),
+                        this.customDataMessage(element, rule.method),
 
-                    // 'title' is never undefined, so handle empty string as undefined
-                    !this.settings.ignoreTitle && element.title || undefined,
-                    $.validator.messages[rule.method],
-                    "<strong>Warning: No message defined for " + element.name + "</strong>"
-                );
-                const theregex = /\$?\{(\d+)\}/g;
+                        // 'title' is never undefined, so handle empty string as undefined
+                        !this.settings.ignoreTitle && element.title || undefined,
+                        $.validator.messages[rule.method],
+                        "<strong>Warning: No message defined for " + element.name + "</strong>"
+                    ),
+                    theregex = /\$?\{(\d+)\}/g;
                 if (typeof message === "function") {
                     message = message.call(this, rule.parameters, element);
                 } else if (theregex.test(message)) {
@@ -874,7 +872,7 @@
             },
 
             formatAndAdd: function (element, rule) {
-                const message = this.defaultMessage(element, rule);
+                var message = this.defaultMessage(element, rule);
 
                 this.errorList.push({
                     message: message,
@@ -894,7 +892,7 @@
             },
 
             defaultShowErrors: function () {
-                let i, elements, error;
+                var i, elements, error;
                 for (i = 0; this.errorList[i]; i++) {
                     error = this.errorList[i];
                     if (this.settings.highlight) {
@@ -931,10 +929,10 @@
             },
 
             showLabel: function (element, message) {
-                let place, group, errorID, v,
-                    error = this.errorsFor(element);
-                const elementID = this.idOrName(element);
-                let describedBy = $(element).attr("aria-describedby");
+                var place, group, errorID, v,
+                    error = this.errorsFor(element),
+                    elementID = this.idOrName(element),
+                    describedBy = $(element).attr("aria-describedby");
 
                 if (error.length) {
 
@@ -1013,9 +1011,9 @@
             },
 
             errorsFor: function (element) {
-                const name = this.escapeCssMeta(this.idOrName(element)),
-                    describer = $(element).attr("aria-describedby");
-                let selector = "label[for='" + name + "'], label[for='" + name + "'] *";
+                var name = this.escapeCssMeta(this.idOrName(element)),
+                    describer = $(element).attr("aria-describedby"),
+                    selector = "label[for='" + name + "'], label[for='" + name + "'] *";
 
                 // 'aria-describedby' should directly reference the error element
                 if (describer) {
@@ -1087,7 +1085,7 @@
             },
 
             optional: function (element) {
-                const val = this.elementValue(element);
+                var val = this.elementValue(element);
                 return !$.validator.methods.required.call(this, val, element) && "dependency-mismatch";
             },
 
@@ -1170,7 +1168,7 @@
         },
 
         classRules: function (element) {
-            const rules = {},
+            var rules = {},
                 classes = $(element).attr("class");
 
             if (classes) {
@@ -1207,10 +1205,10 @@
         },
 
         attributeRules: function (element) {
-            const rules = {},
+            var rules = {},
                 $element = $(element),
-                type = element.getAttribute("type");
-            let method, value;
+                type = element.getAttribute("type"),
+                method, value;
 
             for (method in $.validator.methods) {
 
@@ -1242,10 +1240,10 @@
         },
 
         dataRules: function (element) {
-            const rules = {},
+            var rules = {},
                 $element = $(element),
-                type = element.getAttribute("type");
-            let method, value;
+                type = element.getAttribute("type"),
+                method, value;
 
             for (method in $.validator.methods) {
                 value = $element.data("rule" + method.charAt(0).toUpperCase() + method.substring(1).toLowerCase());
@@ -1255,8 +1253,8 @@
         },
 
         staticRules: function (element) {
-            let rules = {};
-            const validator = $.data(element.form, "validator");
+            var rules = {},
+                validator = $.data(element.form, "validator");
 
             if (validator.settings.rules) {
                 rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
@@ -1275,7 +1273,7 @@
                     return;
                 }
                 if (val.param || val.depends) {
-                    let keepRule = true;
+                    var keepRule = true;
                     switch (typeof val.depends) {
                         case "string":
                             keepRule = !!$(val.depends, element.form).length;
@@ -1305,7 +1303,7 @@
                 }
             });
             $.each(["rangelength", "range"], function () {
-                let parts;
+                var parts;
                 if (rules[this]) {
                     if ($.isArray(rules[this])) {
                         rules[this] = [Number(rules[this][0]), Number(rules[this][1])];
@@ -1337,7 +1335,7 @@
         // Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
         normalizeRule: function (data) {
             if (typeof data === "string") {
-                const transformed = {};
+                var transformed = {};
                 $.each(data.split(/\s/), function () {
                     transformed[this] = true;
                 });
@@ -1368,7 +1366,7 @@
                 if (element.nodeName.toLowerCase() === "select") {
 
                     // Could be an array for select-multiple or a string, both are fine this way
-                    const val = $(element).val();
+                    var val = $(element).val();
                     return val && val.length > 0;
                 }
                 if (this.checkable(element)) {
@@ -1419,19 +1417,19 @@
 
             // https://jqueryvalidation.org/minlength-method/
             minlength: function (value, element, param) {
-                const length = $.isArray(value) ? value.length : this.getLength(value, element);
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
                 return this.optional(element) || length >= param;
             },
 
             // https://jqueryvalidation.org/maxlength-method/
             maxlength: function (value, element, param) {
-                const length = $.isArray(value) ? value.length : this.getLength(value, element);
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
                 return this.optional(element) || length <= param;
             },
 
             // https://jqueryvalidation.org/rangelength-method/
             rangelength: function (value, element, param) {
-                const length = $.isArray(value) ? value.length : this.getLength(value, element);
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
                 return this.optional(element) || (length >= param[0] && length <= param[1]);
             },
 
@@ -1458,7 +1456,7 @@
                     re = new RegExp("\\b" + type + "\\b"),
                     notSupported = type && !re.test(supportedTypes.join()),
                     decimalPlaces = function (num) {
-                        const match = ("" + num).match(/(?:\.(\d+))?$/);
+                        var match = ("" + num).match(/(?:\.(\d+))?$/);
                         if (!match) {
                             return 0;
                         }
@@ -1492,7 +1490,7 @@
             equalTo: function (value, element, param) {
 
                 // Bind to the blur event of the target in order to revalidate whenever the target field is updated
-                const target = $(param);
+                var target = $(param);
                 if (this.settings.onfocusout && target.not(".validate-equalTo-blur").length) {
                     target.addClass("validate-equalTo-blur").on("blur.validate-equalTo", function () {
                         $(element).valid();
@@ -1509,8 +1507,8 @@
 
                 method = typeof method === "string" && method || "remote";
 
-                const previous = this.previousValue(element, method);
-                let validator, data, optionDataString;
+                var previous = this.previousValue(element, method),
+                    validator, data, optionDataString;
 
                 if (!this.settings.messages[element.name]) {
                     this.settings.messages[element.name] = {};
@@ -1536,8 +1534,8 @@
                     data: data,
                     context: validator.currentForm,
                     success: function (response) {
-                        const valid = response === true || response === "true";
-                        let errors, message, submitted;
+                        var valid = response === true || response === "true",
+                            errors, message, submitted;
 
                         validator.settings.messages[element.name][method] = previous.originalMessage;
                         if (valid) {
@@ -1572,13 +1570,13 @@
 // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
 // if mode:"abort" is used, the previous request on that port (port can be undefined) is aborted via XMLHttpRequest.abort()
 
-    const pendingRequests = {};
-    let ajax;
+    var pendingRequests = {},
+        ajax;
 
 // Use a prefilter if available (1.5+)
     if ($.ajaxPrefilter) {
         $.ajaxPrefilter(function (settings, _, xhr) {
-            const port = settings.port;
+            var port = settings.port;
             if (settings.mode === "abort") {
                 if (pendingRequests[port]) {
                     pendingRequests[port].abort();
@@ -1591,7 +1589,7 @@
         // Proxy ajax
         ajax = $.ajax;
         $.ajax = function (settings) {
-            const mode = ("mode" in settings ? settings : $.ajaxSettings).mode,
+            var mode = ("mode" in settings ? settings : $.ajaxSettings).mode,
                 port = ("port" in settings ? settings : $.ajaxSettings).port;
             if (mode === "abort") {
                 if (pendingRequests[port]) {
