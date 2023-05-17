@@ -188,7 +188,7 @@ public class PlayersViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.Id,
-                                           MainViewModel.SelectedTournament.TournamentId,
+                                           MainViewModel.SelectedTournament.Id,
                                            out List<Team>? teams);
 
         this.TeamsAvailable = new ObservableCollection<Team>(teams ?? Enumerable.Empty<Team>());
@@ -203,7 +203,7 @@ public class PlayersViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.Id,
-                                 MainViewModel.SelectedTournament.TournamentId,
+                                 MainViewModel.SelectedTournament.Id,
                                  out List<Group>? groups);
 
         this.GroupsAvailable = new ObservableCollection<Group>(groups ?? Enumerable.Empty<Group>());
@@ -281,7 +281,7 @@ public class PlayersViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.Id,
-                                                    MainViewModel.SelectedTournament.TournamentId,
+                                                    MainViewModel.SelectedTournament.Id,
                                                     out List<Player>? players);
 
         if (players is not null)

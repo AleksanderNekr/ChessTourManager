@@ -50,7 +50,7 @@ public class StartNewTourCommand : CommandBase
         {
             InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                                 .TryAddGamePair(out Game? game,
-                                                                idPair.Item1, idPair.Item2, this._pairsGridViewModel.OpenedTournament.TournamentId, this._pairsGridViewModel.OpenedTournament.OrganizerId,
+                                                                idPair.Item1, idPair.Item2, this._pairsGridViewModel.OpenedTournament.Id, this._pairsGridViewModel.OpenedTournament.OrganizerId,
                                                                 _drawingAlgorithm.NewTourNumber);
 
             if (result == InsertResult.Fail)

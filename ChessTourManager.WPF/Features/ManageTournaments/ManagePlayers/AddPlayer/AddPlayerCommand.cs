@@ -17,7 +17,7 @@ public class AddPlayerCommand : CommandBase
 
         InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                             .TryAddPlayer(out Player? player,
-                                                          MainViewModel.SelectedTournament.TournamentId,
+                                                          MainViewModel.SelectedTournament.Id,
                                                           MainViewModel.SelectedTournament.OrganizerId,
                                                           string.Empty, string.Empty);
         if (result == InsertResult.Fail)

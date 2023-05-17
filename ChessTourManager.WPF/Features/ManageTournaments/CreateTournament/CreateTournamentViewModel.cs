@@ -261,7 +261,7 @@ public class CreateTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (this.SelectedTournamentKind is not null && this.SelectedTournamentKind.KindName.Contains("team"))
+            if (this.SelectedTournamentKind is not null && this.SelectedTournamentKind.Name.Contains("team"))
             {
                 this.SetField(ref this._visibleIfTeamsAllowed, Visibility.Visible);
             }

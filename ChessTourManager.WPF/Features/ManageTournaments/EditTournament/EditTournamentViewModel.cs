@@ -230,7 +230,7 @@ public class EditTournamentViewModel : ViewModelBase
     {
         get
         {
-            if (this.SelectedTournamentKind.KindName.Contains("team"))
+            if (this.SelectedTournamentKind.Name.Contains("team"))
             {
                 this.SetField(ref this._visibleIfTeamsAllowed, Visibility.Visible);
             }

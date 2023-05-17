@@ -26,7 +26,7 @@ public class CompleteAddTeamCommand : CommandBase
         InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                             .TryAddTeam(out Team? team,
                                                         LoginViewModel.CurrentUser.Id,
-                                                        MainViewModel.SelectedTournament.TournamentId, this._manageTeamsViewModel.TeamName);
+                                                        MainViewModel.SelectedTournament.Id, this._manageTeamsViewModel.TeamName);
 
         if (result == InsertResult.Fail)
         {

@@ -37,11 +37,18 @@ public class CreateTournamentCommand : CommandBase
                              .TryAddTournament(
                                                out Tournament? tournament,
                                                LoginViewModel.CurrentUser.Id,
-                                              name,                                                                 this._createViewModel.SelectedTournamentSystem
-                                                        .SystemId,                                                  this._createViewModel.SelectedTournamentKind
-                                                                       .KindId,                                     this._createViewModel
-                                                                                 .SelectedTournamentRoundsCount,    this._createViewModel.TournamentPlaceText?.Trim(),
-                                               DateOnly.FromDateTime((DateTime)this._createViewModel.SelectedDate), this._createViewModel.SelectedTime, this._createViewModel.SelectedDurationHours, this._createViewModel.SelectedMaxTeamPlayers, this._createViewModel.OrgNameText?.Trim(), this._createViewModel.IsMixedGroupsAllowed
+                                               name, this._createViewModel.SelectedTournamentSystem
+                                                                           .Id, this._createViewModel
+                                                  .SelectedTournamentKind
+                                                  .Id, this._createViewModel
+                                                           .SelectedTournamentRoundsCount,
+                                               this._createViewModel.TournamentPlaceText?.Trim(),
+                                               DateOnly.FromDateTime((DateTime)this._createViewModel.SelectedDate),
+                                               this._createViewModel.SelectedTime,
+                                               this._createViewModel.SelectedDurationHours,
+                                               this._createViewModel.SelectedMaxTeamPlayers,
+                                               this._createViewModel.OrgNameText?.Trim(),
+                                               this._createViewModel.IsMixedGroupsAllowed
                                               );
         if (result == InsertResult.Fail)
         {

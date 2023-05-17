@@ -108,7 +108,7 @@ public class ManageTeamsViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetTeamsWithPlayers(LoginViewModel.CurrentUser.Id,
-                                           MainViewModel.SelectedTournament.TournamentId,
+                                           MainViewModel.SelectedTournament.Id,
                                            out List<Team>? teams);
 
         if (teams is not null)

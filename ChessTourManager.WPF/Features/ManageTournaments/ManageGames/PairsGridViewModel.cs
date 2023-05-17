@@ -183,7 +183,7 @@ public class PairsGridViewModel : ViewModelBase, IDisposable
         }
 
         IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
-                   .TryGetGames(this.OpenedTournament.OrganizerId, this.OpenedTournament.TournamentId,
+                   .TryGetGames(this.OpenedTournament.OrganizerId, this.OpenedTournament.Id,
                                 out List<Game>? games);
 
         this._games = games?.OrderByDescending(game => game.PlayerWhite.PointsAmount + game.PlayerBlack.PointsAmount)

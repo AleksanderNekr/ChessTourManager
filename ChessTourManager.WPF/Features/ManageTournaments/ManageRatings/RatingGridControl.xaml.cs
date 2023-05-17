@@ -15,7 +15,7 @@ public partial class RatingGridControl : IDisposable
 
     private void TournamentOpenedEvent_TournamentOpened(object source, TournamentOpenedEventArgs e)
     {
-        this.TeamColumn.Visibility = e.OpenedTournament.Kind.KindName == "single"
+        this.TeamColumn.Visibility = e.OpenedTournament.Kind.Name == "single"
                                          ? Visibility.Collapsed
                                          : Visibility.Visible;
     }

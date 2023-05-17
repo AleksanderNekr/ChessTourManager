@@ -26,7 +26,7 @@ public class CompleteAddGroupCommand : CommandBase
         InsertResult result = IInsertQueries.CreateInstance(PlayersViewModel.PlayersContext)
                                             .TryAddGroup(out Group? group,
                                                          LoginViewModel.CurrentUser.Id,
-                                                         MainViewModel.SelectedTournament.TournamentId, this._manageGroupsViewModel.GroupName, this._manageGroupsViewModel.GroupIdentifier);
+                                                         MainViewModel.SelectedTournament.Id, this._manageGroupsViewModel.GroupName, this._manageGroupsViewModel.GroupIdentifier);
 
         if (result == InsertResult.Fail)
         {

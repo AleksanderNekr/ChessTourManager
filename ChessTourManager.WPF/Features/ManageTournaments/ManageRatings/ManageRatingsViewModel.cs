@@ -134,7 +134,7 @@ public class ManageRatingsViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetGames(LoginViewModel.CurrentUser.Id,
-                                MainViewModel.SelectedTournament.TournamentId,
+                                MainViewModel.SelectedTournament.Id,
                                 out List<Game>? games);
 
         if (games is null)
@@ -214,7 +214,7 @@ public class ManageRatingsViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetPlayersWithTeamsAndGroups(LoginViewModel.CurrentUser.Id,
-                                                    MainViewModel.SelectedTournament.TournamentId,
+                                                    MainViewModel.SelectedTournament.Id,
                                                     out List<Player>? players);
 
         return GetSortedPlayers(players);

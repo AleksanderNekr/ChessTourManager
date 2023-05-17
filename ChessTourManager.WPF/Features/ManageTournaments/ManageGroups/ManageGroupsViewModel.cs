@@ -120,7 +120,7 @@ public class ManageGroupsViewModel : ViewModelBase, IDisposable
 
         IGetQueries.CreateInstance(PlayersViewModel.PlayersContext)
                    .TryGetGroups(LoginViewModel.CurrentUser.Id,
-                                 MainViewModel.SelectedTournament.TournamentId,
+                                 MainViewModel.SelectedTournament.Id,
                                  out List<Group>? groups);
         if (groups is not null)
         {
