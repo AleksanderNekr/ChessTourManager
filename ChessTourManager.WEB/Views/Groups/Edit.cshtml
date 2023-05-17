@@ -1,0 +1,39 @@
+@model ChessTourManager.DataAccess.Entities.Group
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Group: @Model.GroupName</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-id="@Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <input type="hidden" asp-for="OrganizerId" value="@Model.OrganizerId" />
+            <input type="hidden" asp-for="TournamentId" value="@Model.TournamentId" />
+            <div class="form-group">
+                <label asp-for="GroupName" class="control-label"></label>
+                <input asp-for="GroupName" class="form-control" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Identity" class="control-label"></label>
+                <input asp-for="Identity" class="form-control" />
+                <span asp-validation-for="Identity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model.TournamentId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

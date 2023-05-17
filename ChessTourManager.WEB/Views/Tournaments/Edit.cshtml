@@ -1,0 +1,102 @@
+@using ChessTourManager.DataAccess.Entities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChessTourManager.DataAccess.Entities.Tournament
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Tournament: @Model.TournamentName</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit">
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <input type="hidden" asp-for="OrganizerId" value="@Model.OrganizerId"/>
+            <input type="hidden" asp-for="Organizer" value="@Model.Organizer"/>
+            <input type="hidden" asp-for="DateCreate" value="@Model.DateCreate"/>
+            <input type="hidden" asp-for="DateLastChange" value="@Model.DateLastChange"/>
+            <input type="hidden" asp-for="TimeCreate" value="@Model.TimeCreate"/>
+            <input type="hidden" asp-for="TimeLastChange" value="@Model.TimeLastChange"/>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TournamentName" class="control-label"></label>
+                <input asp-for="TournamentName" class="form-control"/>
+                <span asp-validation-for="TournamentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToursCount" class="control-label"></label>
+                <input asp-for="ToursCount" class="form-control"/>
+                <span asp-validation-for="ToursCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Place" class="control-label"></label>
+                <input asp-for="Place" class="form-control"/>
+                <span asp-validation-for="Place" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateStart" class="control-label"></label>
+                <input asp-for="DateStart" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}"/>
+                <span asp-validation-for="DateStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeStart" class="control-label"></label>
+                <input asp-for="TimeStart" class="form-control" type="time"/>
+                <span asp-validation-for="TimeStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control"/>
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxTeamPlayers" class="control-label"></label>
+                <input asp-for="MaxTeamPlayers" class="form-control"/>
+                <span asp-validation-for="MaxTeamPlayers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationName" class="control-label"></label>
+                <input asp-for="OrganizationName" class="form-control"/>
+                <span asp-validation-for="OrganizationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsMixedGroups" class="control-label"></label>
+                <select asp-for="IsMixedGroups" class="form-control">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="@nameof(Tournament.SystemId)">System</label>
+                @Html.DropDownList(nameof(Tournament.SystemId),
+                                   ViewBag.Systems,
+                                   "-- Select System --",
+                                   new { @class = "form-control" })
+                <span asp-validation-for="SystemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="@nameof(Tournament.KindId)">Kind</label>
+                @Html.DropDownList(nameof(Tournament.KindId),
+                                   ViewBag.Kinds,
+                                   "-- Select Kind --",
+                                   new { @class = "form-control" })
+                <span asp-validation-for="KindId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

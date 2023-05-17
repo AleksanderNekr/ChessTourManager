@@ -1,0 +1,43 @@
+@using ChessTourManager.DataAccess.Entities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChessTourManager.DataAccess.Entities.Team
+
+@{
+    ViewData["Title"] = "Create";
+    Tournament tournament = ViewBag.Tournament;
+}
+
+<h1>Create</h1>
+
+<h4>Team</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="OrganizerId" value="@tournament.OrganizerId"/>
+            <input type="hidden" asp-for="TournamentId" value="@tournament.Id"/>
+            <div class="form-group">
+                <label asp-for="TeamName" class="control-label"></label>
+                <input asp-for="TeamName" class="form-control"/>
+                <span asp-validation-for="TeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamAttribute" class="control-label"></label>
+                <input asp-for="TeamAttribute" class="form-control"/>
+                <span asp-validation-for="TeamAttribute" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@tournament.Id">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

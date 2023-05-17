@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <UserSecretsId>8fe28114-aaf5-4e5e-a0ab-cead5ac95a2d</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="DataGridExtensions" Version="2.5.14" />
+        <PackageReference Include="EPPlus" Version="6.1.3" />
+        <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+        <Compile Update="Helpers\BindablePassword\BindablePasswordBox.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Page Update="Helpers\BindablePassword\BindablePasswordBox.xaml">
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+
+    <!-- Pictures -->
+    <ItemGroup>
+        <Resource Include="Assets\ChessTourManagerLogo.png" />
+        <Resource Include="Assets\ChessTourManagerLogoLarge.png" />
+    </ItemGroup>
+
+</Project>

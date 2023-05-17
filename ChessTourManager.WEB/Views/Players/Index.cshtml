@@ -1,0 +1,87 @@
+@using ChessTourManager.DataAccess.Entities
+@model IEnumerable<ChessTourManager.DataAccess.Entities.Player>
+
+@{
+    ViewData["Title"] = "Players";
+    Tournament tournament = ViewBag.Tournament;
+}
+
+<partial name="_TournamentPartial" model="tournament"/>
+<h3>Players</h3>
+<p>
+    <a asp-action="Create">Add New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerAttribute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerBirthYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Group)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Player item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerAttribute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerBirthYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActiveLocalized)
+            </td>
+            <td>
+                <a asp-action="Edit"
+                   asp-route-id="@item.Id">
+                    Edit
+                </a> |
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    Details
+                </a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

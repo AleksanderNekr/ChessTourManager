@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EfCoreDialogsState">
+    <option name="keyValueStorage">
+      <map>
+        <entry key="Common:57c1adde-8547-4a97-9073-1cf70bbbf4ae:dbContext" value="ChessTourManager.DataAccess.ChessTourContext" />
+        <entry key="Common:buildConfiguration" value="Debug" />
+        <entry key="Common:ea5df35e-3dfe-4c46-a5b7-288a869cff6b:dbContext" value="ChessTourManager.WEB.Data.ApplicationDbContext" />
+        <entry key="Common:noBuild" value="false" />
+        <entry key="Common:outputFolder" value="Data/Migrations" />
+        <entry key="Common:useDefaultConnection" value="true" />
+      </map>
+    </option>
+  </component>
+</project>

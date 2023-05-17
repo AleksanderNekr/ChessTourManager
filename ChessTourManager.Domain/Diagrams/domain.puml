@@ -1,0 +1,21 @@
+﻿@startuml
+
+skinparam classAttributeIconSize 0
+
+interface Domain.Algorithms.IRoundRobin {
+    IEnumerable<int, int> StartNewTour(int currentTour);
+    HashSet<int, int> GamesHistory <<get>>
+    int NewTourNumber <<get>>
+}
+
+class Domain.Algorithms.RoundRobin implements Domain.Algorithms.IRoundRobin {
+    +ChessTourContext Context
+    +Tournament Tournament
+    +int NewTourNumber
+    +HashSet<int, int> GamesHistory
+    +IEnumerable<int, int> StartNewTour(int currentTour)
+}
+
+Domain.Algorithms.RoundRobin --o DataAccess.ChessTourContext
+
+@enduml

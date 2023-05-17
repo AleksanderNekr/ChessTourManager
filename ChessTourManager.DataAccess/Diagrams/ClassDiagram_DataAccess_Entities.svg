@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" contentStyleType="text/css" height="1415.2px" preserveAspectRatio="none"
+     style="width:673px;height:1415px;background:#FFFFFF;" version="1.1" viewBox="0 0 673 1415" width="673.44px"
+     zoomAndPan="magnify">
+    <defs/>
+    <g><!--cluster DataAccess-->
+        <g id="cluster_DataAccess">
+            <path d="M12.9808,3.6683 L63.0008,3.6683 A2.2875,2.2875 0 0 1 64.5258,5.1933 L68.7958,18.6872 L667.5108,18.6872 A1.525,1.525 0 0 1 669.0358,20.2122 L669.0358,1409.4133 A1.525,1.525 0 0 1 667.5108,1410.9383 L12.9808,1410.9383 A1.525,1.525 0 0 1 11.4558,1409.4133 L11.4558,5.1933 A1.525,1.525 0 0 1 12.9808,3.6683 "
+                  fill="none" style="stroke:#000000;stroke-width:0.915;"/>
+            <line style="stroke:#000000;stroke-width:0.915;" x1="11.4558" x2="68.7958" y1="18.6872" y2="18.6872"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" font-weight="bold" lengthAdjust="spacing"
+                  textLength="49.41" x="13.8958" y="14.1039">DataAccess
+            </text>
+        </g><!--cluster Entities-->
+        <g id="cluster_Entities">
+            <path d="M27.6208,31.1183 L60.5608,31.1183 A2.2875,2.2875 0 0 1 62.0858,32.6433 L66.3558,46.1372 L652.8708,46.1372 A1.525,1.525 0 0 1 654.3958,47.6622 L654.3958,1394.7733 A1.525,1.525 0 0 1 652.8708,1396.2983 L27.6208,1396.2983 A1.525,1.525 0 0 1 26.0958,1394.7733 L26.0958,32.6433 A1.525,1.525 0 0 1 27.6208,31.1183 "
+                  fill="#DDDDDD" style="stroke:#000000;stroke-width:0.915;"/>
+            <line style="stroke:#000000;stroke-width:0.915;" x1="26.0958" x2="66.3558" y1="46.1372" y2="46.1372"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" font-weight="bold" lengthAdjust="spacing"
+                  textLength="32.33" x="28.5358" y="41.5539">Entities
+            </text>
+        </g><!--class User-->
+        <g id="elem_User">
+            <rect codeLine="12" fill="#F1F1F1" height="150.5437" id="User" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="186.66" x="246.9158" y="53.6883"/>
+            <ellipse cx="325.4533" cy="67.2859" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M327.1403,64.7696 Q327.2356,64.6362 327.35,64.5695 Q327.4644,64.5027 327.5978,64.5027 Q327.8266,64.5027 327.9695,64.6648 Q328.1125,64.8173 328.1125,65.189 L328.1125,66.0754 Q328.1125,66.4471 327.9695,66.6091 Q327.8266,66.7712 327.5978,66.7712 Q327.3881,66.7712 327.2642,66.6473 Q327.1403,66.5329 327.0736,66.2184 Q327.045,65.9991 326.9306,65.8848 Q326.7305,65.656 326.3588,65.5226 Q325.987,65.3891 325.6058,65.3891 Q325.1388,65.3891 324.748,65.5893 Q324.3667,65.7895 324.0617,66.247 Q323.7663,66.7045 323.7663,67.3335 L323.7663,68.0007 Q323.7663,68.7537 324.3096,69.2588 Q324.8528,69.7545 325.825,69.7545 Q326.3969,69.7545 326.7972,69.602 Q327.0355,69.5066 327.2928,69.2398 Q327.4549,69.0777 327.5406,69.0301 Q327.636,68.9824 327.7599,68.9824 Q327.96,68.9824 328.1125,69.1445 Q328.2746,69.297 328.2746,69.5066 Q328.2746,69.7163 328.0649,69.9641 Q327.7599,70.3168 327.2738,70.517 Q326.6161,70.7934 325.825,70.7934 Q324.9005,70.7934 324.1666,70.4121 Q323.5661,70.1071 323.1467,69.459 Q322.7274,68.8013 322.7274,68.0198 L322.7274,67.3145 Q322.7274,66.5043 323.0991,65.8085 Q323.4803,65.1032 324.1475,64.7315 Q324.8147,64.3502 325.5677,64.3502 Q326.0156,64.3502 326.4064,64.4551 Q326.8067,64.5504 327.1403,64.7696 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="336.7383" y="64.6374">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="17.69"
+                  x="341.3133" y="75.69">User
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="247.5258" x2="432.9658" y1="80.8834" y2="80.8834"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="67.71"
+                  x="250.5758" y="92.5389">+UserId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="122.61"
+                  x="250.5758" y="103.8978">+string UserLastname &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="123.22"
+                  x="250.5758" y="115.2566">+string UserFirstname &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="127.49"
+                  x="250.5758" y="126.6155">+string UserPatronymic &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="87.84"
+                  x="250.5758" y="137.9744">+string Email &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="105.53"
+                  x="250.5758" y="149.3332">+string PassHash &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="119.56"
+                  x="250.5758" y="160.6921">+int TournamentsLim &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="132.37"
+                  x="250.5758" y="172.051">+DateOnly RegisterDate &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="133.59"
+                  x="250.5758" y="183.4098">+TimeOnly RegisterTime &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="179.34"
+                  x="250.5758" y="194.7687">+ICollection&lt;Tournament&gt; Tournaments &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="247.5258" x2="432.9658" y1="199.3521" y2="199.3521"/>
+        </g><!--class Tournament-->
+        <g id="elem_Tournament">
+            <rect codeLine="25" fill="#F1F1F1" height="309.5679" id="Tournament" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="155.55" x="262.4708" y="241.5683"/>
+            <ellipse cx="314.1683" cy="255.1659" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M315.8553,252.6496 Q315.9506,252.5162 316.065,252.4495 Q316.1794,252.3827 316.3128,252.3827 Q316.5416,252.3827 316.6846,252.5448 Q316.8275,252.6973 316.8275,253.069 L316.8275,253.9554 Q316.8275,254.3271 316.6846,254.4891 Q316.5416,254.6512 316.3128,254.6512 Q316.1031,254.6512 315.9792,254.5273 Q315.8553,254.4129 315.7886,254.0984 Q315.76,253.8791 315.6456,253.7648 Q315.4455,253.536 315.0738,253.4026 Q314.7021,253.2691 314.3208,253.2691 Q313.8538,253.2691 313.463,253.4693 Q313.0817,253.6695 312.7767,254.127 Q312.4813,254.5845 312.4813,255.2135 L312.4813,255.8807 Q312.4813,256.6337 313.0246,257.1388 Q313.5678,257.6345 314.54,257.6345 Q315.1119,257.6345 315.5122,257.482 Q315.7505,257.3866 316.0078,257.1198 Q316.1699,256.9577 316.2556,256.9101 Q316.351,256.8624 316.4749,256.8624 Q316.675,256.8624 316.8275,257.0245 Q316.9895,257.177 316.9895,257.3866 Q316.9895,257.5963 316.7799,257.8441 Q316.4749,258.1968 315.9888,258.397 Q315.3311,258.6734 314.54,258.6734 Q313.6155,258.6734 312.8816,258.2921 Q312.2811,257.9871 311.8617,257.339 Q311.4424,256.6813 311.4424,255.8998 L311.4424,255.1945 Q311.4424,254.3843 311.8141,253.6885 Q312.1953,252.9832 312.8625,252.6115 Q313.5297,252.2302 314.2827,252.2302 Q314.7306,252.2302 315.1214,252.3351 Q315.5217,252.4304 315.8553,252.6496 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="336.7383" y="252.5174">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="46.97"
+                  x="326.6733" y="263.57">Tournament
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="263.0808" x2="417.4108" y1="268.7634" y2="268.7634"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="108.58"
+                  x="266.1308" y="280.4189">+int TournamentId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="266.1308" y="291.7778">+int OrganizerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="136.03"
+                  x="266.1308" y="303.1366">+string TournamentName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="100.65"
+                  x="266.1308" y="314.4955">+int ToursCount &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="88.45"
+                  x="266.1308" y="325.8544">+string Place &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="118.34"
+                  x="266.1308" y="337.2132">+DateOnly DateStart &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="119.56"
+                  x="266.1308" y="348.5721">+TimeOnly TimeStart &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="87.84"
+                  x="266.1308" y="359.931">+int Duration &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="120.78"
+                  x="266.1308" y="371.2898">+int MaxTeamPlayers &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="137.86"
+                  x="266.1308" y="382.6487">+string OrganizationName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="123.83"
+                  x="266.1308" y="394.0076">+bool? IsMixedGroups &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="126.27"
+                  x="266.1308" y="405.3664">+DateOnly DateCreate &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="127.49"
+                  x="266.1308" y="416.7253">+TimeOnly TimeCreate &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="147.01"
+                  x="266.1308" y="428.0842">+DateOnly DateLastChange &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="148.23"
+                  x="266.1308" y="439.443">+TimeOnly TimeLastChange &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="89.67"
+                  x="266.1308" y="450.8019">+int SystemId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="78.69"
+                  x="266.1308" y="462.1608">+int KindId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="134.2"
+                  x="266.1308" y="473.5196">+ICollection&lt;Group&gt; Groups &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="79.91"
+                  x="266.1308" y="484.8785">+Kind Kind &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="101.26"
+                  x="266.1308" y="496.2374">+User Organizer &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="134.2"
+                  x="266.1308" y="507.5963">+ICollection&lt;Player&gt; Players &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="101.87"
+                  x="266.1308" y="518.9551">+System System &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="129.32"
+                  x="266.1308" y="530.314">+ICollection&lt;Team&gt; Teams &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="125.66"
+                  x="266.1308" y="541.6729">+ICollection&lt;Ratio&gt; Ratios &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="263.0808" x2="417.4108" y1="546.2562" y2="546.2562"/>
+        </g><!--class Group-->
+        <g id="elem_Group">
+            <rect codeLine="52" fill="#F1F1F1" height="116.4671" id="Group" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="147.01" x="65.4408" y="337.9483"/>
+            <ellipse cx="124.1533" cy="351.5459" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M125.8403,349.0296 Q125.9356,348.8962 126.05,348.8295 Q126.1644,348.7627 126.2978,348.7627 Q126.5266,348.7627 126.6696,348.9248 Q126.8125,349.0773 126.8125,349.449 L126.8125,350.3354 Q126.8125,350.7071 126.6696,350.8691 Q126.5266,351.0312 126.2978,351.0312 Q126.0881,351.0312 125.9642,350.9073 Q125.8403,350.7929 125.7736,350.4784 Q125.745,350.2591 125.6306,350.1448 Q125.4305,349.916 125.0588,349.7826 Q124.6871,349.6491 124.3058,349.6491 Q123.8388,349.6491 123.448,349.8493 Q123.0667,350.0495 122.7617,350.507 Q122.4663,350.9645 122.4663,351.5935 L122.4663,352.2607 Q122.4663,353.0137 123.0096,353.5188 Q123.5528,354.0145 124.525,354.0145 Q125.0969,354.0145 125.4972,353.862 Q125.7355,353.7666 125.9928,353.4998 Q126.1549,353.3377 126.2406,353.2901 Q126.336,353.2424 126.4599,353.2424 Q126.66,353.2424 126.8125,353.4045 Q126.9746,353.557 126.9746,353.7666 Q126.9746,353.9763 126.7649,354.2241 Q126.4599,354.5768 125.9738,354.777 Q125.3161,355.0534 124.525,355.0534 Q123.6005,355.0534 122.8666,354.6721 Q122.2661,354.3671 121.8467,353.719 Q121.4274,353.0613 121.4274,352.2798 L121.4274,351.5745 Q121.4274,350.7643 121.7991,350.0685 Q122.1803,349.3632 122.8475,348.9915 Q123.5147,348.6102 124.2677,348.6102 Q124.7156,348.6102 125.1064,348.7151 Q125.5067,348.8104 125.8403,349.0296 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="135.4383" y="348.8974">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="24.4"
+                  x="136.6583" y="359.95">Group
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="66.0508" x2="211.8408" y1="365.1434" y2="365.1434"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="86.01"
+                  x="69.1008" y="376.7989">+int GroupId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="108.58"
+                  x="69.1008" y="388.1578">+int TournamentId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="69.1008" y="399.5166">+int OrganizerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="94.55"
+                  x="69.1008" y="410.8755">+string Identity &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="113.46"
+                  x="69.1008" y="422.2344">+string GroupName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="134.2"
+                  x="69.1008" y="433.5932">+ICollection&lt;Player&gt; Players &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="139.69"
+                  x="69.1008" y="444.9521">+Tournament Tournament &#171;get/set&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="66.0508" x2="211.8408" y1="449.5354" y2="449.5354"/>
+        </g><!--class Kind-->
+        <g id="elem_Kind">
+            <rect codeLine="62" fill="#F1F1F1" height="71.0316" id="Kind" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="186.66" x="439.6758" y="360.8233"/>
+            <ellipse cx="518.2133" cy="374.4209" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M519.9003,371.9046 Q519.9956,371.7712 520.11,371.7045 Q520.2244,371.6377 520.3578,371.6377 Q520.5866,371.6377 520.7296,371.7998 Q520.8725,371.9523 520.8725,372.324 L520.8725,373.2104 Q520.8725,373.5821 520.7296,373.7441 Q520.5866,373.9062 520.3578,373.9062 Q520.1481,373.9062 520.0242,373.7823 Q519.9003,373.6679 519.8336,373.3534 Q519.805,373.1341 519.6906,373.0198 Q519.4905,372.791 519.1188,372.6576 Q518.7471,372.5241 518.3658,372.5241 Q517.8988,372.5241 517.508,372.7243 Q517.1267,372.9245 516.8217,373.382 Q516.5263,373.8395 516.5263,374.4685 L516.5263,375.1357 Q516.5263,375.8887 517.0695,376.3938 Q517.6128,376.8895 518.585,376.8895 Q519.1569,376.8895 519.5572,376.737 Q519.7955,376.6416 520.0528,376.3748 Q520.2149,376.2127 520.3006,376.1651 Q520.396,376.1174 520.5199,376.1174 Q520.72,376.1174 520.8725,376.2795 Q521.0346,376.432 521.0346,376.6416 Q521.0346,376.8513 520.8249,377.0991 Q520.5199,377.4518 520.0338,377.652 Q519.3761,377.9284 518.585,377.9284 Q517.6605,377.9284 516.9266,377.5471 Q516.3261,377.2421 515.9067,376.594 Q515.4874,375.9363 515.4874,375.1548 L515.4874,374.4495 Q515.4874,373.6393 515.8591,372.9435 Q516.2403,372.2382 516.9075,371.8665 Q517.5747,371.4852 518.3277,371.4852 Q518.7756,371.4852 519.1664,371.5901 Q519.5667,371.6854 519.9003,371.9046 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="529.4983" y="371.7724">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="17.08"
+                  x="534.3783" y="382.825">Kind
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="440.2858" x2="625.7258" y1="388.0184" y2="388.0184"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="78.69"
+                  x="443.3358" y="399.6739">+int KindId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="106.14"
+                  x="443.3358" y="411.0328">+string KindName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="179.34"
+                  x="443.3358" y="422.3916">+ICollection&lt;Tournament&gt; Tournaments &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="440.2858" x2="625.7258" y1="426.975" y2="426.975"/>
+        </g><!--class Player-->
+        <g id="elem_Player">
+            <rect codeLine="68" fill="#F1F1F1" height="309.5679" id="Player" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="185.44" x="247.5258" y="753.3583"/>
+            <ellipse cx="325.4533" cy="766.9559" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M327.1403,764.4396 Q327.2356,764.3062 327.35,764.2395 Q327.4644,764.1727 327.5978,764.1727 Q327.8266,764.1727 327.9695,764.3348 Q328.1125,764.4873 328.1125,764.859 L328.1125,765.7454 Q328.1125,766.1171 327.9695,766.2791 Q327.8266,766.4412 327.5978,766.4412 Q327.3881,766.4412 327.2642,766.3173 Q327.1403,766.2029 327.0736,765.8884 Q327.045,765.6691 326.9306,765.5548 Q326.7305,765.326 326.3588,765.1926 Q325.987,765.0591 325.6058,765.0591 Q325.1388,765.0591 324.748,765.2593 Q324.3667,765.4595 324.0617,765.917 Q323.7663,766.3745 323.7663,767.0035 L323.7663,767.6707 Q323.7663,768.4237 324.3096,768.9288 Q324.8528,769.4245 325.825,769.4245 Q326.3969,769.4245 326.7972,769.272 Q327.0355,769.1766 327.2928,768.9098 Q327.4549,768.7477 327.5406,768.7001 Q327.636,768.6524 327.7599,768.6524 Q327.96,768.6524 328.1125,768.8145 Q328.2746,768.967 328.2746,769.1766 Q328.2746,769.3863 328.0649,769.6341 Q327.7599,769.9868 327.2738,770.187 Q326.6161,770.4634 325.825,770.4634 Q324.9005,770.4634 324.1666,770.0821 Q323.5661,769.7771 323.1467,769.129 Q322.7274,768.4713 322.7274,767.6898 L322.7274,766.9845 Q322.7274,766.1743 323.0991,765.4785 Q323.4803,764.7732 324.1475,764.4015 Q324.8147,764.0202 325.5677,764.0202 Q326.0156,764.0202 326.4064,764.1251 Q326.8067,764.2204 327.1403,764.4396 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="336.7383" y="764.3074">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="24.4"
+                  x="337.9583" y="775.36">Player
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="248.1358" x2="432.3558" y1="780.5534" y2="780.5534"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="86.01"
+                  x="251.1858" y="792.2089">+int PlayerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="108.58"
+                  x="251.1858" y="803.5678">+int TournamentId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="251.1858" y="814.9266">+int OrganizerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="129.93"
+                  x="251.1858" y="826.2855">+string PlayerLastName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="130.54"
+                  x="251.1858" y="837.6444">+string PlayerFirstName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="92.11"
+                  x="251.1858" y="849.0032">+char Gender &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="123.83"
+                  x="251.1858" y="860.3621">+string PlayerAttribute &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="115.29"
+                  x="251.1858" y="871.721">+int PlayerBirthYear &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="96.38"
+                  x="251.1858" y="883.0798">+bool? IsActive &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="118.95"
+                  x="251.1858" y="894.4387">+double PointsCount &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="96.99"
+                  x="251.1858" y="905.7976">+int WinsCount &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="105.53"
+                  x="251.1858" y="917.1564">+int LossesCount &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="101.87"
+                  x="251.1858" y="928.5153">+int DrawsCount &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="117.12"
+                  x="251.1858" y="939.8742">+decimal RatioSum1 &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="117.12"
+                  x="251.1858" y="951.233">+decimal RatioSum2 &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="107.97"
+                  x="251.1858" y="962.5919">+int BoardNumber &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="88.45"
+                  x="251.1858" y="973.9508">+int? TeamId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="90.89"
+                  x="251.1858" y="985.3096">+int? GroupId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="176.9"
+                  x="251.1858" y="996.6685">+ICollection&lt;Game&gt; BlackGamePlayers &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="178.12"
+                  x="251.1858" y="1008.0274">+ICollection&lt;Game&gt; WhiteGamePlayers &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="251.1858" y="1019.3863">+Group? Group &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="94.55"
+                  x="251.1858" y="1030.7451">+Team? Team &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="139.69"
+                  x="251.1858" y="1042.104">+Tournament Tournament &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="113.46"
+                  x="251.1858" y="1053.4629">+string PlayerFullName &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="248.1358" x2="432.3558" y1="1058.0462" y2="1058.0462"/>
+        </g><!--class Ratio-->
+        <g id="elem_Ratio">
+            <rect codeLine="95" fill="#F1F1F1" height="71.0316" id="Ratio" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="186.66" x="58.4258" y="616.7183"/>
+            <ellipse cx="136.9633" cy="630.3159" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M138.6503,627.7996 Q138.7456,627.6662 138.86,627.5995 Q138.9744,627.5327 139.1078,627.5327 Q139.3366,627.5327 139.4796,627.6948 Q139.6225,627.8473 139.6225,628.219 L139.6225,629.1054 Q139.6225,629.4771 139.4796,629.6391 Q139.3366,629.8012 139.1078,629.8012 Q138.8981,629.8012 138.7742,629.6773 Q138.6503,629.5629 138.5836,629.2484 Q138.555,629.0291 138.4406,628.9148 Q138.2405,628.686 137.8688,628.5526 Q137.4971,628.4191 137.1158,628.4191 Q136.6488,628.4191 136.258,628.6193 Q135.8767,628.8195 135.5717,629.277 Q135.2763,629.7345 135.2763,630.3635 L135.2763,631.0307 Q135.2763,631.7837 135.8196,632.2888 Q136.3628,632.7845 137.335,632.7845 Q137.9069,632.7845 138.3072,632.632 Q138.5455,632.5366 138.8028,632.2698 Q138.9649,632.1077 139.0506,632.0601 Q139.146,632.0124 139.2699,632.0124 Q139.47,632.0124 139.6225,632.1745 Q139.7846,632.327 139.7846,632.5366 Q139.7846,632.7463 139.5749,632.9941 Q139.2699,633.3468 138.7838,633.547 Q138.1261,633.8234 137.335,633.8234 Q136.4105,633.8234 135.6766,633.4421 Q135.0761,633.1371 134.6567,632.489 Q134.2374,631.8313 134.2374,631.0498 L134.2374,630.3445 Q134.2374,629.5343 134.6091,628.8385 Q134.9903,628.1332 135.6575,627.7615 Q136.3247,627.3802 137.0777,627.3802 Q137.5256,627.3802 137.9164,627.4851 Q138.3167,627.5804 138.6503,627.7996 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="148.2483" y="627.6674">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="20.13"
+                  x="151.6033" y="638.72">Ratio
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="59.0358" x2="244.4758" y1="643.9134" y2="643.9134"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="81.74"
+                  x="62.0858" y="655.5689">+int RatioId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="109.19"
+                  x="62.0858" y="666.9278">+string RatioName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="179.34"
+                  x="62.0858" y="678.2866">+ICollection&lt;Tournament&gt; Tournaments &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="59.0358" x2="244.4758" y1="682.87" y2="682.87"/>
+        </g><!--class Team-->
+        <g id="elem_Team">
+            <rect codeLine="101" fill="#F1F1F1" height="127.826" id="Team" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="147.01" x="266.7408" y="588.0483"/>
+            <ellipse cx="325.4533" cy="601.6459" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M327.1403,599.1296 Q327.2356,598.9962 327.35,598.9295 Q327.4644,598.8627 327.5978,598.8627 Q327.8266,598.8627 327.9695,599.0248 Q328.1125,599.1773 328.1125,599.549 L328.1125,600.4354 Q328.1125,600.8071 327.9695,600.9691 Q327.8266,601.1312 327.5978,601.1312 Q327.3881,601.1312 327.2642,601.0073 Q327.1403,600.8929 327.0736,600.5784 Q327.045,600.3591 326.9306,600.2448 Q326.7305,600.016 326.3588,599.8826 Q325.987,599.7491 325.6058,599.7491 Q325.1388,599.7491 324.748,599.9493 Q324.3667,600.1495 324.0617,600.607 Q323.7663,601.0645 323.7663,601.6935 L323.7663,602.3607 Q323.7663,603.1137 324.3096,603.6188 Q324.8528,604.1145 325.825,604.1145 Q326.3969,604.1145 326.7972,603.962 Q327.0355,603.8666 327.2928,603.5998 Q327.4549,603.4377 327.5406,603.3901 Q327.636,603.3424 327.7599,603.3424 Q327.96,603.3424 328.1125,603.5045 Q328.2746,603.657 328.2746,603.8666 Q328.2746,604.0763 328.0649,604.3241 Q327.7599,604.6768 327.2738,604.877 Q326.6161,605.1534 325.825,605.1534 Q324.9005,605.1534 324.1666,604.7721 Q323.5661,604.4671 323.1467,603.819 Q322.7274,603.1613 322.7274,602.3798 L322.7274,601.6745 Q322.7274,600.8643 323.0991,600.1685 Q323.4803,599.4632 324.1475,599.0915 Q324.8147,598.7102 325.5677,598.7102 Q326.0156,598.7102 326.4064,598.8151 Q326.8067,598.9104 327.1403,599.1296 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="336.7383" y="598.9974">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="21.96"
+                  x="339.1783" y="610.05">Team
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="267.3508" x2="413.1408" y1="615.2434" y2="615.2434"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="83.57"
+                  x="270.4008" y="626.8989">+int TeamId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="270.4008" y="638.2578">+int OrganizerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="108.58"
+                  x="270.4008" y="649.6166">+int TournamentId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="111.02"
+                  x="270.4008" y="660.9755">+string TeamName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="121.39"
+                  x="270.4008" y="672.3344">+string TeamAttribute &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="96.38"
+                  x="270.4008" y="683.6932">+bool? IsActive &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="134.2"
+                  x="270.4008" y="695.0521">+ICollection&lt;Player&gt; Players &#171;get&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="139.69"
+                  x="270.4008" y="706.411">+Tournament Tournament &#171;get/set&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="267.3508" x2="413.1408" y1="710.9943" y2="710.9943"/>
+        </g><!--class System-->
+        <g id="elem_System">
+            <rect codeLine="112" fill="#F1F1F1" height="71.0316" id="System" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="186.66" x="435.4058" y="616.7183"/>
+            <ellipse cx="512.1133" cy="630.3159" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M513.8003,627.7996 Q513.8956,627.6662 514.01,627.5995 Q514.1244,627.5327 514.2578,627.5327 Q514.4866,627.5327 514.6296,627.6948 Q514.7725,627.8473 514.7725,628.219 L514.7725,629.1054 Q514.7725,629.4771 514.6296,629.6391 Q514.4866,629.8012 514.2578,629.8012 Q514.0481,629.8012 513.9242,629.6773 Q513.8003,629.5629 513.7336,629.2484 Q513.705,629.0291 513.5906,628.9148 Q513.3905,628.686 513.0188,628.5526 Q512.647,628.4191 512.2658,628.4191 Q511.7988,628.4191 511.408,628.6193 Q511.0267,628.8195 510.7217,629.277 Q510.4263,629.7345 510.4263,630.3635 L510.4263,631.0307 Q510.4263,631.7837 510.9695,632.2888 Q511.5128,632.7845 512.485,632.7845 Q513.0569,632.7845 513.4572,632.632 Q513.6955,632.5366 513.9528,632.2698 Q514.1149,632.1077 514.2006,632.0601 Q514.296,632.0124 514.4199,632.0124 Q514.62,632.0124 514.7725,632.1745 Q514.9346,632.327 514.9346,632.5366 Q514.9346,632.7463 514.7249,632.9941 Q514.4199,633.3468 513.9338,633.547 Q513.2761,633.8234 512.485,633.8234 Q511.5605,633.8234 510.8266,633.4421 Q510.2261,633.1371 509.8067,632.489 Q509.3874,631.8313 509.3874,631.0498 L509.3874,630.3445 Q509.3874,629.5343 509.7591,628.8385 Q510.1403,628.1332 510.8075,627.7615 Q511.4747,627.3802 512.2277,627.3802 Q512.6756,627.3802 513.0664,627.4851 Q513.4667,627.5804 513.8003,627.7996 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="525.2283" y="627.6674">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="28.06"
+                  x="524.6183" y="638.72">System
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="436.0158" x2="621.4558" y1="643.9134" y2="643.9134"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="89.67"
+                  x="439.0658" y="655.5689">+int SystemId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="117.12"
+                  x="439.0658" y="666.9278">+string SystemName &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="179.34"
+                  x="439.0658" y="678.2866">+ICollection&lt;Tournament&gt; Tournaments &#171;get&#187;
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="436.0158" x2="621.4558" y1="682.87" y2="682.87"/>
+        </g><!--class Game-->
+        <g id="elem_Game">
+            <rect codeLine="118" fill="#F1F1F1" height="275.4913" id="Game" rx="1.525" ry="1.525"
+                  style="stroke:#181818;stroke-width:0.305;" width="260.47" x="210.0108" y="1110.8183"/>
+            <ellipse cx="325.4533" cy="1124.4159" fill="#ADD1B2" rx="6.71" ry="6.71"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <path d="M327.1403,1121.8996 Q327.2356,1121.7662 327.35,1121.6995 Q327.4644,1121.6327 327.5978,1121.6327 Q327.8266,1121.6327 327.9695,1121.7948 Q328.1125,1121.9473 328.1125,1122.319 L328.1125,1123.2054 Q328.1125,1123.5771 327.9695,1123.7391 Q327.8266,1123.9012 327.5978,1123.9012 Q327.3881,1123.9012 327.2642,1123.7773 Q327.1403,1123.6629 327.0736,1123.3484 Q327.045,1123.1291 326.9306,1123.0148 Q326.7305,1122.786 326.3588,1122.6526 Q325.987,1122.5191 325.6058,1122.5191 Q325.1388,1122.5191 324.748,1122.7193 Q324.3667,1122.9195 324.0617,1123.377 Q323.7663,1123.8345 323.7663,1124.4635 L323.7663,1125.1307 Q323.7663,1125.8837 324.3096,1126.3888 Q324.8528,1126.8845 325.825,1126.8845 Q326.3969,1126.8845 326.7972,1126.732 Q327.0355,1126.6366 327.2928,1126.3698 Q327.4549,1126.2077 327.5406,1126.1601 Q327.636,1126.1124 327.7599,1126.1124 Q327.96,1126.1124 328.1125,1126.2745 Q328.2746,1126.427 328.2746,1126.6366 Q328.2746,1126.8463 328.0649,1127.0941 Q327.7599,1127.4468 327.2738,1127.647 Q326.6161,1127.9234 325.825,1127.9234 Q324.9005,1127.9234 324.1666,1127.5421 Q323.5661,1127.2371 323.1467,1126.589 Q322.7274,1125.9313 322.7274,1125.1498 L322.7274,1124.4445 Q322.7274,1123.6343 323.0991,1122.9385 Q323.4803,1122.2332 324.1475,1121.8615 Q324.8147,1121.4802 325.5677,1121.4802 Q326.0156,1121.4802 326.4064,1121.5851 Q326.8067,1121.6804 327.1403,1121.8996 Z "
+                  fill="#000000"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.32" font-style="italic" lengthAdjust="spacing"
+                  textLength="26.84" x="336.7383" y="1121.7674">&#171;Entity&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="23.18"
+                  x="338.5683" y="1132.82">Game
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="210.6208" x2="469.8708" y1="1138.0134" y2="1138.0134"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="83.57"
+                  x="213.6708" y="1149.6689">+int WhiteId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="82.35"
+                  x="213.6708" y="1161.0278">+int BlackId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="108.58"
+                  x="213.6708" y="1172.3866">+int TournamentId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="99.43"
+                  x="213.6708" y="1183.7455">+int OrganizerId &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="103.09"
+                  x="213.6708" y="1195.1044">+int TourNumber &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="117.73"
+                  x="213.6708" y="1206.4632">+double WhitePoints &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="116.51"
+                  x="213.6708" y="1217.8221">+double BlackPoints &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="94.55"
+                  x="213.6708" y="1229.181">+bool IsPlayed &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="116.51"
+                  x="213.6708" y="1240.5398">+Player PlayerWhite &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="115.29"
+                  x="213.6708" y="1251.8987">+Player PlayerBlack &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="91.5"
+                  x="213.6708" y="1263.2576">+string Result &#171;get/set&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="225.09"
+                  x="213.6708" y="1274.6164">-decimal RatioSum1, decimal RatioSum2 _prevBlackRatios
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="251.93"
+                  x="213.6708" y="1285.9753">-int WinsCount, int DrawsCount, int LossesCount _prevBlackStats
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="125.66"
+                  x="213.6708" y="1297.3342">-double, double _prevPointsSum
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="109.19"
+                  x="213.6708" y="1308.693">-double, double _prevResult
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="226.31"
+                  x="213.6708" y="1320.0519">-decimal RatioSum1, decimal RatioSum2 _prevWhiteRatios
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="253.15"
+                  x="213.6708" y="1331.4108">-int WinsCount, int DrawsCount, int LossesCount _prevWhiteStats
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="57.95"
+                  x="213.6708" y="1342.7696">-string? _result
+            </text>
+            <line style="stroke:#181818;stroke-width:0.305;" x1="210.6208" x2="469.8708" y1="1347.353" y2="1347.353"/>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="34.16"
+                  x="213.6708" y="1359.0085">+Game()
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="114.68"
+                  x="213.6708" y="1370.3674">-void UpdatePreviousValues()
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="8.54" lengthAdjust="spacing" textLength="97.6"
+                  x="213.6708" y="1381.7263">-void RestoreOldValues()
+            </text>
+        </g><!--reverse link User to Tournament-->
+        <g id="link_User_Tournament">
+            <path codeLine="181" d="M340.2458,212.5262 C340.2458,221.8592 340.2458,231.5826 340.2458,241.4646 "
+                  fill="none" id="User-backto-Tournament" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="340.2458,204.4254,337.8058,208.0854,340.2458,211.7454,342.6858,208.0854,340.2458,204.4254"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="335.8524" y="217.6504">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="327.8647" y="234.9024">0..*
+            </text>
+        </g><!--reverse link Tournament to Ratio-->
+        <g id="link_Tournament_Ratio">
+            <path codeLine="182" d="M257.542,508.5531 C228.6402,547.6053 198.2683,588.64 177.5222,616.6756 " fill="none"
+                  id="Tournament-backto-Ratio" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="262.3549,502.0566,258.2163,503.5471,258.0003,507.9405,262.1389,506.4501,262.3549,502.0566"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="253.2083" y="506.3747">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="167.719" y="609.9081">0..*
+            </text>
+        </g><!--reverse link Tournament to System-->
+        <g id="link_Tournament_System">
+            <path codeLine="183"
+                  d="M422.7727,542.0482 C424.9321,545.0311 427.1098,547.9652 429.3058,550.8383 C447.2581,574.366 470.3405,598.0462 489.7446,616.5231 "
+                  fill="none" id="Tournament-backto-System" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="418.0696,535.448,418.2064,539.8447,422.3174,541.4095,422.1806,537.0128,418.0696,535.448"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="422.9421" y="541.8009">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="472.0491" y="609.737">0..*
+            </text>
+        </g><!--reverse link Tournament to Kind-->
+        <g id="link_Tournament_Kind">
+            <path codeLine="184" d="M426.1704,396.2033 C430.6051,396.2033 435.0459,396.2033 439.4867,396.2033 "
+                  fill="none" id="Tournament-backto-Kind" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="418.1794,396.2033,421.8394,398.6433,425.4994,396.2033,421.8394,393.7633,418.1794,396.2033"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="422.6123" y="394.0951">0..*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="430.5835" y="394.1372">1
+            </text>
+        </g><!--link Group to Tournament-->
+        <g id="link_Group_Tournament">
+            <path codeLine="185" d="M212.4691,396.2033 C226.4381,396.2033 240.4132,396.2033 254.3883,396.2033 "
+                  fill="none" id="Group-to-Tournament" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="262.3793,396.2033,258.7193,393.7633,255.0593,396.2033,258.7193,398.6433,262.3793,396.2033"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="217.3211" y="394.0814">1..*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="253.2342" y="394.071">1
+            </text>
+        </g><!--reverse link Tournament to Team-->
+        <g id="link_Tournament_Team">
+            <path codeLine="186" d="M340.2458,559.1038 C340.2458,569.1078 340.2458,578.8007 340.2458,587.908 "
+                  fill="none" id="Tournament-backto-Team" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="340.2458,551.0152,337.8058,554.6752,340.2458,558.3352,342.6858,554.6752,340.2458,551.0152"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="335.9057" y="564.8204">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="327.6169" y="581.2332">0..*
+            </text>
+        </g><!--reverse link Tournament to Player-->
+        <g id="link_Tournament_Player">
+            <path codeLine="187"
+                  d="M424.3343,547.1539 C425.963,548.4227 427.6222,549.6488 429.3058,550.8383 C504.5615,603.8412 574.0954,517.3554 633.0458,588.0483 C669.5055,631.7731 660.1481,666.0795 633.0458,716.1483 C590.9558,793.905 502.0056,845.0779 433.1305,874.7544 "
+                  fill="none" id="Tournament-backto-Player" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="#181818"
+                     points="418.1794,542.0665,419.4468,546.2788,423.8225,546.7289,422.5551,542.5167,418.1794,542.0665"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="422.8084" y="548.3833">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="437.9251" y="871.0776">0..*
+            </text>
+        </g><!--reverse link Team to Player-->
+        <g id="link_Team_Player">
+            <path codeLine="189" d="M340.2458,724.1515 C340.2458,733.4052 340.2458,743.153 340.2458,753.1326 "
+                  fill="none" id="Team-backto-Player" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="340.2458,716.1544,337.8058,719.8144,340.2458,723.4744,342.6858,719.8144,340.2458,716.1544"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="335.8324" y="729.379">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="327.8647" y="746.5668">0..*
+            </text>
+        </g><!--reverse link Player to Game-->
+        <g id="link_Player_Game">
+            <path codeLine="190"
+                  d="M317.4989,1070.7779 C317.5355,1078.1162 317.7856,1085.3935 318.2858,1092.5183 C318.7067,1098.5024 319.2191,1104.6085 319.7986,1110.7695 "
+                  fill="none" id="Player-backto-Game" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="317.5416,1062.7869,315.0815,1066.4335,317.5014,1070.1068,319.9615,1066.4603,317.5416,1062.7869"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="312.4566" y="1076.5915">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="306.6446" y="1103.8217">0..*
+            </text>
+        </g><!--reverse link Game to Player-->
+        <g id="link_Game_Player">
+            <path codeLine="193"
+                  d="M338.4829,1102.6565 C338.4585,1099.2405 338.4341,1095.8611 338.4158,1092.5183 C338.3609,1082.7766 338.3426,1072.7482 338.3548,1062.6405 "
+                  fill="none" id="Game-backto-Player" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="338.5439,1110.6597,340.9597,1106.9837,338.4956,1103.3399,336.0798,1107.0159,338.5439,1110.6597"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="20.74"
+                  x="339.0258" y="1090.0956">White
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="334.148" y="1104.1548">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="333.9527" y="1076.4403">1
+            </text>
+        </g><!--reverse link Game to Player-->
+        <g id="link_Game_Player">
+            <path codeLine="194"
+                  d="M362.0045,1102.7236 C362.3034,1099.2954 362.5718,1095.8855 362.8158,1092.5183 C363.5173,1082.8132 363.7369,1072.8336 363.5783,1062.7808 "
+                  fill="none" id="Game-backto-Player-1" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="361.2603,1110.7756,364.024,1107.3535,361.9281,1103.4862,359.1644,1106.9083,361.2603,1110.7756"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="20.13"
+                  x="363.4258" y="1090.0956">Black
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="357.6688" y="1103.828">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="360.0038" y="1076.5852">1
+            </text>
+        </g><!--reverse link Group to Player-->
+        <g id="link_Group_Player">
+            <path codeLine="191"
+                  d="M93.1714,461.211 C51.8012,528.0243 3.66,634.0362 48.0558,716.1483 C90.0055,793.7464 178.6568,844.9132 247.3733,874.6263 "
+                  fill="none" id="Group-backto-Player" style="stroke:#181818;stroke-width:0.61;"/>
+            <polygon fill="none"
+                     points="97.4048,454.4705,93.3923,456.2731,93.5129,460.6702,97.5254,458.8677,97.4048,454.4705"
+                     style="stroke:#181818;stroke-width:0.61;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="4.27"
+                  x="89.7909" y="467.8943">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="7.93" lengthAdjust="spacing" textLength="12.2"
+                  x="230.3793" y="870.9433">0..*
+            </text>
+        </g><!--SRC=[lLdTRjis5BxtKn3UHR8soPgXLqKW8x7Rp5Z-K2Sj1WmeQ8cnYKYY8L9fiYt5qW73ThKts3CKpG8KGzTdaDzevA4aIvP5oa5J8x1ayJk7v_ySAloCXXCSuG2vFkPyMuY83cD1-YuB1_GdWXwrMYlePC9Tx1DqoaB1MorU9decdm9syt6hDS7k6HuHrEvXWRTTbt3UHZ-tMaX-JfdlaGWz3GKLb73qLGy-sN9NCKCdN4AsjW1qwJXo4QMVXx3Mz-JgY8XlE16EKrZaKlHm19Wzp4M80s97FgDHK-WH5X4BBmFgch5F0qnzC-H8AleTvkCQ50q5EcPnfEII1j-ZGGrGsfWSXlubUav6b0iIgGSrs6CQbB7gGGsstsM-Jrn1MRWr4yGf2gKfKwehxK28XWAeperb_MeTgc27qGY7ChQiRf_nEwZtPhOnxx8On3FvoCSkiTbTtGm4ZeJDwEh615IIzU88AvCR8FluufZWGCfsII9kLY0r7R0qs6J8cDz1VRvFBuYt6x5umfjetOr8WrXJDqPaYQTAs-uOXwD6VArePR31fGprm1XYtzFGgmKKCm6Cuw2YZKfOnKX_BUO5bIqFw0ORQZSxgEJk4bghbrqQ9BCC7fd6ydiHjoBokOeR1y6bYYqbF1Z4bEi0CFhWSrU3laT063CAv3AandA-ADIzKWciSYvPBmsOMkCPmpDLH64Qwj6ad5Tar4gRfDI8B-fZlQMg0WVM_gsnqEmDO7UC8xHBGgysEqliyc79e8r6xj18Z7yWEBBKu6tfe_CwTXwBXt86EsAIhx61gNrVqj2AsMES4okg5-7NHf17N1fWNvUAGHniDiHzQzXqX-78EuY3OQqd9Ae3XSmKJ1rBwIbLTnaN3jgHNVzCtTRdUPNevPWAOYO2EJfvgLpOtAGoMgKwGEC2Cn_tiU_FmhwQvBD41z-OyXm0jim4qFtKeyAOgGrLFs1QOgD1eMbOjR89L6vehqGAPIiSZSh1FJUdcQ7puQBMr9OXAzLSe-uxB7Or_rfP8LUD7eSIy6KwMSRCMEdIkW-2w-9l1eByHg2ABnbU42rregKjNrzWxoP0sDjI70YF_SMXjrxj9MiBsiQhIKJEOISzdHReIwrlRQv_hLMwteoJF9k98YDjoxNCfW3KDfKYM71Qmpjf1OR-B5e1ftcjj0iww5LK5l4XfCtgrmNeEQCUEfbuybXs9DbH5lCNs8y9hwAale95vD3tAeYhxFN0okm5JtTCE5THtsMX81T2fkXAuK0u7101VRNZW5Jb8AuYeR6MJsLrM3KcEp0iMu0wc3jp1TMCvdkKYnUKlCwfiWSMyWKdhJheG7hFX_W8HxFj5ZsrCCfUmMteekoanTb21HDAwVXeGiwBMNtMWCcCj241Bs_Or0d6VbD7f0xq3XphQu7pmIvpOwLO4gKzt6f6w5Sc_L2kXoufqhn1Xw54dT9Hh59vjJTCQGudgc_odPZ2ErPM-Zd7O9zvn8Sz50lubT45XHy5glLCr1uvfI7Ckhh3hZOaKDcv58NAqgK8TDBTWIGFaOPKaAXBxRCeGPkIGbukjPiA-wK9xYHSbfPBm9VT8K_5fJHIAMacc6jCymcuzSlwEifpIy-OyFgklTb63-HQ-z76neDseLG0f31Qpm4XQ2mOxUiAI2-oTO2hj5ZCnbS0W4AoBGPvCycbCopowFJGoiDfIwspohfQJeV0EO0g4x2iZxsBoJL0JUtv-cQsY9xeiTU2WGakTMN-pwNSRXfSSV4JbFmzVPlybtoQ_f7Sokk7vFR742N_9fzGydvwBPzzHDFhwM_JFm5qFNqx_Ilvg23lvP-4_vFSekHTSfFSJ7-Lw9latVHt-VW3sfHSaDf-etNL-Xy0]-->
+    </g>
+</svg>

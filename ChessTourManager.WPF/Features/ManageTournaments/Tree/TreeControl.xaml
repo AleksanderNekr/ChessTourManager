@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="ChessTourManager.WPF.Features.ManageTournaments.Tree.TreeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tree="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.Tree"
+             xmlns:entities="clr-namespace:ChessTourManager.DataAccess.Entities;assembly=ChessTourManager.DataAccess"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <tree:TreeViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ContextMenu x:Key="TournamentContextMenu">
+            <MenuItem
+                Header="Добавить турнир"
+                Click="AddTournamentMenuItem_OnClick" />
+            <MenuItem
+                Header="Добавить команду"
+                Click="AddTeamMenuItem_OnClick" />
+            <MenuItem
+                Header="Редактировать турнир"
+                Click="EditTournamentMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить турнир"
+                Click="DeleteTournamentMenuItem_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="TeamContextMenu">
+            <MenuItem
+                Header="Добавить игрока"
+                Click="AddPlayerMenuItem_OnClick" />
+            <MenuItem
+                Header="Редактировать команду"
+                Click="EditTeamMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить команду"
+                Click="DeleteTeamMenuItem_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="PlayerContextMenu">
+            <MenuItem
+                Header="Редактировать игрока"
+                Click="EditPlayerMenuItem_OnClick" />
+            <MenuItem
+                Header="Удалить игрока"
+                Click="DeletePlayerMenuItem_OnClick" />
+        </ContextMenu>
+    </UserControl.Resources>
+    <Grid>
+        <TreeView
+            ItemsSource="{Binding TournamentsRoot}"
+            PreviewMouseRightButtonUp="TreeView_OnPreviewMouseRightButtonUp">
+            <TreeView.ItemContainerStyle>
+                <Style
+                    TargetType="{x:Type TreeViewItem}"
+                    BasedOn="{StaticResource DefaultTreeViewItemStyle}">
+                    <Setter Property="ContextMenu"
+                            Value="{StaticResource TournamentContextMenu}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate
+                    DataType="{x:Type entities:Tournament}"
+                    ItemsSource="{Binding Teams}">
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style
+                            TargetType="{x:Type TreeViewItem}"
+                            BasedOn="{StaticResource DefaultTreeViewItemStyle}">
+                            <Setter Property="ContextMenu"
+                                    Value="{StaticResource TeamContextMenu}" />
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
+                    <TextBlock
+                        Text="{Binding TournamentName}" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate
+                    DataType="{x:Type entities:Team}"
+                    ItemsSource="{Binding Players}">
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style
+                            TargetType="{x:Type TreeViewItem}"
+                            BasedOn="{StaticResource DefaultTreeViewItemStyle}">
+                            <Setter Property="ContextMenu"
+                                    Value="{StaticResource PlayerContextMenu}" />
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
+                    <TextBlock
+                        Text="{Binding TeamName}" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate
+                    DataType="{x:Type entities:Player}">
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Text="{Binding PlayerFullName}"
+                            Margin="0,0,10,0" />
+                        <TextBlock
+                            Text="{Binding Gender}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

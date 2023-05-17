@@ -1,0 +1,357 @@
+﻿@startuml ClassDiagram DataAccess
+
+
+skinparam classAttributeIconSize 0
+
+' Upscale fonts
+
+skinparam classFontSize 14
+
+package "DataAccess" {
+
+    folder Entities #DDDDDD {
+
+    Class User <<Entity>> {
+        + UserId <<get/set>>
+        + string UserLastname <<get/set>>
+        + string UserFirstname <<get/set>>
+        + string UserPatronymic <<get/set>>
+        + string Email <<get/set>>
+        + string PassHash <<get/set>>
+        + int TournamentsLim <<get/set>>
+        + DateOnly RegisterDate <<get/set>>
+        + TimeOnly RegisterTime <<get/set>>
+        + ICollection<Tournament> Tournaments <<get>>
+    }
+
+    class Tournament <<Entity>> {
+        + int TournamentId <<get/set>>
+        + int OrganizerId <<get/set>>
+        + string TournamentName <<get/set>>
+        + int ToursCount <<get/set>>
+        + string Place <<get/set>>
+        + DateOnly DateStart <<get/set>>
+        + TimeOnly TimeStart <<get/set>>
+        + int Duration <<get/set>>
+        + int MaxTeamPlayers <<get/set>>
+        + string OrganizationName <<get/set>>
+        + bool? IsMixedGroups <<get/set>>
+        + DateOnly DateCreate <<get/set>>
+        + TimeOnly TimeCreate <<get/set>>
+        + DateOnly DateLastChange <<get/set>>
+        + TimeOnly TimeLastChange <<get/set>>
+        + int SystemId <<get/set>>
+        + int KindId <<get/set>>
+        + ICollection<Group> Groups <<get>>
+        + Kind Kind <<get/set>>
+        + User Organizer <<get/set>>
+        + ICollection<Player> Players <<get>>
+        + System System <<get/set>>
+        + ICollection<Team> Teams <<get>>
+        + ICollection<Ratio> Ratios <<get>>
+        }
+
+    class Group <<Entity>> {
+        + int GroupId <<get/set>>
+        + int TournamentId <<get/set>>
+        + int OrganizerId <<get/set>>
+        + string Identity <<get/set>>
+        + string GroupName <<get/set>>
+        + ICollection<Player> Players <<get>>
+        + Tournament Tournament <<get/set>>
+        }
+
+    class Kind <<Entity>> {
+        + int KindId <<get/set>>
+        + string KindName <<get/set>>
+        + ICollection<Tournament> Tournaments <<get>>
+        }
+
+    class Player <<Entity>> {
+        + int PlayerId <<get/set>>
+        + int TournamentId <<get/set>>
+        + int OrganizerId <<get/set>>
+        + string PlayerLastName <<get/set>>
+        + string PlayerFirstName <<get/set>>
+        + char Gender <<get/set>>
+        + string PlayerAttribute <<get/set>>
+        + int PlayerBirthYear <<get/set>>
+        + bool? IsActive <<get/set>>
+        + double PointsCount <<get/set>>
+        + int WinsCount <<get/set>>
+        + int LossesCount <<get/set>>
+        + int DrawsCount <<get/set>>
+        + decimal RatioSum1 <<get/set>>
+        + decimal RatioSum2 <<get/set>>
+        + int BoardNumber <<get/set>>
+        + int? TeamId <<get/set>>
+        + int? GroupId <<get/set>>
+        + ICollection<Game> BlackGamePlayers <<get>>
+        + ICollection<Game> WhiteGamePlayers <<get>>
+        + Group? Group <<get/set>>
+        + Team? Team <<get/set>>
+        + Tournament Tournament <<get/set>>
+        + string PlayerFullName <<get>>
+        }
+
+        class Ratio <<Entity>> {
+        + int RatioId <<get/set>>
+        + string RatioName <<get/set>>
+        + ICollection<Tournament> Tournaments <<get>>
+        }
+
+        class Team <<Entity>> {
+        + int TeamId <<get/set>>
+        + int OrganizerId <<get/set>>
+        + int TournamentId <<get/set>>
+        + string TeamName <<get/set>>
+        + string TeamAttribute <<get/set>>
+        + bool? IsActive <<get/set>>
+        + ICollection<Player> Players <<get>>
+        + Tournament Tournament <<get/set>>
+        }
+
+        class System <<Entity>> {
+        + int SystemId <<get/set>>
+        + string SystemName <<get/set>>
+        + ICollection<Tournament> Tournaments <<get>>
+        }
+
+        class Game <<Entity>> {
+        + int WhiteId <<get/set>>
+        + int BlackId <<get/set>>
+        + int TournamentId <<get/set>>
+        + int OrganizerId <<get/set>>
+        + int TourNumber <<get/set>>
+        + double WhitePoints <<get/set>>
+        + double BlackPoints <<get/set>>
+        + bool IsPlayed <<get/set>>
+        + Player PlayerWhite <<get/set>>
+        + Player PlayerBlack <<get/set>>
+        + string Result <<get/set>>
+        - decimal RatioSum1, decimal RatioSum2 _prevBlackRatios
+        - int WinsCount, int DrawsCount, int LossesCount _prevBlackStats
+        - double, double _prevPointsSum
+        - double, double _prevResult
+        - decimal RatioSum1, decimal RatioSum2 _prevWhiteRatios
+        - int WinsCount, int DrawsCount, int LossesCount _prevWhiteStats
+        - string? _result
+        + Game()
+        - void UpdatePreviousValues()
+        - void RestoreOldValues()
+        }
+    }
+
+'    Class ChessTourContext {
+'        + DbSet<Game?> Games <<get/set>>
+'        + DbSet<Group?> Groups <<get/set>>
+'        + DbSet<Kind> Kinds <<get/set>>
+'        + DbSet<Player?> Players <<get/set>>
+'        + DbSet<PlayersListView> PlayersListViews <<get/set>>
+'        + DbSet<Ratio> Ratios <<get/set>>
+'        + DbSet<SingleRatingListView> SingleRatingListViews <<get/set>>
+'        + DbSet<Entities.System> Systems <<get/set>>
+'        + DbSet<Team?> Teams <<get/set>>
+'        + DbSet<TeamRatingListView> TeamRatingListViews <<get/set>>
+'        + DbSet<TeamView> TeamViews <<get/set>>
+'        + DbSet<TeamsListView> TeamsListViews <<get/set>>
+'        + DbSet<Tournament> Tournaments <<get/set>>
+'        + DbSet<User> Users <<get/set>>
+'        + ChessTourContext()
+'        + static ChessTourContext CreateInstance()
+'        ~ OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+'        ~ OnModelCreating(ModelBuilder modelBuilder)
+'        - static DefineGameEntity(modelBuilder)
+'        - static DefineGroupEntity(modelBuilder)
+'        - static DefineKindEntity(modelBuilder)
+'        - static DefinePlayerEntity(modelBuilder)
+'        - static DefinePlayersListView(modelBuilder)
+'        - static DefineRatioEntity(modelBuilder)
+'        - static DefineSingleRatingListView(modelBuilder)
+'        - static DefineSystemEntity(modelBuilder)
+'        - static DefineTeamEntity(modelBuilder)
+'        - static DefineTeamRatingListView(modelBuilder)
+'        - static DefineTeamView(modelBuilder)
+'        - static DefineTeamListView(modelBuilder)
+'        - static DefineTournamentEntity(modelBuilder)
+'        - static DefineUserEntity(modelBuilder)
+'        }
+    }
+
+'    ChessTourContext <|-- DbContext
+
+    User "1" *-- "0..*" Tournament
+    Tournament "1" *-- "0..*" Ratio
+    Tournament "1" *-- "0..*" System
+    Tournament "0..*" o- "1" Kind
+    Tournament "1" *-l- "1..*" Group
+    Tournament "1" *-d- "0..*" Team
+    Tournament "1" *-- "0..*" Player
+
+    Team "1" o-- "0..*" Player
+    Player "1" o-- "0..*" Game
+    Group "1" o-- "0..*" Player
+
+    Game "1" o-- "1" Player : White
+    Game "1" o-- "1" Player : Black
+
+'    Entities "0..*" o-- "1" ChessTourContext : Отношение\n ко всем сущностям\n в виде аггрегации 1 к 0..*.
+}
+
+@enduml
+
+@startuml ChessTourContext
+
+skinparam classAttributeIconSize 0
+
+Class ChessTourContext {
+        + DbSet<Game?> Games <<get/set>>
+        + DbSet<Group?> Groups <<get/set>>
+        + DbSet<Kind> Kinds <<get/set>>
+        + DbSet<Player?> Players <<get/set>>
+        + DbSet<PlayersListView> PlayersListViews <<get/set>>
+        + DbSet<Ratio> Ratios <<get/set>>
+        + DbSet<SingleRatingListView> SingleRatingListViews <<get/set>>
+        + DbSet<Entities.System> Systems <<get/set>>
+        + DbSet<Team?> Teams <<get/set>>
+        + DbSet<TeamRatingListView> TeamRatingListViews <<get/set>>
+        + DbSet<TeamView> TeamViews <<get/set>>
+        + DbSet<TeamsListView> TeamsListViews <<get/set>>
+        + DbSet<Tournament> Tournaments <<get/set>>
+        + DbSet<User> Users <<get/set>>
+        + ChessTourContext()
+        + static ChessTourContext CreateInstance()
+        ~ OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        ~ OnModelCreating(ModelBuilder modelBuilder)
+        - static DefineGameEntity(modelBuilder)
+        - static DefineGroupEntity(modelBuilder)
+        - static DefineKindEntity(modelBuilder)
+        - static DefinePlayerEntity(modelBuilder)
+        - static DefinePlayersListView(modelBuilder)
+        - static DefineRatioEntity(modelBuilder)
+        - static DefineSingleRatingListView(modelBuilder)
+        - static DefineSystemEntity(modelBuilder)
+        - static DefineTeamEntity(modelBuilder)
+        - static DefineTeamRatingListView(modelBuilder)
+        - static DefineTeamView(modelBuilder)
+        - static DefineTeamListView(modelBuilder)
+        - static DefineTournamentEntity(modelBuilder)
+        - static DefineUserEntity(modelBuilder)
+        }
+
+        package Entities{
+        }
+
+    ChessTourContext -l-|> DbContext
+
+    ChessTourContext "1" -r-o "0..*" Entities : Отношение\n ко всем сущностям\n
+    }
+
+
+@enduml
+
+@startuml data_access_get
+
+skinparam classAttributeIconSize 0
+
+package DataAccess{
+package Queries{
+package Get {
+    interface IGetQueries{
+        GetResult TryGetUserById(int id, out User? user)
+        GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
+        GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament>? tournaments)
+        GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments)
+        GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player>? players)
+        GetResult TryGetPlayersWithTeamsAndGroups(int organiserId, int tournamentId, out IEnumerable<Player>? players)
+        GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IEnumerable<Team>? teams)
+        GetResult TryGetGroups(int organizerId, int tournamentId, out IEnumerable<Group>? groups)
+        GetResult TryGetGames(int organiserId, int tournamentId, out IEnumerable<Game>? games)
+        GetResult GetKinds(out IEnumerable<Kind>? kinds)
+        GetResult GetSystems(out IEnumerable<Entities.System>? systems)
+    }
+
+    class GetQueries implements IGetQueries {
+        + GetQueries(ChessTourContext context)
+        + GetResult TryGetUserById(int id, out User? user)
+        + GetResult TryGetUserByLoginAndPass(string login, string password, out User? user)
+        + GetResult TryGetTournaments(int organiserId, out IEnumerable<Tournament>? tournaments)
+        + GetResult TryGetTournamentsWithTeamsAndPlayers(int organiserId, out IEnumerable<Tournament>? tournaments)
+        + GetResult TryGetPlayers(int organiserId, int tournamentId, out IEnumerable<Player>? players)
+        + GetResult TryGetPlayersWithTeamsAndGroups(int organiserId, int tournamentId, out IEnumerable<Player>? players)
+        + GetResult TryGetTeamsWithPlayers(int organiserId, int tournamentId, out IEnumerable<Team>? teams)
+        + GetResult TryGetGroups(int organizerId, int tournamentId, out IEnumerable<Group>? groups)
+        + GetResult TryGetGames(int organiserId, int tournamentId, out IEnumerable<Game>? games)
+        + GetResult GetKinds(out IEnumerable<Kind>? kinds)
+        + GetResult GetSystems(out IEnumerable<Entities.System>? systems)
+    }
+
+    GetQueries --o DataAccess.ChessTourContext
+}
+
+@enduml
+
+@startuml data_access_insert
+
+skinparam classAttributeIconSize 0
+
+package DataAccess{
+package Queries{
+package Insert {
+
+  interface IInsertQueries {
+     InsertResult TryAddUser(string lastName, string firstName,\n string email, string password, string patronymic = "-", int tournamentsLimit = 50)
+
+     InsertResult TryAddTournament(out Tournament? addedTournament,\n int organiserId, string tournamentName, int systemId, int kindId,\n int toursCount = 7, string place = "-", DateOnly? tournamentDateStart = null,\n TimeOnly? tournamentTimeStart = null, int duration = 0, int maxTeamPlayers = 5,\n string organizationName = "-", bool isMixedGroups = true)
+
+     InsertResult TryAddPlayer(out Player? addedPlayer, int tournamentId,\n int organiserId, string lastName, string firstName, char gender= 'M',\n string attribute  = "-", int  birthYear  = 2000, int  boardNumber = 1,\n int? teamId = null, int? groupId = null, bool isActive  = true)
+
+     InsertResult TryAddTeam(out Team? addedTeam, int organiserId,\n int tournamentId, string name, bool isActive = true, string attribute = "-")
+
+     InsertResult TryAddGroup(out Group? addedTeam, int organiserId,\n int tournamentId, string name = "1", string identity = "1")
+
+     InsertResult TryAddGamePair(out Game? game, int whiteId, int blackId,\n int tournamentId, int organizerId, int tourNumber, int whitePointsResult = 0,\n int blackPointsResult = 0, bool isPlayed = false)
+  }
+
+  class InsertQueries implements IInsertQueries {
+     +InsertResult TryAddUser(string lastName, string firstName,\n string email, string password, string patronymic = "-", int tournamentsLimit = 50)
+
+     +InsertResult TryAddTournament(out Tournament? addedTournament,\n int organiserId, string tournamentName, int systemId, int kindId,\n int toursCount = 7, string place = "-", DateOnly? tournamentDateStart = null,\n TimeOnly? tournamentTimeStart = null, int duration = 0, int maxTeamPlayers = 5,\n string organizationName = "-", bool isMixedGroups = true)
+
+     +InsertResult TryAddPlayer(out Player? addedPlayer, int tournamentId,\n int organiserId, string lastName, string firstName, char gender= 'M',\n string attribute  = "-", int  birthYear  = 2000, int  boardNumber = 1,\n int? teamId = null, int? groupId = null, bool isActive  = true)
+
+     +InsertResult TryAddTeam(out Team? addedTeam, int organiserId,\n int tournamentId, string name, bool isActive = true, string attribute = "-")
+
+     +InsertResult TryAddGroup(out Group? addedTeam, int organiserId,\n int tournamentId, string name = "1", string identity = "1")
+
+     +InsertResult TryAddGamePair(out Game? game, int whiteId, int blackId,\n int tournamentId, int organizerId, int tourNumber, int whitePointsResult = 0,\n int blackPointsResult = 0, bool isPlayed = false)
+  }
+
+  InsertQueries --o DataAccess.ChessTourContext
+}
+
+@enduml
+
+
+@startuml data_access_delete
+
+skinparam classAttributeIconSize 0
+
+package DataAccess{
+package Queries{
+package Delete {
+
+  interface IDeleteQueries {
+        DeleteResult TryDeletePlayer(Player player)
+        DeleteResult TryDeleteTournament(Tournament tournament)
+  }
+
+    class DeleteQueries implements IDeleteQueries {
+            + DeleteResult TryDeletePlayer(Player player)
+            + DeleteResult TryDeleteTournament(Tournament tournament)
+    }
+
+  DeleteQueries --o DataAccess.ChessTourContext
+}
+
+@enduml

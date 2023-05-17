@@ -1,0 +1,112 @@
+﻿<Window x:Class="ChessTourManager.WPF.Features.ManageTournaments.ManageGroups.AddGroup.AddGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:manageGroups="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManageGroups"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
+        MinHeight="300"
+        MinWidth="500"
+        Height="300"
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <Window.DataContext>
+        <manageGroups:ManageGroupsViewModel />
+    </Window.DataContext>
+    <Grid
+        HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="0.4*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="18"
+            FontWeight="SemiBold"
+            Text="Добавление группы" />
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <TextBlock
+                x:Name="GroupNameTb"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Width="170"
+                FontSize="14"
+                Text="Полное название группы:" />
+            <TextBox
+                ui:ControlHelper.PlaceholderText="Введите полное название группы"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                FontSize="14"
+                MinWidth="200"
+                Text="{Binding GroupName}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Orientation="Horizontal"
+            ToolTip="Краткий идентификатор группы, например, если
+полное название группы – Мальчики до 12 лет, то идентификатор
+может быть М12">
+            <TextBlock
+                x:Name="GroupIdTb"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Width="170"
+                FontSize="14"
+                Text="Идентификатор группы:" />
+            <TextBox
+                ui:ControlHelper.PlaceholderText="Введите краткий идентификатор"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                FontSize="14"
+                MinWidth="100"
+                Text="{Binding GroupIdentifier}" />
+        </StackPanel>
+        <Button
+            Grid.Row="4"
+            Margin="0,0,0,5"
+            FontSize="14"
+            Content="Добавить"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsDefault="True"
+            Command="{Binding CompleteAddGroup}">
+            <Button.Style>
+                <Style
+                    TargetType="Button"
+                    BasedOn="{StaticResource AccentButtonStyle}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ElementName=GroupNameTb, Path=(Validation.HasError)}"
+                            Value="True">
+                            <Setter
+                                Property="IsEnabled"
+                                Value="False" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding ElementName=GroupIdTb, Path=(Validation.HasError)}"
+                            Value="True">
+                            <Setter
+                                Property="IsEnabled"
+                                Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</Window>

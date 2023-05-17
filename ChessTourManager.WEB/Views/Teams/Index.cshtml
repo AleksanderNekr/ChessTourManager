@@ -1,0 +1,51 @@
+@using ChessTourManager.DataAccess.Entities
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<ChessTourManager.DataAccess.Entities.Team>
+
+@{
+    ViewData["Title"] = "Index";
+    Tournament tournament = ViewBag.Tournament;
+}
+
+<partial name="_TournamentPartial" model="tournament"/>
+<h3>Teams</h3>
+<p>
+    <a asp-action="Create">Add New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeamAttribute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Team item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamAttribute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActiveLocalized)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

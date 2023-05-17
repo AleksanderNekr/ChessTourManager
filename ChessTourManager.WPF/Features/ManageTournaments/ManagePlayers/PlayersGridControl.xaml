@@ -1,0 +1,253 @@
+﻿<UserControl x:Class="ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers.PlayersGridControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+             xmlns:managePlayers="clr-namespace:ChessTourManager.WPF.Features.ManageTournaments.ManagePlayers"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="1000">
+    <UserControl.DataContext>
+        <managePlayers:PlayersViewModel />
+    </UserControl.DataContext>
+    <Grid
+        HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="200" />
+            <ColumnDefinition
+                Width="*" />
+        </Grid.ColumnDefinitions>
+        <Menu
+            VerticalAlignment="Top"
+            Margin="20,0"
+            MinHeight="200">
+            <MenuItem
+                FontSize="14"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Header="Добавить игрока"
+                Command="{Binding AddPlayerCommand}" />
+            <MenuItem
+                Margin="0,10,0,0"
+                FontSize="14"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Header="Экспорт списка"
+                Command="{Binding ExportPlayersListCommand}"
+                CommandParameter="{Binding ElementName=PlayersDataGrid}" />
+            <MenuItem
+                FontSize="14"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Header="Печать списка"
+                Command="{Binding PrintPlayersListCommand}"
+                CommandParameter="{Binding ElementName=PlayersDataGrid}" />
+        </Menu>
+        <DataGrid
+            x:Name="PlayersDataGrid"
+            dgx:DataGridFilter.IsAutoFilterEnabled="True"
+            Grid.Column="1"
+            FontSize="14"
+            AutoGenerateColumns="False"
+            IsReadOnly="False"
+            MaxColumnWidth="200"
+            ItemsSource="{Binding PlayersCollection}"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Center"
+            dgx:Tools.ForceCommitOnLostFocus="True"
+            LoadingRow="DataGrid_LoadingRow">
+            <DataGrid.CellStyle>
+                <Style
+                    TargetType="DataGridCell"
+                    BasedOn="{StaticResource DefaultDataGridCellStyle}">
+                    <Setter
+                        Property="Margin"
+                        Value="1,0,0,0" />
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style
+                    TargetType="DataGridColumnHeader"
+                    BasedOn="{StaticResource DefaultDataGridColumnHeaderStyle}">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Center" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowHeaderStyle>
+                <Style
+                    TargetType="DataGridRowHeader"
+                    BasedOn="{StaticResource DefaultDataGridRowHeaderStyle}">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Center" />
+                </Style>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn
+                    Header="Фамилия"
+                    SortMemberPath="PlayerLastName">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                Text="{Binding PlayerLastName,
+                                        UpdateSourceTrigger=LostFocus}"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Имя"
+                    SortMemberPath="PlayerFirstName">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                Text="{Binding PlayerFirstName,
+                                        UpdateSourceTrigger=LostFocus}"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Пол"
+                    SortMemberPath="Gender">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                SelectedValue="{Binding Gender,
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalContentAlignment="Center">
+                                <ComboBox.ItemsSource>
+                                    <x:Array
+                                        Type="{x:Type system:Char}">
+                                        <system:Char>М</system:Char>
+                                        <system:Char>Ж</system:Char>
+                                    </x:Array>
+                                </ComboBox.ItemsSource>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Атрибут"
+                    SortMemberPath="PlayerAttribute">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Text="{Binding PlayerAttribute,
+                                        UpdateSourceTrigger=LostFocus}"
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    x:Name="TeamColumn"
+                    Header="Команда"
+                    SortMemberPath="Team.TeamName">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                HorizontalAlignment="Stretch"
+                                SelectedItem="{Binding Team,
+                                                   ValidatesOnExceptions=True,
+                                                   UpdateSourceTrigger=PropertyChanged,
+                                                   Mode=TwoWay}"
+                                ItemsSource="{Binding DataContext.TeamsAvailable,
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Text="{Binding TeamName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Группа"
+                    SortMemberPath="Group.Identity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                HorizontalAlignment="Stretch"
+                                SelectedItem="{Binding Group,
+                                                   ValidatesOnExceptions=True,
+                                                   UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding DataContext.GroupsAvailable,
+                                                  RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Text="{Binding Identity}"
+                                            ToolTip="{Binding GroupName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Год рождения"
+                    SortMemberPath="PlayerBirthYear">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Style="{StaticResource DataGridComboBoxStyle}"
+                                SelectedItem="{Binding PlayerBirthYear,
+                                            ValidatesOnExceptions=True,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding DataContext.BirthYears,
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Header="Активен"
+                    SortMemberPath="IsActive"
+                    dgx:DataGridFilterColumn.IsFilterVisible="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                Style="{StaticResource DataGridCheckBoxStyle}"
+                                IsChecked="{Binding IsActive,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    dgx:DataGridFilterColumn.IsFilterVisible="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Margin="0, 0, 10, 0"
+                                Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
+                                Content="Удалить"
+                                Command="{Binding DataContext.DeletePlayerCommand,
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
+
+                                CommandParameter="{Binding CurrentItem}"
+
+                                DataContext="{Binding
+                                                RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

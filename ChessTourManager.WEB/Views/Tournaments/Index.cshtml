@@ -1,0 +1,77 @@
+@using ChessTourManager.DataAccess.Entities
+@model IEnumerable<ChessTourManager.DataAccess.Entities.Tournament>
+
+@{
+    ViewData["Title"] = "Your tournaments";
+}
+
+<h1>Your tournaments</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.TournamentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToursCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kind)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.System)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Tournament item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Players" asp-action="Index" asp-route-id="@item.Id">Open</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TournamentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToursCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kind.KindNameLocalized)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.System.SystemNameLocalized)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
