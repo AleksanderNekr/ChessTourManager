@@ -1,7 +1,7 @@
 @model ChessTourManager.DataAccess.Entities.Group
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Group";
 }
 
 <h1>Edit Group: @Model.GroupName</h1>
@@ -24,14 +24,14 @@
                 <span asp-validation-for="Identity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary m-2" />
             </div>
         </form>
     </div>
 </div>
-
+<hr/>
 <div>
-    <a asp-action="Index" asp-route-id="@Model.TournamentId">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.TournamentId" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

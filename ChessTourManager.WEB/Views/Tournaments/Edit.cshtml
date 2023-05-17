@@ -3,12 +3,10 @@
 @model ChessTourManager.DataAccess.Entities.Tournament
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Tournament";
 }
 
-<h1>Edit</h1>
-
-<h4>Tournament: @Model.TournamentName</h4>
+<h1>Edit Tournament: @Model.TournamentName</h1>
 <hr/>
 <div class="row">
     <div class="col-md-4">
@@ -86,15 +84,15 @@
                 <span asp-validation-for="KindId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group m-2">
                 <input type="submit" value="Update" class="btn btn-primary"/>
             </div>
         </form>
     </div>
 </div>
-
+<hr/>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

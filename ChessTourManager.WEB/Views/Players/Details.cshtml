@@ -5,12 +5,10 @@
 @{
     ViewData["Title"] = "Player details";
     var tournament = (Tournament)ViewBag.Tournament;
-    List<SelectListItem>? teams = (List<SelectListItem>)ViewBag.Teams;
-    List<SelectListItem>? groups = (List<SelectListItem>)ViewBag.Groups;
 }
 
-<h1>Player details: @Model.PlayerFullName</h1>
-
+<h1>Player Details: @Model.PlayerFullName</h1>
+<hr/>
 <div>
     <dl class="row">
         <dt class="col-sm-2">
@@ -105,10 +103,8 @@
         </dd>
     </dl>
 </div>
+<hr/>
 <div>
-    <a asp-action="Edit"
-       asp-route-id="@Model.Id">
-        Edit
-    </a> |
-    <a asp-action="Index" asp-route-id="@tournament.Id">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" asp-route-id="@tournament.Id" class="btn btn-secondary">Back to List</a>
 </div>

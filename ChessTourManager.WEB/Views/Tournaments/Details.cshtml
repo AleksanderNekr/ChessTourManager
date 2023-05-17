@@ -1,14 +1,12 @@
 @model ChessTourManager.DataAccess.Entities.Tournament
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Tournament Details";
 }
 
-<h1>Details</h1>
-
+<h1>Tournament Details: @Model.TournamentName</h1>
+<hr/>
 <div>
-    <h4>Tournament: @Model.TournamentName</h4>
-    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TournamentName)
@@ -102,7 +100,8 @@
         </dd>
     </dl>
 </div>
+<hr/>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id"></a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

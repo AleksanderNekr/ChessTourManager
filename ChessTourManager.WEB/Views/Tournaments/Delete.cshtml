@@ -1,12 +1,12 @@
 @model ChessTourManager.DataAccess.Entities.Tournament
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Tournament";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h1>Delete Tournament</h1>
+<hr/>
+<h3>Are you sure you want to delete this tournament?</h3>
 <div>
     <h4>Tournament: @Model.TournamentName</h4>
     <hr/>
@@ -108,11 +108,11 @@
             @Html.DisplayFor(model => model.System.SystemNameLocalized)
         </dd>
     </dl>
-
+    <hr/>
     <form method="post" asp-action="Delete">
         <input type="hidden" asp-for="Id" value="@Model.Id"/>
         <input type="hidden" asp-for="OrganizerId" value="@Model.OrganizerId"/>
-        <input type="submit" value="Delete" class="btn btn-danger"/> |
-        <a asp-controller="Tournaments" asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger m-2"/> |
+        <a asp-controller="Tournaments" asp-action="Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>

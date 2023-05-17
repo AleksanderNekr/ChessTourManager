@@ -3,25 +3,27 @@
 @model IEnumerable<ChessTourManager.DataAccess.Entities.Team>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Teams";
     Tournament tournament = ViewBag.Tournament;
 }
 
 <partial name="_TournamentPartial" model="tournament"/>
 <h3>Teams</h3>
+<hr/>
 <p>
-    <a asp-action="Create">Add New</a>
+    <a asp-action="Create" class="btn btn-primary">Add New</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>
+        <th/>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.TeamName)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.TeamAttribute)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
@@ -31,19 +33,22 @@
     @foreach (Team item in Model)
     {
         <tr>
-            <td>
+            <td class="align-middle">
+                @(Model.ToList().IndexOf(item) + 1)
+            </td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.TeamName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.TeamAttribute)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.IsActiveLocalized)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <td class="align-middle">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }

@@ -3,14 +3,12 @@
 @model ChessTourManager.DataAccess.Entities.Player
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Player";
     var tournament = (Tournament)ViewBag.Tournament;
-    List<SelectListItem>? teams = (List<SelectListItem>)ViewBag.Teams;
-    List<SelectListItem>? groups = (List<SelectListItem>)ViewBag.Groups;
 }
 
-<h1>Delete</h1>
-
+<h1>Delete Player</h1>
+<hr/>
 <h3>Are you sure you want to delete this player?</h3>
 <div>
     <h4>Player: @Model.PlayerFullName</h4>
@@ -50,7 +48,7 @@
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
+            @Html.DisplayFor(model => model.IsActiveLocalized)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PointsAmount)
@@ -107,13 +105,12 @@
             @Html.DisplayFor(model => model.Team.TeamName)
         </dd>
     </dl>
-
-    <form method="post"
-          asp-action="Delete">
+    <hr/>
+    <form method="post" asp-action="Delete">
         <input type="hidden" asp-for="Id"/>
         <input type="hidden" asp-for="TournamentId"/>
         <input type="hidden" asp-for="OrganizerId"/>
-        <input type="submit" value="Delete" class="btn btn-danger"/> |
-        <a asp-action="Index" asp-route-id="@tournament.Id">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger m-2"/> |
+        <a asp-action="Index" asp-route-id="@tournament.Id" class="btn btn-secondary">Back to List</a>
     </form>
 </div>

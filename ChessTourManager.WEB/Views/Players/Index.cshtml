@@ -8,34 +8,36 @@
 
 <partial name="_TournamentPartial" model="tournament"/>
 <h3>Players</h3>
+<hr/>
 <p>
-    <a asp-action="Create">Add New</a>
+    <a asp-action="Create" class="btn btn-primary">Add New</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>
+        <th/>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.PlayerLastName)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.PlayerFirstName)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.Gender)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.PlayerAttribute)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.PlayerBirthYear)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.Team)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.Group)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
@@ -45,41 +47,37 @@
     @foreach (Player item in Model)
     {
         <tr>
-            <td>
+            <td class="align-middle">
+                @(Model.ToList().IndexOf(item) + 1)
+            </td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.PlayerLastName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.PlayerFirstName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.PlayerAttribute)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.PlayerBirthYear)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.Team.TeamName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.Group.GroupName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.IsActiveLocalized)
             </td>
-            <td>
-                <a asp-action="Edit"
-                   asp-route-id="@item.Id">
-                    Edit
-                </a> |
-                <a asp-action="Details" asp-route-id="@item.Id">
-                    Details
-                </a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">
-                    Delete
-                </a>
+            <td class="align-middle">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }

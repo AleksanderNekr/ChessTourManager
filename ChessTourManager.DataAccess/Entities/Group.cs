@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace ChessTourManager.DataAccess.Entities;
 
@@ -12,6 +13,7 @@ public class Group
 
     public string Identity { get; set; } = null!;
 
+    [DisplayName("Group Name")]
     public string GroupName { get; set; } = null!;
 
     public ICollection<Player> Players { get; } = new List<Player>();

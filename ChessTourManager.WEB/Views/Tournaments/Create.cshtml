@@ -2,10 +2,10 @@
 @model ChessTourManager.DataAccess.Entities.Tournament
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Tournament";
 }
 
-<h1>Create tournament</h1>
+<h1>Create Tournament</h1>
 <hr/>
 <div class="row">
     <div class="col-md-4">
@@ -79,14 +79,14 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary m-2"/>
             </div>
         </form>
     </div>
 </div>
-
+<hr/>
 <div>
-    <a asp-controller="Tournaments" asp-action="Index">Back to List</a>
+    <a asp-controller="Tournaments" asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

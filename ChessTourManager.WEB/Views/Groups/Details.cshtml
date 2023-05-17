@@ -1,11 +1,11 @@
 @model ChessTourManager.DataAccess.Entities.Group
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Group Details";
 }
 
-<h1>Group details: @Model.GroupName</h1>
-
+<h1>Group Details: @Model.GroupName</h1>
+<hr/>
 <div>
     <dl class="row">
         <dt class = "col-sm-2">
@@ -28,7 +28,8 @@
         </dd>
     </dl>
 </div>
+<hr/>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    <a asp-action="Index" asp-route-id="@Model.TournamentId">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" asp-route-id="@Model.TournamentId" class="btn btn-secondary">Back to List</a>
 </div>

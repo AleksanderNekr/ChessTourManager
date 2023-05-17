@@ -6,70 +6,74 @@
 }
 
 <h1>Your tournaments</h1>
-
+<hr/>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
+<table class="table table-hover table-borderless">
     <thead>
     <tr>
-        <th></th>
-        <th>
+        <th/>
+        <th/>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.TournamentName)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.ToursCount)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.Place)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.DateStart)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.TimeStart)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.Kind)
         </th>
-        <th>
+        <th class="align-middle">
             @Html.DisplayNameFor(model => model.System)
         </th>
-        <th></th>
+        <th/>
     </tr>
     </thead>
     <tbody>
     @foreach (Tournament item in Model)
     {
         <tr>
-            <td>
-                <a asp-controller="Players" asp-action="Index" asp-route-id="@item.Id">Open</a>
+            <td class="align-middle">
+                @(Model.ToList().IndexOf(item) + 1)
             </td>
-            <td>
+            <td class="align-middle">
+                <a asp-controller="Players" asp-action="Index" asp-route-id="@item.Id" class="btn btn-primary">Open</a>
+            </td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.TournamentName)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.ToursCount)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.Place)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.DateStart)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.TimeStart)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.Kind.KindNameLocalized)
             </td>
-            <td>
+            <td class="align-middle">
                 @Html.DisplayFor(modelItem => item.System.SystemNameLocalized)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td class="align-middle">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }

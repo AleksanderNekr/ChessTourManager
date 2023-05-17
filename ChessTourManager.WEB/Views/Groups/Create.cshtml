@@ -3,13 +3,11 @@
 @model ChessTourManager.DataAccess.Entities.Group
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Group";
     Tournament tournament = ViewBag.Tournament;
 }
 
-<h1>Create</h1>
-
-<h4>Group</h4>
+<h4>Create Group</h4>
 <hr/>
 <div class="row">
     <div class="col-md-4">
@@ -28,14 +26,14 @@
                 <span asp-validation-for="Identity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary m-2"/>
             </div>
         </form>
     </div>
 </div>
-
+<hr/>
 <div>
-    <a asp-action="Index" asp-route-id="@tournament.Id">Back to List</a>
+    <a asp-action="Index" asp-route-id="@tournament.Id" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
