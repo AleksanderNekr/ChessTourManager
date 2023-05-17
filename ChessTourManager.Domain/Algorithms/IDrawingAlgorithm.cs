@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 
@@ -12,4 +13,12 @@ public interface IDrawingAlgorithm
     public IList<(int, int)> StartNewTour(int currentTour);
 
     public int NewTourNumber { get; }
+
+    static IDrawingAlgorithm? Initialize(ChessTourContext context, int tournamentId)
+    {
+        Tournament? tournament = context.Tournaments.Single(t => t != null && t.Id == tournamentId);
+        return tournament is null
+                   ? null
+                   : Initialize(context, tournament);
+    }
 }
