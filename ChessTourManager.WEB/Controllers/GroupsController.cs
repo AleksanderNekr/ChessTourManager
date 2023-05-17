@@ -37,16 +37,16 @@ public class GroupsController : Controller
     /// <returns>Index view</returns>
     public async Task<IActionResult> Index(int id)
     {
-        IQueryable<Group> groups = this._context.Groups
-                                       .Include(t => t.Tournament)
-                                       .Where(t => t.TournamentId == id && t.OrganizerId == _userId);
-
         if (id != 0)
         {
             _tournamentId = id;
         }
 
         _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
+
+        IQueryable<Group> groups = this._context.Groups
+                                       .Include(t => t.Tournament)
+                                       .Where(t => t.TournamentId == _tournamentId && t.OrganizerId == _userId);
 
         await this.LoadTournamentAsync();
 
@@ -109,6 +109,8 @@ public class GroupsController : Controller
 
         this._context.Add(group);
         await this._context.SaveChangesAsync();
+
+        this.TempData["Success"] = $"Group {group.GroupName} was successfully created!";
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 
@@ -170,6 +172,7 @@ public class GroupsController : Controller
             throw;
         }
 
+        this.TempData["Success"] = $"Group {group.GroupName} was successfully edited!";
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 
@@ -218,6 +221,8 @@ public class GroupsController : Controller
         }
 
         await this._context.SaveChangesAsync();
+
+        this.TempData["Success"] = $"Group {group?.GroupName} was successfully deleted!";
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 

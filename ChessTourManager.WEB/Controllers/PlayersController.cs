@@ -137,6 +137,7 @@ public class PlayersController : Controller
 
         this._context.Players.Add(player);
         await this._context.SaveChangesAsync();
+        this.TempData["Success"] = $"Player {player.PlayerFullName} created successfully!";
         return this.RedirectToAction(nameof(this.Index), new { id = player.TournamentId });
     }
 
@@ -214,6 +215,7 @@ public class PlayersController : Controller
         this._context.Players.Update(player);
         await this._context.SaveChangesAsync();
 
+        this.TempData["Success"] = $"Player {player.PlayerFullName} updated successfully!";
         return this.RedirectToAction(nameof(this.Index), new { id = player.TournamentId });
     }
 
@@ -261,6 +263,8 @@ public class PlayersController : Controller
         Player? player = await this._context.Players.FindAsync(id, _tournamentId, _userId);
         this._context.Players.Remove(player ?? throw new InvalidOperationException("Player is null"));
         await this._context.SaveChangesAsync();
+
+        this.TempData["Success"] = $"Player {player.PlayerFullName} deleted successfully!";
         return this.RedirectToAction(nameof(this.Index), new { id = player.TournamentId });
     }
 

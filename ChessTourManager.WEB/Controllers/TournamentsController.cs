@@ -90,6 +90,7 @@ public class TournamentsController : Controller
         await this._context.Tournaments.AddAsync(tournament);
         await this._context.SaveChangesAsync();
 
+        this.TempData["Success"] = $"Tournament {tournament.TournamentName} created successfully!";
         return this.RedirectToAction(nameof(this.Index));
     }
 
@@ -148,6 +149,7 @@ public class TournamentsController : Controller
             throw;
         }
 
+        this.TempData["Success"] = $"Tournament {tournament.TournamentName} edited successfully!";
         return this.RedirectToAction(nameof(this.Index));
     }
 
@@ -227,6 +229,7 @@ public class TournamentsController : Controller
         this._context.Tournaments.Remove(tournament);
         await this._context.SaveChangesAsync();
 
+        this.TempData["Success"] = $"Tournament {tournament.TournamentName} deleted successfully!";
         return this.RedirectToAction(nameof(this.Index));
     }
 
