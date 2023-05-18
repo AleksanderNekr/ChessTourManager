@@ -8,7 +8,7 @@ namespace ChessTourManager.DataAccess.Queries.Get;
 
 internal class GetQueries : IGetQueries
 {
-    private static ChessTourContext _context = new();
+    private readonly ChessTourContext _context;
 
     public GetQueries(ChessTourContext context)
     {

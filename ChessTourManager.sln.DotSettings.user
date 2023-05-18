@@ -13,6 +13,7 @@
 	
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=35fdd597_002Df9df_002D4076_002D95ed_002Dc19554968885_0023ChessTourManager_002EUnitTests/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=e4ea9cab_002Db802_002D4ebc_002D8758_002Df7cac2e34cc0_0023ChessTourManager_002EIntegrationTests/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=ef98285b_002Db2e9_002D45ba_002D8934_002Dff71dfee478f_0023ChessTourManager_002EWPF/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=f26c6ff8_002D6914_002D4eb4_002D9de3_002D4428f5065e14_0023ChessTourManager_002ESystemTests/@EntryIndexedValue">True</s:Boolean>
 	</wpf:ResourceDictionary>

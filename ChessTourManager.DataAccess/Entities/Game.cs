@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
@@ -8,25 +9,33 @@ public class Game
 {
     private string? _result;
 
+    [DisplayName("Player for white")]
     public int WhiteId { get; set; }
 
+    [DisplayName("Player for black")]
     public int BlackId { get; set; }
 
     public int TournamentId { get; set; }
 
     public int OrganizerId { get; set; }
 
+    [DisplayName("Tour number")]
     public int TourNumber { get; set; }
 
+    [DisplayName("Points for white")]
     public double WhitePoints { get; set; }
 
+    [DisplayName("Points for black")]
     public double BlackPoints { get; set; }
 
+    [DisplayName("Is played")]
     public bool IsPlayed { get; set; }
 
-    public Player PlayerBlack { get; set; } = null!;
+    [DisplayName("Player for black")]
+    public Player? PlayerBlack { get; set; } = null!;
 
-    public Player PlayerWhite { get; set; } = null!;
+    [DisplayName("Player for white")]
+    public Player? PlayerWhite { get; set; } = null!;
 
     [NotMapped]
     public string Result
@@ -36,7 +45,7 @@ public class Game
             if (this.IsPlayed)
             {
                 return this._result ??= this.WhitePoints.ToString(CultureInfo.InvariantCulture) + " – "
-                                                                                             + this.BlackPoints.ToString(CultureInfo.InvariantCulture);
+                                      + this.BlackPoints.ToString(CultureInfo.InvariantCulture);
             }
 
             if (Math.Abs(this.WhitePoints - 1) < 0.0001)
@@ -88,7 +97,7 @@ public class Game
         this.PlayerBlack.PointsAmount -= this.BlackPoints;
 
         this.WhitePoints = whitePoints;
-        this.BlackPoints    = blackPoints;
+        this.BlackPoints = blackPoints;
 
         this.PlayerWhite.PointsAmount += this.WhitePoints;
         this.PlayerBlack.PointsAmount += this.BlackPoints;

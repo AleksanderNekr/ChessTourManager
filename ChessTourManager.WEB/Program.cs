@@ -1,12 +1,13 @@
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.Domain.Algorithms;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ChessTourContext>();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDbContext<ChessTourContext>(contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped);
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
        .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)

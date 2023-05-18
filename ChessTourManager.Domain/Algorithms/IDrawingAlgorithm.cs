@@ -8,7 +8,7 @@ namespace ChessTourManager.Domain.Algorithms;
 public interface IDrawingAlgorithm
 {
     public static IDrawingAlgorithm Initialize(ChessTourContext context, Tournament tournament) =>
-        new RoundRobin(context, tournament);
+        new RoundRobin(new ChessTourContext(), tournament);
 
     public IList<(int, int)> StartNewTour(int currentTour);
 
