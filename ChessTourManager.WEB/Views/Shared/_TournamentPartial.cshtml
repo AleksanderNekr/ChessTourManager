@@ -56,6 +56,18 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Index" asp-route-id="@Model.Id">Games</a>
                     </li>
                 }
+                @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Rating")
+                {
+                    <li class="nav-item">
+                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id">Rating</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id">Rating</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>

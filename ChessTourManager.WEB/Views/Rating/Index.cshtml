@@ -1,0 +1,109 @@
+@using ChessTourManager.DataAccess.Entities
+@model IEnumerable<ChessTourManager.DataAccess.Entities.Player>
+
+@{
+    ViewData["Title"] = "Players";
+    Tournament tournament = ViewBag.Tournament;
+}
+
+<partial name="_TournamentPartial" model="tournament"/>
+<h3>Rating</h3>
+<hr/>
+@if (Model.Count() == 0)
+{
+    <h4>No rating for this tournament</h4>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="align-middle">
+                Rank
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.PlayerFullName)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.PlayerAttribute)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.PlayerBirthYear)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Team)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Group)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.WinsCount)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.DrawsCount)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.LossesCount)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.PointsAmount)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.RatioSum1)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.RatioSum2)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Player item in Model)
+        {
+            <tr>
+                <td class="align-middle">
+                    @(Model.ToList().IndexOf(item) + 1)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.PlayerFullName)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.PlayerAttribute)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.PlayerBirthYear)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Team.TeamName)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Group.GroupName)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.WinsCount)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.DrawsCount)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.LossesCount)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.PointsAmount)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.RatioSum1)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.RatioSum2)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
