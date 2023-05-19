@@ -7,7 +7,7 @@ using ChessTourManager.WPF.Features.ManageTournaments;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageGames;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
-namespace ChessTourManager.IntegrationTests;
+namespace ChessTourManager.WPF.IntegrationTests;
 
 public class Tests
 {
@@ -21,7 +21,7 @@ public class Tests
         // Get tournament.
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournaments(this._orgId, out List<Tournament>? tournaments);
-        Tournament tournament = tournaments?.Single(t => t.TournamentId == this._tourId)
+        Tournament tournament = tournaments?.Single(t => t.Id == this._tourId)
                              ?? throw new InvalidOperationException();
 
         // Create mock view model.
@@ -49,7 +49,7 @@ public class Tests
         // Get tournament.
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournaments(this._orgId, out List<Tournament>? tournaments);
-        Tournament tournament = tournaments?.Single(t => t.TournamentId == this._tourId)
+        Tournament tournament = tournaments?.Single(t => t.Id == this._tourId)
                              ?? throw new InvalidOperationException();
 
         // Create mock login view model.

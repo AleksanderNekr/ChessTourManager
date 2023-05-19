@@ -5,12 +5,12 @@ using ChessTourManager.DataAccess.Queries.Get;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Algorithms;
 
-namespace ChessTourManager.UnitTests;
+namespace ChessTourManager.Domain.UnitTests;
 
 [TestFixture]
 public class RoundRobinTests
 {
-    // =====Test cases=====
+    /* =====Test cases=====
     // 1. The draw of the first round.
     // 1.1. There are no active players.
     // 1.1.1. The list of players is empty.
@@ -36,7 +36,7 @@ public class RoundRobinTests
     // 2.1. There are no active players.
     // 2.2. Active player alone.
     // 2.3. Active players are even.
-    // 2.4. Active players are an odd number.
+    // 2.4. Active players are an odd number. */
 
     private const    int                OrgId    = 16;
     private const    int                TourId   = 53;
@@ -51,7 +51,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         this._roundAlgorithm = IDrawingAlgorithm.Initialize(this._context, this._tournament);
@@ -72,7 +72,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -98,7 +98,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -129,7 +129,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -161,7 +161,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -185,7 +185,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -211,7 +211,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -242,7 +242,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -274,7 +274,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -304,7 +304,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -335,7 +335,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -371,7 +371,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
 
@@ -408,7 +408,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -439,7 +439,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -471,7 +471,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -503,7 +503,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -540,7 +540,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -575,7 +575,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -611,7 +611,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =
@@ -653,7 +653,7 @@ public class RoundRobinTests
         IGetQueries.CreateInstance(this._context)
                    .TryGetTournamentsWithTeamsAndPlayers(OrgId,
                                                          out List<Tournament?>? tournaments);
-        this._tournament = tournaments.Single(t => t.TournamentId == TourId);
+        this._tournament = tournaments.Single(t => t.Id == TourId);
         // Arrange.
         this.ClearPlayers();
         (string, string)[] playerNames =

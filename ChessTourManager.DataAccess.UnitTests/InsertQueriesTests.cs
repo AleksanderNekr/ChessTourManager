@@ -2,7 +2,7 @@
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Insert;
 
-namespace ChessTourManager.UnitTests;
+namespace ChessTourManager.WPF.UnitTests;
 
 [TestFixture]
 public class InsertQueriesTests
