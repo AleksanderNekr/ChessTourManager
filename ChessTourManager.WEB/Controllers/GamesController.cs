@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
@@ -23,6 +24,8 @@ public class GamesController : Controller
     private static   int                _currentTour;
     private static   int                _selectedTour;
     private static   Tournament?        _tournament;
+    private static   ICoefficient?      _ratioCounter1;
+    private static   ICoefficient?      _ratioCounter2;
 
     /// <summary>
     /// Constructor for GamesController.
@@ -70,8 +73,25 @@ public class GamesController : Controller
                                               && g.TourNumber   == _selectedTour);
         this.ViewBag.SelectedTour = _selectedTour;
         await this.LoadTournamentAsync();
+
+        ApplyRatiosCounters();
+
         this.LoadTourNumbers();
         return this.View(await games.ToListAsync());
+    }
+
+    private static void ApplyRatiosCounters()
+    {
+        // If Swiss tournament.
+        _ratioCounter1 = ICoefficient.Initialize(CoefficientType.Buchholz);
+        _ratioCounter2 = ICoefficient.Initialize(CoefficientType.TotalBuchholz);
+
+        // If round-robin tournament.
+        if (_tournament.SystemId == 1)
+        {
+            _ratioCounter1 = ICoefficient.Initialize(CoefficientType.Berger);
+            _ratioCounter2 = ICoefficient.Initialize(CoefficientType.SimpleBerger);
+        }
     }
 
     /// <summary>
@@ -80,9 +100,23 @@ public class GamesController : Controller
     /// <returns>Index view.</returns>
     public IActionResult Create()
     {
+        foreach (Player player in this._context.Players
+                                      .Include(player => player.GamesWhiteOpponents)
+                                      .ThenInclude(game => game.PlayerBlack)
+                                      .Include(player => player.GamesWhiteOpponents)
+                                      .ThenInclude(game => game.PlayerWhite)
+                                      .Include(player => player.GamesBlackOpponents)
+                                      .ThenInclude(game => game.PlayerBlack)
+                                      .Include(player => player.GamesBlackOpponents)
+                                      .ThenInclude(game => game.PlayerWhite))
+        {
+            player.RatioSum1 = (decimal)_ratioCounter1?.CalculateCoefficient(player);
+            player.RatioSum2 = (decimal)_ratioCounter2?.CalculateCoefficient(player);
+        }
+
         if (_currentTour == _tournament?.ToursCount)
         {
-            this.TempData["Warning"] = "Tournament is over!";
+            this.TempData["Success"] = "Congratulations! The Tournament is over!";
             return this.RedirectToAction(nameof(this.Index),
                                          new { id = _tournamentId, selectedTour = _currentTour });
         }

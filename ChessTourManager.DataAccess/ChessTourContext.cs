@@ -4,6 +4,7 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.TableViews;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 namespace ChessTourManager.DataAccess;
@@ -63,6 +64,9 @@ public class ChessTourContext : DbContext
         string         connectionString = configuration.GetConnectionString("DefaultConnection");
 
         optionsBuilder.UseNpgsql(connectionString);
+
+        optionsBuilder.ConfigureWarnings(warnings =>
+                                               warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -808,7 +812,7 @@ public class ChessTourContext : DbContext
                                       entity.Property(e => e.WhitePoints).HasColumnName("white_points");
 
                                       entity.HasOne(d => d.PlayerBlack)
-                                            .WithMany(p => p.WhiteGamePlayers)
+                                            .WithMany(p => p.GamesWhiteOpponents)
                                             .HasForeignKey(d => new
                                                                 {
                                                                     d.BlackId, d.TournamentId,
@@ -818,7 +822,7 @@ public class ChessTourContext : DbContext
                                             .HasConstraintName("games_have_black_players_fk");
 
                                       entity.HasOne(d => d.PlayerWhite)
-                                            .WithMany(p => p.BlackGamePlayers)
+                                            .WithMany(p => p.GamesBlackOpponents)
                                             .HasForeignKey(d => new
                                                                 {
                                                                     d.WhiteId, d.TournamentId,

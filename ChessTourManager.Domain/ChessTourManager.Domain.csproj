@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net7.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
+         <UseWpf>false</UseWpf>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj" />

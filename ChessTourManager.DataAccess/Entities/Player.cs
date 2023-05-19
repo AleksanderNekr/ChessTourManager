@@ -208,9 +208,9 @@ public class Player : INotifyPropertyChanged
         set { this.SetField(ref this._groupId, value); }
     }
 
-    public ICollection<Game> BlackGamePlayers { get; } = new List<Game>();
+    public ICollection<Game> GamesBlackOpponents { get; } = new List<Game>();
 
-    public ICollection<Game> WhiteGamePlayers { get; } = new List<Game>();
+    public ICollection<Game> GamesWhiteOpponents { get; } = new List<Game>();
 
     public string IsActiveLocalized =>
         this.IsActive == true

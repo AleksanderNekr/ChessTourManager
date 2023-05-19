@@ -21,9 +21,6 @@ internal class DeleteQuery : IDeleteQueries
         {
             if (CheckIfInGames(player))
             {
-                MessageBox.Show("Нельзя удалить игрока, который участвует в игре!",
-                                "Ошибка при удалении игрока",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
                 return DeleteResult.Failed;
             }
 
@@ -34,8 +31,6 @@ internal class DeleteQuery : IDeleteQueries
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.InnerException?.Message ?? e.Message, "Ошибка при удалении игрока",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
             _context.Entry(player).State = EntityState.Unchanged;
 
             return DeleteResult.Failed;
@@ -60,24 +55,19 @@ internal class DeleteQuery : IDeleteQueries
         }
         catch (DbUpdateException e)
         {
-            MessageBox.Show($"Нельзя удалить данный турнир!\n{e.InnerException?.Message}",
-                            "Ошибка при удалении турнира",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
             _context.Entry(tournament).State = EntityState.Unchanged;
             return DeleteResult.Failed;
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.Message, "Ошибка при удалении турнира", MessageBoxButton.OK, MessageBoxImage.Error);
-            _context.Entry(tournament).State = EntityState.Unchanged;
             return DeleteResult.Failed;
         }
     }
 
     private static bool CheckIfInGames(Player player)
     {
-        bool isInWhiteGames = player.WhiteGamePlayers.Count != 0;
-        bool isInBlackGames = player.BlackGamePlayers.Count != 0;
+        bool isInWhiteGames = player.GamesWhiteOpponents.Count != 0;
+        bool isInBlackGames = player.GamesBlackOpponents.Count != 0;
         return isInWhiteGames || isInBlackGames;
     }
 }

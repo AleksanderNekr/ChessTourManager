@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "Players";
     Tournament tournament = ViewBag.Tournament;
+    string ratio1 = tournament.SystemId == 1 ? "Berger" : "Buchholz";
+    string ratio2 = tournament.SystemId == 1 ? "Simple Berger" : "Total Buchholz";
 }
 
 <partial name="_TournamentPartial" model="tournament"/>
@@ -55,10 +57,10 @@ else
                 @Html.DisplayNameFor(model => model.PointsAmount)
             </th>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.RatioSum1)
+                @Html.DisplayFor(model => ratio1)
             </th>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.RatioSum2)
+                @Html.DisplayFor(model => ratio2)
             </th>
         </tr>
         </thead>
