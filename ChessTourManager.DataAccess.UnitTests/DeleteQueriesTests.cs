@@ -3,7 +3,7 @@ using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Delete;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChessTourManager.UnitTests;
+namespace ChessTourManager.WPF.UnitTests;
 
 [TestFixture]
 public class DeleteQueriesTests
@@ -43,8 +43,8 @@ public class DeleteQueriesTests
                                 .First(p => !context.Games
                                                     .Include(g => g.PlayerWhite)
                                                     .Include(g => g.PlayerBlack)
-                                                    .Any(g => g.PlayerWhite.PlayerId == p.PlayerId
-                                                           || g.PlayerBlack.PlayerId == p.PlayerId));
+                                                    .Any(g => g.PlayerWhite.Id == p.Id
+                                                           || g.PlayerBlack.Id == p.Id));
 
         // Act.
         DeleteResult result = queries.TryDeletePlayer(player);

@@ -2,7 +2,7 @@
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Get;
 
-namespace ChessTourManager.UnitTests;
+namespace ChessTourManager.WPF.UnitTests;
 
 [TestFixture]
 public class GetQueriesTests
@@ -113,8 +113,8 @@ public class GetQueriesTests
         // Act.
         GetResult result = queries.TryGetTournamentsWithTeamsAndPlayers(userId,
                                                                         out List<Tournament?>? tournaments);
-        Tournament? tournament = tournaments!.Single(t => t.TournamentId == expectedTournamentId);
-        Team       team       = tournament.Teams.Single(t => t.TeamId   == expectedTeamId);
+        Tournament? tournament = tournaments!.Single(t => t.Id == expectedTournamentId);
+        Team       team       = tournament.Teams.Single(t => t.Id   == expectedTeamId);
 
         // Assert.
         Assert.AreEqual(GetResult.Success, result);

@@ -13,7 +13,7 @@ using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams;
 using ChessTourManager.WPF.Features.ManageTournaments.ManageTeams.AddTeam;
 using ChessTourManager.WPF.Features.ManageTournaments.OpenTournament;
 
-namespace ChessTourManager.SystemTests;
+namespace ChessTourManager.WPF.SystemTests;
 
 public class Tests
 {
