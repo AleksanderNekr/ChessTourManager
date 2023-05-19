@@ -95,11 +95,76 @@ public class Game
     {
         this.PlayerWhite.PointsAmount -= this.WhitePoints;
         this.PlayerBlack.PointsAmount -= this.BlackPoints;
+        this.RestoreCounters();
 
         this.WhitePoints = whitePoints;
         this.BlackPoints = blackPoints;
 
         this.PlayerWhite.PointsAmount += this.WhitePoints;
         this.PlayerBlack.PointsAmount += this.BlackPoints;
+        this.UpdateCounters(whitePoints, blackPoints);
+    }
+
+    private void UpdateCounters(double whitePoints, double blackPoints)
+    {
+        if (whitePoints == 0 && blackPoints == 0)
+        {
+            return;
+        }
+
+        if (whitePoints == 0)
+        {
+            this.PlayerWhite.LossesCount++;
+        }
+        else if (Math.Abs(whitePoints - 1) < 0.00001)
+        {
+            this.PlayerWhite.WinsCount++;
+        }
+        else
+        {
+            this.PlayerWhite.DrawsCount++;
+        }
+
+        if (blackPoints == 0)
+        {
+            this.PlayerBlack.LossesCount++;
+        }
+        else if (Math.Abs(blackPoints - 1) < 0.00001)
+        {
+            this.PlayerBlack.WinsCount++;
+        }
+        else
+        {
+            this.PlayerBlack.DrawsCount++;
+        }
+    }
+
+    private void RestoreCounters()
+    {
+        if (this.WhitePoints == 0)
+        {
+            this.PlayerWhite.LossesCount--;
+        }
+        else if (Math.Abs(this.WhitePoints - 1) < 0.00001)
+        {
+            this.PlayerWhite.WinsCount--;
+        }
+        else
+        {
+            this.PlayerWhite.DrawsCount--;
+        }
+
+        if (this.BlackPoints == 0)
+        {
+            this.PlayerBlack.LossesCount--;
+        }
+        else if (Math.Abs(this.BlackPoints - 1) < 0.00001)
+        {
+            this.PlayerBlack.WinsCount--;
+        }
+        else
+        {
+            this.PlayerBlack.DrawsCount--;
+        }
     }
 }
