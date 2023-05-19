@@ -63,14 +63,17 @@
                 <input asp-for="BoardNumber" class="form-control"/>
                 <span asp-validation-for="BoardNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label for="@nameof(Player.TeamId)">Team</label>
-                @Html.DropDownList(nameof(Player.TeamId),
-                                   teams,
-                                   "-- Select Team --",
-                                   new { @class = "form-control" })
-                <span asp-validation-for="TeamId" class="text-danger"></span>
-            </div>
+            @if (tournament.KindId != 1)
+            {
+                <div class="form-group">
+                    <label for="@nameof(Player.TeamId)">Team</label>
+                    @Html.DropDownList(nameof(Player.TeamId),
+                                       teams,
+                                       "-- Select Team --",
+                                       new { @class = "form-control" })
+                    <span asp-validation-for="TeamId" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <label for="@nameof(Player.GroupId)">Group</label>
                 @Html.DropDownList(nameof(Player.GroupId),

@@ -47,10 +47,6 @@
       <AdditionalFiles Include="Views\Groups\Details.cshtml" />
       <AdditionalFiles Include="Views\Groups\Edit.cshtml" />
       <AdditionalFiles Include="Views\Groups\Index.cshtml" />
-      <AdditionalFiles Include="Views\Rating\Create.cshtml" />
-      <AdditionalFiles Include="Views\Rating\Delete.cshtml" />
-      <AdditionalFiles Include="Views\Rating\Details.cshtml" />
-      <AdditionalFiles Include="Views\Rating\Edit.cshtml" />
       <AdditionalFiles Include="Views\Rating\Index.cshtml" />
     </ItemGroup>
 </Project>

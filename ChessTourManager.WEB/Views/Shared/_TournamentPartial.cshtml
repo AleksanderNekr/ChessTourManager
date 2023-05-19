@@ -20,17 +20,20 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Players" asp-action="Index" asp-route-id="@Model.Id">Players</a>
                     </li>
                 }
-                @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Teams")
+                @if (Model.KindId != 1)
                 {
-                    <li class="nav-item">
-                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
-                    </li>
+                    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Teams")
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-primary text-light" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
+                        </li>
+                    }
                 }
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Groups")
                 {

@@ -37,9 +37,12 @@ else
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.PlayerBirthYear)
             </th>
-            <th class="align-middle">
-                @Html.DisplayNameFor(model => model.Team)
-            </th>
+            @if (tournament.KindId != 1)
+            {
+                <th class="align-middle">
+                    @Html.DisplayNameFor(model => model.Team)
+                </th>
+            }
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.Group)
             </th>
@@ -71,9 +74,12 @@ else
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.PlayerBirthYear)
                 </td>
-                <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.Team.TeamName)
-                </td>
+                @if (tournament.KindId != 1)
+                {
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Team.TeamName)
+                    </td>
+                }
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Group.GroupName)
                 </td>

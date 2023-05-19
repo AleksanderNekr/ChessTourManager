@@ -116,7 +116,7 @@ public class GamesController : Controller
         }
 
         _currentTour++;
-        this.TempData["Success"] = "Tour was successfully drawn!";
+        this.TempData["Success"] = $"Tour {_currentTour} was successfully drawn!";
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 

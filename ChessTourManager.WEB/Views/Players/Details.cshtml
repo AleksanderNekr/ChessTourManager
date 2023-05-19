@@ -95,12 +95,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Group.GroupName)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Team)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Team.TeamName)
-        </dd>
+        @if (tournament.KindId != 1)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Team)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Team.TeamName)
+            </dd>
+        }
     </dl>
 </div>
 <hr/>
