@@ -71,7 +71,15 @@ public class Player : INotifyPropertyChanged
     public int PlayerBirthYear
     {
         get { return this._playerBirthYear; }
-        set { this.SetField(ref this._playerBirthYear, value); }
+        set
+        {
+            if (value < 1900)
+            {
+                return;
+            }
+
+            this.SetField(ref this._playerBirthYear, value);
+        }
     }
 
     [DisplayName("Active")]
@@ -85,49 +93,105 @@ public class Player : INotifyPropertyChanged
     public double PointsAmount
     {
         get { return this._pointsAmount; }
-        set { this.SetField(ref this._pointsAmount, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._pointsAmount, value);
+        }
     }
 
     [DisplayName("Wins")]
     public int WinsCount
     {
         get { return this._winsCount; }
-        set { this.SetField(ref this._winsCount, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._winsCount, value);
+        }
     }
 
     [DisplayName("Losses")]
     public int LossesCount
     {
         get { return this._lossesCount; }
-        set { this.SetField(ref this._lossesCount, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._lossesCount, value);
+        }
     }
 
     [DisplayName("Draws")]
     public int DrawsCount
     {
         get { return this._drawsCount; }
-        set { this.SetField(ref this._drawsCount, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._drawsCount, value);
+        }
     }
 
     [DisplayName("Ratio 1")]
     public decimal RatioSum1
     {
         get { return this._ratioSum1; }
-        set { this.SetField(ref this._ratioSum1, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._ratioSum1, value);
+        }
     }
 
     [DisplayName("Ratio 2")]
     public decimal RatioSum2
     {
         get { return this._ratioSum2; }
-        set { this.SetField(ref this._ratioSum2, value); }
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+
+            this.SetField(ref this._ratioSum2, value);
+        }
     }
 
     [DisplayName("Board")]
     public int BoardNumber
     {
         get { return this._boardNumber; }
-        set { this.SetField(ref this._boardNumber, value); }
+        set
+        {
+            if (value < 1)
+            {
+                return;
+            }
+
+            this.SetField(ref this._boardNumber, value);
+        }
     }
 
     [DisplayName("Team")]
