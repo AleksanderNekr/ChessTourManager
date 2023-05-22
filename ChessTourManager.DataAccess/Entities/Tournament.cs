@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessTourManager.DataAccess.Entities;
@@ -19,9 +20,16 @@ public class Tournament
     public int OrganizerId { get; set; }
 
     [DisplayName("Tournament name")]
+    [MinLength(2, ErrorMessage = "The tournament name must be at least 2 characters long.")]
+    [MaxLength(255, ErrorMessage = "The tournament name must be no more than 255 characters long.")]
+    [Required]
+    [RegularExpression(@"^\w+$",
+                       ErrorMessage = "The tournament name must start with a capital letter and contain only letters.")]
     public string TournamentName { get; set; }
 
     [DisplayName("Tours count")]
+    [Range(1, 15, ErrorMessage = "The number of tours must be between 1 and 15.")]
+    [Required]
     public int ToursCount { get; set; } = 7;
 
     [DisplayName("Place")]
@@ -34,9 +42,11 @@ public class Tournament
     public TimeOnly TimeStart { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
 
     [DisplayName("Duration")]
+    [Range(1, 24)]
     public int Duration { get; set; } = 3;
 
     [DisplayName("Max team players")]
+    [Range(1, 10)]
     public int MaxTeamPlayers { get; set; } = 5;
 
     [DisplayName("Organization name")]

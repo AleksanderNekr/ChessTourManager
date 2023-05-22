@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessTourManager.DataAccess.Entities;
@@ -15,6 +16,11 @@ public class Team
     public int TournamentId { get; set; }
 
     [DisplayName("Team Name")]
+    [MinLength(2, ErrorMessage = "The team name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The team name must be no more than 50 characters long.")]
+    [Required]
+    [RegularExpression(@"^\w+$",
+                       ErrorMessage = "The team name must start with a capital letter and contain only letters.")]
     public string TeamName { get; set; } = null!;
 
     [DisplayName("Team Attribute")]

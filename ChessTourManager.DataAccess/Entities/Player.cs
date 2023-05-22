@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
@@ -8,24 +9,24 @@ namespace ChessTourManager.DataAccess.Entities;
 
 public class Player : INotifyPropertyChanged
 {
-    private string?    _playerLastName;
-    private string?    _playerFirstName;
-    private char       _gender = 'M';
-    private string?    _playerAttribute;
-    private int        _playerBirthYear = DateTime.Now.Year - 10;
-    private bool?      _isActive;
-    private double     _pointsAmount;
-    private int        _winsCount;
-    private int        _lossesCount;
-    private int        _drawsCount;
-    private decimal    _ratioSum1;
-    private decimal    _ratioSum2;
-    private int        _boardNumber;
-    private int?       _teamId;
-    private int?       _groupId;
-    private Group?     _group;
-    private Team?      _team;
-    private Tournament _tournament;
+    private       string?    _playerLastName;
+    private       string?    _playerFirstName;
+    private       char       _gender = 'M';
+    private       string?    _playerAttribute;
+    private       int        _playerBirthYear = DateTime.Now.Year - 10;
+    private       bool?      _isActive;
+    private       double     _pointsAmount;
+    private       int        _winsCount;
+    private       int        _lossesCount;
+    private       int        _drawsCount;
+    private       decimal    _ratioSum1;
+    private       decimal    _ratioSum2;
+    private       int        _boardNumber = 1;
+    private       int?       _teamId;
+    private       int?       _groupId;
+    private       Group?     _group;
+    private       Team?      _team;
+    private       Tournament _tournament;
 
     public int Id { get; set; }
 
@@ -34,6 +35,9 @@ public class Player : INotifyPropertyChanged
     public int OrganizerId { get; set; }
 
     [DisplayName("Last name")]
+    [MinLength(2, ErrorMessage = "The last name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The last name must be no more than 50 characters long.")]
+    [Required]
     public string PlayerLastName
     {
         get { return this._playerLastName; }
@@ -41,6 +45,9 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("First name")]
+    [MinLength(2, ErrorMessage = "The first name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The first name must be no more than 50 characters long.")]
+    [Required]
     public string PlayerFirstName
     {
         get { return this._playerFirstName; }
@@ -61,6 +68,8 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("Attribute")]
+    [MinLength(1, ErrorMessage = "The player attribute must be at least 1 characters long.")]
+    [MaxLength(4, ErrorMessage = "The player attribute must be no more than 4 characters long.")]
     public string? PlayerAttribute
     {
         get { return this._playerAttribute; }
@@ -180,6 +189,7 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("Board")]
+    [Range(1, 15, ErrorMessage = "The board number must be between 1 and 15.")]
     public int BoardNumber
     {
         get { return this._boardNumber; }

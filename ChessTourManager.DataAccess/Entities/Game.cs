@@ -32,10 +32,10 @@ public class Game
     public bool IsPlayed { get; set; }
 
     [DisplayName("Player for black")]
-    public Player? PlayerBlack { get; set; } = null!;
+    public Player? PlayerBlack { get; set; }
 
     [DisplayName("Player for white")]
-    public Player? PlayerWhite { get; set; } = null!;
+    public Player? PlayerWhite { get; set; }
 
     [NotMapped]
     public string Result
