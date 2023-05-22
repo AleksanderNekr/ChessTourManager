@@ -4,8 +4,12 @@
 @{
     ViewData["Title"] = "Players";
     Tournament tournament = ViewBag.Tournament;
-    string ratio1 = tournament.SystemId == 1 ? "Berger" : "Buchholz";
-    string ratio2 = tournament.SystemId == 1 ? "Simple Berger" : "Total Buchholz";
+    string ratio1 = tournament.SystemId == 1
+                        ? "Berger"
+                        : "Buchholz";
+    string ratio2 = tournament.SystemId == 1
+                        ? "Simple Berger"
+                        : "Total Buchholz";
 }
 
 <partial name="_TournamentPartial" model="tournament"/>
@@ -17,7 +21,8 @@
 }
 else
 {
-    <table class="table table-hover">
+    <partial name="_ExportPartial"/>
+    <table id="table" class="table table-hover">
         <thead>
         <tr>
             <th class="align-middle">

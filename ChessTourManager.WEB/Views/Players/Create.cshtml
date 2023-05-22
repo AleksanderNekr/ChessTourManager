@@ -9,12 +9,12 @@
     List<SelectListItem>? groups = (List<SelectListItem>)ViewBag.Groups;
 }
 
-<h1>Add player</h1>
+<h4>Add player</h4>
 <hr/>
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id"/>
             <input type="hidden" asp-for="TournamentId" value="@tournament.Id"/>
             <input type="hidden" asp-for="OrganizerId" value="@tournament.OrganizerId"/>
@@ -44,7 +44,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="PlayerBirthYear" class="control-label"></label>
-                <input asp-for="PlayerBirthYear" class="form-control"/>
+                <input asp-for="PlayerBirthYear" class="form-control" type="number"
+                       min="@(DateTime.Now.Year - 100)"
+                       max="@DateTime.Now.Year"/>
                 <span asp-validation-for="PlayerBirthYear" class="text-danger"></span>
             </div>
             @if (tournament.KindId != 1)
