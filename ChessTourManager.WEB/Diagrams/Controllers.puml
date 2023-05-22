@@ -1,0 +1,205 @@
+﻿@startuml TournamentsController
+
+skinparam classAttributeIconSize 0
+
+TournamentsController -|> Controller
+  class TournamentsController
+  {
+    +TournamentsController(ChessTourContext context)
+    +Index()
+    +Create()
+    +Create(Tournament tournament)
+    +Edit(int id)
+    +Edit(Tournament tournament)
+    +Details(int id)
+    +Delete(int id)
+    +DeleteConfirmed(int id)
+  }
+
+  interface IGetQueries
+
+  interface IInsertQueries
+
+    interface IDeleteQueries
+
+  TournamentsController --> IGetQueries
+    TournamentsController --> IInsertQueries
+    TournamentsController --> IDeleteQueries
+    TournamentsController .u.> ChessTourContext
+    TournamentsController .l.> Tournament
+
+@enduml TournamentsController
+
+@startuml PlayersController
+
+skinparam classAttributeIconSize 0
+
+PlayersController -|> Controller
+  class PlayersController
+  {
+    +PlayersController(ChessTourContext context)
+    +Index()
+    +Create()
+    +Create(Player player)
+    +Edit(int id)
+    +Edit(Player player)
+    +Details(int id)
+    +Delete(int id)
+    +DeleteConfirmed(int id)
+  }
+
+  interface IGetQueries
+
+  interface IInsertQueries
+
+    interface IDeleteQueries
+
+  PlayersController --> IGetQueries
+    PlayersController --> IInsertQueries
+    PlayersController --> IDeleteQueries
+    PlayersController .u.> ChessTourContext
+    PlayersController .l.> Player
+
+@enduml PlayersController
+
+@startuml RatingController
+
+skinparam classAttributeIconSize 0
+
+RatingController -|> Controller
+  class RatingController
+  {
+    +RatingController(ChessTourContext context)
+    +Index()
+  }
+
+  interface IGetQueries
+
+  RatingController --> IGetQueries
+    RatingController .u.> ChessTourContext
+    RatingController .l.> Player
+
+@enduml RatingController
+
+@startuml TeamsController
+
+skinparam classAttributeIconSize 0
+
+TeamsController -|> Controller
+  class TeamsController
+  {
+    +TeamsController(ChessTourContext context)
+    +Index()
+    +Create()
+    +Create(Team team)
+    +Edit(int id)
+    +Edit(Team team)
+    +Details(int id)
+    +Delete(int id)
+    +DeleteConfirmed(int id)
+  }
+
+  interface IGetQueries
+
+  interface IInsertQueries
+
+    interface IDeleteQueries
+
+  TeamsController --> IGetQueries
+    TeamsController --> IInsertQueries
+    TeamsController --> IDeleteQueries
+    TeamsController .u.> ChessTourContext
+    TeamsController .l.> Team
+
+@enduml TeamsController
+
+@startuml GamesController
+
+skinparam classAttributeIconSize 0
+
+GamesController -|> Controller
+  class GamesController
+  {
+    +GamesController(ChessTourContext context)
+    +Index()
+    +Create()
+    +Edit(int id)
+  }
+
+  interface IGetQueries
+
+  interface IInsertQueries
+
+    interface IDeleteQueries
+
+  GamesController --> IGetQueries
+    GamesController --> IInsertQueries
+    GamesController --> IDeleteQueries
+    GamesController .u.> ChessTourContext
+    GamesController .l.> Game
+
+@enduml GamesController
+
+@startuml GroupsController
+
+skinparam classAttributeIconSize 0
+
+GroupsController -|> Controller
+  class GroupsController
+  {
+    +GroupsController(ChessTourContext context)
+    +Index()
+    +Create()
+    +Create(Group group)
+    +Edit(int id)
+    +Edit(Group group)
+    +Details(int id)
+    +Delete(int id)
+    +DeleteConfirmed(int id)
+  }
+
+  interface IGetQueries
+
+  interface IInsertQueries
+
+    interface IDeleteQueries
+
+  GroupsController --> IGetQueries
+    GroupsController --> IInsertQueries
+    GroupsController --> IDeleteQueries
+    GroupsController .u.> ChessTourContext
+    GroupsController .l.> Group
+
+@enduml GroupsController
+
+
+@startuml TournamentsController
+
+skinparam classAttributeIconSize 0
+
+class TournamentsController
+{
+  +TournamentsController(ChessTourContext context)
+  +Index()
+  +Create()
+  +Create(Tournament tournament)
+  +Edit(int id)
+  +Edit(Tournament tournament)
+  +Details(int id)
+  +Delete(int id)
+  +DeleteConfirmed(int id)
+}
+
+interface IGetQueries
+
+interface IInsertQueries
+
+interface IDeleteQueries
+
+TournamentsController --> IGetQueries
+TournamentsController --> IInsertQueries
+TournamentsController --> IDeleteQueries
+TournamentsController .u.> ChessTourContext
+TournamentsController .l.> Tournament
+
+@enduml
