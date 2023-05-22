@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using ChessTourManager.DataAccess.Entities;
 
 namespace ChessTourManager.Domain.Algorithms;
@@ -20,6 +18,32 @@ public interface ICoefficient
     }
 
     public decimal CalculateCoefficient(Player player);
+}
+
+public enum CoefficientType
+{
+    /// <summary>
+    /// The sum of all the points of the opponents
+    /// that the contestant has beaten, plus half the sum of the points of the opponents that the contestant has drawn.
+    /// </summary>
+    Berger,
+
+    /// <summary>
+    /// The scores of all opponents, against whom the chess player wins, are taken with a plus sign
+    /// and those against whom the chess player loses with a minus sign, the sum of which is used
+    /// to calculate the best result.
+    /// </summary>
+    SimpleBerger,
+
+    /// <summary>
+    /// The sum of the points of each of the player's opponents.
+    /// </summary>
+    Buchholz,
+
+    /// <summary>
+    /// The sum of the opponents' Buchholz scores.
+    /// </summary>
+    TotalBuchholz,
 }
 
 public class TotalBuchholzCoefficient : ICoefficient
@@ -153,30 +177,4 @@ internal class BergerCoefficient : ICoefficient
 
         return (decimal)(wins + draws / 2.0);
     }
-}
-
-public enum CoefficientType
-{
-    /// <summary>
-    /// The sum of all the points of the opponents
-    /// that the contestant has beaten, plus half the sum of the points of the opponents that the contestant has drawn.
-    /// </summary>
-    Berger,
-
-    /// <summary>
-    /// The scores of all opponents, against whom the chess player wins, are taken with a plus sign
-    /// and those against whom the chess player loses with a minus sign, the sum of which is used
-    /// to calculate the best result.
-    /// </summary>
-    SimpleBerger,
-
-    /// <summary>
-    /// The sum of the points of each of the player's opponents.
-    /// </summary>
-    Buchholz,
-
-    /// <summary>
-    /// The sum of the opponents' Buchholz scores.
-    /// </summary>
-    TotalBuchholz,
 }

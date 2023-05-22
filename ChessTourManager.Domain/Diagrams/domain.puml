@@ -19,3 +19,46 @@ class Domain.Algorithms.RoundRobin implements Domain.Algorithms.IRoundRobin {
 Domain.Algorithms.RoundRobin --o DataAccess.ChessTourContext
 
 @enduml
+
+@startuml CoefficientAlgorithms
+
+skinparam classAttributeIconSize 0
+
+interface ICoefficient {
+  +Initialize(CoefficientType type);
+  +CalculateCoefficient(player: Player): number;
+}
+
+class TotalBuchholzCoefficient implements ICoefficient {
+    -TotalBuchholzCoefficient()
+    #CalculateCoefficient(player: Player): number;
+}
+
+class BuchholzCoefficient implements ICoefficient {
+    -BuchholzCoefficient()
+    #CalculateCoefficient(player: Player): number;
+}
+
+class SimpleBergerCoefficient {
+    -SimpleBergerCoefficient()
+    #CalculateCoefficient(player: Player): number;
+}
+SimpleBergerCoefficient ..|> ICoefficient
+
+class BergerCoefficient {
+    -BergerCoefficient()
+    #CalculateCoefficient(player: Player): number;
+}
+BergerCoefficient ..|> ICoefficient
+
+enum CoefficientType {
+    Berger,
+    SimpleBerger,
+    Buchholz,
+    TotalBuchholz,
+}
+
+' ICoefficient has CoefficientType in constructor parameter
+ICoefficient ..> CoefficientType
+
+@enduml
