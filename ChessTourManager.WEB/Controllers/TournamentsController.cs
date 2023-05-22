@@ -49,7 +49,9 @@ public class TournamentsController : Controller
         await this.LoadKindsToViewBagAsync();
         await this.LoadSystemsToViewBagAsync();
 
-        return this.View(await this._context.Tournaments.ToListAsync());
+        return this.View(await this._context.Tournaments
+                                   .Where(t => t.OrganizerId == _organizerId)
+                                   .ToListAsync());
     }
 
     /// <summary>
