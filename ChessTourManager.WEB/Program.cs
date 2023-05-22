@@ -1,6 +1,5 @@
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
-using ChessTourManager.Domain.Algorithms;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
