@@ -50,6 +50,7 @@ public class GamesController : Controller
             _drawingAlgorithm = IDrawingAlgorithm.Initialize(this._context, _tournamentId);
         }
 
+        _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
 
         _tourNumbers = this._context.Games
                            .Where(g => g.TournamentId == _tournamentId
@@ -62,8 +63,6 @@ public class GamesController : Controller
                            ? 0
                            : _tourNumbers.Max();
         _selectedTour = selectedTour ?? _currentTour;
-
-        _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
 
         IQueryable<Game> games = this._context.Games
                                      .Include(g => g.PlayerBlack)
