@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Delete;
@@ -10,7 +12,7 @@ namespace ChessTourManager.Domain.UnitTests;
 [TestFixture]
 public class RoundRobinTests
 {
-    /* =====Test cases=====
+    // =====Test cases=====
     // 1. The draw of the first round.
     // 1.1. There are no active players.
     // 1.1.1. The list of players is empty.
