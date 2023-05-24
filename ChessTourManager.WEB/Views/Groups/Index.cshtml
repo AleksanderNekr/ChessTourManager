@@ -10,12 +10,12 @@
 <partial name="_TournamentPartial" model="tournament"/>
 <h3>Groups</h3>
 <hr/>
-<p>
+<p style="display: inline-block; margin-right: 1em;">
     <a asp-action="Create" class="btn btn-primary">Add New</a>
 </p>
 @if (Model.Count() != 0)
 {
-    <partial name="_ExportPartial"/>
+    <partial name="_DataTablePartial"/>
     <table id="table" class="table table-hover">
         <thead>
         <tr>

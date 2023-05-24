@@ -3,7 +3,10 @@
     <button onclick="Print()" class="btn btn-primary">Print</button>
 </p>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
 <script>function Print() {
 var divToPrint = document.getElementById('table');
 var htmlToPrint = '' +
@@ -45,4 +48,13 @@ compareLink.download = "table.xls";
 compareLink.href = uri + base64(format(template, ctx));
 compareLink.click();
 }
+</script>
+
+
+<script>
+    $(document).ready( function () {
+        $('#table').DataTable({
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+        });
+    } );
 </script>
