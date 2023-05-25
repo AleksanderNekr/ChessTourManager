@@ -3,24 +3,27 @@
     <button onclick="Print()" class="btn btn-primary">Print</button>
 </p>
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <script>function Print() {
-var divToPrint = document.getElementById('table');
-var htmlToPrint = '' +
-    '<style type="text/css">' +
-    'table th, table td {' +
-    'border:1px solid #000;' +
-    'padding;0.5em;' +
-    '}' +
-    '</style>';
-htmlToPrint += divToPrint.outerHTML;
-newWin = window.open("");
-newWin.document.write(htmlToPrint);
-newWin.print();
-newWin.close();
+    var table = document.getElementById("table");
+    var html = table.outerHTML;
+    var printWindow = window.open('');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('</head><body >');
+    printWindow.document.write(html);
+    printWindow.document.write('</body></html>' +
+        '<style type="text/css">' +
+        'table th, table td {' +
+        'border-bottom: 1px solid #000;' +
+        '}' +
+        '</style>');
+    printWindow.document.close()
+    printWindow.print();
+
+    printWindow.onafterprint = function () {
+        printWindow.close();
+    }
 }
 
 function DownloadToExcel() {
@@ -50,11 +53,3 @@ compareLink.click();
 }
 </script>
 
-
-<script>
-    $(document).ready( function () {
-        $('#table').DataTable({
-            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
-        });
-    } );
-</script>

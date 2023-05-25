@@ -16,7 +16,7 @@
 }
 else
 {
-    <partial name="_DataTablePartial"/>
+    <partial name="_ExportPartial"/>
     <table id="table" class="table table-hover table-borderless">
         <thead>
         <tr>
@@ -87,3 +87,18 @@ else
         </tbody>
     </table>
 }
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#table').DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "order": [],
+            // disable sorting
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 1, 9] }
+            ],
+        });
+    } );
+</script>
