@@ -21,33 +21,84 @@
         <tr>
             <th/>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.GroupName)
+                @Html.DisplayNameFor(model => model.Players.First().PlayerLastName)
             </th>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.Identity)
+                @Html.DisplayNameFor(model => model.Players.First().PlayerFirstName)
             </th>
-            <th/>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Players.First().Gender)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Players.First().PlayerAttribute)
+            </th>
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Players.First().PlayerBirthYear)
+            </th>
+            @if (tournament.KindId != 1)
+            {
+                <th class="align-middle">
+                    @Html.DisplayNameFor(model => model.Players.First().Team)
+                </th>
+            }
+            <th class="align-middle">
+                @Html.DisplayNameFor(model => model.Players.First().IsActive)
+            </th>
         </tr>
         </thead>
         <tbody>
-        @foreach (Group item in Model)
+        @foreach (Group group in Model)
         {
             <tr>
-                <td class="align-middle">
-                    @(Model.ToList().IndexOf(item) + 1)
+                <td class="align-middle" style="font-weight: bold;">
+                    @Html.DisplayFor(modelItem => group.GroupName)
                 </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
                 <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.GroupName)
-                </td>
-                <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.Identity)
-                </td>
-                <td class="align-middle">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@group.Id" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@group.Id" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@group.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
+
+            var index = 0;
+            @foreach (Player player in group.Players)
+            {
+                <tr>
+                    <td class="align-middle">
+                        @(++index)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.PlayerLastName)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.PlayerFirstName)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.Gender)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.PlayerAttribute)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.PlayerBirthYear)
+                    </td>
+                    @if (tournament.KindId != 1)
+                    {
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => player.Team.TeamName)
+                        </td>
+                    }
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => player.IsActiveLocalized)
+                    </td>
+                </tr>
+            }
         }
         </tbody>
     </table>
