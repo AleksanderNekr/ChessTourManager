@@ -47,6 +47,8 @@ public class TeamsController : Controller
 
         IQueryable<Team> teams = this._context.Teams
                                      .Include(t => t.Tournament)
+                                     .Include(t => t.Players)
+                                     .ThenInclude(p => p.Group)
                                      .Where(t => t.TournamentId == _tournamentId && t.OrganizerId == _userId);
 
         await this.LoadTournamentAsync();
