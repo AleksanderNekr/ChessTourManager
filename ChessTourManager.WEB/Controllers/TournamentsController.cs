@@ -26,32 +26,25 @@ public class TournamentsController : Controller
         this._context = context;
     }
 
-    private async Task UpdateOrganizerId()
-    {
-        if (this.User.Identity == null)
-        {
-            return;
-        }
-
-        User organizer = await this._context.Users
-                                   .FirstAsync(u => u.UserName == this.User.Identity.Name);
-        _organizerId = organizer.Id;
-    }
-
     /// <summary>
     /// GET: Tournaments.
     /// </summary>
     /// <returns>The view of the tournaments.</returns>
     [Authorize]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? organizerId)
     {
-        await this.UpdateOrganizerId();
+        _organizerId = organizerId ?? _organizerId;
+        GetResult result = IGetQueries.CreateInstance(this._context)
+                                      .TryGetTournaments((int)_organizerId, out List<Tournament>? tournaments);
+        if (result == GetResult.UserNotFound)
+        {
+            return this.NotFound();
+        }
+
         await this.LoadKindsToViewBagAsync();
         await this.LoadSystemsToViewBagAsync();
 
-        return this.View(await this._context.Tournaments
-                                   .Where(t => t.OrganizerId == _organizerId)
-                                   .ToListAsync());
+        return this.View(tournaments);
     }
 
     /// <summary>
@@ -237,19 +230,31 @@ public class TournamentsController : Controller
 
     private async Task LoadSystemsToViewBagAsync()
     {
-        this.ViewBag.Systems = await this._context.Systems.Select(s => new SelectListItem
+        await Task.Run(() =>
+                       {
+                           IGetQueries.CreateInstance(this._context)
+                                      .GetSystems(out List<DataAccess.Entities.System>? systems);
+
+                           this.ViewBag.Systems = systems?.Select(s => new SelectListItem
                                                                        {
                                                                            Text  = s.SystemNameLocalized,
                                                                            Value = s.Id.ToString(),
-                                                                       }).ToListAsync();
+                                                                       }) ?? Array.Empty<SelectListItem>();
+                       });
     }
 
     private async Task LoadKindsToViewBagAsync()
     {
-        this.ViewBag.Kinds = await this._context.Kinds.Select(s => new SelectListItem
+        await Task.Run(() =>
+                       {
+                           IGetQueries.CreateInstance(this._context)
+                                      .GetKinds(out List<Kind>? kinds);
+
+                           this.ViewBag.Kinds = kinds?.Select(s => new SelectListItem
                                                                    {
                                                                        Text  = s.KindNameLocalized,
                                                                        Value = s.Id.ToString(),
-                                                                   }).ToListAsync();
+                                                                   }) ?? Array.Empty<SelectListItem>();
+                       });
     }
 }

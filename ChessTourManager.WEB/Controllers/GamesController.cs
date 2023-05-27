@@ -42,7 +42,7 @@ public class GamesController : Controller
     /// <param name="id">Tournament id.</param>
     /// <param name="selectedTour">Selected tour number.</param>
     /// <returns>Games index view.</returns>
-    public async Task<IActionResult> Index(int id, int? selectedTour)
+    public async Task<IActionResult> Index(int id, int? selectedTour, int? organizerId)
     {
         if (id != 0)
         {
@@ -50,7 +50,7 @@ public class GamesController : Controller
             _drawingAlgorithm = IDrawingAlgorithm.Initialize(this._context, _tournamentId);
         }
 
-        _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
+        _userId = organizerId ?? _userId;
 
         _tourNumbers = this._context.Games
                            .Where(g => g.TournamentId == _tournamentId
@@ -149,7 +149,11 @@ public class GamesController : Controller
         }
 
         _currentTour++;
-        this.TempData["Success"] = $"Tour {_currentTour} was successfully drawn!";
+        if (this.TempData is not null)
+        {
+            this.TempData["Success"] = $"Tour {_currentTour} was successfully drawn!";
+        }
+
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 

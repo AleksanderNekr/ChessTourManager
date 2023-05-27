@@ -29,14 +29,14 @@ public class PlayersController : Controller
     ///     GET: Players/Index.
     /// </summary>
     /// <returns>Index view.</returns>
-    public async Task<IActionResult> Index(int id)
+    public async Task<IActionResult> Index(int id, int? organiserId)
     {
         if (id != 0)
         {
             _tournamentId = id;
         }
 
-        _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
+        _userId = organiserId ?? _userId;
         await this.LoadTournamentAsync();
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
