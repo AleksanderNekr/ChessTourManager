@@ -112,11 +112,11 @@ public class Game
             return;
         }
 
-        if (whitePoints == 0)
+        if (whitePoints is 0)
         {
             this.PlayerWhite.LossesCount++;
         }
-        else if (Math.Abs(whitePoints - 1) < 0.00001)
+        else if (whitePoints is 1)
         {
             this.PlayerWhite.WinsCount++;
         }
@@ -125,11 +125,11 @@ public class Game
             this.PlayerWhite.DrawsCount++;
         }
 
-        if (blackPoints == 0)
+        if (blackPoints is 0)
         {
             this.PlayerBlack.LossesCount++;
         }
-        else if (Math.Abs(blackPoints - 1) < 0.00001)
+        else if (blackPoints is 1)
         {
             this.PlayerBlack.WinsCount++;
         }
@@ -145,7 +145,7 @@ public class Game
         {
             this.PlayerWhite.LossesCount--;
         }
-        else if (Math.Abs(this.WhitePoints - 1) < 0.00001)
+        else if (this.WhitePoints is 1)
         {
             this.PlayerWhite.WinsCount--;
         }
@@ -154,11 +154,11 @@ public class Game
             this.PlayerWhite.DrawsCount--;
         }
 
-        if (this.BlackPoints == 0)
+        if (this.BlackPoints is 0)
         {
             this.PlayerBlack.LossesCount--;
         }
-        else if (Math.Abs(this.BlackPoints - 1) < 0.00001)
+        else if (this.BlackPoints is 1)
         {
             this.PlayerBlack.WinsCount--;
         }
