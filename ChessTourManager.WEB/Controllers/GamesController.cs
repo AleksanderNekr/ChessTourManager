@@ -115,7 +115,11 @@ public class GamesController : Controller
 
         if (_currentTour == _tournament?.ToursCount)
         {
-            this.TempData["Success"] = "Congratulations! The Tournament is over!";
+            if (this.TempData != null)
+            {
+                this.TempData["Success"] = "Congratulations! The Tournament is over!";
+            }
+
             return this.RedirectToAction(nameof(this.Index),
                                          new { id = _tournamentId, selectedTour = _currentTour });
         }

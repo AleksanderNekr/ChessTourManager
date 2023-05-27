@@ -1,5 +1,6 @@
 ﻿using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.DataAccess.Queries.Delete;
 using ChessTourManager.DataAccess.Queries.Get;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +86,11 @@ public class TournamentsController : Controller
         await this._context.Tournaments.AddAsync(tournament);
         await this._context.SaveChangesAsync();
 
-        this.TempData["Success"] = $"Tournament {tournament.TournamentName} created successfully!";
+        if (this.TempData != null)
+        {
+            this.TempData["Success"] = $"Tournament {tournament.TournamentName} created successfully!";
+        }
+
         return this.RedirectToAction(nameof(this.Index));
     }
 
@@ -221,10 +226,18 @@ public class TournamentsController : Controller
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        this._context.Tournaments.Remove(tournament);
-        await this._context.SaveChangesAsync();
+        DeleteResult res = IDeleteQueries.CreateInstance(this._context)
+                                         .TryDeleteTournament(tournament);
 
-        this.TempData["Success"] = $"Tournament {tournament.TournamentName} deleted successfully!";
+        if (res == DeleteResult.Success)
+        {
+            this.TempData["Success"] = $"Tournament {tournament.TournamentName} deleted successfully!";
+        }
+        else
+        {
+            this.TempData["Error"] = $"Tournament {tournament.TournamentName} could not be deleted!";
+        }
+
         return this.RedirectToAction(nameof(this.Index));
     }
 

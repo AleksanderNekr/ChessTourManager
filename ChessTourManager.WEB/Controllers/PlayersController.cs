@@ -1,5 +1,6 @@
 ﻿using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using ChessTourManager.DataAccess.Queries.Delete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -149,7 +150,11 @@ public class PlayersController : Controller
 
         this._context.Players.Add(player);
         await this._context.SaveChangesAsync();
-        this.TempData["Success"] = $"Player {player.PlayerFullName} created successfully!";
+        if (this.TempData != null)
+        {
+            this.TempData["Success"] = $"Player {player.PlayerFullName} created successfully!";
+        }
+
         return this.RedirectToAction(nameof(this.Index), new { id = player.TournamentId });
     }
 
@@ -273,10 +278,22 @@ public class PlayersController : Controller
         await this.LoadGroupsAsync();
 
         Player? player = await this._context.Players.FindAsync(id, _tournamentId, _userId);
-        this._context.Players.Remove(player ?? throw new InvalidOperationException("Player is null"));
-        await this._context.SaveChangesAsync();
+        if (player == null)
+        {
+            return this.NotFound();
+        }
 
-        this.TempData["Success"] = $"Player {player.PlayerFullName} deleted successfully!";
+        DeleteResult res = IDeleteQueries.CreateInstance(this._context)
+                                         .TryDeletePlayer(player);
+        if (res == DeleteResult.Success)
+        {
+            this.TempData["Success"] = $"Player {player.PlayerFullName} deleted successfully!";
+        }
+        else
+        {
+            this.TempData["Error"] = $"Player {player.PlayerFullName} could not be deleted!";
+        }
+
         return this.RedirectToAction(nameof(this.Index), new { id = player.TournamentId });
     }
 

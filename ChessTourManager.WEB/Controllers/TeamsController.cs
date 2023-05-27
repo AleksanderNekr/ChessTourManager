@@ -35,15 +35,14 @@ public class TeamsController : Controller
     /// GET: Teams
     /// </summary>
     /// <returns>Index view</returns>
-    public async Task<IActionResult> Index(int id)
+    public async Task<IActionResult> Index(int id, int? organizerId)
     {
-
         if (id != 0)
         {
             _tournamentId = id;
         }
 
-        _userId = this._context.Users.First(u => u.UserName == this.User.Identity.Name).Id;
+        _userId = organizerId ?? _userId;
 
         IQueryable<Team> teams = this._context.Teams
                                      .Include(t => t.Tournament)
@@ -113,7 +112,11 @@ public class TeamsController : Controller
         this._context.Add(team);
         await this._context.SaveChangesAsync();
 
-        this.TempData["Success"] = $"Team {team.TeamName} was successfully created!";
+        if (this.TempData != null)
+        {
+            this.TempData["Success"] = $"Team {team.TeamName} was successfully created!";
+        }
+
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId });
     }
 

@@ -3,6 +3,7 @@ using System;
 using ChessTourManager.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChessTourManager.DataAccess.Data.Migrations
 {
     [DbContext(typeof(ChessTourContext))]
-    partial class ChessTourContextModelSnapshot : ModelSnapshot
+    [Migration("20230527135928_AfterIntegrationTests")]
+    partial class AfterIntegrationTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

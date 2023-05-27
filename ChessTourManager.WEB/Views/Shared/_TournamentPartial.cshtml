@@ -25,26 +25,26 @@
                     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Teams")
                     {
                         <li class="nav-item">
-                            <a class="btn btn-primary text-light" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
+                            <a class="btn btn-primary text-light" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Teams</a>
                         </li>
                     }
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id">Teams</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Teams</a>
                         </li>
                     }
                 }
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Groups")
                 {
                     <li class="nav-item">
-                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Groups" asp-action="Index" asp-route-id="@Model.Id">Groups</a>
+                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Groups" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Groups</a>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index" asp-route-id="@Model.Id">Groups</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Groups</a>
                     </li>
                 }
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Games")
@@ -62,13 +62,13 @@
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Rating")
                 {
                     <li class="nav-item">
-                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id">Rating</a>
+                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id" asp-route-organiserId="@Model.OrganizerId">Rating</a>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id">Rating</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index" asp-route-id="@Model.Id" asp-route-organiserId="@Model.OrganizerId">Rating</a>
                     </li>
                 }
             </ul>
