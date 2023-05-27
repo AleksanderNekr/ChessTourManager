@@ -54,7 +54,7 @@ else
                     @(Model.ToList().IndexOf(item) + 1)
                 </td>
                 <td class="align-middle">
-                    <a asp-controller="Players" asp-action="Index" asp-route-id="@item.Id" class="btn btn-primary">Open</a>
+                    <a asp-controller="Players" asp-action="Index" asp-route-organiserId="@item.OrganizerId" asp-route-id="@item.Id" class="btn btn-primary">Open</a>
                 </td>
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.TournamentName)

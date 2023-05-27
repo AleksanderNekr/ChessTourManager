@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Security.Claims
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/ChessTourManager.WEB.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>
 </head>
 <body>
 <header>
@@ -26,7 +27,14 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Tournaments" asp-action="Index">Tournaments</a>
+                        <a class="nav-link text-dark"
+                           asp-area=""
+                           asp-controller="Tournaments"
+                           asp-action="Index"
+                           asp-route-organizerId="@(User.Identity.IsAuthenticated ? User.FindFirstValue(ClaimTypes.NameIdentifier) : null)">
+                            Tournaments
+                        </a>
+
                     </li>
                 </ul>
                 <partial name="_LoginPartial"/>

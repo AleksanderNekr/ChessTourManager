@@ -11,13 +11,13 @@
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Players")
                 {
                     <li class="nav-item">
-                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Players" asp-action="Index" asp-route-id="@Model.Id">Players</a>
+                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Players" asp-action="Index" asp-route-id="@Model.Id" asp-route-organiserId="@Model.OrganizerId">Players</a>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Players" asp-action="Index" asp-route-id="@Model.Id">Players</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Players" asp-action="Index" asp-route-id="@Model.Id" asp-route-organiserId="@Model.OrganizerId">Players</a>
                     </li>
                 }
                 @if (Model.KindId != 1)
@@ -50,13 +50,13 @@
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Games")
                 {
                     <li class="nav-item">
-                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Games" asp-action="Index" asp-route-id="@Model.Id">Games</a>
+                        <a class="btn btn-primary text-light" asp-area="" asp-controller="Games" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Games</a>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Index" asp-route-id="@Model.Id">Games</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Index" asp-route-id="@Model.Id" asp-route-organizerId="@Model.OrganizerId">Games</a>
                     </li>
                 }
                 @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Rating")

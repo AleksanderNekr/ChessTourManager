@@ -19,11 +19,11 @@
         '}' +
         '</style>');
     printWindow.document.close()
-    printWindow.print();
 
     printWindow.onafterprint = function () {
         printWindow.close();
     }
+    printWindow.print();
 }
 
 function DownloadToExcel() {
