@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.Domain.Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.WEB.IntegrationTests", "ChessTourManager.WEB.IntegrationTests\ChessTourManager.WEB.IntegrationTests.csproj", "{DAAD8692-B55D-4C23-8A55-4932C9694C02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.WEB.SystemTests", "ChessTourManager.WEB.SystemTests\ChessTourManager.WEB.SystemTests.csproj", "{D4979470-4219-48E3-B0C3-D2E1A58BEEA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{DAAD8692-B55D-4C23-8A55-4932C9694C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAAD8692-B55D-4C23-8A55-4932C9694C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAAD8692-B55D-4C23-8A55-4932C9694C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4979470-4219-48E3-B0C3-D2E1A58BEEA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4979470-4219-48E3-B0C3-D2E1A58BEEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4979470-4219-48E3-B0C3-D2E1A58BEEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4979470-4219-48E3-B0C3-D2E1A58BEEA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{EA5DF35E-3DFE-4C46-A5B7-288A869CFF6B} = {D7C464BA-B693-4718-AB49-D36C3FD07336}
 		{C9028753-CB1F-4062-A946-10E72E26E41F} = {747ED979-715C-4B24-940D-183B84774654}
 		{DAAD8692-B55D-4C23-8A55-4932C9694C02} = {747ED979-715C-4B24-940D-183B84774654}
+		{D4979470-4219-48E3-B0C3-D2E1A58BEEA8} = {747ED979-715C-4B24-940D-183B84774654}
 	EndGlobalSection
 EndGlobal
