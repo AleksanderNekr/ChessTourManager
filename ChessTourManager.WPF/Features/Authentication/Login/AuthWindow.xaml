@@ -45,9 +45,6 @@
                 <Binding
                     Path="Login"
                     UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validationRules:EmailValidationRule />
-                    </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>

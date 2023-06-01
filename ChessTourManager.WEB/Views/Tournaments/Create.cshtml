@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ToursCount" class="control-label"></label>
-                <input asp-for="ToursCount" class="form-control"/>
+                <input asp-for="ToursCount" class="form-control" min="4"/>
                 <span asp-validation-for="ToursCount" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,12 +41,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control"/>
+                <input asp-for="Duration" class="form-control" min="1"/>
                 <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaxTeamPlayers" class="control-label"></label>
-                <input asp-for="MaxTeamPlayers" class="form-control"/>
+                <input asp-for="MaxTeamPlayers" class="form-control" min="1"/>
                 <span asp-validation-for="MaxTeamPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">

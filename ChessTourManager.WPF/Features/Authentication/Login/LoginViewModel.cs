@@ -18,7 +18,7 @@ public class LoginViewModel : ViewModelBase
     public LoginViewModel()
     {
         this._login = "petre@live.com";
-        this._password = "123qwe";
+        this._password = "Qwe123@";
 
         SuccessLoginEvent.UserSuccessLogin += SuccessLoginEvent_UserSuccessLogin;
     }

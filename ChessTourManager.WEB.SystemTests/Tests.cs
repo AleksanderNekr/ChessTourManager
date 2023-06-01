@@ -14,13 +14,12 @@ public class Tests
     /// <summary>
     ///     Testing scenario:
     ///     1. Register the user.
-    ///     2. Enter the account.
-    ///     3. Create a tournament.
-    ///     4. Open the tournament.
-    ///     5. Fill out a list of participants.
-    ///     6. Fill in the list of teams.
-    ///     7. Fill in the list of groups.
-    ///     8. Conduct the draw for the entire tournament.
+    ///     2. Create a tournament.
+    ///     3. Open the tournament.
+    ///     4. Fill out a list of participants.
+    ///     5. Fill in the list of teams.
+    ///     6. Fill in the list of groups.
+    ///     7. Conduct the draw for the entire tournament.
     /// </summary>
     [Test]
     public async Task Test()
@@ -146,9 +145,10 @@ public class Tests
                                                      KindId         = 1
                                                  });
         // Check if the tournament is created.
-        Tournament tournament = await this._context.Tournaments.SingleAsync(t =>
-                                                                                t.OrganizerId    == user.Id
-                                                                             && t.TournamentName == name);
+        Tournament tournament = await this._context.Tournaments
+                                          .SingleAsync(t =>
+                                                           t.OrganizerId    == user.Id
+                                                        && t.TournamentName == name);
         Assert.NotNull(tournament);
         Assert.AreNotEqual(0, tournament!.Id);
         return tournament;

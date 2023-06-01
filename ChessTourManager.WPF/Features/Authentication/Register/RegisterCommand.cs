@@ -39,7 +39,12 @@ public class RegisterCommand : CommandBase
         }
 
         InsertResult result = IInsertQueries.CreateInstance(RegisterViewModel.RegisterContext)
-                                            .TryAddUser(out User? user, this._registerViewModel.LastName, this._registerViewModel.FirstName, this._registerViewModel.Email, this._registerViewModel.PasswordInit, this._registerViewModel.Patronymic ?? string.Empty);
+                                            .TryAddUser(out User? user, this._registerViewModel.LastName,
+                                                        this._registerViewModel.FirstName,
+                                                        this._registerViewModel.Email,
+                                                        this._registerViewModel.PasswordInit,
+                                                        this._registerViewModel.Patronymic ?? string.Empty);
+
 
         if (result == InsertResult.Success)
         {
