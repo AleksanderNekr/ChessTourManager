@@ -4,7 +4,7 @@ A project of implementing chess-drawing system using client-server and layered a
 Using:
 - .NET 7
 - C# 11
-- ASP.NET Core
+- ASP.NET MVC
 - WPF
 - Entity Framework 7
 
