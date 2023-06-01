@@ -89,25 +89,6 @@ public class RegisterModel : PageModel
         {
             this._logger.LogInformation("User created a new account with password");
 
-            string userId = await this._userManager.GetUserIdAsync(user);
-            string code   = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            string callbackUrl = this.Url.Page(
-                                               "/Account/ConfirmEmail",
-                                               null,
-                                               new { area = "Identity", userId, code, returnUrl },
-                                               this.Request.Scheme);
-
-            await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
-                                                   $"Please confirm your account by <a href='{
-                                                       HtmlEncoder.Default.Encode(callbackUrl)
-                                                   }'>clicking here</a>.");
-
-            if (this._userManager.Options.SignIn.RequireConfirmedAccount)
-            {
-                return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl });
-            }
-
             await this._signInManager.SignInAsync(user, false);
             return this.LocalRedirect(returnUrl);
         }
