@@ -22,7 +22,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ChessTourManager.DataAccess\ChessTourManager.DataAccess.csproj" />
-        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
     </ItemGroup>
 
 </Project>
