@@ -2,11 +2,14 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace ChessTourManager.DataAccess.Entities;
 
 public class Team
 {
+    private string _teamName = null!;
+
     [DisplayName("Team")]
     public int Id { get; set; }
 
@@ -19,9 +22,13 @@ public class Team
     [MinLength(2, ErrorMessage = "The team name must be at least 2 characters long.")]
     [MaxLength(50, ErrorMessage = "The team name must be no more than 50 characters long.")]
     [Required]
-    [RegularExpression(@"^\w+$",
-                       ErrorMessage = "The team name must start with a capital letter and contain only letters.")]
-    public string TeamName { get; set; } = null!;
+    [RegularExpression(@"^[\w|\s]+$",
+                       ErrorMessage = "The team name must contain only letters.")]
+    public string TeamName
+    {
+        get { return this._teamName; }
+        set { this._teamName = Regex.Replace(value, @"\s+", " "); }
+    }
 
     [DisplayName("Team Attribute")]
     public string? TeamAttribute { get; set; }

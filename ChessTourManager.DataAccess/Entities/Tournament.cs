@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ChessTourManager.DataAccess.Entities;
 
 public class Tournament
 {
+    private string _tournamentName;
+
     public Tournament()
     {
         this.IsMixedGroupsLocalized = this.IsMixedGroups is true
@@ -23,9 +27,13 @@ public class Tournament
     [MinLength(2, ErrorMessage = "The tournament name must be at least 2 characters long.")]
     [MaxLength(255, ErrorMessage = "The tournament name must be no more than 255 characters long.")]
     [Required]
-    [RegularExpression(@"^\w+$",
-                       ErrorMessage = "The tournament name must start with a capital letter and contain only letters.")]
-    public string TournamentName { get; set; }
+    [RegularExpression(@"^[\w|\s]+$",
+                       ErrorMessage = "The tournament name must contain only letters.")]
+    public string TournamentName
+    {
+        get { return this._tournamentName; }
+        set { this._tournamentName = Regex.Replace(value, @"\s+", " "); }
+    }
 
     [DisplayName("Tours count")]
     [Range(1, 15, ErrorMessage = "The number of tours must be between 1 and 15.")]
@@ -53,7 +61,7 @@ public class Tournament
     public string? OrganizationName { get; set; }
 
     [DisplayName("Mixed groups")]
-    public bool? IsMixedGroups { get; set; }
+    public bool? IsMixedGroups { get; set; } = true;
 
     [DisplayName("Date create")]
     public DateOnly DateCreate { get; set; }
@@ -83,8 +91,7 @@ public class Tournament
 
     public System? System { get; set; }
 
-    public ICollection<Team> Teams { get; } = new List<Team>();
-
+    public ICollection<Team>  Teams  { get; } = new List<Team>();
     public ICollection<Ratio> Ratios { get; } = new List<Ratio>();
 
     [NotMapped]
