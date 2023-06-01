@@ -1,9 +1,9 @@
-using System.ComponentModel;
-using System.Windows;
+using System.Security.Claims;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Insert;
 using ChessTourManager.Domain.Algorithms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +42,7 @@ public class GamesController : Controller
     /// <param name="id">Tournament id.</param>
     /// <param name="selectedTour">Selected tour number.</param>
     /// <returns>Games index view.</returns>
+    [Authorize]
     public async Task<IActionResult> Index(int id, int? selectedTour, int? organizerId)
     {
         if (id != 0)
@@ -50,7 +51,22 @@ public class GamesController : Controller
             _drawingAlgorithm = IDrawingAlgorithm.Initialize(this._context, _tournamentId);
         }
 
-        _userId = organizerId ?? _userId;
+        if (this.User.Identity?.IsAuthenticated ?? false)
+        {
+            _userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier) is null
+                          ? 0
+                          : int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                   ?? throw new InvalidOperationException("User ID is null"));
+        }
+        else
+        {
+            _userId = organizerId ?? _userId;
+        }
+
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         _tourNumbers = this._context.Games
                            .Where(g => g.TournamentId == _tournamentId
@@ -71,7 +87,6 @@ public class GamesController : Controller
                                               && g.OrganizerId  == _userId
                                               && g.TourNumber   == _selectedTour);
         this.ViewBag.SelectedTour = _selectedTour;
-        await this.LoadTournamentAsync();
 
         ApplyRatiosCounters();
 
@@ -97,6 +112,7 @@ public class GamesController : Controller
     /// POST: Games/Create.
     /// </summary>
     /// <returns>Index view.</returns>
+    [Authorize]
     public IActionResult Create()
     {
         foreach (Player player in this._context.Players
@@ -169,6 +185,7 @@ public class GamesController : Controller
     /// <param name="result">Game result.</param>
     /// <returns>Index view.</returns>
     /// <exception cref="NullReferenceException">Player not found.</exception>
+    [Authorize]
     public async Task<IActionResult> Edit(
         int    whiteId,
         int    blackId,
@@ -197,11 +214,18 @@ public class GamesController : Controller
         return this.RedirectToAction(nameof(this.Index), new { id = _tournamentId, selectedTour = _selectedTour });
     }
 
-    private async Task LoadTournamentAsync()
+    private async Task<IActionResult> LoadTournamentAsync()
     {
-        this.ViewBag.Tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId)
-                               ?? throw new NullReferenceException("Tournament not found");
-        _tournament = this.ViewBag.Tournament;
+        Tournament? tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId);
+        if (tournament is null)
+        {
+            this.TempData["Error"] = "Tournament not found";
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
+        _tournament             = tournament;
+        this.ViewBag.Tournament = tournament;
+        return this.Ok();
     }
 
     private void LoadTourNumbers()

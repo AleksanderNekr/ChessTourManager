@@ -30,8 +30,7 @@
                         <a class="nav-link text-dark"
                            asp-area=""
                            asp-controller="Tournaments"
-                           asp-action="Index"
-                           asp-route-organizerId="@(User.Identity.IsAuthenticated ? User.FindFirstValue(ClaimTypes.NameIdentifier) : null)">
+                           asp-action="Index">
                             Tournaments
                         </a>
 

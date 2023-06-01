@@ -1,4 +1,5 @@
-﻿using ChessTourManager.DataAccess;
+﻿using System.Security.Claims;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Delete;
 using ChessTourManager.DataAccess.Queries.Get;
@@ -34,7 +35,18 @@ public class TournamentsController : Controller
     [Authorize]
     public async Task<IActionResult> Index(int? organizerId)
     {
-        _organizerId = organizerId ?? _organizerId;
+        if (this.User.Identity?.IsAuthenticated ?? false)
+        {
+            _organizerId = this.User.FindFirstValue(ClaimTypes.NameIdentifier) is null
+                               ? 0
+                               : int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                        ?? throw new InvalidOperationException("User ID is null"));
+        }
+        else
+        {
+            _organizerId = organizerId ?? _organizerId;
+        }
+
         GetResult result = IGetQueries.CreateInstance(this._context)
                                       .TryGetTournaments((int)_organizerId, out List<Tournament>? tournaments);
         if (result == GetResult.UserNotFound)
@@ -166,6 +178,7 @@ public class TournamentsController : Controller
     /// </summary>
     /// <param name="id">The id of the tournament.</param>
     /// <returns>The details view of the tournament.</returns>
+    [Authorize]
     public async Task<IActionResult> Details(int id)
     {
         await this.LoadKindsToViewBagAsync();

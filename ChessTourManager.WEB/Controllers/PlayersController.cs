@@ -1,6 +1,8 @@
-﻿using ChessTourManager.DataAccess;
+﻿using System.Security.Claims;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Queries.Delete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,8 @@ public class PlayersController : Controller
     ///     GET: Players/Index.
     /// </summary>
     /// <returns>Index view.</returns>
+    [HttpGet("/Players/Index/{id:int?}")]
+    [Authorize]
     public async Task<IActionResult> Index(int id, int? organiserId)
     {
         if (id != 0)
@@ -37,22 +41,44 @@ public class PlayersController : Controller
             _tournamentId = id;
         }
 
-        _userId = organiserId ?? _userId;
-        await this.LoadTournamentAsync();
+        if (this.User.Identity?.IsAuthenticated ?? false)
+        {
+            _userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier) is null
+                          ? 0
+                          : int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                   ?? throw new InvalidOperationException("User ID is null"));
+        }
+        else
+        {
+            _userId = organiserId ?? _userId;
+        }
+
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
         List<Player> players = await this._context.Players
-                                         .Where(player => player.TournamentId == id)
+                                         .Where(player => player.TournamentId == id && player.OrganizerId == _userId)
                                          .Include(player => player.Team)
                                          .Include(player => player.Group)
                                          .ToListAsync();
         return this.View(players);
     }
 
-    private async Task LoadTournamentAsync()
+    private async Task<IActionResult> LoadTournamentAsync()
     {
-        this.ViewBag.Tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId)
-                               ?? throw new NullReferenceException("Tournament not found");
+        Tournament? tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId);
+        if (tournament is null)
+        {
+            this.TempData["Error"] = "Tournament not found";
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
+        this.ViewBag.Tournament = tournament;
+        return this.Ok();
     }
 
     private async Task LoadTeamsAsync()
@@ -82,9 +108,14 @@ public class PlayersController : Controller
     /// <summary>
     ///     GET: Players/Create.
     /// </summary>
+    [Authorize]
     public async Task<IActionResult> Create()
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
         return this.View(new Player());
@@ -97,6 +128,7 @@ public class PlayersController : Controller
     /// <returns>Index view.</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Create(
         [Bind($"{
             nameof(Player.Id)
@@ -139,7 +171,11 @@ public class PlayersController : Controller
         }")]
         Player player)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 
@@ -163,6 +199,7 @@ public class PlayersController : Controller
     /// </summary>
     /// <param name="id">The id of the player to edit.</param>
     /// <returns>Edit player view.</returns>
+    [Authorize]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -170,7 +207,11 @@ public class PlayersController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 
@@ -190,6 +231,7 @@ public class PlayersController : Controller
     /// <returns>Index view.</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Edit(
         [Bind($"{
             nameof(Player.Id)
@@ -220,7 +262,11 @@ public class PlayersController : Controller
         }")]
         Player player)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 
@@ -241,6 +287,7 @@ public class PlayersController : Controller
     /// </summary>
     /// <param name="id">The id of the player to delete.</param>
     /// <returns>Delete player view.</returns>
+    [Authorize]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -248,7 +295,11 @@ public class PlayersController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 
@@ -271,9 +322,14 @@ public class PlayersController : Controller
     [HttpPost]
     [ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 
@@ -302,6 +358,7 @@ public class PlayersController : Controller
     /// </summary>
     /// <param name="id">The id of the player to show.</param>
     /// <returns>Details view.</returns>
+    [Authorize]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -309,7 +366,11 @@ public class PlayersController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         await this.LoadTeamsAsync();
         await this.LoadGroupsAsync();
 

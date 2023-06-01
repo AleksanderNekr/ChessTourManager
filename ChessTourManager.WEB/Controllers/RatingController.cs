@@ -1,7 +1,8 @@
-﻿using ChessTourManager.DataAccess;
+﻿using System.Security.Claims;
+using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.WEB.Controllers;
@@ -29,6 +30,7 @@ public class RatingController : Controller
     ///     GET: Players/Index.
     /// </summary>
     /// <returns>Index view.</returns>
+    [Authorize]
     public async Task<IActionResult> Index(int id, int? organiserId)
     {
         if (id != 0)
@@ -36,8 +38,24 @@ public class RatingController : Controller
             _tournamentId = id;
         }
 
-        _userId = organiserId ?? _userId;
-        await this.LoadTournamentAsync();
+        if (this.User.Identity?.IsAuthenticated ?? false)
+        {
+            _userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier) is null
+                          ? 0
+                          : int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                   ?? throw new InvalidOperationException("User ID is null"));
+        }
+        else
+        {
+            _userId = organiserId ?? _userId;
+        }
+
+
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         List<Player> players = await this._context.Players
                                          .Where(player => player.TournamentId == id)
                                          .Include(player => player.Team)
@@ -49,9 +67,16 @@ public class RatingController : Controller
         return this.View(players);
     }
 
-    private async Task LoadTournamentAsync()
+    private async Task<IActionResult> LoadTournamentAsync()
     {
-        this.ViewBag.Tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId)
-                               ?? throw new NullReferenceException("Tournament not found");
+        Tournament? tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId);
+        if (tournament is null)
+        {
+            this.TempData["Error"] = "Tournament not found";
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
+        this.ViewBag.Tournament = tournament;
+        return this.Ok();
     }
 }

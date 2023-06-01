@@ -1,8 +1,9 @@
+using System.Security.Claims;
 using ChessTourManager.DataAccess;
 using ChessTourManager.DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace ChessTourManager.WEB.Controllers;
 
@@ -16,10 +17,17 @@ public class GroupsController : Controller
     private static   int              _tournamentId;
     private static   int              _userId;
 
-    private async Task LoadTournamentAsync()
+    private async Task<IActionResult> LoadTournamentAsync()
     {
-        this.ViewBag.Tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId)
-                               ?? throw new NullReferenceException("Tournament not found");
+        Tournament? tournament = await this._context.Tournaments.FindAsync(_tournamentId, _userId);
+        if (tournament is null)
+        {
+            this.TempData["Error"] = "Tournament not found";
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
+        this.ViewBag.Tournament = tournament;
+        return this.Ok();
     }
 
     /// <summary>
@@ -35,6 +43,7 @@ public class GroupsController : Controller
     /// GET: Groups
     /// </summary>
     /// <returns>Index view</returns>
+    [Authorize]
     public async Task<IActionResult> Index(int id, int? organizerId)
     {
         if (id != 0)
@@ -42,15 +51,28 @@ public class GroupsController : Controller
             _tournamentId = id;
         }
 
-        _userId = organizerId ?? _userId;
+        if (this.User.Identity?.IsAuthenticated ?? false)
+        {
+            _userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier) is null
+                          ? 0
+                          : int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                   ?? throw new InvalidOperationException("User ID is null"));
+        }
+        else
+        {
+            _userId = organizerId ?? _userId;
+        }
+
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         IQueryable<Group> groups = this._context.Groups
                                        .Include(t => t.Tournament)
                                        .Include(t => t.Players)
                                        .ThenInclude(p => p.Team)
                                        .Where(t => t.TournamentId == _tournamentId && t.OrganizerId == _userId);
-
-        await this.LoadTournamentAsync();
 
         return this.View(await groups.ToListAsync());
     }
@@ -60,6 +82,7 @@ public class GroupsController : Controller
     /// </summary>
     /// <param name="id">Group id</param>
     /// <returns>Details view</returns>
+    [Authorize]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -67,7 +90,10 @@ public class GroupsController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         Group? group = await this._context.Groups
                                  .Include(t => t.Tournament)
@@ -86,9 +112,14 @@ public class GroupsController : Controller
     /// GET: Groups/Create
     /// </summary>
     /// <returns>Create view</returns>
+    [Authorize]
     public async Task<IActionResult> Create()
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         return this.View(new Group());
     }
 
@@ -99,11 +130,16 @@ public class GroupsController : Controller
     /// <returns>Index view</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Create(
         [Bind("Id,OrganizerId,TournamentId,GroupName,Identity")]
         Group group)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         if (!this.ModelState.IsValid)
         {
             return this.View(group);
@@ -125,6 +161,7 @@ public class GroupsController : Controller
     /// </summary>
     /// <param name="id">Group id</param>
     /// <returns>Edit view</returns>
+    [Authorize]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -132,7 +169,10 @@ public class GroupsController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         Group? group = await this._context.Groups.FindAsync(id, _tournamentId, _userId);
         if (group == null)
@@ -151,11 +191,15 @@ public class GroupsController : Controller
     /// <returns>Index view</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Edit(int id,
                                           [Bind("Id,OrganizerId,TournamentId,GroupName,Identity")]
                                           Group group)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         if (!this.ModelState.IsValid)
         {
@@ -187,6 +231,7 @@ public class GroupsController : Controller
     /// </summary>
     /// <param name="id">Group id</param>
     /// <returns>Delete view</returns>
+    [Authorize]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -194,7 +239,10 @@ public class GroupsController : Controller
             return this.NotFound();
         }
 
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
 
         Group? group = await this._context.Groups
                                  .Include(t => t.Tournament)
@@ -217,9 +265,14 @@ public class GroupsController : Controller
     [HttpPost]
     [ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        await this.LoadTournamentAsync();
+        if (await this.LoadTournamentAsync() is not OkResult)
+        {
+            return this.RedirectToAction("Index", "Tournaments");
+        }
+
         Group? group = await this._context.Groups.FindAsync(id, _tournamentId, _userId);
         if (group != null)
         {
