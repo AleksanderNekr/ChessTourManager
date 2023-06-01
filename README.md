@@ -7,4 +7,5 @@ Using:
 - ASP.NET MVC
 - WPF
 - Entity Framework 7
+- PostgreSQL
 
