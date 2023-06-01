@@ -1,6 +1,7 @@
 ﻿using System;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.DataAccess.Queries.Insert;
@@ -14,21 +15,24 @@ internal class InsertQueries : IInsertQueries
         _context = context;
     }
 
-    public InsertResult TryAddUser(out User? user, string lastName, string firstName, string email, string password,
+    public InsertResult TryAddUser(out User? user,
+                                   string    lastName, string firstName, string email, string password,
                                    string    patronymic       = "-",
                                    int       tournamentsLimit = 50)
     {
         user = new User
                {
-                   UserLastName   = lastName,
-                   UserFirstName  = firstName,
+                   UserName       = email,
                    Email          = email,
-                   PasswordHash   = PasswordHasher.HashPassword(password),
+                   EmailConfirmed = true,
+                   UserFirstName  = firstName,
+                   UserLastName   = lastName,
                    UserPatronymic = patronymic,
-                   TournamentsLim = tournamentsLimit,
-                   RegisterDate   = DateOnly.FromDateTime(DateTime.UtcNow),
-                   RegisterTime   = TimeOnly.FromDateTime(DateTime.UtcNow)
+                   TournamentsLim = tournamentsLimit
                };
+        user.PasswordHash       = new PasswordHasher<User>().HashPassword(user, password);
+        user.NormalizedUserName = user.UserName.ToUpper();
+        user.NormalizedEmail    = user.Email.ToUpper();
         try
         {
             _context.Entry(user).State = EntityState.Detached;

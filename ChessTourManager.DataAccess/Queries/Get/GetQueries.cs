@@ -2,6 +2,7 @@
 using System.Linq;
 using ChessTourManager.DataAccess.Entities;
 using ChessTourManager.DataAccess.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChessTourManager.DataAccess.Queries.Get;
@@ -27,9 +28,15 @@ internal class GetQueries : IGetQueries
 
     public GetResult TryGetUserByLoginAndPass(string? login, string password, out User? user)
     {
-        string hash = PasswordHasher.HashPassword(password);
-        user = _context.Users.FirstOrDefault(u => u.Email == login && u.PasswordHash == hash);
-        return user is not null
+        user = _context.Users.SingleOrDefault(u => u.UserName == login);
+        if (user is null)
+        {
+            return GetResult.UserNotFound;
+        }
+
+        PasswordVerificationResult isPassCorrect = new PasswordHasher<User>()
+           .VerifyHashedPassword(user, user.PasswordHash!, password);
+        return isPassCorrect == PasswordVerificationResult.Success
                    ? GetResult.Success
                    : GetResult.UserNotFound;
     }
