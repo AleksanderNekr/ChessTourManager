@@ -62,7 +62,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="BoardNumber" class="control-label"></label>
-                <input asp-for="BoardNumber" class="form-control" min="1"/>
+                <input asp-for="BoardNumber" class="form-control" min="1" max="15"/>
                 <span asp-validation-for="BoardNumber" class="text-danger"></span>
             </div>
             @if (tournament.KindId != 1)
