@@ -37,3 +37,9 @@ button.accept-policy {
     white-space: nowrap;
     line-height: 60px;
 }
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+}
