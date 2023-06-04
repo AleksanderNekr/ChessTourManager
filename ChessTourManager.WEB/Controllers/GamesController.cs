@@ -116,6 +116,8 @@ public class GamesController : Controller
     public IActionResult Create()
     {
         foreach (Player player in this._context.Players
+                                      .Where(p => p.TournamentId == _tournamentId
+                                               && p.OrganizerId  == _userId)
                                       .Include(player => player.GamesWhiteOpponents)
                                       .ThenInclude(game => game.PlayerBlack)
                                       .Include(player => player.GamesWhiteOpponents)
