@@ -10,6 +10,9 @@ Using:
 - Entity Framework 7
 - PostgreSQL
 
+## Documentation
+The development process is described in this PDF document (RU language): ![PDFDoc](https://github.com/AleksanderNekr/ChessTourManager/blob/master/doc/ChessTourManager_project.pdf)
+
 ## Project diagram
 ![ProjectDiagram](https://github.com/AleksanderNekr/ChessTourManager/blob/master/doc/project_diagram.png)
 
