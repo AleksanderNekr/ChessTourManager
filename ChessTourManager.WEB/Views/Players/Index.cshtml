@@ -93,6 +93,8 @@ else
 }
 
 
+@if (tournament.KindId != 1)
+{
 <script>
     $(document).ready( function () {
         $('#table').DataTable({
@@ -100,8 +102,24 @@ else
             "order": [],
             // disable ordering
             "columnDefs": [
-                { "orderable": false, "targets": [9] }
+                { "orderable": false, "targets": [8] }
             ],
         });
     } );
 </script>
+}
+else
+{
+<script>
+    $(document).ready( function () {
+        $('#table').DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "order": [],
+            // disable ordering
+            "columnDefs": [
+                { "orderable": false, "targets": [7] }
+            ],
+        });
+    } );
+</script>
+}
