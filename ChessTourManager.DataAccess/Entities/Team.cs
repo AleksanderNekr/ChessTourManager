@@ -22,11 +22,12 @@ public class Team
     [MinLength(2, ErrorMessage = "The Team Name must be at least 2 characters long.")]
     [MaxLength(50, ErrorMessage = "The Team Name must be no more than 50 characters long.")]
     [Required]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The Team Name has incorrect format")]
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s|\d)+$",
+                       ErrorMessage = "The Team Name must contain only letters or digits.")]
     public string TeamName
     {
         get { return this._teamName; }
-        set { this._teamName = Regex.Replace(value, @"\s+", " "); }
+        set { this._teamName = Regex.Replace(value.Trim(), @"\s+", " "); }
     }
 
     [DisplayName("Team Attribute")]

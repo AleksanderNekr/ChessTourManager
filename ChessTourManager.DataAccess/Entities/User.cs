@@ -1,39 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Identity;
 
 namespace ChessTourManager.DataAccess.Entities;
 
 public class User : IdentityUser<int>
 {
-    public override int Id { get; set; }
+    private         string _userLastName = null!;
+    private         string _userFirstName = null!;
+    public override int    Id { get; set; }
 
     [MaxLength(50, ErrorMessage = "The Last Name must be no more than 50 characters long.")]
     [MinLength(2, ErrorMessage = "The Last Name must be at least 2 characters long.")]
     [Required(ErrorMessage = "The Last Name is required.")]
     [Display(Name = "Last Name")]
     // Regular expression for any letter culture invariant
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$",
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s)+$",
                        ErrorMessage = "The Last Name must contain only letters.")]
     [DataType(DataType.Text)]
     [PersonalData]
-    public string? UserLastName { get; set; }
+    public string UserLastName
+    {
+        get { return this._userLastName; }
+        set { this._userLastName = Regex.Replace(value.Trim(), @"\s+", " "); }
+    }
 
     [MaxLength(50, ErrorMessage = "The First Name must be no more than 50 characters long.")]
     [MinLength(2, ErrorMessage = "The First Name must be at least 2 characters long.")]
     [Required(ErrorMessage = "The First Name is required.")]
     [Display(Name = "First Name")]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$",
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s)+$",
                        ErrorMessage = "The First Name must contain only letters.")]
     [DataType(DataType.Text)]
     [PersonalData]
-    public string? UserFirstName { get; set; }
+    public string UserFirstName
+    {
+        get { return this._userFirstName; }
+        set { this._userFirstName = Regex.Replace(value.Trim(), @"\s+", " "); }
+    }
 
     [MaxLength(50, ErrorMessage = "The Patronymic must be no more than 50 characters long.")]
     [MinLength(2, ErrorMessage = "The Patronymic must be at least 2 characters long.")]
     [Display(Name = "Patronymic")]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$",
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s)+$",
                        ErrorMessage = "The Patronymic must contain only letters.")]
     [DataType(DataType.Text)]
     [PersonalData]

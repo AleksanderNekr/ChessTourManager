@@ -26,12 +26,12 @@ public class Tournament
     [MinLength(2, ErrorMessage = "The Tournament Name must be at least 2 characters long.")]
     [MaxLength(255, ErrorMessage = "The Tournament Name must be no more than 255 characters long.")]
     [Required(ErrorMessage = "The Tournament Name is required.")]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$",
-                       ErrorMessage = "The Tournament Name must contain only letters.")]
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s|\d)+$",
+                       ErrorMessage = "The Tournament Name must contain only letters or digits.")]
     public string TournamentName
     {
         get { return this._tournamentName; }
-        set { this._tournamentName = Regex.Replace(value, @"\s+", " "); }
+        set { this._tournamentName = Regex.Replace(value.Trim(), @"\s+", " "); }
     }
 
     [DisplayName("Tours count")]

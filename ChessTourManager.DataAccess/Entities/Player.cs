@@ -39,24 +39,26 @@ public class Player : INotifyPropertyChanged
     [MinLength(2, ErrorMessage = "The Last Name must be at least 2 characters long.")]
     [MaxLength(50, ErrorMessage = "The Last Name must be no more than 50 characters long.")]
     [Required(ErrorMessage = "The Last Name is required.")]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The Last Name has incorrect format")]
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s)+$",
+                       ErrorMessage = "The Last Name must contain only letters.")]
     public string PlayerLastName
     {
         get { return this._playerLastName; }
-        set { this.SetField(ref this._playerLastName, Regex.Replace(value, @"\s+", " ")); }
+        set { this.SetField(ref this._playerLastName, Regex.Replace(value.Trim(), @"\s+", " ")); }
     }
 
     [DisplayName("First Name")]
     [MinLength(2, ErrorMessage = "The First Name must be at least 2 characters long.")]
     [MaxLength(50, ErrorMessage = "The First Name must be no more than 50 characters long.")]
     [Required(ErrorMessage = "The First Name is required.")]
-    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The First Name has incorrect format")]
+    [RegularExpression(@"^([A-Z]|[a-z]|[А-Я]|[а-я]|\s)+$",
+                       ErrorMessage = "The First Name must contain only letters.")]
     public string PlayerFirstName
     {
         get { return this._playerFirstName; }
         set
         {
-            if (this.SetField(ref this._playerFirstName, Regex.Replace(value, @"\s+", " ")))
+            if (this.SetField(ref this._playerFirstName, Regex.Replace(value.Trim(), @"\s+", " ")))
             {
                 this.OnPropertyChanged(nameof(this.PlayerFullName));
             }
