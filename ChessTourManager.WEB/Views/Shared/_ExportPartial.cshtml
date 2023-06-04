@@ -6,25 +6,54 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
-<script>function Print() {
-    var table = document.getElementById("table");
-    var html = table.outerHTML;
-    var printWindow = window.open('');
-    printWindow.document.write('<html><head><title>Print</title>');
-    printWindow.document.write('</head><body >');
-    printWindow.document.write(html);
-    printWindow.document.write('</body></html>' +
-        '<style type="text/css">' +
-        'table th, table td {' +
-        'border-bottom: 1px solid #000;' +
-        '}' +
-        '</style>');
-    printWindow.document.close()
+<script>
 
-    printWindow.onafterprint = function () {
-        printWindow.close();
+function Print() {
+  var table = document.getElementById("table");
+  var printWindow = window.open('');
+  printWindow.document.write('<html><head><title>Print</title>');
+  printWindow.document.write('</head><body >');
+
+  var rows = table.rows;
+  var ignoredColumns = [];
+
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].querySelectorAll('th, td');
+    for (var j = 0; j < cells.length; j++) {
+      var cell = cells[j];
+      if (cell.classList.contains('action-buttons')) {
+        ignoredColumns.push(j);
+        break; // Skip to the next row
+      }
     }
-    printWindow.print();
+  }
+
+  var clonedTable = table.cloneNode(true);
+
+  for (var i = 0; i < clonedTable.rows.length; i++) {
+    var cells = clonedTable.rows[i].querySelectorAll('th, td');
+    for (var j = cells.length - 1; j >= 0; j--) {
+      if (ignoredColumns.includes(j)) {
+        cells[j].remove();
+      }
+    }
+  }
+
+  printWindow.document.write(clonedTable.outerHTML);
+  printWindow.document.write('</body></html>' +
+    '<style type="text/css">' +
+    'table th, table td {' +
+    'border-bottom: 1px solid #000;' +
+    'border-right: 1px solid #000;' +
+    '}' +
+    '</style>');
+  printWindow.document.close();
+
+  printWindow.onafterprint = function () {
+    printWindow.close();
+  };
+
+  printWindow.print();
 }
 
 
