@@ -24,10 +24,7 @@ else
         <tr>
             <th/>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.PlayerLastName)
-            </th>
-            <th class="align-middle">
-                @Html.DisplayNameFor(model => model.PlayerFirstName)
+                @Html.DisplayNameFor(model => model.PlayerFullName)
             </th>
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.Gender)
@@ -61,10 +58,7 @@ else
                     @(Model.ToList().IndexOf(item) + 1)
                 </td>
                 <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.PlayerLastName)
-                </td>
-                <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.PlayerFirstName)
+                    @Html.DisplayFor(modelItem => item.PlayerFullName)
                 </td>
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Gender)

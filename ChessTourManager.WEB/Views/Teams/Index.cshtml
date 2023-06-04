@@ -21,10 +21,7 @@
         <tr>
             <th/>
             <th class="align-middle">
-                @Html.DisplayNameFor(model => model.Players.First().PlayerLastName)
-            </th>
-            <th class="align-middle">
-                @Html.DisplayNameFor(model => model.Players.First().PlayerFirstName)
+                @Html.DisplayNameFor(model => model.Players.First().PlayerFullName)
             </th>
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.Players.First().Gender)
@@ -71,10 +68,7 @@
                         @(++index)
                     </td>
                     <td class="align-middle">
-                        @Html.DisplayFor(modelItem => player.PlayerLastName)
-                    </td>
-                    <td class="align-middle">
-                        @Html.DisplayFor(modelItem => player.PlayerFirstName)
+                        @Html.DisplayFor(modelItem => player.PlayerFullName)
                     </td>
                     <td class="align-middle">
                         @Html.DisplayFor(modelItem => player.Gender)
