@@ -4,6 +4,7 @@
 </p>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
 <script>function Print() {
     var table = document.getElementById("table");
@@ -26,30 +27,60 @@
     printWindow.print();
 }
 
+
 function DownloadToExcel() {
+  var table = $("#table");
+  var headerCells = table.find("th");
+  var headers = [];
+  var columnIndexMap = {};
 
-var htmls = $("#table").html();
-var uri = 'data:application/vnd.ms-excel;base64,';
-var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
-var base64 = function (s) {
-    return window.btoa(unescape(encodeURIComponent(s)))
-};
+  headerCells.each(function (index) {
+    var headerText = $(this).text().trim();
+    if (headerText !== "") {
+      headers.push(headerText);
+      columnIndexMap[index] = headers.length - 1;
+    }
+  });
 
-var format = function (s, c) {
-    return s.replace(/{(\w+)}/g, function (m, p) {
-        return c[p];
-    })
-};
+  var rows = table.find("tbody tr");
+  var data = [];
 
-var ctx = {
-    worksheet: "table",
-    table: '<table>' + htmls + '</table>'
+  rows.each(function () {
+    var rowData = [];
+    var cells = $(this).find("td");
+
+    cells.each(function (index) {
+      var columnIndex = columnIndexMap[index];
+      if (columnIndex !== undefined) {
+        var cellContent = "";
+        if ($(this).find("select").length > 0) {
+          cellContent = $(this).find("select").val();
+        } else {
+          cellContent = $(this).text().trim();
+        }
+        rowData[columnIndex] = cellContent;
+      }
+    });
+
+    if (rowData.length > 0) {
+      data.push(rowData);
+    }
+  });
+
+  var worksheet = XLSX.utils.aoa_to_sheet([headers].concat(data));
+  var workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  var excelBuffer = XLSX.write(workbook, {
+    bookType: "xlsx",
+    type: "array",
+    cellDates: true,
+  });
+  var blob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+  var link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "table.xlsx";
+  link.click();
 }
 
-var compareLink = document.createElement("a");
-compareLink.download = "table.xls";
-compareLink.href = uri + base64(format(template, ctx));
-compareLink.click();
-}
 </script>
-
