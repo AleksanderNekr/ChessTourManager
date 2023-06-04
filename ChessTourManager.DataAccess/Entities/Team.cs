@@ -19,11 +19,10 @@ public class Team
     public int TournamentId { get; set; }
 
     [DisplayName("Team Name")]
-    [MinLength(2, ErrorMessage = "The team name must be at least 2 characters long.")]
-    [MaxLength(50, ErrorMessage = "The team name must be no more than 50 characters long.")]
+    [MinLength(2, ErrorMessage = "The Team Name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The Team Name must be no more than 50 characters long.")]
     [Required]
-    [RegularExpression(@"^[\w|\s]+$",
-                       ErrorMessage = "The team name must contain only letters.")]
+    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The Team Name has incorrect format")]
     public string TeamName
     {
         get { return this._teamName; }
@@ -31,6 +30,7 @@ public class Team
     }
 
     [DisplayName("Team Attribute")]
+    [MaxLength(3, ErrorMessage = "The Team Attribute must be no more than 3 characters long.")]
     public string? TeamAttribute { get; set; }
 
     [DisplayName("Is Active")]

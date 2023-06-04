@@ -35,22 +35,22 @@ public class Player : INotifyPropertyChanged
 
     public int OrganizerId { get; set; }
 
-    [DisplayName("Last name")]
-    [MinLength(2, ErrorMessage = "The last name must be at least 2 characters long.")]
-    [MaxLength(50, ErrorMessage = "The last name must be no more than 50 characters long.")]
-    [Required]
-    [RegularExpression("^[\\w|\\s]+$")]
+    [DisplayName("Last Name")]
+    [MinLength(2, ErrorMessage = "The Last Name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The Last Name must be no more than 50 characters long.")]
+    [Required(ErrorMessage = "The Last Name is required.")]
+    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The Last Name has incorrect format")]
     public string PlayerLastName
     {
         get { return this._playerLastName; }
         set { this.SetField(ref this._playerLastName, Regex.Replace(value, @"\s+", " ")); }
     }
 
-    [DisplayName("First name")]
-    [MinLength(2, ErrorMessage = "The first name must be at least 2 characters long.")]
-    [MaxLength(50, ErrorMessage = "The first name must be no more than 50 characters long.")]
-    [Required]
-    [RegularExpression("[\\w|\\s]+")]
+    [DisplayName("First Name")]
+    [MinLength(2, ErrorMessage = "The First Name must be at least 2 characters long.")]
+    [MaxLength(50, ErrorMessage = "The First Name must be no more than 50 characters long.")]
+    [Required(ErrorMessage = "The First Name is required.")]
+    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$", ErrorMessage = "The First Name has incorrect format")]
     public string PlayerFirstName
     {
         get { return this._playerFirstName; }
@@ -71,7 +71,6 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("Attribute")]
-    [MinLength(1, ErrorMessage = "The player attribute must be at least 1 characters long.")]
     [MaxLength(4, ErrorMessage = "The player attribute must be no more than 4 characters long.")]
     public string? PlayerAttribute
     {
@@ -80,6 +79,7 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("Birth year")]
+    [Range(1900, 2100, ErrorMessage = "The Birth Year must be between 1900 and 2100.")]
     public int PlayerBirthYear
     {
         get { return this._playerBirthYear; }
@@ -249,7 +249,7 @@ public class Player : INotifyPropertyChanged
     }
 
     [NotMapped]
-    [DisplayName("Full name")]
+    [DisplayName("Full Name")]
     public string PlayerFullName
     {
         get { return this.PlayerLastName + " " + this.PlayerFirstName; }

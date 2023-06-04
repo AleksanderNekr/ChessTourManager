@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ChessTourManager.DataAccess.Entities;
@@ -23,12 +22,12 @@ public class Tournament
 
     public int OrganizerId { get; set; }
 
-    [DisplayName("Tournament name")]
-    [MinLength(2, ErrorMessage = "The tournament name must be at least 2 characters long.")]
-    [MaxLength(255, ErrorMessage = "The tournament name must be no more than 255 characters long.")]
-    [Required]
-    [RegularExpression(@"^[\w|\s]+$",
-                       ErrorMessage = "The tournament name must contain only letters.")]
+    [DisplayName("Tournament Name")]
+    [MinLength(2, ErrorMessage = "The Tournament Name must be at least 2 characters long.")]
+    [MaxLength(255, ErrorMessage = "The Tournament Name must be no more than 255 characters long.")]
+    [Required(ErrorMessage = "The Tournament Name is required.")]
+    [RegularExpression(@"^([A-Za-zА-Яа-я]|\s)+$",
+                       ErrorMessage = "The Tournament Name must contain only letters.")]
     public string TournamentName
     {
         get { return this._tournamentName; }
@@ -37,16 +36,19 @@ public class Tournament
 
     [DisplayName("Tours count")]
     [Range(1, 15, ErrorMessage = "The number of tours must be between 1 and 15.")]
-    [Required]
+    [Required(ErrorMessage = "The number of tours is required.")]
     public int ToursCount { get; set; } = 7;
 
     [DisplayName("Place")]
+    [MaxLength(255, ErrorMessage = "The Place must be no more than 255 characters long.")]
     public string? Place { get; set; }
 
     [DisplayName("Date start")]
+    [Required(ErrorMessage = "The Date Start is required.")]
     public DateOnly DateStart { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [DisplayName("Time start")]
+    [Required(ErrorMessage = "The Time Start is required.")]
     public TimeOnly TimeStart { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
 
     [DisplayName("Duration")]
@@ -54,10 +56,11 @@ public class Tournament
     public int Duration { get; set; } = 3;
 
     [DisplayName("Max team players")]
-    [Range(1, 10)]
+    [Range(1, 15)]
     public int MaxTeamPlayers { get; set; } = 5;
 
-    [DisplayName("Organization name")]
+    [DisplayName("Organization Name")]
+    [MaxLength(255, ErrorMessage = "The Organization Name must be no more than 255 characters long.")]
     public string? OrganizationName { get; set; }
 
     [DisplayName("Mixed groups")]
