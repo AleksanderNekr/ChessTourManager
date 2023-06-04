@@ -259,6 +259,18 @@ public class PlayersController : Controller
             nameof(Player.PlayerBirthYear)
         },{
             nameof(Player.BoardNumber)
+        },{
+            nameof(Player.WinsCount)
+        },{
+            nameof(Player.DrawsCount)
+        },{
+            nameof(Player.LossesCount)
+        },{
+            nameof(Player.PointsAmount)
+        },{
+            nameof(Player.RatioSum1)
+        },{
+            nameof(Player.RatioSum2)
         }")]
         Player player)
     {

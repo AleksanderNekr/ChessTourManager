@@ -15,13 +15,15 @@
     <div class="col-md-4">
         <form method="post" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id"/>
-            <input type="hidden" asp-for="TournamentId"/>
-            <input type="hidden" asp-for="OrganizerId"/>
-            <input type="hidden" asp-for="LossesCount"/>
-            <input type="hidden" asp-for="WinsCount"/>
-            <input type="hidden" asp-for="DrawsCount"/>
-            <input type="hidden" asp-for="PointsAmount"/>
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <input type="hidden" asp-for="TournamentId" value="@tournament.Id"/>
+            <input type="hidden" asp-for="OrganizerId" value="@tournament.OrganizerId"/>
+            <input type="hidden" asp-for="LossesCount" value="@Model.LossesCount"/>
+            <input type="hidden" asp-for="WinsCount" value="@Model.WinsCount"/>
+            <input type="hidden" asp-for="DrawsCount" value="@Model.DrawsCount"/>
+            <input type="hidden" asp-for="PointsAmount" value="@Model.PointsAmount"/>
+            <input type="hidden" asp-for="RatioSum1" value="@Model.RatioSum1"/>
+            <input type="hidden" asp-for="RatioSum2" value="@Model.RatioSum2"/>
             <div class="form-group">
                 <label asp-for="PlayerLastName" class="control-label"></label>
                 <input asp-for="PlayerLastName" class="form-control"/>
