@@ -47,7 +47,7 @@ else
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
-            <th></th>
+            <th class="action-buttons"></th>
         </tr>
         </thead>
         <tbody>
@@ -81,7 +81,7 @@ else
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.IsActiveLocalized)
                 </td>
-                <td class="align-middle">
+                <td class="align-middle  action-buttons">
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>

@@ -38,6 +38,7 @@
             <th class="align-middle">
                 @Html.DisplayNameFor(model => model.Players.First().IsActive)
             </th>
+            <th  class="action-buttons"/>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +54,8 @@
                 <td/>
                 <td/>
                 <td/>
-                <td class="align-middle">
+                <td/>
+                <td class="align-middle  action-buttons">
                     <a asp-action="Edit" asp-route-id="@team.Id" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@team.Id" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@team.Id" class="btn btn-danger">Delete</a>
@@ -85,6 +87,7 @@
                     <td class="align-middle">
                         @Html.DisplayFor(modelItem => player.IsActiveLocalized)
                     </td>
+                    <td  class="action-buttons"/>
                 </tr>
             }
         }
