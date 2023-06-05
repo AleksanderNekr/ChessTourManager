@@ -91,6 +91,11 @@ public class Game
         }
     }
 
+    public string IsPlayedLocalized =>
+        this.IsPlayed
+            ? "Yes"
+            : "No";
+
     private void SetResult(double whitePoints, double blackPoints)
     {
         this.PlayerWhite.PointsAmount -= this.WhitePoints;
