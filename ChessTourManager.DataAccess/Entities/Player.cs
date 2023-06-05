@@ -73,7 +73,7 @@ public class Player : INotifyPropertyChanged
     }
 
     [DisplayName("Attribute")]
-    [MaxLength(4, ErrorMessage = "The player attribute must be no more than 4 characters long.")]
+    [MaxLength(3, ErrorMessage = "The player attribute must be no more than 3 characters long.")]
     public string? PlayerAttribute
     {
         get { return this._playerAttribute; }
