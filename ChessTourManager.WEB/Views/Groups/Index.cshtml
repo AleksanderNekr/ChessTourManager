@@ -52,7 +52,10 @@
                 <td class="align-middle" style="font-weight: bold;">
                     @Html.DisplayFor(modelItem => group.GroupName)
                 </td>
-                <td/>
+                @if (tournament.KindId != 1)
+                {
+                    <td/>
+                }
                 <td/>
                 <td/>
                 <td/>
