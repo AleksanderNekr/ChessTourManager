@@ -4,7 +4,7 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">DoNotShowAndRun</s:String>
 	<s:Boolean x:Key="/Default/Environment/Highlighting/HighlightingEnabled/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingMode/@EntryValue">OnlyMarkers</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\aleks\AppData\Local\JetBrains\Rider2023.1\resharper-host\temp\Rider\vAny\CoverageData\_ChessTourManager.-1459946277\Snapshot\snapshot.utdcvr</s:String>
+	
 	
 	
 	
@@ -13,14 +13,21 @@
 
 
 	<s:Boolean x:Key="/Default/Environment/InlayHints/GeneralInlayHintsOptions/EnableInlayHints/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=55a6e54e_002Df593_002D4f13_002Db75a_002D365175b217f9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::DAAD8692-B55D-4C23-8A55-4932C9694C02::net7.0-windows::ChessTourManager.WEB.IntegrationTests.WebTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::D4979470-4219-48E3-B0C3-D2E1A58BEEA8::net7.0-windows::ChessTourManager.WEB.SystemTests.Tests.Test&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::D4979470-4219-48E3-B0C3-D2E1A58BEEA8::net7.0-windows::ChessTourManager.WEB.SystemTests.Tests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::DAAD8692-B55D-4C23-8A55-4932C9694C02::net7.0-windows::ChessTourManager.WEB.IntegrationTests.IdentityTests.RegisterAction_Should_Register_New_User&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=55a6e54e_002Df593_002D4f13_002Db75a_002D365175b217f9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::DAAD8692-B55D-4C23-8A55-4932C9694C02::net7.0-windows::ChessTourManager.WEB.IntegrationTests.WebTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::D4979470-4219-48E3-B0C3-D2E1A58BEEA8::net7.0-windows::ChessTourManager.WEB.SystemTests.Tests.Test&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::D4979470-4219-48E3-B0C3-D2E1A58BEEA8::net7.0-windows::ChessTourManager.WEB.SystemTests.Tests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::DAAD8692-B55D-4C23-8A55-4932C9694C02::net7.0-windows::ChessTourManager.WEB.IntegrationTests.IdentityTests.RegisterAction_Should_Register_New_User&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=35fdd597_002Df9df_002D4076_002D95ed_002Dc19554968885_0023ChessTourManager_002EDataAccess_002EUnitTests/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=c9028753_002Dcb1f_002D4062_002Da946_002D10e72e26e41f_0023ChessTourManager_002EDomain_002EUnitTests/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=d4979470_002D4219_002D48e3_002Db0c3_002Dd2e1a58beea8_0023ChessTourManager_002EWEB_002ESystemTests/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=daad8692_002Db55d_002D4c23_002D8a55_002D4932c9694c02_0023ChessTourManager_002EWEB_002EIntegrationTests/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=e4ea9cab_002Db802_002D4ebc_002D8758_002Df7cac2e34cc0_0023ChessTourManager_002EWPF_002EIntegrationTests/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=ef98285b_002Db2e9_002D45ba_002D8934_002Dff71dfee478f_0023ChessTourManager_002EWPF/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=f26c6ff8_002D6914_002D4eb4_002D9de3_002D4428f5065e14_0023ChessTourManager_002EWPF_002ESystemTests/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	
