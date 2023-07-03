@@ -1,5 +1,7 @@
 ![ChessTourManagerLogo](https://user-images.githubusercontent.com/59678267/227247806-2777591d-a01a-4f51-bec7-5d172ad2865e.png)
 
+![GitHub repo size](https://img.shields.io/github/repo-size/AleksanderNekr/ChessTourManager?color=%234682B4)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/AleksanderNekr/ChessTourManager?color=%23483D8B)
 ## Brief description
 A project of implementing chess-drawing system using client-server and layered architecture.
 Using:
