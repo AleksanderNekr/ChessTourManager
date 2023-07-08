@@ -1,0 +1,156 @@
+﻿@startuml
+
+skinparam ClassAttributeIconSize 0
+skinparam ClassAttributeFontName JetBrains Mono
+
+namespace Management {
+
+    namespace Single {
+        class Tournament {
+            + Id <+get; init>: int
+            + Name <+get; -set>: Name
+            + CreatedAt <+get; init>: DateOnly
+            + DrawSystem <+get; -set>: DrawSystem
+            + Coefficients <+get; -set>: List<Coefficient>
+            + Kind <+get; -set>: Kind
+            + MaxTour <+get; -set>: MaxTourNumber
+            + Groups <+get; -set>: List<Group>
+            + Tournament(Name name, DrawSystem drawSystem, List<Coefficient> coefficients, Kind kind, List<Group> groups)
+            + SetName(Name name)
+            + SetDrawSystem(DrawSystem drawSystem)
+            + SetCoefficients(List<Coefficient> coefficients)
+            + SetKind(Kind kind)
+            + SetMaxTour(MaxTourNumber maxTour)
+            + AddGroup(Group groups)
+            + UpdateGroup(Group groups)
+            + DeleteGroup(Group groups)
+        }
+
+        class Group {
+            + Id <+get; init>: int
+            + TournamentId <+get; init>: int
+            + Name <+get; -set>: Name
+            + Players <+get; -set>: List<Player>
+            + Group(Name name, List<Player> players)
+            + SetName(Name name)
+            + AddPlayer(Player player)
+            + UpdatePlayer(Player player)
+            + DeletePlayer(Player player)
+        }
+
+        class Player {
+            + Id <+get; init>: int
+            + GroupId <+get; init>: int
+            + TournamentId <+get; init>: int
+            + Name <+get; -set>: Name
+            + Gender <+get; -set>: Gender
+            + BirthYear <+get; -set>: Year
+            + Player(Name name, Gender gender, Year year)
+            + SetName(Name name)
+            + SetGender(Gender gender)
+            + SetBirthYear(Year year)
+        }
+
+        Tournament o-d- Group
+        Group o-- Player
+    }
+
+    namespace Team {
+        class Tournament {
+            + Teams <+get; -set>: List<Team>
+            + Tournament(List<Team> teams) : base(name, drawSystem, coefficients, kind, groups)
+            + AddTeam(Team team)
+            + UpdateTeam(Team team)
+            + DeleteTeam(Team team)
+        }
+
+        class Team {
+            + Id <+get; init>: int
+            + TournamentId <+get; init>: int
+            + Name <+get; -set>: Name
+            + Players <+get; -set>: List<Player>
+            + Team(Name name, List<Player> players)
+            + SetName(Name name)
+            + AddPlayer(Player player)
+            + UpdatePlayer(Player player)
+            + DeletePlayer(Player player)
+        }
+
+        class Player {
+            + TeamId <+get; init>: int
+            + Player() : base(name, gender, year)
+        }
+    }
+
+    Team.Tournament -u-|> Single.Tournament
+    Team.Tournament o-d- Team.Team
+    Team.Player -u-|> Single.Player
+    Team.Team o-- Team.Player
+}
+
+namespace Drawing {
+    namespace Single {
+        class Tournament {
+            + Id <+get; init>: int
+            + MaxTour <+get; -set>: TourNumber
+            + CurrentTour <+get; -set>: TourNumber
+            + DrawSystem <+get; init>: DrawSystem
+            + Coefficients <+get; init>: List<Coefficient>
+            + Kind <+get; init>: Kind
+            + Players <+get; -set>: List<Player>
+            + GroupedPlayers <+get; -set>: Dictionary<Group, List<Player>>
+            + AllowInGroupGames <+get; -set>: bool
+            + GamePairs <+get; -set>: GamePairs
+            + Tournament(Id, MaxTour, DrawSystem, Coefficients, Kind, GroupedPlayers)
+            + DrawNewTour()
+        }
+
+        class Player {
+            + Id <+get; init>: int
+            + GroupId <+get; init>: int
+            + IsActive <+get; -set>: bool
+            + Wins <+get; -set>: uint
+            + Draws <+get; -set>: uint
+            + Losses <+get; -set>: uint
+            + Points <+get; -set>: decimal
+            + Coefficients <+get; -set>: Dictionary<Coefficient, decimal>
+            + OpponentsAsWhite <+get; -set>: List<Player>
+            + OpponentsAsBlack <+get; -set>: List<Player>
+            + Player(Id, GroupId, Coefficients)
+        }
+
+        class GamePairs {
+            + Id <+get; init>: int
+            + TournamentId <+get; init>: int
+            - _gamePairs: Dictionary<TourNumber, List<GamePair>>
+            + GamePairs(Id, TournamentId)
+            + GetGamePairs(TourNumber tourNumber): List<GamePair>
+            + AddGamePair(TourNumber tourNumber, GamePair gamePair)
+        }
+
+        class GamePair {
+            + WhitePlayerId <+get; init>: int
+            + BlackPlayerId <+get; init>: int
+            + Result <+get; -set>: Result
+            + GamePair(WhitePlayerId, BlackPlayerId)
+            + SetResult(Result result)
+        }
+
+        Player o-- Player
+        Tournament o-- Player
+        GamePairs o-- GamePair
+        Tournament o-- GamePairs
+    }
+
+    namespace Team {
+        class Player {
+            + TeamId <+get; init>: int
+            + Board <+get; -set>: BoardNumber
+            + Player(TeamId, Board) : base(Id, GroupId, Coefficients)
+        }
+    }
+
+    Team.Player -u-|> Single.Player
+}
+
+@enduml
