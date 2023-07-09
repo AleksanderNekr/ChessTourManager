@@ -9,13 +9,16 @@ public abstract class TournamentBase
                                      DrawSystem                       drawSystem,
                                      IReadOnlyCollection<Coefficient> coefficients,
                                      TourNumber                       toursAmount,
-                                     DateOnly                         createdAt)
+                                     DateOnly                         createdAt,
+                                     TourNumber                       currentTour,
+                                     List<Group>                      groups)
     {
         this.Id        = id;
         this.Name      = name;
         this.CreatedAt = createdAt;
+        this.Groups    = groups;
         this.SetDrawingProperties(drawSystem, coefficients);
-        this.SetMaxTour(toursAmount);
+        this.SetTours(toursAmount, currentTour);
     }
 
     public Id Id { get; }
@@ -26,15 +29,15 @@ public abstract class TournamentBase
 
     public DrawSystem DrawSystem { get; private set; }
 
-    public IReadOnlyCollection<Coefficient> Coefficients { get; private set; } = default!;
+    public IReadOnlyCollection<Coefficient> Coefficients { get; private set; }
 
-    public Kind Kind { get; protected private set; }
+    public Kind Kind { get; private protected set; }
 
     public TourNumber MaxTour { get; private set; }
 
     public TourNumber CurrentTour { get; private set; }
 
-    public List<Group> Groups { get; private set; } = new();
+    public List<Group> Groups { get; }
 
     public IEnumerable<Player> Players
     {
@@ -82,14 +85,15 @@ public abstract class TournamentBase
                                    this.CreatedAt, this.CurrentTour, this.Groups);
     }
 
-    private void SetMaxTour(TourNumber toursAmount)
+    private void SetTours(TourNumber toursAmount, TourNumber currentTour)
     {
-        if (toursAmount < this.CurrentTour)
+        if (toursAmount < currentTour)
         {
             throw new ArgumentException("Tours amount must be greater or equal to current tour");
         }
 
-        this.MaxTour = toursAmount;
+        this.MaxTour     = toursAmount;
+        this.CurrentTour = currentTour;
     }
 
     public void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
@@ -98,7 +102,7 @@ public abstract class TournamentBase
         this.SetCoefficients(coefficients, drawSystem);
     }
 
-    public void SetCoefficients(IReadOnlyCollection<Coefficient> coefficients, DrawSystem drawSystem)
+    private void SetCoefficients(IReadOnlyCollection<Coefficient> coefficients, DrawSystem drawSystem)
     {
         List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(drawSystem)).ToList();
         if (wrongCoefficients.Any())
