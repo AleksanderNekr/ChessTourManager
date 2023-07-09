@@ -169,3 +169,8 @@ public abstract class TournamentBase
 
     private protected abstract DrawResult DrawRoundRobin();
 }
+
+public interface ITeamTournament
+{
+    public List<Team> Teams { get; }
+}
