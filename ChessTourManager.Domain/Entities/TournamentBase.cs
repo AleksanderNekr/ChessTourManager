@@ -9,7 +9,7 @@ public abstract class TournamentBase
                                      Name                             name,
                                      DrawSystem                       drawSystem,
                                      IReadOnlyCollection<Coefficient> coefficients,
-                                     TourNumber                       toursAmount,
+                                     TourNumber                       maxTour,
                                      DateOnly                         createdAt,
                                      TourNumber                       currentTour,
                                      List<Group>                      groups)
@@ -19,7 +19,7 @@ public abstract class TournamentBase
         this.CreatedAt = createdAt;
         this.Groups    = groups;
         this.SetDrawingProperties(drawSystem, coefficients);
-        this.SetTours(toursAmount, currentTour);
+        this.SetTours(maxTour, currentTour);
     }
 
     public Id Id { get; }
@@ -47,23 +47,23 @@ public abstract class TournamentBase
 
     public static TTournament Create<TTournament>(Id                               id,
                                                   Name                             name,
+                                                  Kind                             kind,
                                                   DrawSystem                       drawSystem,
                                                   IReadOnlyCollection<Coefficient> coefficients,
-                                                  Kind                             kind,
-                                                  TourNumber                       toursAmount,
-                                                  DateOnly                         createdAt,
+                                                  TourNumber                       maxTour,
                                                   TourNumber                       currentTour,
-                                                  List<Group>                      groups)
+                                                  List<Group>                      groups,
+                                                  DateOnly                         createdAt)
         where TTournament : TournamentBase
     {
         TournamentBase tournament = kind switch
                                     {
                                         Kind.Single => new SingleTournament(id, name, drawSystem, coefficients,
-                                                                            toursAmount, createdAt, currentTour, groups),
-                                        Kind.Team => new TeamTournament(id, name, drawSystem, coefficients, toursAmount,
+                                                                            maxTour, createdAt, currentTour, groups),
+                                        Kind.Team => new TeamTournament(id, name, drawSystem, coefficients, maxTour,
                                                                         createdAt, currentTour, groups),
                                         Kind.SingleTeam => new SingleTeamTournament(id, name, drawSystem, coefficients,
-                                            toursAmount, createdAt, currentTour, groups),
+                                            maxTour, createdAt, currentTour, groups),
                                         _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
                                     };
 
@@ -82,8 +82,15 @@ public abstract class TournamentBase
 
     public TTournament GetWithUpdatedKind<TTournament>(Kind kind) where TTournament : TournamentBase
     {
-        return Create<TTournament>(this.Id,        this.Name, this.DrawSystem, this.Coefficients, kind, this.MaxTour,
-                                   this.CreatedAt, this.CurrentTour, this.Groups);
+        return Create<TTournament>(kind: kind,
+                                   id: this.Id,
+                                   name: this.Name,
+                                   drawSystem: this.DrawSystem,
+                                   coefficients: this.Coefficients,
+                                   maxTour: this.MaxTour,
+                                   createdAt: this.CreatedAt,
+                                   currentTour: this.CurrentTour,
+                                   groups: this.Groups);
     }
 
     public void SetTours(TourNumber maxTour, TourNumber currentTour)
@@ -100,12 +107,12 @@ public abstract class TournamentBase
     public void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
     {
         this.DrawSystem = drawSystem;
-        this.SetCoefficients(coefficients, drawSystem);
+        this.SetCoefficients(coefficients);
     }
 
-    private void SetCoefficients(IReadOnlyCollection<Coefficient> coefficients, DrawSystem drawSystem)
+    public void SetCoefficients(IReadOnlyCollection<Coefficient> coefficients)
     {
-        List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(drawSystem)).ToList();
+        List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(this.DrawSystem)).ToList();
         if (wrongCoefficients.Any())
         {
             throw new DomainException(
