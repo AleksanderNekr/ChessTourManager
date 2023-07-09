@@ -30,7 +30,7 @@ public abstract class TournamentBase
 
     public DrawSystem DrawSystem { get; private set; }
 
-    public IReadOnlyCollection<Coefficient> Coefficients { get; private set; }
+    public IReadOnlyCollection<Coefficient> Coefficients { get; private set; } = default!;
 
     public Kind Kind { get; private protected set; }
 
@@ -107,21 +107,16 @@ public abstract class TournamentBase
     public void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
     {
         this.DrawSystem = drawSystem;
-        this.SetCoefficients(coefficients);
+        this.UpdateCoefficients(coefficients);
     }
 
-    public void SetCoefficients(IReadOnlyCollection<Coefficient> coefficients)
+    public void UpdateCoefficients(IReadOnlyCollection<Coefficient> coefficients)
     {
         List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(this.DrawSystem)).ToList();
         if (wrongCoefficients.Any())
         {
-            throw new DomainException(
-                                      $"Wrong coefficients for {
-                                          this.DrawSystem
-                                      } draw system: {
-                                          string.Join(", ", wrongCoefficients)
-                                      }"
-                                     );
+            throw new DomainException($"Wrong coefficients for {this.DrawSystem} draw system: {
+                string.Join(", ", wrongCoefficients)}");
         }
 
         this.Coefficients = coefficients;
