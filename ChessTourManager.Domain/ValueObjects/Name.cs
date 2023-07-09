@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
@@ -12,7 +13,7 @@ public class Name
         ReadOnlySpan<char> trimmed = value.AsSpan().Trim();
         if (trimmed.Length is < 2 or > 50)
         {
-            throw new ArgumentException("Name must be between 2 and 50 characters");
+            throw new DomainException("Name must be between 2 and 50 characters");
         }
 
         this._value = trimmed.ToString();

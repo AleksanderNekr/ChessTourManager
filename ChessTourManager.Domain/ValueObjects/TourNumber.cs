@@ -1,4 +1,6 @@
-﻿namespace ChessTourManager.Domain.ValueObjects;
+﻿using ChessTourManager.Domain.Exceptions;
+
+namespace ChessTourManager.Domain.ValueObjects;
 
 public readonly struct TourNumber
 {
@@ -10,7 +12,7 @@ public readonly struct TourNumber
     {
         if (value is < Min or > Max)
         {
-            throw new ArgumentException($"Tour number must be between {Min} and {Max}");
+            throw new DomainException($"Tour number must be between {Min} and {Max}");
         }
 
         this._value = value;
@@ -20,7 +22,7 @@ public readonly struct TourNumber
     {
         if (this._value is Max)
         {
-            throw new InvalidOperationException("Max tour number reached");
+            throw new DomainException("Max possible tour number reached");
         }
 
         return this._value + 1;
@@ -30,7 +32,7 @@ public readonly struct TourNumber
     {
         if (this._value is Min)
         {
-            throw new InvalidOperationException("Min tour number reached");
+            throw new DomainException("Min possible tour number reached");
         }
 
         return this._value - 1;

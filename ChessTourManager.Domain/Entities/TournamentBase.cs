@@ -1,4 +1,5 @@
-﻿using ChessTourManager.Domain.ValueObjects;
+﻿using ChessTourManager.Domain.Exceptions;
+using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
@@ -85,14 +86,14 @@ public abstract class TournamentBase
                                    this.CreatedAt, this.CurrentTour, this.Groups);
     }
 
-    private void SetTours(TourNumber toursAmount, TourNumber currentTour)
+    public void SetTours(TourNumber maxTour, TourNumber currentTour)
     {
-        if (toursAmount < currentTour)
+        if (maxTour < currentTour)
         {
-            throw new ArgumentException("Tours amount must be greater or equal to current tour");
+            throw new DomainException("Max tour must be greater or equal to current tour");
         }
 
-        this.MaxTour     = toursAmount;
+        this.MaxTour     = maxTour;
         this.CurrentTour = currentTour;
     }
 
@@ -107,7 +108,7 @@ public abstract class TournamentBase
         List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(drawSystem)).ToList();
         if (wrongCoefficients.Any())
         {
-            throw new ArgumentException(
+            throw new DomainException(
                                         $"Wrong coefficients for {
                                             this.DrawSystem
                                         } draw system: {
