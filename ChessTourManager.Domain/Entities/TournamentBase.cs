@@ -4,42 +4,21 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase
 {
-    protected private TournamentBase(Name                             name,
+    private protected TournamentBase(Id                               id,
+                                     Name                             name,
                                      DrawSystem                       drawSystem,
                                      IReadOnlyCollection<Coefficient> coefficients,
                                      TourNumber                       toursAmount,
                                      DateOnly                         createdAt)
     {
-        this.Id        = Guid.NewGuid();
+        this.Id        = id;
         this.Name      = name;
         this.CreatedAt = createdAt;
         this.SetDrawingProperties(drawSystem, coefficients);
         this.SetMaxTour(toursAmount);
     }
 
-    public static TTournament Create<TTournament>(Name                             name,
-                                                  DrawSystem                       drawSystem,
-                                                  IReadOnlyCollection<Coefficient> coefficients,
-                                                  Kind                             kind,
-                                                  TourNumber                       toursAmount,
-                                                  DateOnly                         createdAt)
-        where TTournament : TournamentBase
-    {
-        TournamentBase tournament = kind switch
-                                    {
-                                        Kind.Single => new SingleTournament(name, drawSystem, coefficients, toursAmount,
-                                                                            createdAt),
-                                        Kind.Team => new TeamTournament(name, drawSystem, coefficients, toursAmount,
-                                                                        createdAt),
-                                        Kind.SingleTeam => new SingleTeamTournament(name, drawSystem, coefficients,
-                                            toursAmount, createdAt),
-                                        _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null)
-                                    };
-
-        return (TTournament)tournament;
-    }
-
-    public Guid Id { get; }
+    public Id Id { get; }
 
     public Name Name { get; set; }
 
@@ -62,6 +41,31 @@ public abstract class TournamentBase
         get => this.Groups.SelectMany(g => g.Players);
     }
 
+    public static TTournament Create<TTournament>(Id                               id,
+                                                  Name                             name,
+                                                  DrawSystem                       drawSystem,
+                                                  IReadOnlyCollection<Coefficient> coefficients,
+                                                  Kind                             kind,
+                                                  TourNumber                       toursAmount,
+                                                  DateOnly                         createdAt,
+                                                  TourNumber                       currentTour,
+                                                  List<Group>                      groups)
+        where TTournament : TournamentBase
+    {
+        TournamentBase tournament = kind switch
+                                    {
+                                        Kind.Single => new SingleTournament(id, name, drawSystem, coefficients,
+                                                                            toursAmount, createdAt, currentTour, groups),
+                                        Kind.Team => new TeamTournament(id, name, drawSystem, coefficients, toursAmount,
+                                                                        createdAt, currentTour, groups),
+                                        Kind.SingleTeam => new SingleTeamTournament(id, name, drawSystem, coefficients,
+                                            toursAmount, createdAt, currentTour, groups),
+                                        _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
+                                    };
+
+        return (TTournament)tournament;
+    }
+
     public static IEnumerable<Coefficient> GetPossibleCoefficients(DrawSystem drawSystem)
     {
         return drawSystem switch
@@ -74,7 +78,8 @@ public abstract class TournamentBase
 
     public TTournament GetWithUpdatedKind<TTournament>(Kind kind) where TTournament : TournamentBase
     {
-        return Create<TTournament>(this.Name, this.DrawSystem, this.Coefficients, kind, this.MaxTour, this.CreatedAt);
+        return Create<TTournament>(this.Id,        this.Name, this.DrawSystem, this.Coefficients, kind, this.MaxTour,
+                                   this.CreatedAt, this.CurrentTour, this.Groups);
     }
 
     private void SetMaxTour(TourNumber toursAmount)

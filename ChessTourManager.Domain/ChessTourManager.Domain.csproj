@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DocumentationFile>bin\Release\ChessTourManager.Domain.xml</DocumentationFile>
+    </PropertyGroup>
+
 </Project>
