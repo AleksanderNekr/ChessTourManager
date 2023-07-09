@@ -122,5 +122,18 @@ public abstract class TournamentBase
         this.Coefficients = coefficients;
     }
 
-    public abstract DrawResult DrawNewTour();
+    public DrawResult DrawNewTour()
+    {
+        return this.DrawSystem switch
+               {
+                   DrawSystem.RoundRobin => this.DrawRoundRobin(),
+                   DrawSystem.Swiss      => this.DrawSwiss(),
+                   _ => throw new DomainOutOfRangeException(nameof(this.DrawSystem), this.DrawSystem,
+                                                            "Cannot draw – unknown system"),
+               };
+    }
+
+    private protected abstract DrawResult DrawSwiss();
+
+    private protected abstract DrawResult DrawRoundRobin();
 }
