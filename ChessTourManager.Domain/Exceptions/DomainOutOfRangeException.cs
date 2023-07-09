@@ -1,8 +1,8 @@
 ﻿namespace ChessTourManager.Domain.Exceptions;
 
-public class DomainOutOfRangeException : ArgumentOutOfRangeException
+internal sealed class DomainOutOfRangeException : ArgumentOutOfRangeException
 {
-    public DomainOutOfRangeException(string? paramName, object? actualValue, string? message = null)
+    internal DomainOutOfRangeException(string? paramName, object? actualValue, string? message = null)
         : base(paramName, actualValue, message)
     {
 

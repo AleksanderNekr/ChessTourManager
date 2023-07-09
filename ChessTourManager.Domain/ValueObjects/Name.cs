@@ -3,7 +3,7 @@ using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
-public class Name
+public sealed class Name
 {
     private readonly string _value;
 

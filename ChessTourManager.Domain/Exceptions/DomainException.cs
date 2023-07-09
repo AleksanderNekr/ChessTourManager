@@ -1,8 +1,8 @@
 ﻿namespace ChessTourManager.Domain.Exceptions;
 
-public class DomainException : Exception
+internal sealed class DomainException : Exception
 {
-    public DomainException(string? message) : base(message)
+    internal DomainException(string? message) : base(message)
     {
 
     }
