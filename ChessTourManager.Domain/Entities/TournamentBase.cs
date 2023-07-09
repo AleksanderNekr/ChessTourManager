@@ -42,30 +42,49 @@ public abstract class TournamentBase
 
     public IEnumerable<Player> Players
     {
-        get => this.Groups.SelectMany(g => g.Players);
+        get => this.Groups.SelectMany(static g => g.Players);
+    }
+
+    public static SingleTournament Create(Id                               id,
+                                          Name                             name,
+                                          DrawSystem                       drawSystem,
+                                          IReadOnlyCollection<Coefficient> coefficients,
+                                          TourNumber                       maxTour,
+                                          TourNumber                       currentTour,
+                                          List<Group>                      groups,
+                                          DateOnly                         createdAt)
+    {
+        return new SingleTournament(id, name, drawSystem, coefficients,
+                                    maxTour, createdAt, currentTour, groups);
+
     }
 
     public static TTournament Create<TTournament>(Id                               id,
                                                   Name                             name,
-                                                  Kind                             kind,
                                                   DrawSystem                       drawSystem,
                                                   IReadOnlyCollection<Coefficient> coefficients,
                                                   TourNumber                       maxTour,
                                                   TourNumber                       currentTour,
                                                   List<Group>                      groups,
-                                                  DateOnly                         createdAt)
-        where TTournament : TournamentBase
+                                                  DateOnly                         createdAt,
+                                                  List<Team>                       teams)
+        where TTournament : ITeamTournament
     {
-        TournamentBase tournament = kind switch
-                                    {
-                                        Kind.Single => new SingleTournament(id, name, drawSystem, coefficients,
-                                                                            maxTour, createdAt, currentTour, groups),
-                                        Kind.Team => new TeamTournament(id, name, drawSystem, coefficients, maxTour,
-                                                                        createdAt, currentTour, groups),
-                                        Kind.SingleTeam => new SingleTeamTournament(id, name, drawSystem, coefficients,
-                                            maxTour, createdAt, currentTour, groups),
-                                        _ => throw new DomainOutOfRangeException(nameof(kind), kind),
-                                    };
+        ITeamTournament tournament;
+        if (typeof(TTournament) == typeof(SingleTeamTournament))
+        {
+            tournament = new SingleTeamTournament(id, name, drawSystem, coefficients,
+                                                  maxTour, createdAt, currentTour, groups, teams);
+        }
+        else if (typeof(TTournament) == typeof(TeamTournament))
+        {
+            tournament = new TeamTournament(id, name, drawSystem, coefficients,
+                                            maxTour, createdAt, currentTour, groups, teams);
+        }
+        else
+        {
+            throw new DomainOutOfRangeException(nameof(TTournament), typeof(TTournament));
+        }
 
         return (TTournament)tournament;
     }
