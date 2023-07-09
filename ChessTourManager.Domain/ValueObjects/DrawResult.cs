@@ -1,4 +1,4 @@
-﻿namespace Domain.ValueObjects;
+﻿namespace ChessTourManager.Domain.ValueObjects;
 
 public readonly ref struct DrawResult
 {

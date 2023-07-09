@@ -1,6 +1,6 @@
-﻿using Domain.ValueObjects;
+﻿using ChessTourManager.Domain.ValueObjects;
 
-namespace Domain.Entities;
+namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase
 {

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{733BB913-3FCC-40DD-8A98-0751F5492CDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{47354166-10DE-4E33-9892-61C97D5CBC57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.Domain", "ChessTourManager.Domain\ChessTourManager.Domain.csproj", "{47354166-10DE-4E33-9892-61C97D5CBC57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

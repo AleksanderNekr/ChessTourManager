@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Domain.ValueObjects;
+namespace ChessTourManager.Domain.ValueObjects;
 
 public class Name
 {
