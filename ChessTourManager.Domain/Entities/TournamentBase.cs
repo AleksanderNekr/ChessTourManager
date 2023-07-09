@@ -64,7 +64,7 @@ public abstract class TournamentBase
                                                                         createdAt, currentTour, groups),
                                         Kind.SingleTeam => new SingleTeamTournament(id, name, drawSystem, coefficients,
                                             maxTour, createdAt, currentTour, groups),
-                                        _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
+                                        _ => throw new DomainOutOfRangeException(nameof(kind), kind),
                                     };
 
         return (TTournament)tournament;
@@ -76,7 +76,7 @@ public abstract class TournamentBase
                {
                    DrawSystem.RoundRobin => new List<Coefficient> { Coefficient.Berger, Coefficient.SimpleBerger },
                    DrawSystem.Swiss      => new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
-                   _                     => throw new ArgumentOutOfRangeException(nameof(drawSystem), drawSystem, null),
+                   _                     => throw new DomainOutOfRangeException(nameof(drawSystem), drawSystem),
                };
     }
 
@@ -116,12 +116,12 @@ public abstract class TournamentBase
         if (wrongCoefficients.Any())
         {
             throw new DomainException(
-                                        $"Wrong coefficients for {
-                                            this.DrawSystem
-                                        } draw system: {
-                                            string.Join(", ", wrongCoefficients)
-                                        }"
-                                       );
+                                      $"Wrong coefficients for {
+                                          this.DrawSystem
+                                      } draw system: {
+                                          string.Join(", ", wrongCoefficients)
+                                      }"
+                                     );
         }
 
         this.Coefficients = coefficients;
