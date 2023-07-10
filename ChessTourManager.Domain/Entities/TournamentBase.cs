@@ -45,29 +45,29 @@ public abstract class TournamentBase
         get => this.Groups.SelectMany(static g => g.Players);
     }
 
-    public static SingleTournament Create(Id<Guid>                         id,
-                                          Name                             name,
-                                          DrawSystem                       drawSystem,
-                                          IReadOnlyCollection<Coefficient> coefficients,
-                                          TourNumber                       maxTour,
-                                          TourNumber                       currentTour,
-                                          List<Group>                      groups,
-                                          DateOnly                         createdAt)
+    public static SingleTournament CreateSingleTournament(Id<Guid>                         id,
+                                                Name                             name,
+                                                DrawSystem                       drawSystem,
+                                                IReadOnlyCollection<Coefficient> coefficients,
+                                                TourNumber                       maxTour,
+                                                TourNumber                       currentTour,
+                                                List<Group>                      groups,
+                                                DateOnly                         createdAt)
     {
         return new SingleTournament(id, name, drawSystem, coefficients,
                                     maxTour, createdAt, currentTour, groups);
 
     }
 
-    public static TTournament Create<TTournament>(Id<Guid>                         id,
-                                                  Name                             name,
-                                                  DrawSystem                       drawSystem,
-                                                  IReadOnlyCollection<Coefficient> coefficients,
-                                                  TourNumber                       maxTour,
-                                                  TourNumber                       currentTour,
-                                                  List<Group>                      groups,
-                                                  DateOnly                         createdAt,
-                                                  List<Team>                       teams)
+    public static TTournament CreateTeamTournament<TTournament>(Id<Guid>                         id,
+                                                      Name                             name,
+                                                      DrawSystem                       drawSystem,
+                                                      IReadOnlyCollection<Coefficient> coefficients,
+                                                      TourNumber                       maxTour,
+                                                      TourNumber                       currentTour,
+                                                      List<Group>                      groups,
+                                                      DateOnly                         createdAt,
+                                                      List<Team>                       teams)
         where TTournament : ITeamTournament
     {
         ITeamTournament tournament;
@@ -99,30 +99,30 @@ public abstract class TournamentBase
                };
     }
 
-    public SingleTournament GetOfKind()
+    public SingleTournament ConvertToSingleTournament()
     {
-        return Create(id: this.Id,
-                      name: this.Name,
-                      drawSystem: this.DrawSystem,
-                      coefficients: this.Coefficients,
-                      maxTour: this.MaxTour,
-                      currentTour: this.CurrentTour,
-                      groups: this.Groups,
-                      createdAt: this.CreatedAt);
+        return CreateSingleTournament(id: this.Id,
+                            name: this.Name,
+                            drawSystem: this.DrawSystem,
+                            coefficients: this.Coefficients,
+                            maxTour: this.MaxTour,
+                            currentTour: this.CurrentTour,
+                            groups: this.Groups,
+                            createdAt: this.CreatedAt);
     }
 
-    public TTournament GetOfKind<TTournament>() where TTournament : ITeamTournament
+    public TTournament ConvertToTeamTournament<TTournament>() where TTournament : ITeamTournament
     {
-        return (TTournament)Create<ITeamTournament>(id: this.Id,
-                                                    name: this.Name,
-                                                    drawSystem: this.DrawSystem,
-                                                    coefficients: this.Coefficients,
-                                                    maxTour: this.MaxTour,
-                                                    currentTour: this.CurrentTour,
-                                                    createdAt: this.CreatedAt,
-                                                    groups: this.Groups,
-                                                    teams: (this as ITeamTournament)?.Teams
-                                                        ?? new List<Team>());
+        return CreateTeamTournament<TTournament>(id: this.Id,
+                                       name: this.Name,
+                                       drawSystem: this.DrawSystem,
+                                       coefficients: this.Coefficients,
+                                       maxTour: this.MaxTour,
+                                       currentTour: this.CurrentTour,
+                                       createdAt: this.CreatedAt,
+                                       groups: this.Groups,
+                                       teams: (this as ITeamTournament)?.Teams
+                                           ?? new List<Team>());
     }
 
     public void SetTours(TourNumber maxTour, TourNumber currentTour)

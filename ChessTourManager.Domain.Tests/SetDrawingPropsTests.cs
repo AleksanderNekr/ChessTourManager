@@ -23,7 +23,7 @@ public sealed class SetDrawingPropsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(id,           tournament.Id);
@@ -51,7 +51,7 @@ public sealed class SetDrawingPropsTests
         List<Group>       groups       = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem,
+        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt));
         // Assert
@@ -73,7 +73,7 @@ public sealed class SetDrawingPropsTests
 
         // Act
         // Assert
-        Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem, coefficients, maxTour,
+        Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour,
                                                                    currentTour, groups, createdAt),
                                        "Wrong coefficients for Swiss draw system: Berger, SimpleBerger");
     }
@@ -92,7 +92,7 @@ public sealed class SetDrawingPropsTests
         List<Group>       groups       = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem,
+        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt));
         // Assert
@@ -114,7 +114,7 @@ public sealed class SetDrawingPropsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(id,           tournament.Id);
@@ -142,7 +142,7 @@ public sealed class SetDrawingPropsTests
         List<Group>       groups       = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem,
+        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt));
         // Assert
@@ -163,7 +163,7 @@ public sealed class SetDrawingPropsTests
         List<Group>       groups       = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem, coefficients,
+        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients,
                                                            maxTour,
                                                            currentTour, groups, createdAt));
         // Assert
@@ -184,7 +184,7 @@ public sealed class SetDrawingPropsTests
         List<Group>       groups       = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.Create(id, name, drawSystem, coefficients,
+        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients,
                                                            maxTour,
                                                            currentTour, groups, createdAt));
         // Assert
@@ -208,7 +208,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Berger });
@@ -230,7 +230,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -254,7 +254,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -281,7 +281,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -308,7 +308,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -340,7 +340,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz });
@@ -362,7 +362,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.TotalBuchholz });
@@ -384,7 +384,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz });
@@ -407,7 +407,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -431,7 +431,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -458,7 +458,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -485,7 +485,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =
@@ -512,7 +512,7 @@ public sealed class SetDrawingPropsTests
         TourNumber        currentTour  = 1;
         List<Group>       groups       = new();
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
         var exception =

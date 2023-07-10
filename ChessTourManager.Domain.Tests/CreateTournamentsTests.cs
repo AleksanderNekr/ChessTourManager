@@ -23,7 +23,7 @@ public sealed class CreateTournamentsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
@@ -53,7 +53,7 @@ public sealed class CreateTournamentsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(new Id<Guid>(guid), tournament.Id);
@@ -85,7 +85,7 @@ public sealed class CreateTournamentsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
@@ -115,7 +115,7 @@ public sealed class CreateTournamentsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
+            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
         Assert.AreEqual(new Id<Guid>(guid),    tournament.Id);
@@ -151,7 +151,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new();
 
         // Act
-        var tournament = TournamentBase.Create<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
+        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
                                                                groups, createdAt, teams);
 
         // Assert
@@ -183,7 +183,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new() { new Team { Name  = "Team1" }, new Team { Name   = "Team2" } };
 
         // Act
-        var tournament = TournamentBase.Create<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
+        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
                                                                groups, createdAt, teams);
 
         // Assert
@@ -218,7 +218,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new();
 
         // Act
-        var tournament = TournamentBase.Create<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
+        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
                                                                groups, createdAt, teams);
 
         // Assert
@@ -250,7 +250,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new() { new Team { Name  = "Team1" }, new Team { Name   = "Team2" } };
 
         // Act
-        var tournament = TournamentBase.Create<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
+        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients, maxTour, currentTour,
                                                                groups, createdAt, teams);
 
         // Assert
@@ -289,7 +289,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new();
 
         // Act
-        var tournament = TournamentBase.Create<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
+        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
@@ -321,7 +321,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new() { new Team { Name  = "Team1" }, new Team { Name   = "Team2" } };
 
         // Act
-        var tournament = TournamentBase.Create<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
+        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
@@ -356,7 +356,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new();
 
         // Act
-        var tournament = TournamentBase.Create<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
+        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
@@ -388,7 +388,7 @@ public sealed class CreateTournamentsTests
         List<Team>        teams        = new() { new Team { Name  = "Team1" }, new Team { Name   = "Team2" } };
 
         // Act
-        var tournament = TournamentBase.Create<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
+        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id, name, drawSystem, coefficients, maxTour,
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
