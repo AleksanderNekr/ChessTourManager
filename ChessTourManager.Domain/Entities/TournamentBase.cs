@@ -1,5 +1,7 @@
 ﻿using ChessTourManager.Domain.Exceptions;
 using ChessTourManager.Domain.ValueObjects;
+// ReSharper disable TooManyDependencies
+// ReSharper disable TooManyArguments
 
 namespace ChessTourManager.Domain.Entities;
 
@@ -24,7 +26,7 @@ public abstract class TournamentBase
 
     public Id<Guid> Id { get; }
 
-    public Name Name { get; set; }
+    public Name Name { get; }
 
     public DateOnly CreatedAt { get; }
 
@@ -89,7 +91,7 @@ public abstract class TournamentBase
         return (TTournament)tournament;
     }
 
-    public static IEnumerable<Coefficient> GetPossibleCoefficients(DrawSystem drawSystem)
+    private static IEnumerable<Coefficient> GetPossibleCoefficients(DrawSystem drawSystem)
     {
         return drawSystem switch
                {
@@ -125,7 +127,7 @@ public abstract class TournamentBase
                                            ?? new List<Team>());
     }
 
-    public void SetTours(TourNumber maxTour, TourNumber currentTour)
+    private void SetTours(TourNumber maxTour, TourNumber currentTour)
     {
         if (maxTour < currentTour)
         {
@@ -136,7 +138,7 @@ public abstract class TournamentBase
         this.CurrentTour = currentTour;
     }
 
-    public void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
+    private void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
     {
         this.DrawSystem = drawSystem;
         this.UpdateCoefficients(coefficients);
