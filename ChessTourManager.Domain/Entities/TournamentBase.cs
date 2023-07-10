@@ -1,5 +1,6 @@
 ﻿using ChessTourManager.Domain.Exceptions;
 using ChessTourManager.Domain.ValueObjects;
+
 // ReSharper disable TooManyDependencies
 // ReSharper disable TooManyArguments
 
@@ -7,19 +8,23 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase
 {
-    private protected TournamentBase(Id<Guid>                         id,
-                                     Name                             name,
-                                     DrawSystem                       drawSystem,
-                                     IReadOnlyCollection<Coefficient> coefficients,
-                                     TourNumber                       maxTour,
-                                     DateOnly                         createdAt,
-                                     TourNumber                       currentTour,
-                                     List<Group>                      groups)
+    private protected TournamentBase(Id<Guid>                                  id,
+                                     Name                                      name,
+                                     DrawSystem                                drawSystem,
+                                     IReadOnlyCollection<Coefficient>          coefficients,
+                                     TourNumber                                maxTour,
+                                     DateOnly                                  createdAt,
+                                     TourNumber                                currentTour,
+                                     List<Group>                               groups,
+                                     bool                                      allowInGroupGames,
+                                     Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
     {
-        this.Id        = id;
-        this.Name      = name;
-        this.CreatedAt = createdAt;
-        this.Groups    = groups;
+        this.Id                = id;
+        this.Name              = name;
+        this.CreatedAt         = createdAt;
+        this.Groups            = groups;
+        this.AllowInGroupGames = allowInGroupGames;
+        this.GamePairs         = gamePairs;
         this.SetDrawingProperties(drawSystem, coefficients);
         this.SetTours(maxTour, currentTour);
     }
@@ -42,46 +47,56 @@ public abstract class TournamentBase
 
     public List<Group> Groups { get; }
 
+    public bool AllowInGroupGames { get; }
+
+    public Dictionary<TourNumber, HashSet<GamePair>> GamePairs { get; }
+
     public IEnumerable<Player> Players
     {
         get => this.Groups.SelectMany(static g => g.Players);
     }
 
-    public static SingleTournament CreateSingleTournament(Id<Guid>                         id,
-                                                Name                             name,
-                                                DrawSystem                       drawSystem,
-                                                IReadOnlyCollection<Coefficient> coefficients,
-                                                TourNumber                       maxTour,
-                                                TourNumber                       currentTour,
-                                                List<Group>                      groups,
-                                                DateOnly                         createdAt)
+    public static SingleTournament CreateSingleTournament(Id<Guid>                                  id,
+                                                          Name                                      name,
+                                                          DrawSystem                                drawSystem,
+                                                          IReadOnlyCollection<Coefficient>          coefficients,
+                                                          TourNumber                                maxTour,
+                                                          TourNumber                                currentTour,
+                                                          List<Group>                               groups,
+                                                          DateOnly                                  createdAt,
+                                                          bool                                      allowInGroupGames,
+                                                          Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
     {
         return new SingleTournament(id, name, drawSystem, coefficients,
-                                    maxTour, createdAt, currentTour, groups);
+                                    maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs);
 
     }
 
-    public static TTournament CreateTeamTournament<TTournament>(Id<Guid>                         id,
-                                                      Name                             name,
-                                                      DrawSystem                       drawSystem,
-                                                      IReadOnlyCollection<Coefficient> coefficients,
-                                                      TourNumber                       maxTour,
-                                                      TourNumber                       currentTour,
-                                                      List<Group>                      groups,
-                                                      DateOnly                         createdAt,
-                                                      List<Team>                       teams)
+    public static TTournament CreateTeamTournament<TTournament>(Id<Guid> id,
+                                                                Name name,
+                                                                DrawSystem drawSystem,
+                                                                IReadOnlyCollection<Coefficient> coefficients,
+                                                                TourNumber maxTour,
+                                                                TourNumber currentTour,
+                                                                List<Group> groups,
+                                                                DateOnly createdAt,
+                                                                List<Team> teams,
+                                                                bool allowInGroupGames,
+                                                                Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
         where TTournament : ITeamTournament
     {
         ITeamTournament tournament;
         if (typeof(TTournament) == typeof(SingleTeamTournament))
         {
             tournament = new SingleTeamTournament(id, name, drawSystem, coefficients,
-                                                  maxTour, createdAt, currentTour, groups, teams);
+                                                  maxTour, createdAt, currentTour, groups, teams, allowInGroupGames,
+                                                  gamePairs);
         }
         else if (typeof(TTournament) == typeof(TeamTournament))
         {
             tournament = new TeamTournament(id, name, drawSystem, coefficients,
-                                            maxTour, createdAt, currentTour, groups, teams);
+                                            maxTour, createdAt, currentTour, groups, teams, allowInGroupGames,
+                                            gamePairs);
         }
         else
         {
@@ -103,28 +118,32 @@ public abstract class TournamentBase
 
     public SingleTournament ConvertToSingleTournament()
     {
-        return CreateSingleTournament(id: this.Id,
-                            name: this.Name,
-                            drawSystem: this.DrawSystem,
-                            coefficients: this.Coefficients,
-                            maxTour: this.MaxTour,
-                            currentTour: this.CurrentTour,
-                            groups: this.Groups,
-                            createdAt: this.CreatedAt);
+        return CreateSingleTournament(this.Id,
+                                      this.Name,
+                                      this.DrawSystem,
+                                      this.Coefficients,
+                                      this.MaxTour,
+                                      this.CurrentTour,
+                                      this.Groups,
+                                      this.CreatedAt,
+                                      this.AllowInGroupGames,
+                                      this.GamePairs);
     }
 
     public TTournament ConvertToTeamTournament<TTournament>() where TTournament : ITeamTournament
     {
-        return CreateTeamTournament<TTournament>(id: this.Id,
-                                       name: this.Name,
-                                       drawSystem: this.DrawSystem,
-                                       coefficients: this.Coefficients,
-                                       maxTour: this.MaxTour,
-                                       currentTour: this.CurrentTour,
-                                       createdAt: this.CreatedAt,
-                                       groups: this.Groups,
-                                       teams: (this as ITeamTournament)?.Teams
-                                           ?? new List<Team>());
+        return CreateTeamTournament<TTournament>(this.Id,
+                                                 this.Name,
+                                                 this.DrawSystem,
+                                                 this.Coefficients,
+                                                 this.MaxTour,
+                                                 this.CurrentTour,
+                                                 createdAt: this.CreatedAt,
+                                                 groups: this.Groups,
+                                                 teams: (this as ITeamTournament)?.Teams
+                                                     ?? new List<Team>(),
+                                                 allowInGroupGames: this.AllowInGroupGames,
+                                                 gamePairs: this.GamePairs);
     }
 
     private void SetTours(TourNumber maxTour, TourNumber currentTour)

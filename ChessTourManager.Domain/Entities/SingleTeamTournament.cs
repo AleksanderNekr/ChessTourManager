@@ -4,16 +4,18 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class SingleTeamTournament : TournamentBase, ITeamTournament
 {
-    internal SingleTeamTournament(Id<Guid>                         id,
-                                  Name                             name,
-                                  DrawSystem                       drawSystem,
-                                  IReadOnlyCollection<Coefficient> coefficients,
-                                  TourNumber                       maxTour,
-                                  DateOnly                         createdAt,
-                                  TourNumber                       currentTour,
-                                  List<Group>                      groups,
-                                  List<Team>                       teams)
-        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups)
+    internal SingleTeamTournament(Id<Guid>                                  id,
+                                  Name                                      name,
+                                  DrawSystem                                drawSystem,
+                                  IReadOnlyCollection<Coefficient>          coefficients,
+                                  TourNumber                                maxTour,
+                                  DateOnly                                  createdAt,
+                                  TourNumber                                currentTour,
+                                  List<Group>                               groups,
+                                  List<Team>                                teams,
+                                  bool                                      allowInGroupGames,
+                                  Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
+        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
         this.Kind  = Kind.SingleTeam;
         this.Teams = teams;

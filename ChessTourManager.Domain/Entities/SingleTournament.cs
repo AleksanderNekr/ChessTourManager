@@ -4,15 +4,17 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class SingleTournament : TournamentBase
 {
-    internal SingleTournament(Id<Guid>                         id,
-                              Name                             name,
-                              DrawSystem                       drawSystem,
-                              IReadOnlyCollection<Coefficient> coefficients,
-                              TourNumber                       maxTour,
-                              DateOnly                         createdAt,
-                              TourNumber                       currentTour,
-                              List<Group>                      groups)
-        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups)
+    internal SingleTournament(Id<Guid>                                  id,
+                              Name                                      name,
+                              DrawSystem                                drawSystem,
+                              IReadOnlyCollection<Coefficient>          coefficients,
+                              TourNumber                                maxTour,
+                              DateOnly                                  createdAt,
+                              TourNumber                                currentTour,
+                              List<Group>                               groups,
+                              bool                                      allowInGroupGames,
+                              Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
+        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
         this.Kind = Kind.Single;
     }
