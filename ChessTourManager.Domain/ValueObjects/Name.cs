@@ -9,14 +9,13 @@ public sealed class Name
 
     public Name(string value)
     {
-        value = Regex.Replace(value, @"\s+", " ");
-        ReadOnlySpan<char> trimmed = value.AsSpan().Trim();
-        if (trimmed.Length is < 2 or > 50)
+        value = Regex.Replace(value.Trim(), @"\s+", " ");
+        if (value.Length is < 2 or > 50)
         {
             throw new DomainException("Name must be between 2 and 50 characters");
         }
 
-        this._value = trimmed.ToString();
+        this._value = value;
     }
 
     public static implicit operator string(Name name)
