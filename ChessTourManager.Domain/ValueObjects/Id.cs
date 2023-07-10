@@ -1,15 +1,15 @@
 ﻿namespace ChessTourManager.Domain.ValueObjects;
 
-public readonly struct Id
+public readonly struct Id<TId> where TId : IComparable<TId>
 {
-    public bool Equals(Id other)
+    public bool Equals(in Id<TId> other)
     {
-        return this._value.Equals(other._value);
+        return this == other;
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is not null && this.Equals((Id)obj);
+        return obj is not null && this.Equals((Id<TId>)obj);
     }
 
     public override int GetHashCode()
@@ -17,54 +17,34 @@ public readonly struct Id
         return this._value.GetHashCode();
     }
 
-    private readonly Guid _value;
+    private readonly TId _value;
 
-    public Id(in Guid value)
+    public Id(in TId value)
     {
         this._value = value;
     }
 
-    public static implicit operator Guid(in Id id)
+    public static implicit operator TId(in Id<TId> id)
     {
         return id._value;
     }
 
-    public static implicit operator Id(in Guid guid)
+    public static implicit operator Id<TId>(in TId guid)
     {
-        return new Id(in guid);
+        return new Id<TId>(in guid);
     }
 
-    public static bool operator ==(in Id left, in Id right)
+    public static bool operator ==(in Id<TId> left, in Id<TId> right)
     {
-        return left._value == right._value;
+        return left.CompareTo(right) == 0;
     }
 
-    public static bool operator !=(Id left, Id right)
+    public static bool operator !=(in Id<TId> left, in Id<TId> right)
     {
         return !(left == right);
     }
 
-    public static bool operator <(in Id left, in Id right)
-    {
-        return left._value < right._value;
-    }
-
-    public static bool operator >(in Id left, in Id right)
-    {
-        return left._value > right._value;
-    }
-
-    public static bool operator <=(in Id left, in Id right)
-    {
-        return left._value <= right._value;
-    }
-
-    public static bool operator >=(in Id left, in Id right)
-    {
-        return left._value >= right._value;
-    }
-
-    public int CompareTo(Id other)
+    public int CompareTo(in Id<TId> other)
     {
         return this._value.CompareTo(other._value);
     }

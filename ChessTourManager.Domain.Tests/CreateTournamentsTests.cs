@@ -12,7 +12,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new();
@@ -26,7 +26,7 @@ public sealed class CreateTournamentsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.Swiss,         tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -42,7 +42,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -56,9 +56,9 @@ public sealed class CreateTournamentsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
-        Assert.AreEqual(new Id(guid),     tournament.Id);
-        Assert.AreEqual(new Name("Test"), tournament.Name);
-        Assert.AreEqual(DrawSystem.Swiss, tournament.DrawSystem);
+        Assert.AreEqual(new Id<Guid>(guid), tournament.Id);
+        Assert.AreEqual(new Name("Test"),   tournament.Name);
+        Assert.AreEqual(DrawSystem.Swiss,   tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
                         tournament.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1), tournament.CreatedAt);
@@ -74,7 +74,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new();
@@ -88,7 +88,7 @@ public sealed class CreateTournamentsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin,    tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -104,7 +104,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -118,7 +118,7 @@ public sealed class CreateTournamentsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Assert
-        Assert.AreEqual(new Id(guid),          tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),    tournament.Id);
         Assert.AreEqual(new Name("Test"),      tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin, tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Berger, Coefficient.SimpleBerger },
@@ -140,7 +140,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new();
@@ -155,7 +155,7 @@ public sealed class CreateTournamentsTests
                                                                groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.Swiss,         tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -172,7 +172,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -187,9 +187,9 @@ public sealed class CreateTournamentsTests
                                                                groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),     tournament.Id);
-        Assert.AreEqual(new Name("Test"), tournament.Name);
-        Assert.AreEqual(DrawSystem.Swiss, tournament.DrawSystem);
+        Assert.AreEqual(new Id<Guid>(guid), tournament.Id);
+        Assert.AreEqual(new Name("Test"),   tournament.Name);
+        Assert.AreEqual(DrawSystem.Swiss,   tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
                         tournament.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1), tournament.CreatedAt);
@@ -207,7 +207,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new();
@@ -222,7 +222,7 @@ public sealed class CreateTournamentsTests
                                                                groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin,    tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -239,7 +239,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -254,7 +254,7 @@ public sealed class CreateTournamentsTests
                                                                groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),          tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),    tournament.Id);
         Assert.AreEqual(new Name("Test"),      tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin, tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Berger, Coefficient.SimpleBerger },
@@ -278,7 +278,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new();
@@ -293,7 +293,7 @@ public sealed class CreateTournamentsTests
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.Swiss,         tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -310,7 +310,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -325,9 +325,9 @@ public sealed class CreateTournamentsTests
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),     tournament.Id);
-        Assert.AreEqual(new Name("Test"), tournament.Name);
-        Assert.AreEqual(DrawSystem.Swiss, tournament.DrawSystem);
+        Assert.AreEqual(new Id<Guid>(guid), tournament.Id);
+        Assert.AreEqual(new Name("Test"),   tournament.Name);
+        Assert.AreEqual(DrawSystem.Swiss,   tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
                         tournament.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1), tournament.CreatedAt);
@@ -345,7 +345,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new();
@@ -360,7 +360,7 @@ public sealed class CreateTournamentsTests
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),             tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),       tournament.Id);
         Assert.AreEqual(new Name("Test"),         tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin,    tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient>(),  tournament.Coefficients);
@@ -377,7 +377,7 @@ public sealed class CreateTournamentsTests
     {
         // Arrange
         var               guid         = Guid.NewGuid();
-        Id                id           = guid;
+        Id<Guid>          id           = guid;
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -392,7 +392,7 @@ public sealed class CreateTournamentsTests
                                                                      currentTour, groups, createdAt, teams);
 
         // Assert
-        Assert.AreEqual(new Id(guid),          tournament.Id);
+        Assert.AreEqual(new Id<Guid>(guid),    tournament.Id);
         Assert.AreEqual(new Name("Test"),      tournament.Name);
         Assert.AreEqual(DrawSystem.RoundRobin, tournament.DrawSystem);
         Assert.AreEqual(new List<Coefficient> { Coefficient.Berger, Coefficient.SimpleBerger },

@@ -5,7 +5,7 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase
 {
-    private protected TournamentBase(Id                               id,
+    private protected TournamentBase(Id<Guid>                         id,
                                      Name                             name,
                                      DrawSystem                       drawSystem,
                                      IReadOnlyCollection<Coefficient> coefficients,
@@ -22,7 +22,7 @@ public abstract class TournamentBase
         this.SetTours(maxTour, currentTour);
     }
 
-    public Id Id { get; }
+    public Id<Guid> Id { get; }
 
     public Name Name { get; set; }
 
@@ -45,7 +45,7 @@ public abstract class TournamentBase
         get => this.Groups.SelectMany(static g => g.Players);
     }
 
-    public static SingleTournament Create(Id                               id,
+    public static SingleTournament Create(Id<Guid>                         id,
                                           Name                             name,
                                           DrawSystem                       drawSystem,
                                           IReadOnlyCollection<Coefficient> coefficients,
@@ -59,7 +59,7 @@ public abstract class TournamentBase
 
     }
 
-    public static TTournament Create<TTournament>(Id                               id,
+    public static TTournament Create<TTournament>(Id<Guid>                         id,
                                                   Name                             name,
                                                   DrawSystem                       drawSystem,
                                                   IReadOnlyCollection<Coefficient> coefficients,

@@ -4,7 +4,7 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class SingleTeamTournament : TournamentBase, ITeamTournament
 {
-    internal SingleTeamTournament(Id                               id,
+    internal SingleTeamTournament(Id<Guid>                         id,
                                   Name                             name,
                                   DrawSystem                       drawSystem,
                                   IReadOnlyCollection<Coefficient> coefficients,

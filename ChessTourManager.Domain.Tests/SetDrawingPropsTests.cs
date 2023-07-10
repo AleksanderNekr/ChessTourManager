@@ -12,7 +12,7 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -41,7 +41,7 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.Berger };
@@ -62,7 +62,7 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.Berger, Coefficient.SimpleBerger };
@@ -82,7 +82,7 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -103,7 +103,7 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -132,7 +132,7 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.Berger };
@@ -153,7 +153,7 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.Berger, Coefficient.SimpleBerger };
@@ -174,7 +174,7 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -199,7 +199,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_CorrectCoefficients_Should_SetCoefficients()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -221,7 +221,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -233,7 +233,9 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               { Coefficient.Buchholz }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -243,7 +245,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -255,7 +257,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.Berger }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Buchholz,
+                                                                                   Coefficient.Berger
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -265,7 +272,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -277,7 +284,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Buchholz,
+                                                                                   Coefficient.TotalBuchholz
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
@@ -287,7 +299,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.RoundRobin;
         List<Coefficient> coefficients = new() { Coefficient.Berger, Coefficient.SimpleBerger };
@@ -299,7 +311,13 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz, Coefficient.Berger }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Buchholz,
+                                                                                   Coefficient.TotalBuchholz,
+                                                                                   Coefficient.Berger
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
@@ -313,7 +331,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients1()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -335,7 +353,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients2()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -357,7 +375,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients3()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -372,14 +390,15 @@ public sealed class SetDrawingPropsTests
         tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz });
 
         // Assert
-        Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz }, tournament.Coefficients);
+        Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
+                        tournament.Coefficients);
     }
 
     [Test]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -391,7 +410,9 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Berger }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               { Coefficient.Berger }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -401,7 +422,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -413,7 +434,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Berger, Coefficient.Buchholz }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Berger,
+                                                                                   Coefficient.Buchholz
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -423,7 +449,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -435,7 +461,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Berger, Coefficient.TotalBuchholz }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Berger,
+                                                                                   Coefficient.TotalBuchholz
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -445,7 +476,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -457,7 +488,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.Buchholz, Coefficient.Berger }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.Buchholz,
+                                                                                   Coefficient.Berger
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -467,7 +503,7 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_With_IncorrectCoefficients_Should_Throw5()
     {
         // Arrange
-        Id                id           = Guid.NewGuid();
+        Id<Guid>          id           = Guid.NewGuid();
         Name              name         = "Test";
         const DrawSystem  drawSystem   = DrawSystem.Swiss;
         List<Coefficient> coefficients = new() { Coefficient.Buchholz, Coefficient.TotalBuchholz };
@@ -479,7 +515,12 @@ public sealed class SetDrawingPropsTests
             TournamentBase.Create(id, name, drawSystem, coefficients, maxTour, currentTour, groups, createdAt);
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient> { Coefficient.TotalBuchholz, Coefficient.Berger }));
+        var exception =
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<Coefficient>
+                                                                               {
+                                                                                   Coefficient.TotalBuchholz,
+                                                                                   Coefficient.Berger
+                                                                               }));
 
         // Assert
         Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
