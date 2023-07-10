@@ -1,6 +1,10 @@
 ﻿using ChessTourManager.Domain.Entities;
 using ChessTourManager.Domain.ValueObjects;
 
+// ReSharper disable UseObjectOrCollectionInitializer
+// ReSharper disable TooManyArguments
+// ReSharper disable TooManyDeclarations
+// ReSharper disable ClassTooBig
 // ReSharper disable CollectionNeverUpdated.Local
 // ReSharper disable MethodTooLong
 
@@ -726,7 +730,7 @@ public class ConvertTournamentTests
                                          {
                                              new(new Player(playerIds[0], "Player1"),
                                                  new Player(playerIds[2], "Player3")),
-                                             new(new Player(playerIds[1], "Playerrr2"), //TODO
+                                             new(new Player(playerIds[1], "Player2"),
                                                  new Player(playerIds[3], "Player4")),
                                          });
 

@@ -17,7 +17,7 @@ public sealed class Group : IEquatable<Group>
 
     public bool Equals(Group? other)
     {
-        return other is not null && this.Name == other.Name;
+        return other is not null && this.Id == other.Id && this.Name == other.Name;
     }
 
     public override int GetHashCode()

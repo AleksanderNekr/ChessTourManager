@@ -48,4 +48,9 @@ public readonly struct Id<TId> where TId : IComparable<TId>
     {
         return this._value.CompareTo(other._value);
     }
+
+    public override string ToString()
+    {
+        return (this._value.ToString() ?? base.ToString()) ?? string.Empty;
+    }
 }

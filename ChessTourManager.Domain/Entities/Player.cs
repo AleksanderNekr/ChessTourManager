@@ -46,7 +46,7 @@ public sealed class Player : IEquatable<Player>
             return false;
         }
 
-        return ReferenceEquals(this, other) || this.Id.Equals(other.Id);
+        return ReferenceEquals(this, other) || this.Id.Equals(other.Id) && this.Name.Equals(other.Name);
     }
 
     public IEnumerable<Player> GetAllOpponents()
