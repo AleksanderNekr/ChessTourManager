@@ -9,7 +9,7 @@ builder.Services.AddDbContext<ChessTourContext>(contextLifetime: ServiceLifetime
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
-       .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+       .AddDefaultIdentity<User>()
        .AddEntityFrameworkStores<ChessTourContext>();
 
 builder.Services.AddControllersWithViews();

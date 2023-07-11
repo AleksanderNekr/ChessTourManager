@@ -18,11 +18,11 @@ public class RoundRobin : IDrawingAlgorithm
                                 out List<Game>? games);
         if (games is not null)
         {
-            this._gamesHistory = games.Select(g => (g.WhiteId, g.BlackId)).ToHashSet();
+            this._gamesHistory = games.Select(static g => (g.WhiteId, g.BlackId)).ToHashSet();
 
             if (games.Any())
             {
-                this.NewTourNumber = games.Max(g => g.TourNumber) + 1;
+                this.NewTourNumber = games.Max(static g => g.TourNumber) + 1;
             }
             else
             {
@@ -98,12 +98,12 @@ public class RoundRobin : IDrawingAlgorithm
         {
             whiteIds = this._playersIds.Take(this._playersIds.Count / 2).ToList();
             blackIds = this._playersIds.Skip(this._playersIds.Count    / 2).Reverse().ToList();
-            return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (w, b)));
+            return new HashSet<(int, int)>(whiteIds.Zip(blackIds, static (w, b) => (w, b)));
         }
 
         whiteIds = this._playersIds.Take(this._playersIds.Count / 2).Reverse().ToList();
         blackIds = this._playersIds.Skip(this._playersIds.Count    / 2).ToList();
-        return new HashSet<(int, int)>(whiteIds.Zip(blackIds, (w, b) => (b, w)));
+        return new HashSet<(int, int)>(whiteIds.Zip(blackIds, static (w, b) => (b, w)));
     }
 
     private List<int> _playersIds;
