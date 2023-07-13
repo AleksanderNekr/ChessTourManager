@@ -1,6 +1,4 @@
-﻿using ChessTourManager.Domain.ValueObjects;
-
-namespace ChessTourManager.Domain.Entities;
+﻿namespace ChessTourManager.Domain.Entities;
 
 public sealed class GamePair : IEquatable<GamePair>
 {
@@ -30,7 +28,8 @@ public sealed class GamePair : IEquatable<GamePair>
         }
 
         return this.White.Equals(other.White)
-            && this.Black.Equals(other.Black);
+            && this.Black.Equals(other.Black)
+            && this.Result == other.Result;
     }
 
     public override string ToString()
@@ -41,8 +40,8 @@ public sealed class GamePair : IEquatable<GamePair>
     private void SetResult(in GameResult result)
     {
         this.Result = result;
-        this.White.AddGameToHistory(this);
-        this.Black.AddGameToHistory(this);
+        this.White.AddGameToHistory(this, PlayerColor.White);
+        this.Black.AddGameToHistory(this, PlayerColor.Black);
     }
 
     public override bool Equals(object? obj)

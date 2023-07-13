@@ -12,7 +12,7 @@ public sealed class Player : IEquatable<Player>
     {
         this.Id            = id;
         this.Name          = name;
-        this._gamesHistory = new HashSet<GamePair>();
+        this._gamesHistory = new HashSet<GamePair>(comparer: new GamePair.ByPlayersEqualityComparer());
     }
 
     private Id<Guid> Id { get; }
@@ -41,12 +41,22 @@ public sealed class Player : IEquatable<Player>
 
     public bool Equals(Player? other)
     {
-        if (ReferenceEquals(null, other))
+        if (other is null)
         {
             return false;
         }
 
-        return ReferenceEquals(this, other) || this.Id.Equals(other.Id) && this.Name.Equals(other.Name);
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return this.Id     == other.Id
+            && this.Name   == other.Name
+            && this.Points == other.Points
+            && this.Wins   == other.Wins
+            && this.Draws  == other.Draws
+            && this.Loses  == other.Loses;
     }
 
     public IEnumerable<Player> GetAllOpponents()
@@ -94,33 +104,21 @@ public sealed class Player : IEquatable<Player>
         return this.Id.GetHashCode();
     }
 
-    internal void AddGameToHistory(GamePair pair)
+    internal void AddGameToHistory(GamePair pair, GamePair.PlayerColor color)
     {
-        PlayerColor color = this.GetColorInPair(pair);
-
-        // If game is not in history, add it.
-        if (this.TryApplyGameResult(pair, color))
+        if (this.TryAddGamePair(pair, color))
         {
             return;
         }
 
-        // If game is already in history, remove it.
-        // Then apply new result instead.
-        this.RemoveGameResult(pair, color);
-        if (!this.TryApplyGameResult(pair, color))
+        this.RemoveGamePair(pair, color);
+        if (!this.TryAddGamePair(pair, color))
         {
             throw new DomainException($"Failed to apply new game result: {pair}.");
         }
     }
 
-    private PlayerColor GetColorInPair(GamePair pair)
-    {
-        return pair.White.Equals(this)
-                   ? PlayerColor.White
-                   : PlayerColor.Black;
-    }
-
-    private bool TryApplyGameResult(GamePair pair, PlayerColor color)
+    private bool TryAddGamePair(GamePair pair, GamePair.PlayerColor color)
     {
         if (!this._gamesHistory.Add(pair))
         {
@@ -130,27 +128,27 @@ public sealed class Player : IEquatable<Player>
         switch (pair.Result)
         {
             // Win.
-            case GameResult.WhiteWinByDefault when color == PlayerColor.White:
-            case GameResult.WhiteWin when color          == PlayerColor.White:
-            case GameResult.BlackWinByDefault when color == PlayerColor.Black:
-            case GameResult.BlackWin when color          == PlayerColor.Black:
+            case GamePair.GameResult.WhiteWinByDefault when color == GamePair.PlayerColor.White:
+            case GamePair.GameResult.WhiteWin when color          == GamePair.PlayerColor.White:
+            case GamePair.GameResult.BlackWinByDefault when color == GamePair.PlayerColor.Black:
+            case GamePair.GameResult.BlackWin when color          == GamePair.PlayerColor.Black:
                 this.Points += 1;
                 this.Wins   += 1;
 
                 break;
             // Draw.
-            case GameResult.Draw:
+            case GamePair.GameResult.Draw:
                 this.Points += 0.5m;
                 this.Draws  += 1;
 
                 break;
             // Lose.
-            case GameResult.WhiteWinByDefault:
-            case GameResult.WhiteWin:
-            case GameResult.BlackWinByDefault:
-            case GameResult.BlackWin:
+            case GamePair.GameResult.WhiteWinByDefault:
+            case GamePair.GameResult.WhiteWin:
+            case GamePair.GameResult.BlackWinByDefault:
+            case GamePair.GameResult.BlackWin:
             // Both leave.
-            case GameResult.NotPlayed:
+            case GamePair.GameResult.NotPlayed:
                 this.Loses += 1;
 
                 break;
@@ -161,7 +159,7 @@ public sealed class Player : IEquatable<Player>
         return true;
     }
 
-    private void RemoveGameResult(GamePair pair, PlayerColor color)
+    private void RemoveGamePair(GamePair pair, GamePair.PlayerColor color)
     {
         if (!this._gamesHistory.Remove(pair))
         {
@@ -171,27 +169,27 @@ public sealed class Player : IEquatable<Player>
         switch (pair.Result)
         {
             // Was win.
-            case GameResult.WhiteWinByDefault when color == PlayerColor.White:
-            case GameResult.WhiteWin when color          == PlayerColor.White:
-            case GameResult.BlackWinByDefault when color == PlayerColor.Black:
-            case GameResult.BlackWin when color          == PlayerColor.Black:
+            case GamePair.GameResult.WhiteWinByDefault when color == GamePair.PlayerColor.White:
+            case GamePair.GameResult.WhiteWin when color          == GamePair.PlayerColor.White:
+            case GamePair.GameResult.BlackWinByDefault when color == GamePair.PlayerColor.Black:
+            case GamePair.GameResult.BlackWin when color          == GamePair.PlayerColor.Black:
                 this.Points -= 1;
                 this.Wins   -= 1;
 
                 break;
             // Was draw.
-            case GameResult.Draw:
+            case GamePair.GameResult.Draw:
                 this.Points -= 0.5m;
                 this.Draws  -= 1;
 
                 break;
             // Was lose.
-            case GameResult.WhiteWinByDefault:
-            case GameResult.WhiteWin:
-            case GameResult.BlackWinByDefault:
-            case GameResult.BlackWin:
+            case GamePair.GameResult.WhiteWinByDefault:
+            case GamePair.GameResult.WhiteWin:
+            case GamePair.GameResult.BlackWinByDefault:
+            case GamePair.GameResult.BlackWin:
             // Was both leave.
-            case GameResult.NotPlayed:
+            case GamePair.GameResult.NotPlayed:
                 this.Loses -= 1;
 
                 break;
