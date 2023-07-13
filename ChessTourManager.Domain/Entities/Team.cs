@@ -4,6 +4,13 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class Team : IEquatable<Team>
 {
+    public Team(Id<Guid> id, Name name, IEnumerable<Player> players)
+    {
+        this.Id      = id;
+        this.Players = players;
+        this.Name    = name;
+    }
+
     public Id<Guid> Id { get; }
 
     public IEnumerable<Player> Players { get; set; }
