@@ -54,4 +54,49 @@ public sealed class GamePair : IEquatable<GamePair>
     {
         return HashCode.Combine(this.White, this.Black);
     }
+
+    /// <inheritdoc />
+    /// <summary>
+    ///     Compares two <see cref="T:ChessTourManager.Domain.Entities.GamePair" /> objects for equality by their players.
+    /// </summary>
+    internal sealed class ByPlayersEqualityComparer : IEqualityComparer<GamePair>
+    {
+        public bool Equals(GamePair? x, GamePair? y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null || y is null)
+            {
+                return false;
+            }
+
+            // Impossible to have two games with the same players.
+            return x.White.Equals(y.White) && x.Black.Equals(y.Black)
+                || x.White.Equals(y.Black) && x.Black.Equals(y.White);
+        }
+
+        public int GetHashCode(GamePair obj)
+        {
+            return HashCode.Combine(obj.White, obj.Black);
+        }
+    }
+
+    internal enum PlayerColor
+    {
+        White,
+        Black,
+    }
+
+    internal enum GameResult
+    {
+        WhiteWin,
+        BlackWin,
+        Draw,
+        WhiteWinByDefault,
+        BlackWinByDefault,
+        NotPlayed,
+    }
 }
