@@ -11,8 +11,8 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament
                             TourNumber                                maxTour,
                             DateOnly                                  createdAt,
                             TourNumber                                currentTour,
-                            List<Group>                               groups,
-                            List<Team>                                teams,
+                            ICollection<Group>                        groups,
+                            ICollection<Team>                         teams,
                             bool                                      allowInGroupGames,
                             Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
@@ -21,7 +21,7 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament
         this.Teams = teams;
     }
 
-    public List<Team> Teams { get; }
+    public ICollection<Team> Teams { get; }
 
     private protected override DrawResult DrawSwiss()
     {
