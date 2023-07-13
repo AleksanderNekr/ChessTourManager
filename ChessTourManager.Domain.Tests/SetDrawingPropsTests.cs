@@ -8,7 +8,7 @@ public sealed class SetDrawingPropsTests
 {
     #region Create tournament
 
-    [Test]
+    [Fact]
     public void CreateSwiss_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
@@ -28,18 +28,18 @@ public sealed class SetDrawingPropsTests
                                                   createdAt, false, null);
 
         // Assert
-        Assert.AreEqual(id,                                   tournament.Id);
-        Assert.AreEqual(name,                                 tournament.Name);
-        Assert.AreEqual(drawSystem,                           tournament.System);
-        Assert.AreEqual(coefficients,                         tournament.Coefficients);
-        Assert.AreEqual(maxTour,                              tournament.MaxTour);
-        Assert.AreEqual(createdAt,                            tournament.CreatedAt);
-        Assert.AreEqual(currentTour,                          tournament.CurrentTour);
-        Assert.AreEqual(groups,                               tournament.Groups);
-        Assert.AreEqual(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(id,                                   tournament.Id);
+        Assert.Equal(name,                                 tournament.Name);
+        Assert.Equal(drawSystem,                           tournament.System);
+        Assert.Equal(coefficients,                         tournament.Coefficients);
+        Assert.Equal(maxTour,                              tournament.MaxTour);
+        Assert.Equal(createdAt,                            tournament.CreatedAt);
+        Assert.Equal(currentTour,                          tournament.CurrentTour);
+        Assert.Equal(groups,                               tournament.Groups);
+        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
     }
 
-    [Test]
+    [Fact]
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
@@ -58,10 +58,10 @@ public sealed class SetDrawingPropsTests
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
@@ -84,10 +84,10 @@ public sealed class SetDrawingPropsTests
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
@@ -106,10 +106,10 @@ public sealed class SetDrawingPropsTests
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void CreateRoundRobin_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
@@ -129,18 +129,18 @@ public sealed class SetDrawingPropsTests
                                                   createdAt, false, null);
 
         // Assert
-        Assert.AreEqual(id,                                   tournament.Id);
-        Assert.AreEqual(name,                                 tournament.Name);
-        Assert.AreEqual(drawSystem,                           tournament.System);
-        Assert.AreEqual(coefficients,                         tournament.Coefficients);
-        Assert.AreEqual(maxTour,                              tournament.MaxTour);
-        Assert.AreEqual(createdAt,                            tournament.CreatedAt);
-        Assert.AreEqual(currentTour,                          tournament.CurrentTour);
-        Assert.AreEqual(groups,                               tournament.Groups);
-        Assert.AreEqual(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(id,                                   tournament.Id);
+        Assert.Equal(name,                                 tournament.Name);
+        Assert.Equal(drawSystem,                           tournament.System);
+        Assert.Equal(coefficients,                         tournament.Coefficients);
+        Assert.Equal(maxTour,                              tournament.MaxTour);
+        Assert.Equal(createdAt,                            tournament.CreatedAt);
+        Assert.Equal(currentTour,                          tournament.CurrentTour);
+        Assert.Equal(groups,                               tournament.Groups);
+        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
     }
 
-    [Test]
+    [Fact]
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
@@ -159,10 +159,10 @@ public sealed class SetDrawingPropsTests
                                                            coefficients, maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
@@ -186,10 +186,10 @@ public sealed class SetDrawingPropsTests
                                                            maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
@@ -209,14 +209,14 @@ public sealed class SetDrawingPropsTests
                                                            maxTour,
                                                            currentTour, groups, createdAt, false, null));
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
     }
 
     #endregion CreateTournament
 
     #region Update coefficients for Round-Robin
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_RoundRobin_With_CorrectCoefficients_Should_SetCoefficients()
     {
         // Arrange
@@ -237,11 +237,11 @@ public sealed class SetDrawingPropsTests
         tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger });
 
         // Assert
-        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger },
+        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger },
                         tournament.Coefficients);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
@@ -266,10 +266,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
@@ -296,10 +296,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
@@ -327,10 +327,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
@@ -359,14 +359,14 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
     }
 
     #endregion Update coefficients for Round-Robin
 
     #region Update coefficients for Swiss
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients1()
     {
         // Arrange
@@ -388,11 +388,11 @@ public sealed class SetDrawingPropsTests
                                       { TournamentBase.DrawCoefficient.Buchholz });
 
         // Assert
-        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz },
+        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz },
                         tournament.Coefficients);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients2()
     {
         // Arrange
@@ -414,11 +414,11 @@ public sealed class SetDrawingPropsTests
                                       { TournamentBase.DrawCoefficient.TotalBuchholz });
 
         // Assert
-        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.TotalBuchholz },
+        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.TotalBuchholz },
                         tournament.Coefficients);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients3()
     {
         // Arrange
@@ -443,11 +443,11 @@ public sealed class SetDrawingPropsTests
                                       });
 
         // Assert
-        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
+        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
                         tournament.Coefficients);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
@@ -472,10 +472,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
@@ -502,10 +502,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
@@ -532,10 +532,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
@@ -562,10 +562,10 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
-    [Test]
+    [Fact]
     public void UpdateCoefficients_With_IncorrectCoefficients_Should_Throw5()
     {
         // Arrange
@@ -592,7 +592,7 @@ public sealed class SetDrawingPropsTests
                                                                                }));
 
         // Assert
-        Assert.AreEqual("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
+        Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
 
     #endregion UpdateCoefficients for Swiss
