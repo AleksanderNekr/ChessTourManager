@@ -2,11 +2,22 @@
 
 public sealed class GamePair : IEquatable<GamePair>
 {
-    public GamePair(in Player white, in Player black)
+    public enum GameResult
     {
-        this.White  = white;
-        this.Black  = black;
-        this.Result = GameResult.NotPlayed;
+        WhiteWin,
+        BlackWin,
+        Draw,
+        WhiteWinByDefault,
+        BlackWinByDefault,
+        BothLeave,
+        NotYetPlayed,
+    }
+
+    public GamePair(in Player white, in Player black, in GameResult result = GameResult.NotYetPlayed)
+    {
+        this.White = white;
+        this.Black = black;
+        this.SetResult(result);
     }
 
     internal Player White { get; }
@@ -72,7 +83,6 @@ public sealed class GamePair : IEquatable<GamePair>
                 return false;
             }
 
-            // Impossible to have two games with the same players.
             return x.White.Equals(y.White) && x.Black.Equals(y.Black)
                 || x.White.Equals(y.Black) && x.Black.Equals(y.White);
         }
@@ -87,15 +97,5 @@ public sealed class GamePair : IEquatable<GamePair>
     {
         White,
         Black,
-    }
-
-    internal enum GameResult
-    {
-        WhiteWin,
-        BlackWin,
-        Draw,
-        WhiteWinByDefault,
-        BlackWinByDefault,
-        NotPlayed,
     }
 }

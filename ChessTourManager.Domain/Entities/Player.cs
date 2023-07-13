@@ -148,9 +148,11 @@ public sealed class Player : IEquatable<Player>
             case GamePair.GameResult.BlackWinByDefault:
             case GamePair.GameResult.BlackWin:
             // Both leave.
-            case GamePair.GameResult.NotPlayed:
+            case GamePair.GameResult.BothLeave:
                 this.Loses += 1;
 
+                break;
+            case GamePair.GameResult.NotYetPlayed:
                 break;
             default:
                 throw new DomainOutOfRangeException(nameof(pair.Result), pair.Result);
@@ -189,9 +191,11 @@ public sealed class Player : IEquatable<Player>
             case GamePair.GameResult.BlackWinByDefault:
             case GamePair.GameResult.BlackWin:
             // Was both leave.
-            case GamePair.GameResult.NotPlayed:
+            case GamePair.GameResult.BothLeave:
                 this.Loses -= 1;
 
+                break;
+            case GamePair.GameResult.NotYetPlayed:
                 break;
             default:
                 throw new DomainOutOfRangeException(nameof(pair.Result), pair.Result);
