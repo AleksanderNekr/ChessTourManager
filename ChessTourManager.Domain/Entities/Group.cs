@@ -10,14 +10,17 @@ public sealed class Group : IEquatable<Group>
 
     public Name Name { get; set; }
 
+    public bool Equals(Group? other)
+    {
+        return other is not null
+            && this.Id   == other.Id
+            && this.Name == other.Name
+            && this.Players.SequenceEqual(other.Players);
+    }
+
     public override bool Equals(object? obj)
     {
         return obj is Group group && this.Equals(group);
-    }
-
-    public bool Equals(Group? other)
-    {
-        return other is not null && this.Id == other.Id && this.Name == other.Name;
     }
 
     public override int GetHashCode()
