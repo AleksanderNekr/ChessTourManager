@@ -7,7 +7,7 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament
     internal TeamTournament(Id<Guid>                                  id,
                             Name                                      name,
                             DrawSystem                                drawSystem,
-                            IReadOnlyCollection<Coefficient>          coefficients,
+                            IReadOnlyCollection<DrawCoefficient>      coefficients,
                             TourNumber                                maxTour,
                             DateOnly                                  createdAt,
                             TourNumber                                currentTour,
@@ -17,7 +17,7 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament
                             Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
-        this.Kind  = Kind.Team;
+        this.Kind  = TournamentKind.Team;
         this.Teams = teams;
     }
 

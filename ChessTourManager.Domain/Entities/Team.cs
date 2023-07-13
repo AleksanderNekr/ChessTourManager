@@ -15,11 +15,6 @@ public sealed class Team : IEquatable<Team>
         return obj is Team team && this.Equals(team);
     }
 
-    public bool Equals(Team? other)
-    {
-        return other is not null && this.Id == other.Id && this.Name == other.Name;
-    }
-
     public override int GetHashCode()
     {
         return this.Id.GetHashCode();

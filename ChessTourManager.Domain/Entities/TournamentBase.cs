@@ -8,10 +8,31 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase
 {
+    public enum DrawCoefficient
+    {
+        Berger,
+        SimpleBerger,
+        Buchholz,
+        TotalBuchholz,
+    }
+
+    public enum DrawSystem
+    {
+        RoundRobin,
+        Swiss,
+    }
+
+    public enum TournamentKind
+    {
+        Single,
+        Team,
+        SingleTeam,
+    }
+
     private protected TournamentBase(Id<Guid>                                  id,
                                      Name                                      name,
                                      DrawSystem                                drawSystem,
-                                     IReadOnlyCollection<Coefficient>          coefficients,
+                                     IReadOnlyCollection<DrawCoefficient>      coefficients,
                                      TourNumber                                maxTour,
                                      DateOnly                                  createdAt,
                                      TourNumber                                currentTour,
@@ -35,11 +56,11 @@ public abstract class TournamentBase
 
     public DateOnly CreatedAt { get; }
 
-    public DrawSystem DrawSystem { get; private set; }
+    public DrawSystem System { get; private set; }
 
-    public IReadOnlyCollection<Coefficient> Coefficients { get; private set; } = default!;
+    public IReadOnlyCollection<DrawCoefficient> Coefficients { get; private set; } = default!;
 
-    public Kind Kind { get; private protected init; }
+    public TournamentKind Kind { get; private protected init; }
 
     public TourNumber MaxTour { get; private set; }
 
@@ -59,7 +80,7 @@ public abstract class TournamentBase
     public static SingleTournament CreateSingleTournament(Id<Guid>                                  id,
                                                           Name                                      name,
                                                           DrawSystem                                drawSystem,
-                                                          IReadOnlyCollection<Coefficient>          coefficients,
+                                                          IReadOnlyCollection<DrawCoefficient>      coefficients,
                                                           TourNumber                                maxTour,
                                                           TourNumber                                currentTour,
                                                           List<Group>                               groups,
@@ -75,7 +96,7 @@ public abstract class TournamentBase
     public static TTournament CreateTeamTournament<TTournament>(Id<Guid> id,
                                                                 Name name,
                                                                 DrawSystem drawSystem,
-                                                                IReadOnlyCollection<Coefficient> coefficients,
+                                                                IReadOnlyCollection<DrawCoefficient> coefficients,
                                                                 TourNumber maxTour,
                                                                 TourNumber currentTour,
                                                                 List<Group> groups,
@@ -106,13 +127,21 @@ public abstract class TournamentBase
         return (TTournament)tournament;
     }
 
-    private static IEnumerable<Coefficient> GetPossibleCoefficients(DrawSystem drawSystem)
+    private static IEnumerable<DrawCoefficient> GetPossibleCoefficients(DrawSystem drawSystem)
     {
         return drawSystem switch
                {
-                   DrawSystem.RoundRobin => new List<Coefficient> { Coefficient.Berger, Coefficient.SimpleBerger },
-                   DrawSystem.Swiss      => new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
-                   _                     => throw new DomainOutOfRangeException(nameof(drawSystem), drawSystem),
+                   DrawSystem.RoundRobin => new List<DrawCoefficient>
+                                            {
+                                                DrawCoefficient.Berger,
+                                                DrawCoefficient.SimpleBerger,
+                                            },
+                   DrawSystem.Swiss => new List<DrawCoefficient>
+                                       {
+                                           DrawCoefficient.Buchholz,
+                                           DrawCoefficient.TotalBuchholz,
+                                       },
+                   _ => throw new DomainOutOfRangeException(nameof(drawSystem), drawSystem),
                };
     }
 
@@ -120,7 +149,7 @@ public abstract class TournamentBase
     {
         return CreateSingleTournament(this.Id,
                                       this.Name,
-                                      this.DrawSystem,
+                                      this.System,
                                       this.Coefficients,
                                       this.MaxTour,
                                       this.CurrentTour,
@@ -134,7 +163,7 @@ public abstract class TournamentBase
     {
         return CreateTeamTournament<TTournament>(this.Id,
                                                  this.Name,
-                                                 this.DrawSystem,
+                                                 this.System,
                                                  this.Coefficients,
                                                  this.MaxTour,
                                                  this.CurrentTour,
@@ -157,18 +186,18 @@ public abstract class TournamentBase
         this.CurrentTour = currentTour;
     }
 
-    private void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<Coefficient> coefficients)
+    private void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<DrawCoefficient> coefficients)
     {
-        this.DrawSystem = drawSystem;
+        this.System = drawSystem;
         this.UpdateCoefficients(coefficients);
     }
 
-    public void UpdateCoefficients(IReadOnlyCollection<Coefficient> coefficients)
+    public void UpdateCoefficients(IReadOnlyCollection<DrawCoefficient> coefficients)
     {
-        List<Coefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(this.DrawSystem)).ToList();
+        List<DrawCoefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(this.System)).ToList();
         if (wrongCoefficients.Any())
         {
-            throw new DomainException($"Wrong coefficients for {this.DrawSystem} draw system: {
+            throw new DomainException($"Wrong coefficients for {this.System} draw system: {
                 string.Join(", ", wrongCoefficients)}");
         }
 
@@ -177,11 +206,11 @@ public abstract class TournamentBase
 
     public DrawResult DrawNewTour()
     {
-        return this.DrawSystem switch
+        return this.System switch
                {
                    DrawSystem.RoundRobin => this.DrawRoundRobin(),
                    DrawSystem.Swiss      => this.DrawSwiss(),
-                   _ => throw new DomainOutOfRangeException(nameof(this.DrawSystem), this.DrawSystem,
+                   _ => throw new DomainOutOfRangeException(nameof(this.System), this.System,
                                                             "Cannot draw – unknown system"),
                };
     }

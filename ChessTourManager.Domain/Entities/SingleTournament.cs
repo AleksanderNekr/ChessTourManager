@@ -7,7 +7,7 @@ public sealed class SingleTournament : TournamentBase
     internal SingleTournament(Id<Guid>                                  id,
                               Name                                      name,
                               DrawSystem                                drawSystem,
-                              IReadOnlyCollection<Coefficient>          coefficients,
+                              IReadOnlyCollection<DrawCoefficient>      coefficients,
                               TourNumber                                maxTour,
                               DateOnly                                  createdAt,
                               TourNumber                                currentTour,
@@ -16,7 +16,7 @@ public sealed class SingleTournament : TournamentBase
                               Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
-        this.Kind = Kind.Single;
+        this.Kind = TournamentKind.Single;
     }
 
     private protected override DrawResult DrawSwiss()

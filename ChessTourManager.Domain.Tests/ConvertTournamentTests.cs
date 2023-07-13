@@ -17,9 +17,10 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToSingle1()
     {
         // Arrange
-        ArrangeFromSingle1(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
+        ArrangeFromSingle1(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament = TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour,
@@ -36,10 +37,11 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToSingle2()
     {
         // Arrange
-        ArrangeFromSingle2(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
-                           out Id<Guid>[] playerIds,           out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromSingle2(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
+                           out Id<Guid>[] playerIds,   out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
@@ -56,9 +58,10 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToSingleTeam1()
     {
         // Arrange
-        ArrangeFromSingle1(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
+        ArrangeFromSingle1(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament = TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour,
@@ -75,10 +78,11 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToSingleTeam2()
     {
         // Arrange
-        ArrangeFromSingle2(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
-                           out Id<Guid>[] playerIds,           out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromSingle2(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
+                           out Id<Guid>[] playerIds,   out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
@@ -96,9 +100,10 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToTeam1()
     {
         // Arrange
-        ArrangeFromSingle1(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
+        ArrangeFromSingle1(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament = TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour,
@@ -115,10 +120,11 @@ public class ConvertTournamentTests
     public void ConvertFromSingleToTeam2()
     {
         // Arrange
-        ArrangeFromSingle2(out Guid guid,                      out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                           out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                           out TourNumber currentTour,         out List<Group> groups, out bool allowInGroupGames,
-                           out Id<Guid>[] playerIds,           out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromSingle2(out Guid guid, out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                           out TourNumber maxTour,
+                           out TourNumber currentTour, out List<Group> groups, out bool allowInGroupGames,
+                           out Id<Guid>[] playerIds,   out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         SingleTournament tournament = TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour,
                                                                             currentTour, groups, createdAt,
@@ -136,8 +142,8 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToSingle1()
     {
         // Arrange
-        Guid guid = ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                           out List<Coefficient> coefficients, out DateOnly createdAt,
+        Guid guid = ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
                                            out TourNumber maxTour, out TourNumber currentTour, out List<Group> groups,
                                            out List<Team> teams, out bool allowInGroupGames,
                                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
@@ -157,8 +163,8 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToSingle2()
     {
         // Arrange
-        Guid guid = ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                           out List<Coefficient> coefficients, out DateOnly createdAt,
+        Guid guid = ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
                                            out TourNumber maxTour, out TourNumber currentTour, out List<Group> groups,
                                            out List<Team> teams, out bool allowInGroupGames, out Id<Guid>[] playerIds,
                                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
@@ -180,8 +186,9 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToTeam1()
     {
         // Arrange
-        ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                               out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
+        ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                               out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                               out TourNumber maxTour,
                                out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
                                out bool allowInGroupGames, out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
@@ -200,10 +207,11 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToTeam2()
     {
         // Arrange
-        ArrangeFromSingleTeam2(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                               out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                               out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                               out bool allowInGroupGames,         out Id<Guid>[] playerIds,
+        ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                               out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                               out TourNumber maxTour,
+                               out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                               out bool allowInGroupGames, out Id<Guid>[] playerIds,
                                out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament =
@@ -222,8 +230,9 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToSingleTeam1()
     {
         // Arrange
-        ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                               out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
+        ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                               out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                               out TourNumber maxTour,
                                out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
                                out bool allowInGroupGames, out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
@@ -241,10 +250,11 @@ public class ConvertTournamentTests
     public void ConvertFromSingleTeamToSingleTeam2()
     {
         // Arrange
-        ArrangeFromSingleTeam2(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                               out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                               out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                               out bool allowInGroupGames,         out Id<Guid>[] playerIds,
+        ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                               out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                               out TourNumber maxTour,
+                               out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                               out bool allowInGroupGames, out Id<Guid>[] playerIds,
                                out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament =
@@ -263,10 +273,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToSingle1()
     {
         // Arrange
-        ArrangeFromTeam1(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients,
                                                                              maxTour, currentTour, groups, createdAt,
@@ -283,10 +294,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToSingle2()
     {
         // Arrange
-        ArrangeFromTeam2(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Id<Guid>[] playerIds,
+        ArrangeFromTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Id<Guid>[] playerIds,
                          out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament =
@@ -305,10 +317,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToSingleTeam1()
     {
         // Arrange
-        ArrangeFromTeam1(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients,
                                                                              maxTour, currentTour, groups, createdAt,
@@ -325,10 +338,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToSingleTeam2()
     {
         // Arrange
-        ArrangeFromTeam2(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Id<Guid>[] playerIds,
+        ArrangeFromTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Id<Guid>[] playerIds,
                          out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament =
@@ -347,10 +361,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToTeam1()
     {
         // Arrange
-        ArrangeFromTeam1(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
+        ArrangeFromTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id, name, drawSystem, coefficients,
                                                                              maxTour, currentTour, groups, createdAt,
@@ -367,10 +382,11 @@ public class ConvertTournamentTests
     public void ConvertFromTeamToTeam2()
     {
         // Arrange
-        ArrangeFromTeam2(out Id<Guid> id,                    out Name name,          out DrawSystem drawSystem,
-                         out List<Coefficient> coefficients, out DateOnly createdAt, out TourNumber maxTour,
-                         out TourNumber currentTour,         out List<Group> groups, out List<Team> teams,
-                         out bool allowInGroupGames,         out Id<Guid>[] playerIds,
+        ArrangeFromTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                         out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
+                         out TourNumber maxTour,
+                         out TourNumber currentTour, out List<Group> groups, out List<Team> teams,
+                         out bool allowInGroupGames, out Id<Guid>[] playerIds,
                          out Dictionary<TourNumber, HashSet<GamePair>> gamePairs);
 
         var tournament =
@@ -390,10 +406,10 @@ public class ConvertTournamentTests
 
         Assert.AreEqual(new Id<Guid>(guid),                              result.Id);
         Assert.AreEqual(new Name("Test"),                                result.Name);
-        Assert.AreEqual(DrawSystem.RoundRobin,                           result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient>(),                         result.Coefficients);
+        Assert.AreEqual(TournamentBase.DrawSystem.RoundRobin,            result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient>(),      result.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1),                        result.CreatedAt);
-        Assert.AreEqual(Kind.Single,                                     result.Kind);
+        Assert.AreEqual(TournamentBase.TournamentKind.Single,            result.Kind);
         Assert.AreEqual(new TourNumber(1),                               result.MaxTour);
         Assert.AreEqual(new TourNumber(1),                               result.CurrentTour);
         Assert.AreEqual(new List<Group>(),                               result.Groups);
@@ -401,8 +417,9 @@ public class ConvertTournamentTests
         Assert.AreEqual(new Dictionary<TourNumber, HashSet<GamePair>>(), result.GamePairs);
     }
 
-    private static void ArrangeFromSingle1(out Guid guid, out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                           out List<Coefficient> coefficients, out DateOnly createdAt,
+    private static void ArrangeFromSingle1(out Guid guid, out Id<Guid> id, out Name name,
+                                           out TournamentBase.DrawSystem drawSystem,
+                                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
                                            out TourNumber maxTour,
                                            out TourNumber currentTour, out List<Group> groups,
                                            out bool allowInGroupGames,
@@ -412,8 +429,8 @@ public class ConvertTournamentTests
         guid              = Guid.NewGuid();
         id                = guid;
         name              = "Test";
-        drawSystem        = DrawSystem.RoundRobin;
-        coefficients      = new List<Coefficient>();
+        drawSystem        = TournamentBase.DrawSystem.RoundRobin;
+        coefficients      = new List<TournamentBase.DrawCoefficient>();
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 1;
         currentTour       = 1;
@@ -426,15 +443,15 @@ public class ConvertTournamentTests
     private static void AssertToSingle2(Guid guid, SingleTournament result, Id<Guid>[] playerIds)
     {
 
-        Assert.AreEqual(new Id<Guid>(guid), result.Id);
-        Assert.AreEqual(new Name("Test"),   result.Name);
-        Assert.AreEqual(DrawSystem.Swiss,   result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
+        Assert.AreEqual(new Id<Guid>(guid),              result.Id);
+        Assert.AreEqual(new Name("Test"),                result.Name);
+        Assert.AreEqual(TournamentBase.DrawSystem.Swiss, result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
                         result.Coefficients);
-        Assert.AreEqual(new DateOnly(2021, 1, 1), result.CreatedAt);
-        Assert.AreEqual(Kind.Single,              result.Kind);
-        Assert.AreEqual(new TourNumber(7),        result.MaxTour);
-        Assert.AreEqual(new TourNumber(2),        result.CurrentTour);
+        Assert.AreEqual(new DateOnly(2021, 1, 1),             result.CreatedAt);
+        Assert.AreEqual(TournamentBase.TournamentKind.Single, result.Kind);
+        Assert.AreEqual(new TourNumber(7),                    result.MaxTour);
+        Assert.AreEqual(new TourNumber(2),                    result.CurrentTour);
         Assert.AreEqual(new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } },
                         result.Groups);
         Assert.AreEqual(true, result.AllowInGroupGames);
@@ -461,8 +478,9 @@ public class ConvertTournamentTests
                         }, result.GamePairs);
     }
 
-    private static void ArrangeFromSingle2(out Guid guid, out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                           out List<Coefficient> coefficients, out DateOnly createdAt,
+    private static void ArrangeFromSingle2(out Guid guid, out Id<Guid> id, out Name name,
+                                           out TournamentBase.DrawSystem drawSystem,
+                                           out List<TournamentBase.DrawCoefficient> coefficients, out DateOnly createdAt,
                                            out TourNumber maxTour,
                                            out TourNumber currentTour, out List<Group> groups,
                                            out bool allowInGroupGames,
@@ -470,15 +488,16 @@ public class ConvertTournamentTests
                                            out Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
     {
 
-        guid              = Guid.NewGuid();
-        id                = guid;
-        name              = "Test";
-        drawSystem        = DrawSystem.Swiss;
-        coefficients      = new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz };
+        guid       = Guid.NewGuid();
+        id         = guid;
+        name       = "Test";
+        drawSystem = TournamentBase.DrawSystem.Swiss;
+        coefficients = new List<TournamentBase.DrawCoefficient>
+                       { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 7;
         currentTour       = 2;
-        groups            = new List<Group> { new Group { Name = "Group1" }, new Group { Name = "Group2" } };
+        groups            = new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } };
         allowInGroupGames = true;
 
         playerIds = new Id<Guid>[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
@@ -504,10 +523,10 @@ public class ConvertTournamentTests
 
         Assert.AreEqual(new Id<Guid>(guid),                              result.Id);
         Assert.AreEqual(new Name("Test"),                                result.Name);
-        Assert.AreEqual(DrawSystem.RoundRobin,                           result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient>(),                         result.Coefficients);
+        Assert.AreEqual(TournamentBase.DrawSystem.RoundRobin,            result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient>(),      result.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1),                        result.CreatedAt);
-        Assert.AreEqual(Kind.SingleTeam,                                 result.Kind);
+        Assert.AreEqual(TournamentBase.TournamentKind.SingleTeam,        result.Kind);
         Assert.AreEqual(new TourNumber(1),                               result.MaxTour);
         Assert.AreEqual(new TourNumber(1),                               result.CurrentTour);
         Assert.AreEqual(new List<Group>(),                               result.Groups);
@@ -519,15 +538,15 @@ public class ConvertTournamentTests
     private static void AssertToSingleTeam2(Guid guid, SingleTeamTournament result, Id<Guid>[] playerIds)
     {
 
-        Assert.AreEqual(new Id<Guid>(guid), result.Id);
-        Assert.AreEqual(new Name("Test"),   result.Name);
-        Assert.AreEqual(DrawSystem.Swiss,   result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
+        Assert.AreEqual(new Id<Guid>(guid),              result.Id);
+        Assert.AreEqual(new Name("Test"),                result.Name);
+        Assert.AreEqual(TournamentBase.DrawSystem.Swiss, result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
                         result.Coefficients);
-        Assert.AreEqual(new DateOnly(2021, 1, 1), result.CreatedAt);
-        Assert.AreEqual(Kind.SingleTeam,          result.Kind);
-        Assert.AreEqual(new TourNumber(7),        result.MaxTour);
-        Assert.AreEqual(new TourNumber(2),        result.CurrentTour);
+        Assert.AreEqual(new DateOnly(2021, 1, 1),                 result.CreatedAt);
+        Assert.AreEqual(TournamentBase.TournamentKind.SingleTeam, result.Kind);
+        Assert.AreEqual(new TourNumber(7),                        result.MaxTour);
+        Assert.AreEqual(new TourNumber(2),                        result.CurrentTour);
         Assert.AreEqual(new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } },
                         result.Groups);
         Assert.AreEqual(new List<Team> { new() { Name = "Team1" } }, result.Teams);
@@ -560,10 +579,10 @@ public class ConvertTournamentTests
 
         Assert.AreEqual(new Id<Guid>(guid),                              result.Id);
         Assert.AreEqual(new Name("Test"),                                result.Name);
-        Assert.AreEqual(DrawSystem.RoundRobin,                           result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient>(),                         result.Coefficients);
+        Assert.AreEqual(TournamentBase.DrawSystem.RoundRobin,            result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient>(),      result.Coefficients);
         Assert.AreEqual(new DateOnly(2021, 1, 1),                        result.CreatedAt);
-        Assert.AreEqual(Kind.Team,                                       result.Kind);
+        Assert.AreEqual(TournamentBase.TournamentKind.Team,              result.Kind);
         Assert.AreEqual(new TourNumber(1),                               result.MaxTour);
         Assert.AreEqual(new TourNumber(1),                               result.CurrentTour);
         Assert.AreEqual(new List<Group>(),                               result.Groups);
@@ -575,15 +594,15 @@ public class ConvertTournamentTests
     private static void AssertToTeam2(Guid guid, TeamTournament result, Id<Guid>[] playerIds)
     {
 
-        Assert.AreEqual(new Id<Guid>(guid), result.Id);
-        Assert.AreEqual(new Name("Test"),   result.Name);
-        Assert.AreEqual(DrawSystem.Swiss,   result.DrawSystem);
-        Assert.AreEqual(new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz },
+        Assert.AreEqual(new Id<Guid>(guid),              result.Id);
+        Assert.AreEqual(new Name("Test"),                result.Name);
+        Assert.AreEqual(TournamentBase.DrawSystem.Swiss, result.System);
+        Assert.AreEqual(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
                         result.Coefficients);
-        Assert.AreEqual(new DateOnly(2021, 1, 1), result.CreatedAt);
-        Assert.AreEqual(Kind.Team,                result.Kind);
-        Assert.AreEqual(new TourNumber(7),        result.MaxTour);
-        Assert.AreEqual(new TourNumber(2),        result.CurrentTour);
+        Assert.AreEqual(new DateOnly(2021, 1, 1),           result.CreatedAt);
+        Assert.AreEqual(TournamentBase.TournamentKind.Team, result.Kind);
+        Assert.AreEqual(new TourNumber(7),                  result.MaxTour);
+        Assert.AreEqual(new TourNumber(2),                  result.CurrentTour);
         Assert.AreEqual(new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } },
                         result.Groups);
         Assert.AreEqual(new List<Team> { new() { Name = "Team1" } }, result.Teams);
@@ -611,8 +630,8 @@ public class ConvertTournamentTests
                         }, result.GamePairs);
     }
 
-    private static Guid ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                               out List<Coefficient> coefficients,
+    private static Guid ArrangeFromSingleTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                               out List<TournamentBase.DrawCoefficient> coefficients,
                                                out DateOnly createdAt, out TourNumber maxTour, out TourNumber currentTour,
                                                out List<Group> groups, out List<Team> teams, out bool allowInGroupGames,
                                                out Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
@@ -621,8 +640,8 @@ public class ConvertTournamentTests
         var guid = Guid.NewGuid();
         id                = guid;
         name              = "Test";
-        drawSystem        = DrawSystem.RoundRobin;
-        coefficients      = new List<Coefficient>();
+        drawSystem        = TournamentBase.DrawSystem.RoundRobin;
+        coefficients      = new List<TournamentBase.DrawCoefficient>();
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 1;
         currentTour       = 1;
@@ -634,8 +653,8 @@ public class ConvertTournamentTests
         return guid;
     }
 
-    private static Guid ArrangeFromTeam1(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                         out List<Coefficient> coefficients,
+    private static Guid ArrangeFromTeam1(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                         out List<TournamentBase.DrawCoefficient> coefficients,
                                          out DateOnly createdAt, out TourNumber maxTour, out TourNumber currentTour,
                                          out List<Group> groups, out List<Team> teams, out bool allowInGroupGames,
                                          out Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
@@ -644,8 +663,8 @@ public class ConvertTournamentTests
         var guid = Guid.NewGuid();
         id                = guid;
         name              = "Test";
-        drawSystem        = DrawSystem.RoundRobin;
-        coefficients      = new List<Coefficient>();
+        drawSystem        = TournamentBase.DrawSystem.RoundRobin;
+        coefficients      = new List<TournamentBase.DrawCoefficient>();
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 1;
         currentTour       = 1;
@@ -657,8 +676,8 @@ public class ConvertTournamentTests
         return guid;
     }
 
-    private static Guid ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                               out List<Coefficient> coefficients,
+    private static Guid ArrangeFromSingleTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                               out List<TournamentBase.DrawCoefficient> coefficients,
                                                out DateOnly createdAt, out TourNumber maxTour, out TourNumber currentTour,
                                                out List<Group> groups, out List<Team> teams, out bool allowInGroupGames,
                                                out Id<Guid>[] playerIds,
@@ -666,15 +685,16 @@ public class ConvertTournamentTests
     {
 
         var guid = Guid.NewGuid();
-        id                = guid;
-        name              = "Test";
-        drawSystem        = DrawSystem.Swiss;
-        coefficients      = new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz };
+        id         = guid;
+        name       = "Test";
+        drawSystem = TournamentBase.DrawSystem.Swiss;
+        coefficients = new List<TournamentBase.DrawCoefficient>
+                       { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 7;
         currentTour       = 2;
-        groups            = new List<Group> { new Group { Name = "Group1" }, new Group { Name = "Group2" } };
-        teams             = new List<Team> { new Team { Name   = "Team1" } };
+        groups            = new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } };
+        teams             = new List<Team> { new() { Name  = "Team1" } };
         allowInGroupGames = true;
 
         playerIds = new Id<Guid>[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
@@ -697,8 +717,8 @@ public class ConvertTournamentTests
         return guid;
     }
 
-    private static Guid ArrangeFromTeam2(out Id<Guid> id, out Name name, out DrawSystem drawSystem,
-                                         out List<Coefficient> coefficients,
+    private static Guid ArrangeFromTeam2(out Id<Guid> id, out Name name, out TournamentBase.DrawSystem drawSystem,
+                                         out List<TournamentBase.DrawCoefficient> coefficients,
                                          out DateOnly createdAt, out TourNumber maxTour, out TourNumber currentTour,
                                          out List<Group> groups, out List<Team> teams, out bool allowInGroupGames,
                                          out Id<Guid>[] playerIds,
@@ -706,15 +726,16 @@ public class ConvertTournamentTests
     {
 
         var guid = Guid.NewGuid();
-        id                = guid;
-        name              = "Test";
-        drawSystem        = DrawSystem.Swiss;
-        coefficients      = new List<Coefficient> { Coefficient.Buchholz, Coefficient.TotalBuchholz };
+        id         = guid;
+        name       = "Test";
+        drawSystem = TournamentBase.DrawSystem.Swiss;
+        coefficients = new List<TournamentBase.DrawCoefficient>
+                       { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
         createdAt         = new DateOnly(2021, 1, 1);
         maxTour           = 7;
         currentTour       = 2;
-        groups            = new List<Group> { new Group { Name = "Group1" }, new Group { Name = "Group2" } };
-        teams             = new List<Team> { new Team { Name   = "Team1" } };
+        groups            = new List<Group> { new() { Name = "Group1" }, new() { Name = "Group2" } };
+        teams             = new List<Team> { new() { Name  = "Team1" } };
         allowInGroupGames = true;
 
         playerIds = new Id<Guid>[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
