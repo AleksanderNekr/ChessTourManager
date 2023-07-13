@@ -5,7 +5,8 @@ public readonly ref struct DrawResult
     public enum ResultType
     {
         Success,
-        Fail,
+        NotEnoughPlayers,
+        TournamentIsOver,
     }
 
     private DrawResult(ResultType result, ReadOnlySpan<char> message)
@@ -18,13 +19,18 @@ public readonly ref struct DrawResult
 
     public ReadOnlySpan<char> Message { get; }
 
-    public static DrawResult Success(ReadOnlySpan<char> message = default)
+    public static DrawResult Success(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.Success, message);
     }
 
-    public static DrawResult Fail(ReadOnlySpan<char> message = default)
+    public static DrawResult NotEnoughPlayers(ReadOnlySpan<char> message)
     {
-        return new DrawResult(ResultType.Fail, message);
+        return new DrawResult(ResultType.NotEnoughPlayers, message);
+    }
+
+    public static DrawResult TournamentIsOver(ReadOnlySpan<char> message)
+    {
+        return new DrawResult(ResultType.TournamentIsOver, message);
     }
 }
