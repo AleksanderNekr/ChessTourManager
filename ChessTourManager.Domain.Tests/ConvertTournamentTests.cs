@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using ChessTourManager.Domain.Entities;
 using ChessTourManager.Domain.ValueObjects;
 
@@ -101,14 +100,14 @@ public sealed class ConvertTournamentTests
                          new TourNumber(1), new HashSet<GamePair>
                                             {
                                                 new(this._players[0], this._players[1]),
-                                                new(this._players[2], this._players[3])
+                                                new(this._players[2], this._players[3]),
                                             }
                      },
                      {
                          new TourNumber(2), new HashSet<GamePair>
                                             {
                                                 new(this._players[0], this._players[2]),
-                                                new(this._players[1], this._players[3])
+                                                new(this._players[1], this._players[3]),
                                             }
                      },
                  });
@@ -236,8 +235,8 @@ public sealed class ConvertTournamentTests
 
         // Act
         var result = tournament.ConvertToTeamTournament<SingleTeamTournament>();
-        result.Teams.Add(this._teams2[0]);
-        result.Teams.Add(this._teams2[1]);
+        result.TryAddTeam(this._teams2[0]);
+        result.TryAddTeam(this._teams2[1]);
 
         // Assert
         this.AssertDefault2(result, TournamentBase.TournamentKind.SingleTeam);
@@ -266,8 +265,8 @@ public sealed class ConvertTournamentTests
 
         // Act
         var result = tournament.ConvertToTeamTournament<TeamTournament>();
-        result.Teams.Add(this._teams2[0]);
-        result.Teams.Add(this._teams2[1]);
+        Assert.True(result.TryAddTeam(this._teams2[0]));
+        Assert.True(result.TryAddTeam(this._teams2[1]));
 
         // Assert
         this.AssertDefault2(result, TournamentBase.TournamentKind.Team);
@@ -452,16 +451,16 @@ public sealed class ConvertTournamentTests
 
     private void AssertDefault(TournamentBase result, TournamentBase.TournamentKind kind)
     {
-        Assert.Equal(new Id<Guid>(this._guid),                        result.Id);
-        Assert.Equal(new Name("Test"),                                result.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin,            result.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(),      result.Coefficients);
-        Assert.Equal(new DateOnly(2021, 1, 1),                        result.CreatedAt);
-        Assert.Equal(kind,                                            result.Kind);
-        Assert.Equal(new TourNumber(1),                               result.MaxTour);
-        Assert.Equal(new TourNumber(1),                               result.CurrentTour);
-        Assert.Equal(new List<Group>(),                               result.Groups);
-        Assert.Equal(false,                                           result.AllowInGroupGames);
+        Assert.Equal(new Id<Guid>(this._guid),                             result.Id);
+        Assert.Equal(new Name("Test"),                                     result.Name);
+        Assert.Equal(TournamentBase.DrawSystem.RoundRobin,                 result.System);
+        Assert.Equal(new List<TournamentBase.DrawCoefficient>(),           result.Coefficients);
+        Assert.Equal(new DateOnly(2021, 1, 1),                             result.CreatedAt);
+        Assert.Equal(kind,                                                 result.Kind);
+        Assert.Equal(new TourNumber(1),                                    result.MaxTour);
+        Assert.Equal(new TourNumber(1),                                    result.CurrentTour);
+        Assert.Equal(new List<Group>(),                                    result.Groups);
+        Assert.Equal(false,                                                result.AllowInGroupGames);
         Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair>>(), result.GamePairs);
     }
 

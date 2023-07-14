@@ -25,7 +25,7 @@ public sealed class SetDrawingPropsTests
         // Act
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(id,                                   tournament.Id);
@@ -56,7 +56,7 @@ public sealed class SetDrawingPropsTests
         // Act
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
@@ -82,7 +82,7 @@ public sealed class SetDrawingPropsTests
         // Act
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
@@ -104,7 +104,7 @@ public sealed class SetDrawingPropsTests
         // Act
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
@@ -126,7 +126,7 @@ public sealed class SetDrawingPropsTests
         // Act
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(id,                                   tournament.Id);
@@ -157,7 +157,7 @@ public sealed class SetDrawingPropsTests
         // Act
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
@@ -184,7 +184,7 @@ public sealed class SetDrawingPropsTests
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients,
                                                            maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
@@ -207,7 +207,7 @@ public sealed class SetDrawingPropsTests
         var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
                                                            coefficients,
                                                            maxTour,
-                                                           currentTour, groups, createdAt, false, null));
+                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
     }
@@ -231,7 +231,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger });
@@ -256,7 +256,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -284,7 +284,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -314,7 +314,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -345,7 +345,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -381,7 +381,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
@@ -407,7 +407,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
@@ -433,7 +433,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
@@ -462,7 +462,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -490,7 +490,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -520,7 +520,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -550,7 +550,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
@@ -580,7 +580,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
         SingleTournament tournament =
             TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, null);
+                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Act
         var exception =
