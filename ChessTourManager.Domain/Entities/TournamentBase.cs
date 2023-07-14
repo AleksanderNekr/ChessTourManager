@@ -245,8 +245,3 @@ public abstract class TournamentBase : INameable
 
     private protected abstract DrawResult DrawRoundRobin();
 }
-
-public interface ITeamTournament
-{
-    public ICollection<Team> Teams { get; }
-}
