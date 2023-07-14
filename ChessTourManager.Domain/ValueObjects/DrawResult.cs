@@ -7,6 +7,7 @@ public readonly ref struct DrawResult
         Success,
         NotEnoughPlayers,
         TournamentIsOver,
+        Fail,
     }
 
     private DrawResult(ResultType result, ReadOnlySpan<char> message)
@@ -32,5 +33,10 @@ public readonly ref struct DrawResult
     public static DrawResult TournamentIsOver(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.TournamentIsOver, message);
+    }
+
+    public static DrawResult Fail(ReadOnlySpan<char> message)
+    {
+        return new DrawResult(ResultType.Fail, message);
     }
 }
