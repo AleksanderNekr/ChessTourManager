@@ -7,7 +7,7 @@ using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
-public abstract class TournamentBase
+public abstract class TournamentBase : INameable
 {
     public enum DrawCoefficient
     {

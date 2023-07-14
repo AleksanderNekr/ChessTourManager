@@ -2,7 +2,7 @@
 
 namespace ChessTourManager.Domain.Entities;
 
-public sealed class Team : IEquatable<Team>
+public sealed class Team : IEquatable<Team>, INameable
 {
     public Team(Id<Guid> id, Name name, IEnumerable<Player> players)
     {

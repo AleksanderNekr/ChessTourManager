@@ -3,7 +3,7 @@ using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
-public sealed class Player : IEquatable<Player>
+public sealed class Player : IEquatable<Player>, INameable
 {
     private readonly HashSet<GamePair> _gamesHistory;
     private          decimal           _points;
@@ -17,7 +17,7 @@ public sealed class Player : IEquatable<Player>
 
     private Id<Guid> Id { get; }
 
-    private Name Name { get; }
+    public Name Name { get; }
 
     private decimal Points
     {
