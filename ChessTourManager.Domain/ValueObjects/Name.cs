@@ -3,7 +3,7 @@ using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
-public sealed class Name
+public sealed class Name : IEquatable<Name>
 {
     private readonly string _value;
 
@@ -35,12 +35,7 @@ public sealed class Name
 
     public override bool Equals(object? obj)
     {
-        if (obj is not Name other)
-        {
-            return false;
-        }
-
-        return this._value == other._value;
+        return obj is Name other && this.Equals(other);
     }
 
     public override int GetHashCode()
@@ -56,5 +51,20 @@ public sealed class Name
     public static bool operator !=(Name left, Name right)
     {
         return !(left == right);
+    }
+
+    public bool Equals(Name? other)
+    {
+        if (ReferenceEquals(null, other))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return this._value == other._value;
     }
 }
