@@ -4,6 +4,8 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class TeamTournament : TournamentBase, ITeamTournament
 {
+    private readonly HashSet<Team> _teams;
+
     internal TeamTournament(Id<Guid>                                                id,
                             Name                                                    name,
                             DrawSystem                                              drawSystem,
@@ -11,25 +13,38 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament
                             TourNumber                                              maxTour,
                             DateOnly                                                createdAt,
                             TourNumber                                              currentTour,
-                            ICollection<Group>                                      groups,
-                            ICollection<Team>                                       teams,
+                            IEnumerable<Group>                                      groups,
+                            IEnumerable<Team>                                       teams,
                             bool                                                    allowInGroupGames,
-                            IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
-        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
+                            IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> pairs)
+        : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, pairs)
     {
-        this.Kind  = TournamentKind.Team;
-        this.Teams = teams;
+        this.Kind   = TournamentKind.Team;
+        this._teams = teams.ToHashSet(new INameable.ByNameEqualityComparer<Team>());
     }
 
-    public ICollection<Team> Teams { get; }
+    public IReadOnlySet<Team> Teams
+    {
+        get => this._teams;
+    }
+
+    public bool TryAddTeam(Team team)
+    {
+        return this._teams.Add(team);
+    }
+
+    public bool TryRemoveTeam(Team team)
+    {
+        return this._teams.Remove(team);
+    }
 
     private protected override DrawResult DrawSwiss()
     {
-        throw new NotImplementedException();
+        return DrawResult.Fail("Swiss system is not implemented yet.");
     }
 
     private protected override DrawResult DrawRoundRobin()
     {
-        throw new NotImplementedException();
+        return DrawResult.Fail("Round-robin system is not implemented yet.");
     }
 }

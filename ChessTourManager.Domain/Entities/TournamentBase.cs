@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using ChessTourManager.Domain.Exceptions;
+﻿using ChessTourManager.Domain.Exceptions;
 using ChessTourManager.Domain.ValueObjects;
 
 // ReSharper disable TooManyDependencies
@@ -30,6 +29,10 @@ public abstract class TournamentBase : INameable
         SingleTeam,
     }
 
+    private readonly HashSet<Group> _groups;
+
+    private protected readonly Dictionary<TourNumber, IReadOnlySet<GamePair>> Pairings;
+
     private protected TournamentBase(Id<Guid>                                                id,
                                      Name                                                    name,
                                      DrawSystem                                              drawSystem,
@@ -37,16 +40,16 @@ public abstract class TournamentBase : INameable
                                      TourNumber                                              maxTour,
                                      DateOnly                                                createdAt,
                                      TourNumber                                              currentTour,
-                                     ICollection<Group>                                      groups,
+                                     IEnumerable<Group>                                      groups,
                                      bool                                                    allowInGroupGames,
-                                     IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
+                                     IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> pairs)
     {
         this.Id                = id;
         this.Name              = name;
         this.CreatedAt         = createdAt;
-        this.Groups            = groups;
         this.AllowInGroupGames = allowInGroupGames;
-        this.GamePairs         = gamePairs;
+        this._groups           = groups.ToHashSet(new INameable.ByNameEqualityComparer<Group>());
+        this.Pairings          = new Dictionary<TourNumber, IReadOnlySet<GamePair>>(pairs);
         this.SetDrawingProperties(drawSystem, coefficients);
         this.SetTours(maxTour, currentTour);
     }
@@ -67,27 +70,29 @@ public abstract class TournamentBase : INameable
 
     public TourNumber CurrentTour { get; private set; }
 
-    public ICollection<Group> Groups { get; }
-
     public bool AllowInGroupGames { get; }
 
-    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> GamePairs { get; }
-
-    public IReadOnlyCollection<Player> Players
+    public IReadOnlySet<Group> Groups
     {
-        get => this.Groups.SelectMany(static g => g.Players).ToImmutableList();
+        get => this._groups;
     }
 
-    public static SingleTournament CreateSingleTournament(Id<Guid>                                                id,
-                                                          Name                                                    name,
-                                                          DrawSystem                                              drawSystem,
-                                                          IReadOnlyCollection<DrawCoefficient>                    coefficients,
-                                                          TourNumber                                              maxTour,
-                                                          TourNumber                                              currentTour,
-                                                          ICollection<Group>                                      groups,
-                                                          DateOnly                                                createdAt,
-                                                          bool                                                    allowInGroupGames,
-                                                          IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
+    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> GamePairs
+    {
+        get => this.Pairings;
+    }
+
+    public static SingleTournament CreateSingleTournament(
+        Id<Guid>                                                id,
+        Name                                                    name,
+        DrawSystem                                              drawSystem,
+        IReadOnlyCollection<DrawCoefficient>                    coefficients,
+        TourNumber                                              maxTour,
+        TourNumber                                              currentTour,
+        IEnumerable<Group>                                      groups,
+        DateOnly                                                createdAt,
+        bool                                                    allowInGroupGames,
+        IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
     {
         return new SingleTournament(id,
                                     name,
@@ -102,17 +107,18 @@ public abstract class TournamentBase : INameable
 
     }
 
-    public static TTournament CreateTeamTournament<TTournament>(Id<Guid>                                                id,
-                                                                Name                                                    name,
-                                                                DrawSystem                                              drawSystem,
-                                                                IReadOnlyCollection<DrawCoefficient>                    coefficients,
-                                                                TourNumber                                              maxTour,
-                                                                TourNumber                                              currentTour,
-                                                                ICollection<Group>                                      groups,
-                                                                DateOnly                                                createdAt,
-                                                                ICollection<Team>                                       teams,
-                                                                bool                                                    allowInGroupGames,
-                                                                IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
+    public static TTournament CreateTeamTournament<TTournament>(
+        Id<Guid>                                                id,
+        Name                                                    name,
+        DrawSystem                                              drawSystem,
+        IReadOnlyCollection<DrawCoefficient>                    coefficients,
+        TourNumber                                              maxTour,
+        TourNumber                                              currentTour,
+        IEnumerable<Group>                                      groups,
+        DateOnly                                                createdAt,
+        IEnumerable<Team>                                       teams,
+        bool                                                    allowInGroupGames,
+        IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
         where TTournament : ITeamTournament
     {
         ITeamTournament tournament;
@@ -195,7 +201,7 @@ public abstract class TournamentBase : INameable
                                                  createdAt: this.CreatedAt,
                                                  groups: this.Groups,
                                                  teams: (this as ITeamTournament)?.Teams
-                                                     ?? new List<Team>(),
+                                                     ?? new HashSet<Team>(),
                                                  allowInGroupGames: this.AllowInGroupGames,
                                                  gamePairs: this.GamePairs);
     }
@@ -227,6 +233,16 @@ public abstract class TournamentBase : INameable
         }
 
         this.Coefficients = coefficients;
+    }
+
+    public bool TryAddGroup(Group group)
+    {
+        return this._groups.Add(group);
+    }
+
+    public bool TryRemoveGroup(Group group)
+    {
+        return this._groups.Remove(group);
     }
 
     public DrawResult DrawNewTour()

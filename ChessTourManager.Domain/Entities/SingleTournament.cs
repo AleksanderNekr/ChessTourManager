@@ -11,7 +11,7 @@ public sealed class SingleTournament : TournamentBase
                               TourNumber                                              maxTour,
                               DateOnly                                                createdAt,
                               TourNumber                                              currentTour,
-                              ICollection<Group>                                      groups,
+                              IEnumerable<Group>                                      groups,
                               bool                                                    allowInGroupGames,
                               IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
