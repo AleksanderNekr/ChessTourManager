@@ -21,11 +21,11 @@ public sealed class SingleTournament : TournamentBase
 
     private protected override DrawResult DrawSwiss()
     {
-        throw new NotImplementedException();
+        return DrawResult.Fail("Swiss system is not implemented yet.");
     }
 
     private protected override DrawResult DrawRoundRobin()
     {
-        throw new NotImplementedException();
+        return DrawResult.Fail("Round-robin system is not implemented yet.");
     }
 }
