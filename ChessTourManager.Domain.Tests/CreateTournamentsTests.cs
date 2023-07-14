@@ -57,7 +57,7 @@ public sealed class CreateTournamentsTests
                                                   groups,
                                                   createdAt,
                                                   false,
-                                                  new Dictionary<TourNumber, HashSet<GamePair>>());
+                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -101,7 +101,7 @@ public sealed class CreateTournamentsTests
                                                   groups,
                                                   createdAt,
                                                   false,
-                                                  new Dictionary<TourNumber, HashSet<GamePair>>());
+                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),              tournament.Id);
@@ -147,7 +147,7 @@ public sealed class CreateTournamentsTests
                                                   groups,
                                                   createdAt,
                                                   false,
-                                                  new Dictionary<TourNumber, HashSet<GamePair>>());
+                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -191,7 +191,7 @@ public sealed class CreateTournamentsTests
                                                   groups,
                                                   createdAt,
                                                   false,
-                                                  new Dictionary<TourNumber, HashSet<GamePair>>());
+                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
@@ -243,7 +243,7 @@ public sealed class CreateTournamentsTests
                                                                              teams,
                                                                              false,
                                                                              new Dictionary<TourNumber,
-                                                                                 HashSet<GamePair>>());
+                                                                                 IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -294,7 +294,7 @@ public sealed class CreateTournamentsTests
                                                                              teams,
                                                                              false,
                                                                              new Dictionary<TourNumber,
-                                                                                 HashSet<GamePair>>());
+                                                                                 IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),              tournament.Id);
@@ -348,7 +348,7 @@ public sealed class CreateTournamentsTests
                                                                              teams,
                                                                              false,
                                                                              new Dictionary<TourNumber,
-                                                                                 HashSet<GamePair>>());
+                                                                                 IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -399,7 +399,7 @@ public sealed class CreateTournamentsTests
                                                                              teams,
                                                                              false,
                                                                              new Dictionary<TourNumber,
-                                                                                 HashSet<GamePair>>());
+                                                                                 IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
@@ -456,7 +456,7 @@ public sealed class CreateTournamentsTests
             createdAt,
             teams,
             false,
-            new Dictionary<TourNumber, HashSet<GamePair>>());
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -506,7 +506,7 @@ public sealed class CreateTournamentsTests
             createdAt,
             teams,
             false,
-            new Dictionary<TourNumber, HashSet<GamePair>>());
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),              tournament.Id);
@@ -559,7 +559,7 @@ public sealed class CreateTournamentsTests
             createdAt,
             teams,
             false,
-            new Dictionary<TourNumber, HashSet<GamePair>>());
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
@@ -609,7 +609,7 @@ public sealed class CreateTournamentsTests
             createdAt,
             teams,
             false,
-            new Dictionary<TourNumber, HashSet<GamePair>>());
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),                   tournament.Id);

@@ -4,16 +4,16 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class SingleTournament : TournamentBase
 {
-    internal SingleTournament(Id<Guid>                                  id,
-                              Name                                      name,
-                              DrawSystem                                drawSystem,
-                              IReadOnlyCollection<DrawCoefficient>      coefficients,
-                              TourNumber                                maxTour,
-                              DateOnly                                  createdAt,
-                              TourNumber                                currentTour,
-                              ICollection<Group>                        groups,
-                              bool                                      allowInGroupGames,
-                              Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
+    internal SingleTournament(Id<Guid>                                                id,
+                              Name                                                    name,
+                              DrawSystem                                              drawSystem,
+                              IReadOnlyCollection<DrawCoefficient>                    coefficients,
+                              TourNumber                                              maxTour,
+                              DateOnly                                                createdAt,
+                              TourNumber                                              currentTour,
+                              ICollection<Group>                                      groups,
+                              bool                                                    allowInGroupGames,
+                              IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
         this.Kind = TournamentKind.Single;

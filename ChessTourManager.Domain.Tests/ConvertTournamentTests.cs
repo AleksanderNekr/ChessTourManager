@@ -35,8 +35,7 @@ public sealed class ConvertTournamentTests
     private readonly ImmutableArray<Group> _groups = ImmutableArray<Group>.Empty;
     private readonly ImmutableArray<Team>  _teams  = ImmutableArray<Team>.Empty;
 
-    private readonly ImmutableDictionary<TourNumber, HashSet<GamePair>> _gamePairs =
-        ImmutableDictionary<TourNumber, HashSet<GamePair>>.Empty;
+    private readonly Dictionary<TourNumber, IReadOnlySet<GamePair>> _gamePairs = new();
 
     private readonly ImmutableArray<TournamentBase.DrawCoefficient> _coefficients =
         ImmutableArray<TournamentBase.DrawCoefficient>.Empty;
@@ -45,7 +44,7 @@ public sealed class ConvertTournamentTests
 
     private readonly ImmutableArray<Team> _teams2;
 
-    private readonly ReadOnlyDictionary<TourNumber, HashSet<GamePair>> _gamePairs2;
+    private readonly Dictionary<TourNumber, IReadOnlySet<GamePair>> _gamePairs2;
 
     private readonly ImmutableArray<TournamentBase.DrawCoefficient> _coefficients2;
 
@@ -94,9 +93,9 @@ public sealed class ConvertTournamentTests
                                                     TournamentBase.DrawCoefficient.TotalBuchholz);
 
         this._gamePairs2 =
-            new ReadOnlyDictionary<TourNumber, HashSet<GamePair>>
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>
                 (
-                 new Dictionary<TourNumber, HashSet<GamePair>>
+                 new Dictionary<TourNumber, IReadOnlySet<GamePair>>
                  {
                      {
                          new TourNumber(1), new HashSet<GamePair>
@@ -124,7 +123,7 @@ public sealed class ConvertTournamentTests
                                                                        this._createdAt,
                                                                        AllowInGroupGames,
                                                                        new Dictionary<TourNumber,
-                                                                           HashSet<GamePair>>(this._gamePairs));
+                                                                           IReadOnlySet<GamePair>>(this._gamePairs));
         this._singleTournament2 = TournamentBase.CreateSingleTournament(this._id,
                                                                         Name,
                                                                         DrawSystem2,
@@ -135,7 +134,7 @@ public sealed class ConvertTournamentTests
                                                                         this._createdAt2,
                                                                         AllowInGroupGames2,
                                                                         new Dictionary<TourNumber,
-                                                                            HashSet<GamePair>>(this._gamePairs2));
+                                                                            IReadOnlySet<GamePair>>(this._gamePairs2));
         this._singleTeamTournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(this._id,
             Name,
             DrawSystem,
@@ -147,7 +146,7 @@ public sealed class ConvertTournamentTests
             new List<Team>(this._teams),
             AllowInGroupGames,
             new Dictionary<TourNumber,
-                HashSet<GamePair>>(this._gamePairs));
+                IReadOnlySet<GamePair>>(this._gamePairs));
         this._singleTeamTournament2 = TournamentBase.CreateTeamTournament<SingleTeamTournament>(this._id,
             Name,
             DrawSystem2,
@@ -159,7 +158,7 @@ public sealed class ConvertTournamentTests
             new List<Team>(this._teams2),
             AllowInGroupGames2,
             new Dictionary<TourNumber,
-                HashSet<GamePair>>(this._gamePairs2));
+                IReadOnlySet<GamePair>>(this._gamePairs2));
         this._teamTournament = TournamentBase.CreateTeamTournament<TeamTournament>(this._id,
             Name,
             DrawSystem,
@@ -170,7 +169,7 @@ public sealed class ConvertTournamentTests
             this._createdAt,
             new List<Team>(this._teams),
             AllowInGroupGames,
-            new Dictionary<TourNumber, HashSet<GamePair>>(this._gamePairs));
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>(this._gamePairs));
         this._teamTournament2 = TournamentBase.CreateTeamTournament<TeamTournament>(this._id,
             Name,
             DrawSystem2,
@@ -181,7 +180,7 @@ public sealed class ConvertTournamentTests
             this._createdAt2,
             new List<Team>(this._teams2),
             AllowInGroupGames2,
-            new Dictionary<TourNumber, HashSet<GamePair>>(this._gamePairs2));
+            new Dictionary<TourNumber, IReadOnlySet<GamePair>>(this._gamePairs2));
     }
 
     #endregion Arranged
@@ -463,7 +462,7 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new TourNumber(1),                               result.CurrentTour);
         Assert.Equal(new List<Group>(),                               result.Groups);
         Assert.Equal(false,                                           result.AllowInGroupGames);
-        Assert.Equal(new Dictionary<TourNumber, HashSet<GamePair>>(), result.GamePairs);
+        Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair>>(), result.GamePairs);
     }
 
     private void AssertDefault2(TournamentBase result, TournamentBase.TournamentKind kind)
@@ -485,7 +484,7 @@ public sealed class ConvertTournamentTests
                      },
                      result.Groups);
         Assert.Equal(true, result.AllowInGroupGames);
-        Assert.Equal(new Dictionary<TourNumber, HashSet<GamePair>>
+        Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair>>
                      {
                          {
                              new TourNumber(1), new HashSet<GamePair>

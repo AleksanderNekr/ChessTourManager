@@ -4,17 +4,17 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class SingleTeamTournament : TournamentBase, ITeamTournament
 {
-    internal SingleTeamTournament(Id<Guid>                                  id,
-                                  Name                                      name,
-                                  DrawSystem                                drawSystem,
-                                  IReadOnlyCollection<DrawCoefficient>      coefficients,
-                                  TourNumber                                maxTour,
-                                  DateOnly                                  createdAt,
-                                  TourNumber                                currentTour,
-                                  ICollection<Group>                        groups,
-                                  ICollection<Team>                         teams,
-                                  bool                                      allowInGroupGames,
-                                  Dictionary<TourNumber, HashSet<GamePair>> gamePairs)
+    internal SingleTeamTournament(Id<Guid>                                                id,
+                                  Name                                                    name,
+                                  DrawSystem                                              drawSystem,
+                                  IReadOnlyCollection<DrawCoefficient>                    coefficients,
+                                  TourNumber                                              maxTour,
+                                  DateOnly                                                createdAt,
+                                  TourNumber                                              currentTour,
+                                  ICollection<Group>                                      groups,
+                                  ICollection<Team>                                       teams,
+                                  bool                                                    allowInGroupGames,
+                                  IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair>> gamePairs)
         : base(id, name, drawSystem, coefficients, maxTour, createdAt, currentTour, groups, allowInGroupGames, gamePairs)
     {
         this.Kind  = TournamentKind.SingleTeam;
