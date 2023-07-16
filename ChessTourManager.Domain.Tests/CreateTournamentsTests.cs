@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using ChessTourManager.Domain.Entities;
+using ChessTourManager.Domain.Interfaces;
 using ChessTourManager.Domain.ValueObjects;
 
 // ReSharper disable CollectionNeverUpdated.Local
@@ -19,8 +20,8 @@ public sealed class CreateTournamentsTests
 
     public CreateTournamentsTests()
     {
-        this._teamNames  = ImmutableArray.Create("Team1",  "Team2",  "Team3",  "Team4");
-        this._groupNames = ImmutableArray.Create("Group1", "Group2", "Group3", "Group4");
+        this._teamNames  = ImmutableArray.Create("Team1",        "Team2",        "Team3",        "Team4");
+        this._groupNames = ImmutableArray.Create("Group1",       "Group2",       "Group3",       "Group4");
         this._guids      = ImmutableArray.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
         ImmutableArray<string> playerNames = ImmutableArray.Create("Player1", "Player2", "Player3", "Player4");
 
@@ -33,54 +34,54 @@ public sealed class CreateTournamentsTests
     #region Create Single tournament
 
     [Fact]
-    public void CreateSingleTournament_Swiss_Should_SetAllProps1()
+    public void SingleTournament_Swiss_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
 
         // Act
-        SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id,
-                                                  name,
-                                                  drawSystem,
-                                                  coefficients,
-                                                  maxTour,
-                                                  currentTour,
-                                                  groups,
-                                                  createdAt,
-                                                  false,
-                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        SingleTournament tournament = new SingleTournament(id,
+                                                           name,
+                                                           drawSystem,
+                                                           coefficients,
+                                                           maxTour,
+                                                           createdAt,
+                                                           false)
+                                      {
+                                          GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                                          Groups    = new HashSet<Group>(groups),
+                                      };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss,            tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single,       tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
+        Assert.Equal(new Name("Test"),                     tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,                     tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),          tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                    tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),             tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                    tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                    tournament.Groups);
+        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
-    public void CreateSingleTournament_Swiss_Should_SetAllProps2()
+    public void SingleTournament_Swiss_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -91,28 +92,28 @@ public sealed class CreateTournamentsTests
                              };
 
         // Act
-        SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id,
-                                                  name,
-                                                  drawSystem,
-                                                  coefficients,
-                                                  maxTour,
-                                                  currentTour,
-                                                  groups,
-                                                  createdAt,
-                                                  false,
-                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        SingleTournament tournament = new SingleTournament(id,
+                                                           name,
+                                                           drawSystem,
+                                                           coefficients,
+                                                           maxTour,
+                                                           createdAt,
+                                                           false)
+                                      {
+                                          GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                                          Groups    = new HashSet<Group>(groups),
+                                      };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),              tournament.Id);
-        Assert.Equal(new Name("Test"),                tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
+        Assert.Equal(new Id<Guid>(guid), tournament.Id);
+        Assert.Equal(new Name("Test"),   tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,   tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),
@@ -123,54 +124,54 @@ public sealed class CreateTournamentsTests
     }
 
     [Fact]
-    public void CreateSingleTournament_RoundRobin_Should_SetAllProps1()
+    public void SingleTournament_RoundRobin_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
 
         // Act
-        SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id,
-                                                  name,
-                                                  drawSystem,
-                                                  coefficients,
-                                                  maxTour,
-                                                  currentTour,
-                                                  groups,
-                                                  createdAt,
-                                                  false,
-                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        SingleTournament tournament = new SingleTournament(id,
+                                                           name,
+                                                           drawSystem,
+                                                           coefficients,
+                                                           maxTour,
+                                                           createdAt,
+                                                           false)
+                                      {
+                                          GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                                          Groups    = new HashSet<Group>(groups),
+                                      };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin,       tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single,       tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
+        Assert.Equal(new Name("Test"),                     tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin,                tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),          tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                    tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),             tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                    tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                    tournament.Groups);
+        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
-    public void CreateSingleTournament_RoundRobin_Should_SetAllProps2()
+    public void SingleTournament_RoundRobin_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -181,28 +182,28 @@ public sealed class CreateTournamentsTests
                              };
 
         // Act
-        SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id,
-                                                  name,
-                                                  drawSystem,
-                                                  coefficients,
-                                                  maxTour,
-                                                  currentTour,
-                                                  groups,
-                                                  createdAt,
-                                                  false,
-                                                  new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        SingleTournament tournament = new SingleTournament(id,
+                                                           name,
+                                                           drawSystem,
+                                                           coefficients,
+                                                           maxTour,
+                                                           createdAt,
+                                                           false)
+                                      {
+                                          GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                                          Groups    = new HashSet<Group>(groups),
+                                      };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
-        Assert.Equal(new Name("Test"),                     tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger },
+        Assert.Equal(new Id<Guid>(guid),    tournament.Id);
+        Assert.Equal(new Name("Test"),      tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin, tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),
@@ -220,54 +221,56 @@ public sealed class CreateTournamentsTests
     public void CreateTeamTournament_Swiss_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
-        List<Team>                           teams        = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
+        List<Team>            teams        = new();
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id,
-                                                                             name,
-                                                                             drawSystem,
-                                                                             coefficients,
-                                                                             maxTour,
-                                                                             currentTour,
-                                                                             groups,
-                                                                             createdAt,
-                                                                             teams,
-                                                                             false,
-                                                                             new Dictionary<TourNumber,
-                                                                                 IReadOnlySet<GamePair>>());
+        var tournament = new TeamTournament(id,
+                                            name,
+                                            drawSystem,
+                                            coefficients,
+                                            maxTour,
+                                            createdAt,
+                                            false)
+                         {
+                             Teams = new HashSet<Team>(teams),
+                             GamePairs =
+                                 new Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>>(),
+                             Groups = new HashSet<Group>(groups),
+                         };
+        ;
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss,            tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(new List<Team>(),                           tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team,         tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                 tournament.Id);
+        Assert.Equal(new Name("Test"),                   tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,                   tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),        tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                  tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),           tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                  tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                  tournament.Groups);
+        Assert.Equal(new List<Team>(),                   tournament.Teams);
+        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
     }
 
     [Fact]
     public void CreateTeamTournament_Swiss_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -283,29 +286,31 @@ public sealed class CreateTournamentsTests
                            };
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id,
-                                                                             name,
-                                                                             drawSystem,
-                                                                             coefficients,
-                                                                             maxTour,
-                                                                             currentTour,
-                                                                             groups,
-                                                                             createdAt,
-                                                                             teams,
-                                                                             false,
-                                                                             new Dictionary<TourNumber,
-                                                                                 IReadOnlySet<GamePair>>());
+        var tournament = new TeamTournament(id,
+                                            name,
+                                            drawSystem,
+                                            coefficients,
+                                            maxTour,
+                                            createdAt,
+                                            false)
+                         {
+                             Teams = new HashSet<Team>(teams),
+                             GamePairs =
+                                 new Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>>(),
+                             Groups = new HashSet<Group>(groups),
+                         };
+        ;
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),              tournament.Id);
-        Assert.Equal(new Name("Test"),                tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
+        Assert.Equal(new Id<Guid>(guid), tournament.Id);
+        Assert.Equal(new Name("Test"),   tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,   tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),
@@ -325,54 +330,56 @@ public sealed class CreateTournamentsTests
     public void CreateTeamTournament_RoundRobin_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
-        List<Team>                           teams        = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
+        List<Team>            teams        = new();
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id,
-                                                                             name,
-                                                                             drawSystem,
-                                                                             coefficients,
-                                                                             maxTour,
-                                                                             currentTour,
-                                                                             groups,
-                                                                             createdAt,
-                                                                             teams,
-                                                                             false,
-                                                                             new Dictionary<TourNumber,
-                                                                                 IReadOnlySet<GamePair>>());
+        var tournament = new TeamTournament(id,
+                                            name,
+                                            drawSystem,
+                                            coefficients,
+                                            maxTour,
+                                            createdAt,
+                                            false)
+                         {
+                             Teams = new HashSet<Team>(teams),
+                             GamePairs =
+                                 new Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>>(),
+                             Groups = new HashSet<Group>(groups),
+                         };
+        ;
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin,       tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(new List<Team>(),                           tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team,         tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                 tournament.Id);
+        Assert.Equal(new Name("Test"),                   tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin,              tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),        tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                  tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),           tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                  tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                  tournament.Groups);
+        Assert.Equal(new List<Team>(),                   tournament.Teams);
+        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
     }
 
     [Fact]
     public void CreateTeamTournament_RoundRobin_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -388,29 +395,29 @@ public sealed class CreateTournamentsTests
                            };
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<TeamTournament>(id,
-                                                                             name,
-                                                                             drawSystem,
-                                                                             coefficients,
-                                                                             maxTour,
-                                                                             currentTour,
-                                                                             groups,
-                                                                             createdAt,
-                                                                             teams,
-                                                                             false,
-                                                                             new Dictionary<TourNumber,
-                                                                                 IReadOnlySet<GamePair>>());
+        var tournament = new TeamTournament(id,
+                                            name,
+                                            drawSystem,
+                                            coefficients,
+                                            maxTour,
+                                            createdAt,
+                                            false)
+                         {
+                             Teams     = new HashSet<Team>(teams),
+                             GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>>(),
+                             Groups    = new HashSet<Group>(groups),
+                         };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
-        Assert.Equal(new Name("Test"),                     tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger },
+        Assert.Equal(new Id<Guid>(guid),    tournament.Id);
+        Assert.Equal(new Name("Test"),      tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin, tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),
@@ -434,53 +441,54 @@ public sealed class CreateTournamentsTests
     public void CreateSingleTeamTournament_Swiss_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
-        List<Team>                           teams        = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
+        List<Team>            teams        = new();
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id,
-            name,
-            drawSystem,
-            coefficients,
-            maxTour,
-            currentTour,
-            groups,
-            createdAt,
-            teams,
-            false,
-            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        var tournament = new SingleTeamTournament(id,
+                                                  name,
+                                                  drawSystem,
+                                                  coefficients,
+                                                  maxTour,
+                                                  createdAt,
+                                                  false)
+                         {
+                             Teams     = new HashSet<Team>(teams),
+                             GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                             Groups    = new HashSet<Group>(groups),
+                         };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss,            tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(new List<Team>(),                           tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam,   tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                       tournament.Id);
+        Assert.Equal(new Name("Test"),                         tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,                         tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),              tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                        tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),                 tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                        tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                        tournament.Groups);
+        Assert.Equal(new List<Team>(),                         tournament.Teams);
+        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
     }
 
     [Fact]
     public void CreateSingleTeamTournament_Swiss_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -496,28 +504,29 @@ public sealed class CreateTournamentsTests
                            };
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id,
-            name,
-            drawSystem,
-            coefficients,
-            maxTour,
-            currentTour,
-            groups,
-            createdAt,
-            teams,
-            false,
-            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        var tournament = new SingleTeamTournament(id,
+                                                  name,
+                                                  drawSystem,
+                                                  coefficients,
+                                                  maxTour,
+                                                  createdAt,
+                                                  false)
+                         {
+                             Teams     = new HashSet<Team>(teams),
+                             GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                             Groups    = new HashSet<Group>(groups),
+                         };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),              tournament.Id);
-        Assert.Equal(new Name("Test"),                tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.Swiss, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
+        Assert.Equal(new Id<Guid>(guid), tournament.Id);
+        Assert.Equal(new Name("Test"),   tournament.Name);
+        Assert.Equal(DrawSystem.Swiss,   tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),
@@ -537,53 +546,54 @@ public sealed class CreateTournamentsTests
     public void CreateSingleTeamTournament_RoundRobin_Should_SetAllProps1()
     {
         // Arrange
-        var                                  guid         = Guid.NewGuid();
-        Id<Guid>                             id           = guid;
-        Name                                 name         = "Test";
-        const TournamentBase.DrawSystem      drawSystem   = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients = new();
-        DateOnly                             createdAt    = new(2021, 1, 1);
-        TourNumber                           maxTour      = 1;
-        TourNumber                           currentTour  = 1;
-        List<Group>                          groups       = new();
-        List<Team>                           teams        = new();
+        var                   guid         = Guid.NewGuid();
+        Id<Guid>              id           = guid;
+        Name                  name         = "Test";
+        const DrawSystem      drawSystem   = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients = new();
+        DateOnly              createdAt    = new(2021, 1, 1);
+        TourNumber            maxTour      = 1;
+        TourNumber            currentTour  = 1;
+        List<Group>           groups       = new();
+        List<Team>            teams        = new();
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id,
-            name,
-            drawSystem,
-            coefficients,
-            maxTour,
-            currentTour,
-            groups,
-            createdAt,
-            teams,
-            false,
-            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        var tournament = new SingleTeamTournament(id,
+                                                  name,
+                                                  drawSystem,
+                                                  coefficients,
+                                                  maxTour,
+                                                  createdAt,
+                                                  false)
+                         {
+                             Teams     = new HashSet<Team>(teams),
+                             GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                             Groups    = new HashSet<Group>(groups),
+                         };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                         tournament.Id);
-        Assert.Equal(new Name("Test"),                           tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin,       tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>(), tournament.Coefficients);
-        Assert.Equal(new TourNumber(1),                          tournament.MaxTour);
-        Assert.Equal(new DateOnly(2021, 1, 1),                   tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),                          tournament.CurrentTour);
-        Assert.Equal(new List<Group>(),                          tournament.Groups);
-        Assert.Equal(new List<Team>(),                           tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam,   tournament.Kind);
+        Assert.Equal(new Id<Guid>(guid),                       tournament.Id);
+        Assert.Equal(new Name("Test"),                         tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin,                    tournament.System);
+        Assert.Equal(new List<DrawCoefficient>(),              tournament.Coefficients);
+        Assert.Equal(new TourNumber(1),                        tournament.MaxTour);
+        Assert.Equal(new DateOnly(2021, 1, 1),                 tournament.CreatedAt);
+        Assert.Equal(new TourNumber(1),                        tournament.CurrentTour);
+        Assert.Equal(new List<Group>(),                        tournament.Groups);
+        Assert.Equal(new List<Team>(),                         tournament.Teams);
+        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
     }
 
     [Fact]
     public void CreateSingleTeamTournament_RoundRobin_Should_SetAllProps2()
     {
         // Arrange
-        var                             guid       = Guid.NewGuid();
-        Id<Guid>                        id         = guid;
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        var              guid       = Guid.NewGuid();
+        Id<Guid>         id         = guid;
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly   createdAt   = new(2021, 1, 1);
         TourNumber maxTour     = 7;
         TourNumber currentTour = 2;
@@ -599,28 +609,29 @@ public sealed class CreateTournamentsTests
                            };
 
         // Act
-        var tournament = TournamentBase.CreateTeamTournament<SingleTeamTournament>(id,
-            name,
-            drawSystem,
-            coefficients,
-            maxTour,
-            currentTour,
-            groups,
-            createdAt,
-            teams,
-            false,
-            new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+        var tournament = new SingleTeamTournament(id,
+                                                  name,
+                                                  drawSystem,
+                                                  coefficients,
+                                                  maxTour,
+                                                  createdAt,
+                                                  false)
+                         {
+                             Teams     = new HashSet<Team>(teams),
+                             GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                             Groups    = new HashSet<Group>(groups),
+                         };
 
         // Assert
-        Assert.Equal(new Id<Guid>(guid),                   tournament.Id);
-        Assert.Equal(new Name("Test"),                     tournament.Name);
-        Assert.Equal(TournamentBase.DrawSystem.RoundRobin, tournament.System);
-        Assert.Equal(new List<TournamentBase.DrawCoefficient>
-                     { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger },
+        Assert.Equal(new Id<Guid>(guid),    tournament.Id);
+        Assert.Equal(new Name("Test"),      tournament.Name);
+        Assert.Equal(DrawSystem.RoundRobin, tournament.System);
+        Assert.Equal(new List<DrawCoefficient>
+                     { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger },
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(2),        tournament.CurrentTour);
+        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(this._guids[0], this._groupNames[0], this._players[..2]),

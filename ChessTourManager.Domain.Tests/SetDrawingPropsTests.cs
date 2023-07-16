@@ -1,5 +1,6 @@
 ﻿using ChessTourManager.Domain.Entities;
 using ChessTourManager.Domain.Exceptions;
+using ChessTourManager.Domain.Interfaces;
 using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Tests;
@@ -12,11 +13,11 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
@@ -24,8 +25,17 @@ public sealed class SetDrawingPropsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Assert
         Assert.Equal(id,                                   tournament.Id);
@@ -43,20 +53,29 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.Berger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.Berger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
     }
@@ -65,24 +84,33 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients = new()
-                                                            {
-                                                                TournamentBase.DrawCoefficient.Buchholz,
-                                                                TournamentBase.DrawCoefficient.Berger,
-                                                                TournamentBase.DrawCoefficient.SimpleBerger,
-                                                            };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients = new()
+                                             {
+                                                 DrawCoefficient.Buchholz,
+                                                 DrawCoefficient.Berger,
+                                                 DrawCoefficient.SimpleBerger,
+                                             };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
@@ -91,20 +119,29 @@ public sealed class SetDrawingPropsTests
     public void CreateSwiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
     }
@@ -113,11 +150,11 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_CorrectCoefficients_Should_SetAllProps()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
@@ -125,8 +162,17 @@ public sealed class SetDrawingPropsTests
 
         // Act
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Assert
         Assert.Equal(id,                                   tournament.Id);
@@ -144,20 +190,29 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.Berger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.Berger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients, maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
@@ -166,25 +221,33 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients = new()
-                                                            {
-                                                                TournamentBase.DrawCoefficient.Buchholz,
-                                                                TournamentBase.DrawCoefficient.Berger,
-                                                                TournamentBase.DrawCoefficient.SimpleBerger,
-                                                            };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients = new()
+                                             {
+                                                 DrawCoefficient.Buchholz,
+                                                 DrawCoefficient.Berger,
+                                                 DrawCoefficient.SimpleBerger,
+                                             };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
@@ -193,21 +256,29 @@ public sealed class SetDrawingPropsTests
     public void CreateRoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
 
         // Act
-        var exception = Assert.Throws<DomainException>(() => TournamentBase.CreateSingleTournament(id, name, drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           currentTour, groups, createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>()));
+        var exception = Assert.Throws<DomainException>(() => new SingleTournament(id,
+                                                                 name,
+                                                                 drawSystem,
+                                                                 coefficients,
+                                                                 maxTour,
+                                                                 createdAt,
+                                                                 false)
+                                                             {
+                                                                 GamePairs = new Dictionary<TourNumber,
+                                                                     IReadOnlySet<GamePair<Player>>>(),
+                                                                 Groups = new HashSet<Group>(groups)
+                                                             });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
     }
@@ -220,50 +291,70 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_CorrectCoefficients_Should_SetCoefficients()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
-        tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger });
+        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient> { DrawCoefficient.Berger });
 
         // Assert
-        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Berger },
-                        tournament.Coefficients);
+        Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.Berger },
+                     tournament.Coefficients);
     }
 
     [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                                                               {
-                                                                                   TournamentBase.DrawCoefficient.Buchholz,
-                                                                               }));
+            Assert.Throws<DomainException>(() =>
+                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                                new List<DrawCoefficient>
+                                                {
+                                                    DrawCoefficient.Buchholz,
+                                                }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -273,27 +364,36 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                                                               {
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .Buchholz,
-                                                                                   TournamentBase.DrawCoefficient.Berger,
-                                                                               }));
+            Assert.Throws<DomainException>(() =>
+                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                                new List<DrawCoefficient>
+                                                {
+                                                    DrawCoefficient.Buchholz,
+                                                }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -303,63 +403,78 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                                                               {
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .Buchholz,
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .TotalBuchholz,
-                                                                               }));
+            Assert.Throws<DomainException>(() =>
+                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                                new List<DrawCoefficient>
+                                                {
+                                                    DrawCoefficient.Buchholz,
+                                                }));
 
         // Assert
-        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
     }
 
     [Fact]
     public void UpdateCoefficients_RoundRobin_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.RoundRobin;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Berger, TournamentBase.DrawCoefficient.SimpleBerger };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.RoundRobin;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                                                               {
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .Buchholz,
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .TotalBuchholz,
-                                                                                   TournamentBase.DrawCoefficient.Berger,
-                                                                               }));
+            Assert.Throws<DomainException>(() =>
+                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                                new List<DrawCoefficient>
+                                                {
+                                                    DrawCoefficient.Buchholz,
+                                                }));
 
         // Assert
-        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
+        Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception.Message);
     }
 
     #endregion Update coefficients for Round-Robin
@@ -370,105 +485,141 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients1()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
-        tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                      { TournamentBase.DrawCoefficient.Buchholz });
+        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+                                      { DrawCoefficient.Buchholz });
 
         // Assert
-        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz },
-                        tournament.Coefficients);
+        Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.Buchholz },
+                     tournament.Coefficients);
     }
 
     [Fact]
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients2()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
-        tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                      { TournamentBase.DrawCoefficient.TotalBuchholz });
+        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+                                      { DrawCoefficient.TotalBuchholz });
 
         // Assert
-        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.TotalBuchholz },
-                        tournament.Coefficients);
+        Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.TotalBuchholz },
+                     tournament.Coefficients);
     }
 
     [Fact]
     public void UpdateCoefficients_Swiss_With_CorrectCoefficients_Should_SetCoefficients3()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
-        tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
+        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                       {
-                                          TournamentBase.DrawCoefficient.Buchholz,
-                                          TournamentBase.DrawCoefficient.TotalBuchholz,
+                                          DrawCoefficient.Buchholz,
+                                          DrawCoefficient.TotalBuchholz,
                                       });
 
         // Assert
-        Assert.Equal(new List<TournamentBase.DrawCoefficient> { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz },
-                        tournament.Coefficients);
+        Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz },
+                     tournament.Coefficients);
     }
 
     [Fact]
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw1()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
-                                                                                   TournamentBase.DrawCoefficient.Berger,
+                                                                                   DrawCoefficient.Berger,
                                                                                }));
 
         // Assert
@@ -479,25 +630,34 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw2()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
-                                                                                   TournamentBase.DrawCoefficient.Berger,
-                                                                                   TournamentBase.DrawCoefficient
+                                                                                   DrawCoefficient.Berger,
+                                                                                   DrawCoefficient
                                                                                       .Buchholz,
                                                                                }));
 
@@ -509,25 +669,34 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw3()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
-                                                                                   TournamentBase.DrawCoefficient.Berger,
-                                                                                   TournamentBase.DrawCoefficient
+                                                                                   DrawCoefficient.Berger,
+                                                                                   DrawCoefficient
                                                                                       .TotalBuchholz,
                                                                                }));
 
@@ -539,27 +708,36 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_Swiss_With_IncorrectCoefficients_Should_Throw4()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
-                                                                               {
-                                                                                   TournamentBase.DrawCoefficient
-                                                                                      .Buchholz,
-                                                                                   TournamentBase.DrawCoefficient.Berger,
-                                                                               }));
+            Assert.Throws<DomainException>(() =>
+                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                                new List<DrawCoefficient>
+                                                {
+                                                    DrawCoefficient.Berger,
+                                                }));
 
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -569,26 +747,35 @@ public sealed class SetDrawingPropsTests
     public void UpdateCoefficients_With_IncorrectCoefficients_Should_Throw5()
     {
         // Arrange
-        Id<Guid>                        id         = Guid.NewGuid();
-        Name                            name       = "Test";
-        const TournamentBase.DrawSystem drawSystem = TournamentBase.DrawSystem.Swiss;
-        List<TournamentBase.DrawCoefficient> coefficients =
-            new() { TournamentBase.DrawCoefficient.Buchholz, TournamentBase.DrawCoefficient.TotalBuchholz };
+        Id<Guid>         id         = Guid.NewGuid();
+        Name             name       = "Test";
+        const DrawSystem drawSystem = DrawSystem.Swiss;
+        List<DrawCoefficient> coefficients =
+            new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
         SingleTournament tournament =
-            TournamentBase.CreateSingleTournament(id, name, drawSystem, coefficients, maxTour, currentTour, groups,
-                                                  createdAt, false, new Dictionary<TourNumber, IReadOnlySet<GamePair>>());
+            new SingleTournament(id,
+                                 name,
+                                 drawSystem,
+                                 coefficients,
+                                 maxTour,
+                                 createdAt,
+                                 false)
+            {
+                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
+                Groups    = new HashSet<Group>(groups)
+            };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<TournamentBase.DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
-                                                                                   TournamentBase.DrawCoefficient
+                                                                                   DrawCoefficient
                                                                                       .TotalBuchholz,
-                                                                                   TournamentBase.DrawCoefficient.Berger,
+                                                                                   DrawCoefficient.Berger,
                                                                                }));
 
         // Assert
