@@ -1,28 +1,30 @@
 ﻿using ChessTourManager.Domain.Exceptions;
+using ChessTourManager.Domain.Interfaces;
 using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
-public sealed class Player : IEquatable<Player>, INameable
+public sealed class Player : IEquatable<Player>, INameable, IPlayer<Player>
 {
-    private readonly HashSet<GamePair> _gamesHistory;
-    private          decimal           _points;
+    private readonly HashSet<GamePair<Player>> _gamesHistory;
+    private          decimal                   _points;
 
     public Player(Id<Guid> id, Name name)
     {
         this.Id            = id;
         this.Name          = name;
-        this._gamesHistory = new HashSet<GamePair>(comparer: new GamePair.ByPlayersEqualityComparer());
+        this.IsActive      = true;
+        this._gamesHistory = new HashSet<GamePair<Player>>(comparer: new GamePair<Player>.ByPlayersEqualityComparer());
     }
 
     private Id<Guid> Id { get; }
 
     public Name Name { get; }
 
-    private decimal Points
+    public decimal Points
     {
         get => this._points;
-        set
+        private set
         {
             if (value < 0)
             {
@@ -33,11 +35,13 @@ public sealed class Player : IEquatable<Player>, INameable
         }
     }
 
-    private uint Wins { get; set; }
+    public uint Wins { get; private set; }
 
-    private uint Draws { get; set; }
+    public uint Draws { get; private set; }
 
-    private uint Loses { get; set; }
+    public uint Loses { get; private set; }
+
+    public bool IsActive { get; private set; }
 
     public bool Equals(Player? other)
     {
@@ -61,7 +65,7 @@ public sealed class Player : IEquatable<Player>, INameable
 
     public IEnumerable<Player> GetAllOpponents()
     {
-        foreach (GamePair pair in this._gamesHistory)
+        foreach (GamePair<Player> pair in this._gamesHistory)
         {
             if (pair.White.Equals(this))
             {
@@ -104,7 +108,7 @@ public sealed class Player : IEquatable<Player>, INameable
         return this.Id.GetHashCode();
     }
 
-    internal void AddGameToHistory(GamePair pair, GamePair.PlayerColor color)
+    public void AddGameToHistory(GamePair<Player> pair, PlayerColor color)
     {
         if (this.TryAddGamePair(pair, color))
         {
@@ -118,7 +122,17 @@ public sealed class Player : IEquatable<Player>, INameable
         }
     }
 
-    private bool TryAddGamePair(GamePair pair, GamePair.PlayerColor color)
+    public void SetActive()
+    {
+        this.IsActive = true;
+    }
+
+    public void SetInactive()
+    {
+        this.IsActive = false;
+    }
+
+    private bool TryAddGamePair(GamePair<Player> pair, PlayerColor color)
     {
         if (!this._gamesHistory.Add(pair))
         {
@@ -128,31 +142,31 @@ public sealed class Player : IEquatable<Player>, INameable
         switch (pair.Result)
         {
             // Win.
-            case GamePair.GameResult.WhiteWinByDefault when color == GamePair.PlayerColor.White:
-            case GamePair.GameResult.WhiteWin when color          == GamePair.PlayerColor.White:
-            case GamePair.GameResult.BlackWinByDefault when color == GamePair.PlayerColor.Black:
-            case GamePair.GameResult.BlackWin when color          == GamePair.PlayerColor.Black:
+            case GameResult.WhiteWinByDefault when color == PlayerColor.White:
+            case GameResult.WhiteWin when color          == PlayerColor.White:
+            case GameResult.BlackWinByDefault when color == PlayerColor.Black:
+            case GameResult.BlackWin when color          == PlayerColor.Black:
                 this.Points += 1;
                 this.Wins   += 1;
 
                 break;
             // Draw.
-            case GamePair.GameResult.Draw:
+            case GameResult.Draw:
                 this.Points += 0.5m;
                 this.Draws  += 1;
 
                 break;
             // Lose.
-            case GamePair.GameResult.WhiteWinByDefault:
-            case GamePair.GameResult.WhiteWin:
-            case GamePair.GameResult.BlackWinByDefault:
-            case GamePair.GameResult.BlackWin:
+            case GameResult.WhiteWinByDefault:
+            case GameResult.WhiteWin:
+            case GameResult.BlackWinByDefault:
+            case GameResult.BlackWin:
             // Both leave.
-            case GamePair.GameResult.BothLeave:
+            case GameResult.BothLeave:
                 this.Loses += 1;
 
                 break;
-            case GamePair.GameResult.NotYetPlayed:
+            case GameResult.NotYetPlayed:
                 break;
             default:
                 throw new DomainOutOfRangeException(nameof(pair.Result), pair.Result);
@@ -161,7 +175,7 @@ public sealed class Player : IEquatable<Player>, INameable
         return true;
     }
 
-    private void RemoveGamePair(GamePair pair, GamePair.PlayerColor color)
+    private void RemoveGamePair(GamePair<Player> pair, PlayerColor color)
     {
         if (!this._gamesHistory.Remove(pair))
         {
@@ -171,31 +185,31 @@ public sealed class Player : IEquatable<Player>, INameable
         switch (pair.Result)
         {
             // Was win.
-            case GamePair.GameResult.WhiteWinByDefault when color == GamePair.PlayerColor.White:
-            case GamePair.GameResult.WhiteWin when color          == GamePair.PlayerColor.White:
-            case GamePair.GameResult.BlackWinByDefault when color == GamePair.PlayerColor.Black:
-            case GamePair.GameResult.BlackWin when color          == GamePair.PlayerColor.Black:
+            case GameResult.WhiteWinByDefault when color == PlayerColor.White:
+            case GameResult.WhiteWin when color          == PlayerColor.White:
+            case GameResult.BlackWinByDefault when color == PlayerColor.Black:
+            case GameResult.BlackWin when color          == PlayerColor.Black:
                 this.Points -= 1;
                 this.Wins   -= 1;
 
                 break;
             // Was draw.
-            case GamePair.GameResult.Draw:
+            case GameResult.Draw:
                 this.Points -= 0.5m;
                 this.Draws  -= 1;
 
                 break;
             // Was lose.
-            case GamePair.GameResult.WhiteWinByDefault:
-            case GamePair.GameResult.WhiteWin:
-            case GamePair.GameResult.BlackWinByDefault:
-            case GamePair.GameResult.BlackWin:
+            case GameResult.WhiteWinByDefault:
+            case GameResult.WhiteWin:
+            case GameResult.BlackWinByDefault:
+            case GameResult.BlackWin:
             // Was both leave.
-            case GamePair.GameResult.BothLeave:
+            case GameResult.BothLeave:
                 this.Loses -= 1;
 
                 break;
-            case GamePair.GameResult.NotYetPlayed:
+            case GameResult.NotYetPlayed:
                 break;
             default:
                 throw new DomainOutOfRangeException(nameof(pair.Result), pair.Result);

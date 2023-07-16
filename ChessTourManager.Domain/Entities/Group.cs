@@ -1,4 +1,5 @@
-﻿using ChessTourManager.Domain.ValueObjects;
+﻿using ChessTourManager.Domain.Interfaces;
+using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
