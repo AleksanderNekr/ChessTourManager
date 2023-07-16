@@ -1,4 +1,6 @@
-﻿namespace ChessTourManager.Domain.Entities;
+﻿using ChessTourManager.Domain.Entities;
+
+namespace ChessTourManager.Domain.Interfaces;
 
 public interface ITeamTournament
 {

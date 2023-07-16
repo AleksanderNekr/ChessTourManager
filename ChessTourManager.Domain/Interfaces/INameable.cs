@@ -1,6 +1,6 @@
 ﻿using ChessTourManager.Domain.ValueObjects;
 
-namespace ChessTourManager.Domain.Entities;
+namespace ChessTourManager.Domain.Interfaces;
 
 internal interface INameable
 {
