@@ -1,32 +1,23 @@
-﻿namespace ChessTourManager.Domain.Entities;
+﻿using ChessTourManager.Domain.Interfaces;
 
-public sealed class GamePair : IEquatable<GamePair>
+namespace ChessTourManager.Domain.Entities;
+
+public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPlayer : IPlayer<TPlayer>
 {
-    public enum GameResult
-    {
-        WhiteWin,
-        BlackWin,
-        Draw,
-        WhiteWinByDefault,
-        BlackWinByDefault,
-        BothLeave,
-        NotYetPlayed,
-    }
-
-    public GamePair(in Player white, in Player black, in GameResult result = GameResult.NotYetPlayed)
+    public GamePair(in TPlayer white, in TPlayer black, in GameResult result = GameResult.NotYetPlayed)
     {
         this.White = white;
         this.Black = black;
         this.SetResult(result);
     }
 
-    internal Player White { get; }
+    internal TPlayer White { get; }
 
-    internal Player Black { get; }
+    internal TPlayer Black { get; }
 
     internal GameResult Result { get; private set; }
 
-    public bool Equals(GamePair? other)
+    public bool Equals(GamePair<TPlayer>? other)
     {
         if (ReferenceEquals(null, other))
         {
@@ -45,7 +36,7 @@ public sealed class GamePair : IEquatable<GamePair>
 
     public override string ToString()
     {
-        return $"{this.White} - {this.Black}";
+        return $"{this.White} - {this.Black}: {this.Result}";
     }
 
     private void SetResult(in GameResult result)
@@ -57,7 +48,7 @@ public sealed class GamePair : IEquatable<GamePair>
 
     public override bool Equals(object? obj)
     {
-        return obj is GamePair other && this.Equals(other);
+        return obj is GamePair<TPlayer> other && this.Equals(other);
     }
 
     public override int GetHashCode()
@@ -69,9 +60,9 @@ public sealed class GamePair : IEquatable<GamePair>
     /// <summary>
     ///     Compares two <see cref="T:ChessTourManager.Domain.Entities.GamePair" /> objects for equality by their players.
     /// </summary>
-    internal sealed class ByPlayersEqualityComparer : IEqualityComparer<GamePair>
+    internal sealed class ByPlayersEqualityComparer : IEqualityComparer<GamePair<TPlayer>>
     {
-        public bool Equals(GamePair? x, GamePair? y)
+        public bool Equals(GamePair<TPlayer>? x, GamePair<TPlayer>? y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -87,15 +78,26 @@ public sealed class GamePair : IEquatable<GamePair>
                 || x.White.Equals(y.Black) && x.Black.Equals(y.White);
         }
 
-        public int GetHashCode(GamePair obj)
+        public int GetHashCode(GamePair<TPlayer> obj)
         {
             return HashCode.Combine(obj.White, obj.Black);
         }
     }
+}
 
-    internal enum PlayerColor
-    {
-        White,
-        Black,
-    }
+public enum GameResult
+{
+    WhiteWin,
+    BlackWin,
+    Draw,
+    WhiteWinByDefault,
+    BlackWinByDefault,
+    BothLeave,
+    NotYetPlayed,
+}
+
+public enum PlayerColor
+{
+    White,
+    Black,
 }
