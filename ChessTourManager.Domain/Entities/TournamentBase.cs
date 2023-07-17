@@ -30,7 +30,7 @@ public abstract class TournamentBase : INameable
 
     public TournamentKind Kind { get; private protected init; }
 
-    public required IReadOnlySet<Group> Groups
+    public IReadOnlySet<Group> Groups
     {
         get => this._groups;
         init => this._groups = new HashSet<Group>(value, new INameable.ByNameEqualityComparer<Group>());

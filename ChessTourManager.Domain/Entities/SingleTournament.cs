@@ -67,7 +67,7 @@ public sealed class SingleTournament : TournamentBase, IDrawable<Player>
 
     public bool AllowInGroupGames { get; set; }
 
-    public required IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GamePairs { get; set; }
+    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GamePairs { get; set; }
 
     public DrawResult DrawSwiss()
     {

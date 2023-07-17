@@ -23,7 +23,7 @@ public sealed class SingleTeamTournament : TournamentBase, ITeamTournament, IDra
         this.AllowInGroupGames = allowInGroupGames;
     }
 
-    public required IReadOnlySet<Team> Teams
+    public IReadOnlySet<Team> Teams
     {
         get => this._teams;
         init => this._teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
@@ -85,7 +85,7 @@ public sealed class SingleTeamTournament : TournamentBase, ITeamTournament, IDra
 
     public bool AllowInGroupGames { get; set; }
 
-    public required IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GamePairs { get; set; }
+    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GamePairs { get; set; }
 
     public DrawResult DrawSwiss()
     {
