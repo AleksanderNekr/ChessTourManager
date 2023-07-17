@@ -1,18 +1,21 @@
-﻿using ChessTourManager.Domain.Exceptions;
+﻿using System.Numerics;
+using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
-public readonly struct TourNumber
+public readonly struct TourNumber : IMinMaxValue<int>
 {
     private readonly int _value;
-    private const    int Min = 1;
-    private const    int Max = 20;
+
+    public static int MinValue => 1;
+
+    public static int MaxValue => 20;
 
     public TourNumber(in int value)
     {
-        if (value is < Min or > Max)
+        if (value < MinValue || value > MaxValue)
         {
-            throw new DomainException($"Tour number must be between {Min} and {Max}");
+            throw new DomainException($"Tour number must be between {MinValue} and {MaxValue}");
         }
 
         this._value = value;
@@ -20,7 +23,7 @@ public readonly struct TourNumber
 
     public TourNumber NextTourNumber()
     {
-        if (this._value is Max)
+        if (this._value == MaxValue)
         {
             throw new DomainException("Max possible tour number reached");
         }
@@ -30,7 +33,7 @@ public readonly struct TourNumber
 
     public TourNumber PreviousTourNumber()
     {
-        if (this._value is Min)
+        if (this._value == MinValue)
         {
             throw new DomainException("Min possible tour number reached");
         }
