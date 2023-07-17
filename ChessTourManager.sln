@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.Domain.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.Domain.Benchmarks", "ChessTourManager.Domain.Benchmarks\ChessTourManager.Domain.Benchmarks.csproj", "{361ADCE9-F7D2-41F0-B5BF-2FB8D13FD5D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTourManager.Domain.ValueObjects.Tests", "ChessTourManager.Domain.ValueObjects.Tests\ChessTourManager.Domain.ValueObjects.Tests.csproj", "{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,7 @@ Global
 		{47354166-10DE-4E33-9892-61C97D5CBC57} = {733BB913-3FCC-40DD-8A98-0751F5492CDE}
 		{374DC3BF-4475-4B90-AB1E-05707A70937C} = {3024E0B6-C2DC-4288-8BD9-D11485B5FC97}
 		{361ADCE9-F7D2-41F0-B5BF-2FB8D13FD5D3} = {3024E0B6-C2DC-4288-8BD9-D11485B5FC97}
+		{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09} = {3024E0B6-C2DC-4288-8BD9-D11485B5FC97}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{47354166-10DE-4E33-9892-61C97D5CBC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +36,9 @@ Global
 		{361ADCE9-F7D2-41F0-B5BF-2FB8D13FD5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{361ADCE9-F7D2-41F0-B5BF-2FB8D13FD5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{361ADCE9-F7D2-41F0-B5BF-2FB8D13FD5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBEBD3AE-EC7A-4AFE-8A58-20AABEE11C09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
