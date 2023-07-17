@@ -9,7 +9,7 @@ public readonly struct Id<TId> where TId : IComparable<TId>
 
     public override bool Equals(object? obj)
     {
-        return obj is not null && this.Equals((Id<TId>)obj);
+        return obj is Id<TId> id && this.Equals(id);
     }
 
     public override int GetHashCode()
