@@ -20,22 +20,22 @@ public readonly ref struct DrawResult
 
     public ReadOnlySpan<char> Message { get; }
 
-    public static DrawResult Success(ReadOnlySpan<char> message)
+    internal static DrawResult Success(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.Success, message);
     }
 
-    public static DrawResult NotEnoughPlayers(ReadOnlySpan<char> message)
+    internal static DrawResult NotEnoughPlayers(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.NotEnoughPlayers, message);
     }
 
-    public static DrawResult TournamentIsOver(ReadOnlySpan<char> message)
+    internal static DrawResult TournamentIsOver(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.TournamentIsOver, message);
     }
 
-    public static DrawResult Fail(ReadOnlySpan<char> message)
+    internal static DrawResult Fail(ReadOnlySpan<char> message)
     {
         return new DrawResult(ResultType.Fail, message);
     }
