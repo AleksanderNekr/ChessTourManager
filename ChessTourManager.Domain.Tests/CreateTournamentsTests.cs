@@ -69,7 +69,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new DateOnly(2021, 1, 1),             tournament.CreatedAt);
         Assert.Equal(new TourNumber(1),                    tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                    tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._groupNames[1], this._players[2..]),
                      },
                      tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
@@ -159,7 +159,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new DateOnly(2021, 1, 1),             tournament.CreatedAt);
         Assert.Equal(new TourNumber(1),                    tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                    tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
@@ -210,7 +210,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._groupNames[1], this._players[2..]),
                      },
                      tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     #endregion Create Single Tournament
@@ -258,7 +258,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),                  tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                  tournament.Groups);
         Assert.Equal(new List<Team>(),                   tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
+        Assert.Equal(TournamentKind.Team, tournament.Kind);
     }
 
     [Fact]
@@ -323,7 +323,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._teamNames[1], this._players[2..]),
                      },
                      tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
+        Assert.Equal(TournamentKind.Team, tournament.Kind);
     }
 
     [Fact]
@@ -367,7 +367,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),                  tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                  tournament.Groups);
         Assert.Equal(new List<Team>(),                   tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
+        Assert.Equal(TournamentKind.Team, tournament.Kind);
     }
 
     [Fact]
@@ -430,7 +430,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._teamNames[1], this._players[2..]),
                      },
                      tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.Team, tournament.Kind);
+        Assert.Equal(TournamentKind.Team, tournament.Kind);
     }
 
     #endregion Create Team Tournament
@@ -476,7 +476,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),                        tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                        tournament.Groups);
         Assert.Equal(new List<Team>(),                         tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
+        Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);
     }
 
     [Fact]
@@ -539,7 +539,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._teamNames[1], this._players[2..]),
                      },
                      tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
+        Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);
     }
 
     [Fact]
@@ -581,7 +581,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),                        tournament.CurrentTour);
         Assert.Equal(new List<Group>(),                        tournament.Groups);
         Assert.Equal(new List<Team>(),                         tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
+        Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);
     }
 
     [Fact]
@@ -644,7 +644,7 @@ public sealed class CreateTournamentsTests
                          new(this._guids[1], this._teamNames[1], this._players[2..]),
                      },
                      tournament.Teams);
-        Assert.Equal(TournamentBase.TournamentKind.SingleTeam, tournament.Kind);
+        Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);
     }
 
     #endregion Create Single-Team Tournament

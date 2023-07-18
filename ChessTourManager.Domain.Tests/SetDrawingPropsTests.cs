@@ -46,7 +46,7 @@ public sealed class SetDrawingPropsTests
         Assert.Equal(createdAt,                            tournament.CreatedAt);
         Assert.Equal(currentTour,                          tournament.CurrentTour);
         Assert.Equal(groups,                               tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]
@@ -183,7 +183,7 @@ public sealed class SetDrawingPropsTests
         Assert.Equal(createdAt,                            tournament.CreatedAt);
         Assert.Equal(currentTour,                          tournament.CurrentTour);
         Assert.Equal(groups,                               tournament.Groups);
-        Assert.Equal(TournamentBase.TournamentKind.Single, tournament.Kind);
+        Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
     [Fact]

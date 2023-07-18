@@ -228,7 +228,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault<SingleTournament, Player>(result, TournamentKind.Single);
         Assert.Empty(result.GamePairs);
     }
 
@@ -242,7 +242,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault2<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault2<SingleTournament, Player>(result, TournamentKind.Single);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
 
@@ -256,7 +256,7 @@ public sealed class ConvertTournamentTests
         SingleTeamTournament result = tournament.ConvertToSingleTeamTournament();
 
         // Assert
-        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -275,7 +275,7 @@ public sealed class ConvertTournamentTests
         Assert.True(result.TryAddTeam(this._teams2[3]));
 
         // Assert
-        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         this.AssertTeam2(result);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
@@ -290,7 +290,7 @@ public sealed class ConvertTournamentTests
         TeamTournament result = tournament.ConvertToTeamTournament();
 
         // Assert
-        this.AssertDefault<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault<TeamTournament, Team>(result, TournamentKind.Team);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -309,7 +309,7 @@ public sealed class ConvertTournamentTests
         Assert.True(result.TryAddTeam(this._teams2[3]));
 
         // Assert
-        this.AssertDefault2<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault2<TeamTournament, Team>(result, TournamentKind.Team);
         this.AssertTeam2(result);
         Assert.Empty(result.GamePairs);
     }
@@ -328,7 +328,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault<SingleTournament, Player>(result, TournamentKind.Single);
         Assert.Empty(result.GamePairs);
     }
 
@@ -342,7 +342,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault2<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault2<SingleTournament, Player>(result, TournamentKind.Single);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
 
@@ -356,7 +356,7 @@ public sealed class ConvertTournamentTests
         TeamTournament result = tournament.ConvertToTeamTournament();
 
         // Assert
-        this.AssertDefault<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault<TeamTournament, Team>(result, TournamentKind.Team);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -371,7 +371,7 @@ public sealed class ConvertTournamentTests
         TeamTournament result = tournament.ConvertToTeamTournament();
 
         // Assert
-        this.AssertDefault2<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault2<TeamTournament, Team>(result, TournamentKind.Team);
         this.AssertTeam2(result);
         Assert.Empty(result.GamePairs);
     }
@@ -386,7 +386,7 @@ public sealed class ConvertTournamentTests
         SingleTeamTournament result = tournament.ConvertToSingleTeamTournament();
 
         // Assert
-        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -401,7 +401,7 @@ public sealed class ConvertTournamentTests
         SingleTeamTournament result = tournament.ConvertToSingleTeamTournament();
 
         // Assert
-        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         this.AssertTeam2(result);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
@@ -420,7 +420,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault<SingleTournament, Player>(result, TournamentKind.Single);
         Assert.Empty(result.GamePairs);
     }
 
@@ -434,7 +434,7 @@ public sealed class ConvertTournamentTests
         SingleTournament result = tournament.ConvertToSingleTournament();
 
         // Assert
-        this.AssertDefault2<SingleTournament, Player>(result, TournamentBase.TournamentKind.Single);
+        this.AssertDefault2<SingleTournament, Player>(result, TournamentKind.Single);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
 
@@ -448,7 +448,7 @@ public sealed class ConvertTournamentTests
         SingleTeamTournament result = tournament.ConvertToSingleTeamTournament();
 
         // Assert
-        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -463,7 +463,7 @@ public sealed class ConvertTournamentTests
         SingleTeamTournament result = tournament.ConvertToSingleTeamTournament();
 
         // Assert
-        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentBase.TournamentKind.SingleTeam);
+        this.AssertDefault2<SingleTeamTournament, Player>(result, TournamentKind.SingleTeam);
         this.AssertTeam2(result);
         this.AssertPlayersGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(result.GamePairs));
     }
@@ -478,7 +478,7 @@ public sealed class ConvertTournamentTests
         TeamTournament result = tournament.ConvertToTeamTournament();
 
         // Assert
-        this.AssertDefault<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault<TeamTournament, Team>(result, TournamentKind.Team);
         AssertTeam(result);
         Assert.Empty(result.GamePairs);
     }
@@ -493,7 +493,7 @@ public sealed class ConvertTournamentTests
         TeamTournament result = tournament.ConvertToTeamTournament();
 
         // Assert
-        this.AssertDefault2<TeamTournament, Team>(result, TournamentBase.TournamentKind.Team);
+        this.AssertDefault2<TeamTournament, Team>(result, TournamentKind.Team);
         this.AssertTeam2(result);
         this.AssertTeamsGamePairs(new Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>>(result.GamePairs));
     }
@@ -502,7 +502,7 @@ public sealed class ConvertTournamentTests
 
     #region Assertions
 
-    private void AssertDefault<TTournament, TPlayer>(TTournament result, TournamentBase.TournamentKind kind)
+    private void AssertDefault<TTournament, TPlayer>(TTournament result, TournamentKind kind)
         where TTournament : TournamentBase, IDrawable<TPlayer> where TPlayer : IPlayer<TPlayer>
     {
         Assert.Equal(new Id<Guid>(this._guid),                                      result.Id);
@@ -518,7 +518,7 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>(), result.GamePairs);
     }
 
-    private void AssertDefault2<TTournament, TPlayer>(TTournament result, TournamentBase.TournamentKind kind)
+    private void AssertDefault2<TTournament, TPlayer>(TTournament result, TournamentKind kind)
         where TTournament : TournamentBase, IDrawable<TPlayer> where TPlayer : IPlayer<TPlayer>
     {
         Assert.Equal(new Id<Guid>(this._guid), result.Id);

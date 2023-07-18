@@ -5,13 +5,6 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase : INameable
 {
-    public enum TournamentKind
-    {
-        Single,
-        Team,
-        SingleTeam,
-    }
-
     private readonly HashSet<Group> _groups;
 
     private protected TournamentBase(Id<Guid> id, Name name, DateOnly createdAt)
@@ -51,4 +44,11 @@ public abstract class TournamentBase : INameable
     {
         return this._groups.Remove(group);
     }
+}
+
+public enum TournamentKind
+{
+    Single,
+    Team,
+    SingleTeam,
 }
