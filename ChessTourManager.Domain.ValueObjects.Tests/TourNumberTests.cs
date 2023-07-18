@@ -1,4 +1,4 @@
-﻿using ChessTourManager.Domain.ValueObjects;
+﻿namespace ChessTourManager.Domain.ValueObjects.Tests;
 
 public class TourNumberTests
 {
@@ -28,7 +28,7 @@ public class TourNumberTests
     public void NextTourNumber_ValidValue_ReturnsNextNumber()
     {
         // Arrange
-        var tourNumber = new TourNumber(5);
+        var tourNumber         = new TourNumber(5);
         int expectedNextNumber = 6;
 
         // Act
@@ -52,7 +52,7 @@ public class TourNumberTests
     public void PreviousTourNumber_ValidValue_ReturnsPreviousNumber()
     {
         // Arrange
-        var tourNumber = new TourNumber(10);
+        var tourNumber             = new TourNumber(10);
         int expectedPreviousNumber = 9;
 
         // Act
@@ -115,7 +115,7 @@ public class TourNumberTests
     public void GetHashCode_ReturnsHashValue()
     {
         // Arrange
-        int value = 9;
+        int value      = 9;
         var tourNumber = new TourNumber(value);
 
         // Act
@@ -192,7 +192,7 @@ public class TourNumberTests
 
     [Theory]
     [InlineData(6, 10, true)]
-    [InlineData(1, 1, false)]
+    [InlineData(1, 1,  false)]
     public void OperatorNotEquals_CompareDifferentValues(int value1, int value2, bool expectedResult)
     {
         // Arrange
@@ -207,7 +207,7 @@ public class TourNumberTests
     }
 
     [Theory]
-    [InlineData(6, 7, true)]
+    [InlineData(6,  7,  true)]
     [InlineData(15, 10, false)]
     public void OperatorLessThan_CompareDifferentValues(int value1, int value2, bool expectedResult)
     {
@@ -223,7 +223,7 @@ public class TourNumberTests
     }
 
     [Theory]
-    [InlineData(6, 3, true)]
+    [InlineData(6, 3,  true)]
     [InlineData(7, 12, false)]
     public void OperatorGreaterThan_CompareDifferentValues(int value1, int value2, bool expectedResult)
     {
@@ -239,9 +239,9 @@ public class TourNumberTests
     }
 
     [Theory]
-    [InlineData(3, 5, true)]
+    [InlineData(3,  5,  true)]
     [InlineData(17, 10, false)]
-    [InlineData(6, 6, true)]
+    [InlineData(6,  6,  true)]
     public void OperatorLessThanOrEqual_CompareDifferentValues(int value1, int value2, bool expectedResult)
     {
         // Arrange

@@ -1,4 +1,6 @@
-﻿public class DrawResultTests
+﻿namespace ChessTourManager.Domain.ValueObjects.Tests;
+
+public class DrawResultTests
 {
     [Fact]
     public void Success_CreatesSuccessDrawResult()
