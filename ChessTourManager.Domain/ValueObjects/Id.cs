@@ -1,10 +1,11 @@
 ﻿namespace ChessTourManager.Domain.ValueObjects;
 
-public readonly struct Id<TId> where TId : IComparable<TId>
+public readonly struct Id<TId> : IEquatable<Id<TId>>, IComparable<Id<TId>>
+    where TId : IEquatable<TId>, IComparable<TId>
 {
-    public bool Equals(in Id<TId> other)
+    public bool Equals(Id<TId> other)
     {
-        return this == other;
+        return this.CompareTo(other) == 0;
     }
 
     public override bool Equals(object? obj)
@@ -41,10 +42,10 @@ public readonly struct Id<TId> where TId : IComparable<TId>
 
     public static bool operator !=(in Id<TId> left, in Id<TId> right)
     {
-        return !(left == right);
+        return left.CompareTo(right) != 0;
     }
 
-    public int CompareTo(in Id<TId> other)
+    public int CompareTo(Id<TId> other)
     {
         return this._value.CompareTo(other._value);
     }
