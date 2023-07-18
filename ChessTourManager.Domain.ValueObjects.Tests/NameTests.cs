@@ -207,4 +207,412 @@ public class NameTests
         // Assert
         Assert.Equal(name.GetHashCode(), name2.GetHashCode());
     }
+
+    // Test CompareTo and operators
+
+    [Fact]
+    public void TestCompareTo_Correct()
+    {
+        // Arrange
+        const string str1 = "Name1";
+        const string str2 = "Name2";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.Equal(-1, name1.CompareTo(name2));
+    }
+
+    [Fact]
+    public void TestCompareTo_Same()
+    {
+        // Arrange
+        const string str = "Name";
+
+        // Act
+        Name name1 = str;
+        Name name2 = str;
+
+        // Assert
+        Assert.Equal(0, name1.CompareTo(name2));
+    }
+
+    [Fact]
+    public void TestCompareTo_Null()
+    {
+        // Arrange
+        const string str = "Name";
+
+        // Act
+        Name name1 = str;
+
+        // Assert
+        Assert.Equal(1, name1.CompareTo(null));
+    }
+
+    [Fact]
+    public void TestCompareTo_SameObjects()
+    {
+        // Arrange
+        const string str = "Name";
+
+        // Act
+        Name name1 = str;
+
+        // Assert
+        Assert.Equal(0, name1.CompareTo(name1));
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorLess()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aab";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 < name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorLessOrEqual()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aab";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 <= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreater()
+    {
+        // Arrange
+        const string str1 = "aab";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 > name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreaterOrEqual()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 >= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorEqual()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 == name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorNotEqual()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aab";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 != name2);
+    }
+
+    // Strings different length
+
+    [Fact]
+    public void TestCompareTo_OperatorLess_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 < name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorLessOrEqual_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 <= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreater_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaba";
+        const string str2 = "aab";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 > name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreaterOrEqual_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 >= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorEqual_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.False(name1 == name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorNotEqual_DifferentLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 != name2);
+    }
+
+    // Strings different case
+
+    [Fact]
+    public void TestCompareTo_OperatorLess_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 > name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorLessOrEqual_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 >= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreater_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "Aaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 < name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreaterOrEqual_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 >= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorEqual_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.False(name1 == name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorNotEqual_DifferentCase()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 != name2);
+    }
+
+    // Strings different case and length
+
+    [Fact]
+    public void TestCompareTo_OperatorLess_DifferentCaseAndLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 > name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorLessOrEqual_DifferentCaseAndLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 >= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreater_DifferentCaseAndLength()
+    {
+        // Arrange
+        const string str1 = "Aaaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 < name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorGreaterOrEqual_DifferentCaseAndLength()
+    {
+        // Arrange
+        const string str1 = "Aaaa";
+        const string str2 = "aaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.True(name1 <= name2);
+    }
+
+    [Fact]
+    public void TestCompareTo_OperatorEqual_DifferentCaseAndLength()
+    {
+        // Arrange
+        const string str1 = "aaa";
+        const string str2 = "Aaaa";
+
+        // Act
+        Name name1 = str1;
+        Name name2 = str2;
+
+        // Assert
+        Assert.False(name1 == name2);
+    }
 }

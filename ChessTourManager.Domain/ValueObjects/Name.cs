@@ -3,7 +3,7 @@ using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
-public sealed class Name : IEquatable<Name>
+public sealed class Name : IEquatable<Name>, IComparable<Name>
 {
     private readonly string _value;
 
@@ -66,5 +66,40 @@ public sealed class Name : IEquatable<Name>
         }
 
         return this._value == other._value;
+    }
+
+    public int CompareTo(Name? other)
+    {
+        if (ReferenceEquals(this, other))
+        {
+            return 0;
+        }
+
+        if (ReferenceEquals(null, other))
+        {
+            return 1;
+        }
+
+        return string.Compare(this._value, other._value, StringComparison.Ordinal);
+    }
+
+    public static bool operator <(Name? left, Name? right)
+    {
+        return Comparer<Name>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(Name? left, Name? right)
+    {
+        return Comparer<Name>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(Name? left, Name? right)
+    {
+        return Comparer<Name>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(Name? left, Name? right)
+    {
+        return Comparer<Name>.Default.Compare(left, right) >= 0;
     }
 }
