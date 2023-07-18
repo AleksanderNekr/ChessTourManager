@@ -5,11 +5,11 @@ namespace ChessTourManager.Domain.Entities;
 
 public sealed class Group : IEquatable<Group>, INameable
 {
-    public Group(Id<Guid> id, Name name, IEnumerable<Player> players)
+    public Group(Id<Guid> id, Name name, IEnumerable<Player>? players = default)
     {
         this.Id      = id;
         this.Name    = name;
-        this.Players = players;
+        this.Players = players ?? Enumerable.Empty<Player>();
     }
 
     public Id<Guid> Id { get; }
