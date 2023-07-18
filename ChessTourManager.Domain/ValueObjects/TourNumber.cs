@@ -3,7 +3,7 @@ using ChessTourManager.Domain.Exceptions;
 
 namespace ChessTourManager.Domain.ValueObjects;
 
-public readonly struct TourNumber : IMinMaxValue<int>
+public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, IComparable<TourNumber>
 {
     private readonly int _value;
 
@@ -68,27 +68,27 @@ public readonly struct TourNumber : IMinMaxValue<int>
 
     public static bool operator !=(in TourNumber left, in TourNumber right)
     {
-        return !(left == right);
+        return !left.Equals(right);
     }
 
     public static bool operator <(in TourNumber left, in TourNumber right)
     {
-        return left._value < right._value;
+        return left.CompareTo(right) < 0;
     }
 
     public static bool operator >(in TourNumber left, in TourNumber right)
     {
-        return left._value > right._value;
+        return left.CompareTo(right) > 0;
     }
 
     public static bool operator <=(in TourNumber left, in TourNumber right)
     {
-        return left._value <= right._value;
+        return left.CompareTo(right) <= 0;
     }
 
     public static bool operator >=(in TourNumber left, in TourNumber right)
     {
-        return left._value >= right._value;
+        return left.CompareTo(right) >= 0;
     }
 
     public override bool Equals(object? obj)
