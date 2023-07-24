@@ -3,31 +3,35 @@ using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Entities;
 
-public sealed class TeamTournament : TournamentBase, ITeamTournament, IDrawable<Team>
+public sealed class TeamTournament : DrawableTournament<Team>, ITeamTournament
 {
     private readonly HashSet<Team> _teams;
 
-    public TeamTournament(Id<Guid>                             id,
-                          Name                                 name,
-                          DrawSystem                           drawSystem,
-                          IReadOnlyCollection<DrawCoefficient> coefficients,
-                          TourNumber                           maxTour,
-                          DateOnly                             createdAt,
-                          bool                                 allowInGroupGames)
-        : base(id, name, createdAt)
+    internal TeamTournament(Id<Guid>                                                       id,
+                            Name                                                           name,
+                            DrawSystem                                                     drawSystem,
+                            IReadOnlyCollection<DrawCoefficient>                           coefficients,
+                            TourNumber                                                     maxTour,
+                            DateOnly                                                       createdAt,
+                            bool                                                           allowMixGroupGames = false,
+                            TourNumber?                                                    currentTour        = null,
+                            IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Team>>>? gamePairs          = default,
+                            IReadOnlySet<Team>?                                            teams              = default,
+                            bool                                                           allowInTeamGames  = false)
+        : base(id, name, createdAt, allowMixGroupGames, drawSystem, coefficients, maxTour, currentTour, gamePairs)
     {
-        this.Kind  = TournamentKind.Team;
-        this.Teams = new HashSet<Team>();
-        ((IDrawable<Team>)this).SetTours(maxTour, 1);
-        ((IDrawable<Team>)this).SetDrawingProperties(drawSystem, coefficients);
-        this.AllowInGroupGames = allowInGroupGames;
+        this.Kind              = TournamentKind.Team;
+        this.Teams             = teams ?? new HashSet<Team>();
+        this.AllowInTeamGames = allowInTeamGames;
     }
 
     public IReadOnlySet<Team> Teams
     {
         get => this._teams;
-        init => this._teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
+        internal init => this._teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
     }
+
+    public bool AllowInTeamGames { get; }
 
     public bool TryAddTeam(Team team)
     {
@@ -47,10 +51,11 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament, IDrawable<
                                     this.Coefficients,
                                     this.MaxTour,
                                     this.CreatedAt,
-                                    this.AllowInGroupGames)
+                                    this.AllowMixGroupGames,
+                                    this.GetPlayersPairings(),
+                                    this.CurrentTour)
                {
-                   Groups    = this.Groups,
-                   GamePairs = this.GetPlayersPairings()
+                   Groups = this.Groups,
                };
     }
 
@@ -67,15 +72,17 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament, IDrawable<
                                         this.Coefficients,
                                         this.MaxTour,
                                         this.CreatedAt,
-                                        this.AllowInGroupGames)
+                                        this.AllowMixGroupGames,
+                                        teams: this.Teams,
+                                        currentTour: this.CurrentTour,
+                                        allowInTeamGames: this.AllowInTeamGames,
+                                        gamePairs: this.GetPlayersPairings())
                {
-                   Teams     = this.Teams,
-                   Groups    = this.Groups,
-                   GamePairs = this.GetPlayersPairings()
+                   Groups = this.Groups
                };
     }
 
-    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GetPlayersPairings()
+    internal IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GetPlayersPairings()
     {
 
         return this.GamePairs
@@ -95,24 +102,12 @@ public sealed class TeamTournament : TournamentBase, ITeamTournament, IDrawable<
         }
     }
 
-    public DrawSystem System { get; set; }
-
-    public IReadOnlyCollection<DrawCoefficient> Coefficients { get; set; }
-
-    public TourNumber MaxTour { get; set; }
-
-    public TourNumber CurrentTour { get; set; }
-
-    public bool AllowInGroupGames { get; set; }
-
-    public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Team>>> GamePairs { get; set; }
-
-    public DrawResult DrawSwiss()
+    private protected override DrawResult DrawSwiss()
     {
         return DrawResult.Fail("Not implemented");
     }
 
-    public DrawResult DrawRoundRobin()
+    private protected override DrawResult DrawRoundRobin()
     {
         return DrawResult.Fail("Not implemented");
     }

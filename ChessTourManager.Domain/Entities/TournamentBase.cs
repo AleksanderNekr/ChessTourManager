@@ -5,28 +5,34 @@ namespace ChessTourManager.Domain.Entities;
 
 public abstract class TournamentBase : INameable
 {
-    private readonly HashSet<Group> _groups;
+    private readonly HashSet<Group>   _groups;
+    private          HashSet<Player>? _playersWithoutGroup;
 
     private protected TournamentBase(Id<Guid> id, Name name, DateOnly createdAt)
     {
         this.Id        = id;
         this.Name      = name;
         this.CreatedAt = createdAt;
-        this.Groups   = new HashSet<Group>();
+        this._groups   = new HashSet<Group>(new INameable.ByNameEqualityComparer<Group>());
     }
 
     public Id<Guid> Id { get; }
 
     public Name Name { get; }
 
-    public DateOnly CreatedAt { get; }
+    internal DateOnly CreatedAt { get; }
 
-    public TournamentKind Kind { get; private protected init; }
+    internal TournamentKind Kind { get; init; }
 
-    public IReadOnlySet<Group> Groups
+    internal IReadOnlySet<Group> Groups
     {
         get => this._groups;
         init => this._groups = new HashSet<Group>(value, new INameable.ByNameEqualityComparer<Group>());
+    }
+
+    public IReadOnlySet<Player> PlayersWithoutGroup
+    {
+        get => this._playersWithoutGroup ??= new HashSet<Player>(new INameable.ByNameEqualityComparer<Player>());
     }
 
     public abstract SingleTournament ConvertToSingleTournament();
@@ -35,20 +41,69 @@ public abstract class TournamentBase : INameable
 
     public abstract SingleTeamTournament ConvertToSingleTeamTournament();
 
-    public bool TryAddGroup(Group group)
+    internal AddGroupResult TryAddGroup(Id<Guid> groupId, Name groupName)
     {
-        return this._groups.Add(group);
+        bool isUnique = this._groups.Add(new Group(groupId, groupName));
+
+        return isUnique
+                   ? AddGroupResult.Success
+                   : AddGroupResult.GroupAlreadyExists;
     }
 
-    public bool TryRemoveGroup(Group group)
+    internal RemoveGroupResult TryRemoveGroup(Id<Guid> groupId)
     {
-        return this._groups.Remove(group);
+        Group? group = this._groups.SingleOrDefault(g => g.Id == groupId);
+        if (group is null)
+        {
+            return RemoveGroupResult.GroupDoesNotExist;
+        }
+
+        this._playersWithoutGroup ??= new HashSet<Player>(new INameable.ByNameEqualityComparer<Player>());
+        foreach (Player player in group.Players)
+        {
+            this._playersWithoutGroup.Add(player);
+        }
+
+        bool removed = this._groups.Remove(group);
+
+        return removed
+                   ? RemoveGroupResult.Success
+                   : RemoveGroupResult.Fail;
     }
 }
 
-public enum TournamentKind
+internal enum TournamentKind
 {
     Single,
     Team,
     SingleTeam,
+}
+
+public enum AddPlayerResult
+{
+    Success,
+    GroupDoesNotExist,
+    PlayerAlreadyExists,
+}
+
+public enum RemovePlayerResult
+{
+    Success,
+    GroupDoesNotExist,
+    PlayerDoesNotExist,
+    PlayerInGames,
+    Fail,
+}
+
+internal enum AddGroupResult
+{
+    Success,
+    GroupAlreadyExists,
+}
+
+internal enum RemoveGroupResult
+{
+    Success,
+    GroupDoesNotExist,
+    Fail,
 }
