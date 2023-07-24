@@ -41,9 +41,9 @@ public class TournamentBaseTests
         var tournament = new TestTournament(id, name, createdAt);
 
         // Assert
-        Assert.Equal(id,        tournament.Id);
-        Assert.Equal(name,      tournament.Name);
-        Assert.Equal(createdAt, tournament.CreatedAt);
+        Assert.Equal(id,                    tournament.Id);
+        Assert.Equal(name,                  tournament.Name);
+        Assert.Equal(createdAt,             tournament.CreatedAt);
         Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
@@ -55,14 +55,13 @@ public class TournamentBaseTests
         var      name       = new Name("Test Tournament");
         var      createdAt  = new DateOnly(2023, 7, 20);
         var      tournament = new TestTournament(id, name, createdAt);
-        var      group      = new Group(Guid.NewGuid(), new Name("Group A"));
 
         // Act
-        bool result = tournament.TryAddGroup(group);
+        AddGroupResult result = tournament.TryAddGroup(id, "Group A");
 
         // Assert
-        Assert.True(result);
-        Assert.Contains(group, tournament.Groups);
+        Assert.Equal(AddGroupResult.Success, result);
+        Assert.Contains(new Group(id, "Group A"), tournament.Groups);
     }
 
     [Fact]
@@ -73,14 +72,13 @@ public class TournamentBaseTests
         var      name       = new Name("Test Tournament");
         var      createdAt  = new DateOnly(2023, 7, 20);
         var      tournament = new TestTournament(id, name, createdAt);
-        var      group      = new Group(Guid.NewGuid(), new Name("Group A"));
-        tournament.TryAddGroup(group);
+        tournament.TryAddGroup(id, "Group A");
 
         // Act
-        bool result = tournament.TryRemoveGroup(group);
+        RemoveGroupResult result = tournament.TryRemoveGroup(id);
 
         // Assert
-        Assert.True(result);
-        Assert.DoesNotContain(group, tournament.Groups);
+        Assert.Equal(RemoveGroupResult.Success, result);
+        Assert.DoesNotContain(new Group(id, "Group A"), tournament.Groups);
     }
 }

@@ -2,81 +2,65 @@
 
 public class DrawableTests
 {
-    private class TestPlayer : IPlayer<TestPlayer>
+    private class TestParticipant : Participant<TestParticipant>
     {
-        public Name Name { get; }
-
-        public TestPlayer(Name name)
+        public TestParticipant(Id<Guid> id, Name name, bool isActive) : base(id, name, isActive)
         {
-            Name = name;
-        }
-
-        public decimal Points { get; }
-
-        public uint Wins { get; }
-
-        public uint Draws { get; }
-
-        public uint Loses { get; }
-
-        public bool IsActive { get; }
-
-        public IEnumerable<TestPlayer> GetAllOpponents()
-        {
-            yield return new TestPlayer(new Name("John"));
-        }
-
-        public IEnumerable<TestPlayer> GetBlackOpponents()
-        {
-            yield return new TestPlayer(new Name("John"));
-        }
-
-        public IEnumerable<TestPlayer> GetWhiteOpponents()
-        {
-            yield return new TestPlayer(new Name("John"));
-        }
-
-        public void AddGameToHistory(GamePair<TestPlayer> pair, PlayerColor color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetActive()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetInactive()
-        {
-            throw new NotImplementedException();
         }
     }
 
-    private class TestDrawable : IDrawable<TestPlayer>
+    private class TestDrawableTournament : DrawableTournament<TestParticipant>
     {
-        public DrawSystem System { get; set; }
-
-        public IReadOnlyCollection<DrawCoefficient> Coefficients { get; set; }
-
-        public TourNumber MaxTour { get; set; }
-
-        public TourNumber CurrentTour { get; set; }
-
-        public bool AllowInGroupGames { get; }
-
-        public IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<TestPlayer>>> GamePairs =>
-            new Dictionary<TourNumber, IReadOnlySet<GamePair<TestPlayer>>>();
-
-        public DrawResult DrawSwiss()
+        public TestDrawableTournament()
+            : this(new Guid(),
+                   "Test",
+                   DateOnly.FromDateTime(DateTime.Now),
+                   false,
+                   DrawSystem.RoundRobin,
+                   new List<DrawCoefficient>(),
+                   1)
         {
-            // Implementation for Swiss draw
-            return DrawResult.Success("Success");
         }
 
-        public DrawResult DrawRoundRobin()
+        public TestDrawableTournament(Id<Guid>   id,         Name name, DateOnly createdAt, bool allowMixGroupGames,
+                                      DrawSystem drawSystem, IReadOnlyCollection<DrawCoefficient> coefficients,
+                                      TourNumber maxTour,    TourNumber currentTour = default,
+                                      IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<TestParticipant>>>?
+                                          gamePairs = default) : base(id,
+                                                                      name,
+                                                                      createdAt,
+                                                                      allowMixGroupGames,
+                                                                      drawSystem,
+                                                                      coefficients,
+                                                                      maxTour,
+                                                                      currentTour,
+                                                                      gamePairs)
         {
-            // Implementation for RoundRobin draw
-            return DrawResult.Success("Success");
+        }
+
+        public override SingleTournament ConvertToSingleTournament()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override TeamTournament ConvertToTeamTournament()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override SingleTeamTournament ConvertToSingleTeamTournament()
+        {
+            throw new NotImplementedException();
+        }
+
+        private protected override DrawResult DrawSwiss()
+        {
+            return DrawResult.Success("OK");
+        }
+
+        private protected override DrawResult DrawRoundRobin()
+        {
+            return DrawResult.Success("OK");
         }
     }
 
@@ -89,13 +73,13 @@ public class DrawableTests
                                                  DrawCoefficient.Berger,
                                                  DrawCoefficient.SimpleBerger
                                              };
-        IDrawable<TestPlayer> drawable = new TestDrawable();
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
 
         // Act
-        drawable.UpdateCoefficients(coefficients);
+        drawableTournament.UpdateCoefficients(coefficients);
 
         // Assert
-        Assert.Equal(coefficients, drawable.Coefficients);
+        Assert.Equal(coefficients, drawableTournament.Coefficients);
     }
 
     [Fact]
@@ -107,10 +91,10 @@ public class DrawableTests
                                                  DrawCoefficient.Berger,
                                                  DrawCoefficient.Buchholz // Invalid coefficient for the system
                                              };
-        IDrawable<TestPlayer> drawable = new TestDrawable();
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
 
         // Act & Assert
-        var exception = Assert.Throws<DomainException>(() => drawable.UpdateCoefficients(coefficients));
+        var exception = Assert.Throws<DomainException>(() => drawableTournament.UpdateCoefficients(coefficients));
         Assert.Contains("Wrong coefficients", exception.Message);
     }
 
@@ -118,28 +102,28 @@ public class DrawableTests
     public void SetTours_MaxTourGreaterThanCurrentTour_ToursSet()
     {
         // Arrange
-        var                   maxTour     = new TourNumber(5);
-        var                   currentTour = new TourNumber(3);
-        IDrawable<TestPlayer> drawable    = new TestDrawable();
+        var                                 maxTour            = new TourNumber(5);
+        var                                 currentTour        = new TourNumber(3);
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
 
         // Act
-        drawable.SetTours(maxTour, currentTour);
+        drawableTournament.SetTours(maxTour, currentTour);
 
         // Assert
-        Assert.Equal(maxTour,     drawable.MaxTour);
-        Assert.Equal(currentTour, drawable.CurrentTour);
+        Assert.Equal(maxTour,     drawableTournament.MaxTour);
+        Assert.Equal(currentTour, drawableTournament.CurrentTour);
     }
 
     [Fact]
     public void SetTours_MaxTourLessThanCurrentTour_ThrowsDomainException()
     {
         // Arrange
-        var                   maxTour     = new TourNumber(3);
-        var                   currentTour = new TourNumber(5);
-        IDrawable<TestPlayer> drawable    = new TestDrawable();
+        var                                 maxTour            = new TourNumber(3);
+        var                                 currentTour        = new TourNumber(5);
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
 
         // Act & Assert
-        var exception = Assert.Throws<DomainException>(() => drawable.SetTours(maxTour, currentTour));
+        var exception = Assert.Throws<DomainException>(() => drawableTournament.SetTours(maxTour, currentTour));
         Assert.Contains("Max tour must be greater or equal to current tour", exception.Message);
     }
 
@@ -147,11 +131,11 @@ public class DrawableTests
     public void DrawNewTour_RoundRobin_DrawRoundRobinCalled()
     {
         // Arrange
-        IDrawable<TestPlayer> drawable = new TestDrawable();
-        drawable.SetDrawingProperties(DrawSystem.RoundRobin, new List<DrawCoefficient>());
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
+        drawableTournament.SetDrawingProperties(DrawSystem.RoundRobin, new List<DrawCoefficient>());
 
         // Act
-        DrawResult result = drawable.DrawNewTour();
+        DrawResult result = drawableTournament.DrawNewTour();
 
         // Assert
         Assert.Equal(DrawResult.ResultType.Success, result.Result);
@@ -162,11 +146,11 @@ public class DrawableTests
     public void DrawNewTour_Swiss_DrawSwissCalled()
     {
         // Arrange
-        IDrawable<TestPlayer> drawable = new TestDrawable();
-        drawable.SetDrawingProperties(DrawSystem.Swiss, new List<DrawCoefficient>());
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
+        drawableTournament.SetDrawingProperties(DrawSystem.Swiss, new List<DrawCoefficient>());
 
         // Act
-        DrawResult result = drawable.DrawNewTour();
+        DrawResult result = drawableTournament.DrawNewTour();
 
         // Assert
         Assert.Equal(DrawResult.ResultType.Success, result.Result);
@@ -180,18 +164,18 @@ public class DrawableTests
 
         // Act & Assert
         Assert.Throws<DomainOutOfRangeException>(static () =>
-                                                     IDrawable<TestPlayer>.GetPossibleCoefficients(system));
+                                                     DrawableTournament<TestParticipant>.GetPossibleCoefficients(system));
     }
 
     [Fact]
-    public void DrawNewTour_WrongDrawSystem()
+    public void SetWrongDrawSystem()
     {
         // Arrange
-        const DrawSystem      system   = (DrawSystem)1000;
-        IDrawable<TestPlayer> drawable = new TestDrawable();
-        ((TestDrawable)drawable).System = system;
+        const DrawSystem                    system             = (DrawSystem)1000;
+        DrawableTournament<TestParticipant> drawableTournament = new TestDrawableTournament();
 
         // Act & Assert
-        Assert.Throws<DomainOutOfRangeException>(() => drawable.DrawNewTour());
+        Assert.Throws<DomainOutOfRangeException>(() => drawableTournament.SetDrawingProperties(system,
+                                                     new List<DrawCoefficient>()));
     }
 }

@@ -79,19 +79,21 @@ public sealed class ConvertTournamentTests
         this._groupNames  = ImmutableArray.Create("Group1",       "Group2",       "Group3",       "Group4");
         this._guids       = ImmutableArray.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
 
-        this._players = ImmutableArray.Create(new Player(this._guids[0], this._playerNames[0]),
-                                              new Player(this._guids[1], this._playerNames[1]),
-                                              new Player(this._guids[2], this._playerNames[2]),
-                                              new Player(this._guids[3], this._playerNames[3]));
+        this._players = ImmutableArray.Create(new Player(this._guids[0], this._playerNames[0], Gender.Male, 2000),
+                                              new Player(this._guids[1], this._playerNames[1], Gender.Male, 2000),
+                                              new Player(this._guids[2], this._playerNames[2], Gender.Male, 2000),
+                                              new Player(this._guids[3], this._playerNames[3], Gender.Male, 2000));
 
-        this._groups2 = ImmutableArray.Create(new Group(this._guids[0], this._groupNames[0], this._players[..2]),
-                                              new Group(this._guids[1], this._groupNames[1], this._players[2..]));
+        this._groups2 =
+            ImmutableArray.Create(new Group(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
+                                  new Group(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()));
         this._id = this._guid;
 
-        this._teams2 = ImmutableArray.Create(new Team(this._guids[0], this._teamNames[0], new[] { this._players[0] }),
-                                             new Team(this._guids[1], this._teamNames[1], new[] { this._players[1] }),
-                                             new Team(this._guids[2], this._teamNames[2], new[] { this._players[2] }),
-                                             new Team(this._guids[3], this._teamNames[3], new[] { this._players[3] }));
+        this._teams2 =
+            ImmutableArray.Create(new Team(this._guids[0], this._teamNames[0], players: new[] { this._players[0] }),
+                                  new Team(this._guids[1], this._teamNames[1], players: new[] { this._players[1] }),
+                                  new Team(this._guids[2], this._teamNames[2], players: new[] { this._players[2] }),
+                                  new Team(this._guids[3], this._teamNames[3], players: new[] { this._players[3] }));
 
         this._coefficients2 = ImmutableArray.Create(DrawCoefficient.Buchholz,
                                                     DrawCoefficient.TotalBuchholz);
@@ -144,10 +146,9 @@ public sealed class ConvertTournamentTests
                                                       this._coefficients,
                                                       MaxTour,
                                                       this._createdAt,
-                                                      AllowInGroupGames)
+                                                      AllowInGroupGames,
+                                                      this._gamePairs)
                                  {
-                                     GamePairs =
-                                         new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(this._gamePairs),
                                      Groups = new HashSet<Group>(this._groups),
                                  };
 
@@ -157,10 +158,9 @@ public sealed class ConvertTournamentTests
                                                        this._coefficients2,
                                                        MaxTour2,
                                                        this._createdAt2,
-                                                       AllowInGroupGames2)
+                                                       AllowInGroupGames2,
+                                                       this._gamePairs2)
                                   {
-                                      GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(
-                                       this._gamePairs2),
                                       Groups = new HashSet<Group>(this._groups2),
                                   };
         this._singleTeamTournament = new SingleTeamTournament(this._id,
@@ -169,11 +169,11 @@ public sealed class ConvertTournamentTests
                                                               this._coefficients,
                                                               MaxTour,
                                                               this._createdAt,
-                                                              AllowInGroupGames)
+                                                              AllowInGroupGames,
+                                                              gamePairs: this._gamePairs,
+                                                              teams: new HashSet<Team>(this._teams))
                                      {
-                                         Teams     = new HashSet<Team>(this._teams),
-                                         GamePairs = this._gamePairs,
-                                         Groups    = new HashSet<Group>(this._groups)
+                                         Groups = new HashSet<Group>(this._groups)
                                      };
         this._singleTeamTournament2 = new SingleTeamTournament(this._id,
                                                                Name,
@@ -181,11 +181,11 @@ public sealed class ConvertTournamentTests
                                                                this._coefficients2,
                                                                MaxTour2,
                                                                this._createdAt2,
-                                                               AllowInGroupGames2)
+                                                               AllowInGroupGames2,
+                                                               teams: new HashSet<Team>(this._teams2),
+                                                               gamePairs: this._gamePairs2)
                                       {
-                                          Teams     = new HashSet<Team>(this._teams2),
-                                          GamePairs = this._gamePairs2,
-                                          Groups    = new HashSet<Group>(this._groups2)
+                                          Groups = new HashSet<Group>(this._groups2)
                                       };
         this._teamTournament = new TeamTournament(this._id,
                                                   Name,
@@ -193,11 +193,12 @@ public sealed class ConvertTournamentTests
                                                   this._coefficients,
                                                   MaxTour,
                                                   this._createdAt,
-                                                  AllowInGroupGames)
+                                                  AllowInGroupGames,
+                                                  teams: this._teams.ToHashSet(),
+                                                  gamePairs: this._teamPairs)
+
                                {
-                                   Teams     = new HashSet<Team>(this._teams),
-                                   GamePairs = this._teamPairs,
-                                   Groups    = new HashSet<Group>(this._groups)
+                                   Groups = new HashSet<Group>(this._groups)
                                };
         this._teamTournament2 = new TeamTournament(this._id,
                                                    Name,
@@ -205,16 +206,15 @@ public sealed class ConvertTournamentTests
                                                    this._coefficients2,
                                                    MaxTour2,
                                                    this._createdAt2,
-                                                   AllowInGroupGames2)
+                                                   AllowInGroupGames2,
+                                                   teams: this._teams2.ToHashSet(),
+                                                   gamePairs: this._teamPairs2)
                                 {
-                                    Teams     = new HashSet<Team>(this._teams2),
-                                    GamePairs = this._teamPairs2,
-                                    Groups    = new HashSet<Group>(this._groups2)
+                                    Groups = new HashSet<Group>(this._groups2)
                                 };
     }
 
     #endregion Arranged
-
 
     #region Convert from Single
 
@@ -503,7 +503,7 @@ public sealed class ConvertTournamentTests
     #region Assertions
 
     private void AssertDefault<TTournament, TPlayer>(TTournament result, TournamentKind kind)
-        where TTournament : TournamentBase, IDrawable<TPlayer> where TPlayer : IPlayer<TPlayer>
+        where TTournament : DrawableTournament<TPlayer> where TPlayer : Participant<TPlayer>
     {
         Assert.Equal(new Id<Guid>(this._guid),                                      result.Id);
         Assert.Equal(new Name("Test"),                                              result.Name);
@@ -514,12 +514,12 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new TourNumber(1),                                             result.MaxTour);
         Assert.Equal(new TourNumber(1),                                             result.CurrentTour);
         Assert.Equal(new List<Group>(),                                             result.Groups);
-        Assert.Equal(false,                                                         result.AllowInGroupGames);
+        Assert.Equal(false,                                                         result.AllowMixGroupGames);
         Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>(), result.GamePairs);
     }
 
     private void AssertDefault2<TTournament, TPlayer>(TTournament result, TournamentKind kind)
-        where TTournament : TournamentBase, IDrawable<TPlayer> where TPlayer : IPlayer<TPlayer>
+        where TTournament : DrawableTournament<TPlayer> where TPlayer : Participant<TPlayer>
     {
         Assert.Equal(new Id<Guid>(this._guid), result.Id);
         Assert.Equal(new Name("Test"),         result.Name);
@@ -533,11 +533,11 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new TourNumber(1),        result.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2]),
-                         new(this._guids[1], this._groupNames[1], this._players[2..]),
+                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
+                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
                      },
                      result.Groups);
-        Assert.Equal(true, result.AllowInGroupGames);
+        Assert.Equal(true, result.AllowMixGroupGames);
     }
 
     private void AssertPlayersGamePairs(Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>> result)
@@ -552,19 +552,43 @@ public sealed class ConvertTournamentTests
                        {
                            new TourNumber(1), new HashSet<GamePair<Player>>
                                               {
-                                                  new(new Player(this._guids[0], this._playerNames[0]),
-                                                      new Player(this._guids[1], this._playerNames[1])),
-                                                  new(new Player(this._guids[2], this._playerNames[2]),
-                                                      new Player(this._guids[3], this._playerNames[3])),
+                                                  new(new Player(this._guids[0],
+                                                                 this._playerNames[0],
+                                                                 Gender.Male,
+                                                                 2000),
+                                                      new Player(this._guids[1],
+                                                                 this._playerNames[1],
+                                                                 Gender.Male,
+                                                                 2000)),
+                                                  new(new Player(this._guids[2],
+                                                                 this._playerNames[2],
+                                                                 Gender.Male,
+                                                                 2000),
+                                                      new Player(this._guids[3],
+                                                                 this._playerNames[3],
+                                                                 Gender.Male,
+                                                                 2000)),
                                               }
                        },
                        {
                            new TourNumber(2), new HashSet<GamePair<Player>>
                                               {
-                                                  new(new Player(this._guids[0], this._playerNames[0]),
-                                                      new Player(this._guids[2], this._playerNames[2])),
-                                                  new(new Player(this._guids[1], this._playerNames[1]),
-                                                      new Player(this._guids[3], this._playerNames[3])),
+                                                  new(new Player(this._guids[0],
+                                                                 this._playerNames[0],
+                                                                 Gender.Male,
+                                                                 2000),
+                                                      new Player(this._guids[2],
+                                                                 this._playerNames[2],
+                                                                 Gender.Male,
+                                                                 2000)),
+                                                  new(new Player(this._guids[1],
+                                                                 this._playerNames[1],
+                                                                 Gender.Male,
+                                                                 2000),
+                                                      new Player(this._guids[3],
+                                                                 this._playerNames[3],
+                                                                 Gender.Male,
+                                                                 2000)),
                                               }
                        },
                    };
@@ -610,10 +634,10 @@ public sealed class ConvertTournamentTests
     {
         Assert.Equal(new HashSet<Team>
                      {
-                         new(this._guids[0], this._teamNames[0], new[] { this._players[0] }),
-                         new(this._guids[1], this._teamNames[1], new[] { this._players[1] }),
-                         new(this._guids[2], this._teamNames[2], new[] { this._players[2] }),
-                         new(this._guids[3], this._teamNames[3], new[] { this._players[3] }),
+                         new(this._guids[0], this._teamNames[0], players: new[] { this._players[0] }),
+                         new(this._guids[1], this._teamNames[1], players: new[] { this._players[1] }),
+                         new(this._guids[2], this._teamNames[2], players: new[] { this._players[2] }),
+                         new(this._guids[3], this._teamNames[3], players: new[] { this._players[3] }),
                      },
                      result.Teams);
     }

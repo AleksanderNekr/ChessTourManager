@@ -30,10 +30,8 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
@@ -69,11 +67,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -104,11 +99,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -135,11 +127,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -167,10 +156,8 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
@@ -206,11 +193,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -241,11 +225,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -272,11 +253,8 @@ public sealed class SetDrawingPropsTests
                                                                  drawSystem,
                                                                  coefficients,
                                                                  maxTour,
-                                                                 createdAt,
-                                                                 false)
+                                                                 createdAt)
                                                              {
-                                                                 GamePairs = new Dictionary<TourNumber,
-                                                                     IReadOnlySet<GamePair<Player>>>(),
                                                                  Groups = new HashSet<Group>(groups)
                                                              });
         // Assert
@@ -306,15 +284,13 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
-        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient> { DrawCoefficient.Berger });
+        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient> { DrawCoefficient.Berger });
 
         // Assert
         Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.Berger },
@@ -340,17 +316,15 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
                                                 new List<DrawCoefficient>
                                                 {
                                                     DrawCoefficient.Buchholz,
@@ -379,17 +353,15 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
                                                 new List<DrawCoefficient>
                                                 {
                                                     DrawCoefficient.Buchholz,
@@ -418,17 +390,15 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
                                                 new List<DrawCoefficient>
                                                 {
                                                     DrawCoefficient.Buchholz,
@@ -457,17 +427,15 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
                                                 new List<DrawCoefficient>
                                                 {
                                                     DrawCoefficient.Buchholz,
@@ -500,15 +468,13 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
-        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                       { DrawCoefficient.Buchholz });
 
         // Assert
@@ -535,15 +501,13 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
-        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                       { DrawCoefficient.TotalBuchholz });
 
         // Assert
@@ -570,15 +534,13 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
-        ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                       {
                                           DrawCoefficient.Buchholz,
                                           DrawCoefficient.TotalBuchholz,
@@ -608,16 +570,14 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                }));
@@ -645,16 +605,14 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                    DrawCoefficient
@@ -684,16 +642,14 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                    DrawCoefficient
@@ -723,17 +679,15 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((IDrawable<Player>)tournament).UpdateCoefficients(
+                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
                                                 new List<DrawCoefficient>
                                                 {
                                                     DrawCoefficient.Berger,
@@ -762,16 +716,14 @@ public sealed class SetDrawingPropsTests
                                  drawSystem,
                                  coefficients,
                                  maxTour,
-                                 createdAt,
-                                 false)
+                                 createdAt)
             {
-                GamePairs = new Dictionary<TourNumber, IReadOnlySet<GamePair<Player>>>(),
                 Groups    = new HashSet<Group>(groups)
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((IDrawable<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient
                                                                                       .TotalBuchholz,

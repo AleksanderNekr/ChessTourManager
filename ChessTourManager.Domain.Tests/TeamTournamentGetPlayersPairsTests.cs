@@ -13,13 +13,13 @@ public class TeamTournamentGetPlayersPairsTests
         var id1 = Guid.NewGuid();
         var id2 = Guid.NewGuid();
 
-        GamePair<Player> pair = new(new Player(id1, "Player 1"),
-                                    new Player(id2, "Player 2"),
+        GamePair<Player> pair = new(new Player(id1, "Player 1", Gender.Male, 2000),
+                                    new Player(id2, "Player 2", Gender.Male, 2000),
                                     GameResult.Draw);
 
         // Act
-        GamePair<Player> pair2 = new(new Player(id1, "Player 1"),
-                                     new Player(id2, "Player 2"),
+        GamePair<Player> pair2 = new(new Player(id1, "Player 1", Gender.Male, 2000),
+                                     new Player(id2, "Player 2", Gender.Male, 2000),
                                      GameResult.Draw);
 
         // Assert
@@ -33,13 +33,13 @@ public class TeamTournamentGetPlayersPairsTests
         var id1 = Guid.NewGuid();
         var id2 = Guid.NewGuid();
 
-        GamePair<Player> pair = new(new Player(id1, "Player 1"),
-                                    new Player(id2, "Player 2"),
+        GamePair<Player> pair = new(new Player(id1, "Player 1", Gender.Male, 2000),
+                                    new Player(id2, "Player 2", Gender.Male, 2000),
                                     GameResult.Draw);
 
         // Act
-        GamePair<Player> pair2 = new(new Player(id1, "Player 1"),
-                                     new Player(id2, "Player 2"),
+        GamePair<Player> pair2 = new(new Player(id1, "Player 1", Gender.Male, 2000),
+                                     new Player(id2, "Player 2", Gender.Male, 2000),
                                      GameResult.WhiteWin);
 
         // Assert
@@ -52,24 +52,24 @@ public class TeamTournamentGetPlayersPairsTests
         // Arrange
         Team team1 = new(Guid.NewGuid(),
                          "Team1",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 1"),
-                             new Player(Guid.NewGuid(), "Player 2")
+                             new Player(Guid.NewGuid(), "Player 1", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 2", Gender.Male, 2000)
                          });
         Team team2 = new(Guid.NewGuid(),
                          "Team2",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 3"),
-                             new Player(Guid.NewGuid(), "Player 4")
+                             new Player(Guid.NewGuid(), "Player 3", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 4", Gender.Male, 2000)
                          });
         Team team3 = new(Guid.NewGuid(),
                          "Team3",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 5"),
-                             new Player(Guid.NewGuid(), "Player 6")
+                             new Player(Guid.NewGuid(), "Player 5", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 6", Gender.Male, 2000)
                          });
 
         Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>> pairings = new()
@@ -97,10 +97,9 @@ public class TeamTournamentGetPlayersPairsTests
                                         coefficients: new[] { DrawCoefficient.Berger },
                                         maxTour: 4,
                                         createdAt: DateOnly.FromDateTime(DateTime.UtcNow),
-                                        true)
+                                        gamePairs:pairings)
                                     {
                                         Teams     = new HashSet<Team>(new[] { team1, team2, team3 }),
-                                        GamePairs = pairings,
                                         Groups    = new HashSet<Group>()
                                     };
 
@@ -138,24 +137,24 @@ public class TeamTournamentGetPlayersPairsTests
         // Arrange
         Team team1 = new(Guid.NewGuid(),
                          "Team1",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 1"),
-                             new Player(Guid.NewGuid(), "Player 2")
+                             new Player(Guid.NewGuid(), "Player 1", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 2", Gender.Male, 2000)
                          });
         Team team2 = new(Guid.NewGuid(),
                          "Team2",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 3"),
-                             new Player(Guid.NewGuid(), "Player 4")
+                             new Player(Guid.NewGuid(), "Player 3", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 4", Gender.Male, 2000)
                          });
         Team team3 = new(Guid.NewGuid(),
                          "Team3",
-                         new[]
+                         players:new[]
                          {
-                             new Player(Guid.NewGuid(), "Player 5"),
-                             new Player(Guid.NewGuid(), "Player 6")
+                             new Player(Guid.NewGuid(), "Player 5", Gender.Male, 2000),
+                             new Player(Guid.NewGuid(), "Player 6", Gender.Male, 2000)
                          });
 
         Dictionary<TourNumber, IReadOnlySet<GamePair<Team>>> pairings = new()
@@ -183,10 +182,9 @@ public class TeamTournamentGetPlayersPairsTests
                                         coefficients: new[] { DrawCoefficient.Berger },
                                         maxTour: 4,
                                         createdAt: DateOnly.FromDateTime(DateTime.UtcNow),
-                                        true)
+                                        gamePairs:pairings)
                                     {
                                         Teams     = new HashSet<Team>(new[] { team1, team2, team3 }),
-                                        GamePairs = pairings,
                                         Groups    = new HashSet<Group>()
                                     };
 
