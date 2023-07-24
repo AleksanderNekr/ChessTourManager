@@ -1,10 +1,8 @@
-﻿using ChessTourManager.Domain.Interfaces;
+﻿namespace ChessTourManager.Domain.Entities;
 
-namespace ChessTourManager.Domain.Entities;
-
-public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPlayer : IPlayer<TPlayer>
+public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPlayer : Participant<TPlayer>
 {
-    public GamePair(in TPlayer white, in TPlayer black, in GameResult result = GameResult.NotYetPlayed)
+    internal GamePair(in TPlayer white, in TPlayer black, in GameResult result = GameResult.NotYetPlayed)
     {
         this.White = white;
         this.Black = black;
@@ -56,10 +54,10 @@ public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPla
         return HashCode.Combine(this.White, this.Black);
     }
 
-    /// <inheritdoc />
     /// <summary>
     ///     Compares two <see cref="T:ChessTourManager.Domain.Entities.GamePair" /> objects for equality by their players.
     /// </summary>
+    /// <inheritdoc />
     internal sealed class ByPlayersEqualityComparer : IEqualityComparer<GamePair<TPlayer>>
     {
         public bool Equals(GamePair<TPlayer>? x, GamePair<TPlayer>? y)
@@ -85,7 +83,7 @@ public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPla
     }
 }
 
-public enum GameResult
+internal enum GameResult
 {
     WhiteWin,
     BlackWin,
@@ -96,7 +94,7 @@ public enum GameResult
     NotYetPlayed,
 }
 
-public enum PlayerColor
+internal enum PlayerColor
 {
     White,
     Black,
