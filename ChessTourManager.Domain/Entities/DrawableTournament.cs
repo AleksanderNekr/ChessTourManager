@@ -17,11 +17,11 @@ public abstract class DrawableTournament<TPlayer> : TournamentBase
                                  IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>? gamePairs   = default)
         : base(id, name, createdAt)
     {
-        this.AllowMixGroupGames = allowMixGroupGames;
-        this.GamePairs          = gamePairs ?? new Dictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>();
-        this.Coefficients       = coefficients;
-        this.SetDrawingProperties(drawSystem, coefficients);
-        this.SetTours(maxTour, currentTour ?? 1);
+        AllowMixGroupGames = allowMixGroupGames;
+        GamePairs          = gamePairs ?? new Dictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>();
+        Coefficients       = coefficients;
+        SetDrawingProperties(drawSystem, coefficients);
+        SetTours(maxTour, currentTour ?? 1);
     }
 
     public DrawSystem System { get; private set; }
@@ -56,20 +56,20 @@ public abstract class DrawableTournament<TPlayer> : TournamentBase
 
     internal void UpdateCoefficients(IReadOnlyCollection<DrawCoefficient> coefficients)
     {
-        List<DrawCoefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(this.System)).ToList();
+        List<DrawCoefficient> wrongCoefficients = coefficients.Except(GetPossibleCoefficients(System)).ToList();
         if (wrongCoefficients.Any())
         {
-            throw new DomainException($"Wrong coefficients for {this.System} draw system: {
+            throw new DomainException($"Wrong coefficients for {System} draw system: {
                 string.Join(", ", wrongCoefficients)}");
         }
 
-        this.Coefficients = coefficients;
+        Coefficients = coefficients;
     }
 
     internal void SetDrawingProperties(DrawSystem drawSystem, IReadOnlyCollection<DrawCoefficient> coefficients)
     {
-        this.System = drawSystem;
-        this.UpdateCoefficients(coefficients);
+        System = drawSystem;
+        UpdateCoefficients(coefficients);
     }
 
     internal void SetTours(TourNumber maxTour, TourNumber currentTour)
@@ -79,18 +79,18 @@ public abstract class DrawableTournament<TPlayer> : TournamentBase
             throw new DomainException("Max tour must be greater or equal to current tour");
         }
 
-        this.MaxTour     = maxTour;
-        this.CurrentTour = currentTour;
+        MaxTour     = maxTour;
+        CurrentTour = currentTour;
     }
 
     internal DrawResult DrawNewTour()
     {
-        return this.System switch
+        return System switch
                {
-                   DrawSystem.RoundRobin => this.DrawRoundRobin(),
-                   DrawSystem.Swiss      => this.DrawSwiss(),
-                   _ => throw new DomainOutOfRangeException(nameof(this.System),
-                                                            this.System,
+                   DrawSystem.RoundRobin => DrawRoundRobin(),
+                   DrawSystem.Swiss      => DrawSwiss(),
+                   _ => throw new DomainOutOfRangeException(nameof(System),
+                                                            System,
                                                             "Cannot draw – unknown system"),
                };
     }

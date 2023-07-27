@@ -15,7 +15,7 @@ public class TourNumberTests
     public void TourNumber_ValidValue_CreatesTourNumber()
     {
         // Arrange
-        int validValue = 10;
+        var validValue = 10;
 
         // Act
         var tourNumber = new TourNumber(validValue);
@@ -29,10 +29,10 @@ public class TourNumberTests
     {
         // Arrange
         var tourNumber         = new TourNumber(5);
-        int expectedNextNumber = 6;
+        var expectedNextNumber = 6;
 
         // Act
-        var nextTourNumber = tourNumber.NextTourNumber();
+        TourNumber nextTourNumber = tourNumber.NextTourNumber();
 
         // Assert
         Assert.Equal(expectedNextNumber, (int)nextTourNumber);
@@ -53,10 +53,10 @@ public class TourNumberTests
     {
         // Arrange
         var tourNumber             = new TourNumber(10);
-        int expectedPreviousNumber = 9;
+        var expectedPreviousNumber = 9;
 
         // Act
-        var previousTourNumber = tourNumber.PreviousTourNumber();
+        TourNumber previousTourNumber = tourNumber.PreviousTourNumber();
 
         // Assert
         Assert.Equal(expectedPreviousNumber, (int)previousTourNumber);
@@ -76,7 +76,7 @@ public class TourNumberTests
     public void ImplicitConversion_FromInt_CreatesTourNumber()
     {
         // Arrange
-        int value = 15;
+        var value = 15;
 
         // Act
         TourNumber tourNumber = value;
@@ -105,7 +105,7 @@ public class TourNumberTests
         var tourNumber = new TourNumber(12);
 
         // Act
-        string stringValue = tourNumber.ToString();
+        var stringValue = tourNumber.ToString();
 
         // Assert
         Assert.Equal("12", stringValue);
@@ -115,7 +115,7 @@ public class TourNumberTests
     public void GetHashCode_ReturnsHashValue()
     {
         // Arrange
-        int value      = 9;
+        var value      = 9;
         var tourNumber = new TourNumber(value);
 
         // Act

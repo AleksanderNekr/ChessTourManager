@@ -8,8 +8,8 @@ public sealed class Player : Participant<Player>, IEquatable<Player>, INameable
     internal Player(Id<Guid> id, Name name, Gender gender, BirthYear birthYear, bool isActive = true)
         : base(id, name, isActive)
     {
-        this.PlayerGender = gender;
-        this.BirthYear    = birthYear;
+        PlayerGender = gender;
+        BirthYear    = birthYear;
     }
 
     public Gender PlayerGender { get; set; }
@@ -28,28 +28,28 @@ public sealed class Player : Participant<Player>, IEquatable<Player>, INameable
             return true;
         }
 
-        return this.Id     == other.Id
-            && this.Name   == other.Name
-            && this.Points == other.Points
-            && this.Wins   == other.Wins
-            && this.Draws  == other.Draws
-            && this.Loses  == other.Loses;
+        return Id     == other.Id
+            && Name   == other.Name
+            && Points == other.Points
+            && Wins   == other.Wins
+            && Draws  == other.Draws
+            && Loses  == other.Loses;
     }
 
 
     public override string ToString()
     {
-        return $"{this.Name}: {this.Id}";
+        return $"{Name}: {Id}";
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is Player other && this.Equals(other);
+        return obj is Player other && Equals(other);
     }
 
     public override int GetHashCode()
     {
-        return this.Id.GetHashCode();
+        return Id.GetHashCode();
     }
 }
 

@@ -10,18 +10,26 @@ public sealed class Team : Participant<Team>, IEquatable<Team>, INameable
     internal Team(Id<Guid> id, Name name, bool isActive = true, IEnumerable<Player>? players = default)
         : base(id, name, isActive)
     {
-        this._players = new LinkedList<Player>(players ?? Enumerable.Empty<Player>());
+        _players = new LinkedList<Player>(players ?? Enumerable.Empty<Player>());
     }
 
     internal IEnumerable<Player> Players
     {
-        get => this._players;
+        get => _players;
+    }
+
+    public bool Equals(Team? other)
+    {
+        return other is not null
+            && Id   == other.Id
+            && Name == other.Name
+            && Players.SequenceEqual(other.Players);
     }
 
     internal override void SetActive()
     {
         base.SetActive();
-        foreach (Player player in this._players)
+        foreach (Player player in _players)
         {
             player.SetActive();
         }
@@ -30,27 +38,19 @@ public sealed class Team : Participant<Team>, IEquatable<Team>, INameable
     internal override void SetInactive()
     {
         base.SetInactive();
-        foreach (Player player in this._players)
+        foreach (Player player in _players)
         {
             player.SetInactive();
         }
     }
 
-    public bool Equals(Team? other)
-    {
-        return other is not null
-            && this.Id   == other.Id
-            && this.Name == other.Name
-            && this.Players.SequenceEqual(other.Players);
-    }
-
     public override bool Equals(object? obj)
     {
-        return obj is Team team && this.Equals(team);
+        return obj is Team team && Equals(team);
     }
 
     public override int GetHashCode()
     {
-        return this.Id.GetHashCode();
+        return Id.GetHashCode();
     }
 }

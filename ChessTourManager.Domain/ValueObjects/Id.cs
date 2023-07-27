@@ -5,24 +5,24 @@ public readonly struct Id<TId> : IEquatable<Id<TId>>, IComparable<Id<TId>>
 {
     public bool Equals(Id<TId> other)
     {
-        return this.CompareTo(other) == 0;
+        return CompareTo(other) == 0;
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is Id<TId> id && this.Equals(id);
+        return obj is Id<TId> id && Equals(id);
     }
 
     public override int GetHashCode()
     {
-        return this._value.GetHashCode();
+        return _value.GetHashCode();
     }
 
     private readonly TId _value;
 
     public Id(in TId value)
     {
-        this._value = value;
+        _value = value;
     }
 
     public static implicit operator TId(in Id<TId> id)
@@ -47,11 +47,11 @@ public readonly struct Id<TId> : IEquatable<Id<TId>>, IComparable<Id<TId>>
 
     public int CompareTo(Id<TId> other)
     {
-        return this._value.CompareTo(other._value);
+        return _value.CompareTo(other._value);
     }
 
     public override string ToString()
     {
-        return (this._value.ToString() ?? base.ToString()) ?? string.Empty;
+        return (_value.ToString() ?? base.ToString()) ?? string.Empty;
     }
 }

@@ -7,9 +7,15 @@ public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, I
 {
     private readonly int _value;
 
-    public static int MinValue => 1;
+    public static int MinValue
+    {
+        get => 1;
+    }
 
-    public static int MaxValue => 20;
+    public static int MaxValue
+    {
+        get => 20;
+    }
 
     public TourNumber(in int value)
     {
@@ -18,27 +24,27 @@ public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, I
             throw new DomainException($"Tour number must be between {MinValue} and {MaxValue}");
         }
 
-        this._value = value;
+        _value = value;
     }
 
     public TourNumber NextTourNumber()
     {
-        if (this._value == MaxValue)
+        if (_value == MaxValue)
         {
             throw new DomainException("Max possible tour number reached");
         }
 
-        return this._value + 1;
+        return _value + 1;
     }
 
     public TourNumber PreviousTourNumber()
     {
-        if (this._value == MinValue)
+        if (_value == MinValue)
         {
             throw new DomainException("Min possible tour number reached");
         }
 
-        return this._value - 1;
+        return _value - 1;
     }
 
     public static implicit operator int(in TourNumber tourNumber)
@@ -53,12 +59,12 @@ public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, I
 
     public override string ToString()
     {
-        return this._value.ToString();
+        return _value.ToString();
     }
 
     public override int GetHashCode()
     {
-        return this._value;
+        return _value;
     }
 
     public static bool operator ==(in TourNumber left, in TourNumber right)
@@ -93,16 +99,16 @@ public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, I
 
     public override bool Equals(object? obj)
     {
-        return obj is TourNumber other && this.Equals(other);
+        return obj is TourNumber other && Equals(other);
     }
 
     public bool Equals(TourNumber other)
     {
-        return this._value == other._value;
+        return _value == other._value;
     }
 
     public int CompareTo(TourNumber other)
     {
-        return this._value.CompareTo(other._value);
+        return _value.CompareTo(other._value);
     }
 }

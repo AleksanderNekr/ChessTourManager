@@ -4,9 +4,9 @@ public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPla
 {
     internal GamePair(in TPlayer white, in TPlayer black, in GameResult result = GameResult.NotYetPlayed)
     {
-        this.White = white;
-        this.Black = black;
-        this.SetResult(result);
+        White = white;
+        Black = black;
+        SetResult(result);
     }
 
     internal TPlayer White { get; }
@@ -27,31 +27,31 @@ public sealed class GamePair<TPlayer> : IEquatable<GamePair<TPlayer>> where TPla
             return true;
         }
 
-        return this.White.Equals(other.White)
-            && this.Black.Equals(other.Black)
-            && this.Result == other.Result;
+        return White.Equals(other.White)
+            && Black.Equals(other.Black)
+            && Result == other.Result;
     }
 
     public override string ToString()
     {
-        return $"{this.White} - {this.Black}: {this.Result}";
+        return $"{White} - {Black}: {Result}";
     }
 
     private void SetResult(in GameResult result)
     {
-        this.Result = result;
-        this.White.AddGameToHistory(this, PlayerColor.White);
-        this.Black.AddGameToHistory(this, PlayerColor.Black);
+        Result = result;
+        White.AddGameToHistory(this, PlayerColor.White);
+        Black.AddGameToHistory(this, PlayerColor.Black);
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is GamePair<TPlayer> other && this.Equals(other);
+        return obj is GamePair<TPlayer> other && Equals(other);
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.White, this.Black);
+        return HashCode.Combine(White, Black);
     }
 
     /// <summary>

@@ -17,45 +17,45 @@ public sealed class TeamTournament : DrawableTournament<Team>, ITeamTournament
                             TourNumber?                                                    currentTour        = null,
                             IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Team>>>? gamePairs          = default,
                             IReadOnlySet<Team>?                                            teams              = default,
-                            bool                                                           allowInTeamGames  = false)
+                            bool                                                           allowInTeamGames   = false)
         : base(id, name, createdAt, allowMixGroupGames, drawSystem, coefficients, maxTour, currentTour, gamePairs)
     {
-        this.Kind              = TournamentKind.Team;
-        this.Teams             = teams ?? new HashSet<Team>();
-        this.AllowInTeamGames = allowInTeamGames;
+        Kind             = TournamentKind.Team;
+        Teams            = teams ?? new HashSet<Team>();
+        AllowInTeamGames = allowInTeamGames;
     }
 
     public IReadOnlySet<Team> Teams
     {
-        get => this._teams;
-        internal init => this._teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
+        get => _teams;
+        internal init => _teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
     }
 
     public bool AllowInTeamGames { get; }
 
     public bool TryAddTeam(Team team)
     {
-        return this._teams.Add(team);
+        return _teams.Add(team);
     }
 
     public bool TryRemoveTeam(Team team)
     {
-        return this._teams.Remove(team);
+        return _teams.Remove(team);
     }
 
     public override SingleTournament ConvertToSingleTournament()
     {
-        return new SingleTournament(this.Id,
-                                    this.Name,
-                                    this.System,
-                                    this.Coefficients,
-                                    this.MaxTour,
-                                    this.CreatedAt,
-                                    this.AllowMixGroupGames,
-                                    this.GetPlayersPairings(),
-                                    this.CurrentTour)
+        return new SingleTournament(Id,
+                                    Name,
+                                    System,
+                                    Coefficients,
+                                    MaxTour,
+                                    CreatedAt,
+                                    AllowMixGroupGames,
+                                    GetPlayersPairings(),
+                                    CurrentTour)
                {
-                   Groups = this.Groups,
+                   Groups = Groups,
                };
     }
 
@@ -66,32 +66,32 @@ public sealed class TeamTournament : DrawableTournament<Team>, ITeamTournament
 
     public override SingleTeamTournament ConvertToSingleTeamTournament()
     {
-        return new SingleTeamTournament(this.Id,
-                                        this.Name,
-                                        this.System,
-                                        this.Coefficients,
-                                        this.MaxTour,
-                                        this.CreatedAt,
-                                        this.AllowMixGroupGames,
-                                        teams: this.Teams,
-                                        currentTour: this.CurrentTour,
-                                        allowInTeamGames: this.AllowInTeamGames,
-                                        gamePairs: this.GetPlayersPairings())
+        return new SingleTeamTournament(Id,
+                                        Name,
+                                        System,
+                                        Coefficients,
+                                        MaxTour,
+                                        CreatedAt,
+                                        AllowMixGroupGames,
+                                        teams: Teams,
+                                        currentTour: CurrentTour,
+                                        allowInTeamGames: AllowInTeamGames,
+                                        gamePairs: GetPlayersPairings())
                {
-                   Groups = this.Groups
+                   Groups = Groups,
                };
     }
 
     internal IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>> GetPlayersPairings()
     {
 
-        return this.GamePairs
-                   .ToDictionary<KeyValuePair<TourNumber, IReadOnlySet<GamePair<Team>>>,
-                        TourNumber,
-                        IReadOnlySet<GamePair<Player>>>(static tourTeamsPairs => tourTeamsPairs.Key,
-                                                        static tourTeamsPairs => tourTeamsPairs.Value
-                                                           .SelectMany(GetPlayersPairs)
-                                                           .ToHashSet());
+        return GamePairs
+           .ToDictionary<KeyValuePair<TourNumber, IReadOnlySet<GamePair<Team>>>,
+                TourNumber,
+                IReadOnlySet<GamePair<Player>>>(static tourTeamsPairs => tourTeamsPairs.Key,
+                                                static tourTeamsPairs => tourTeamsPairs.Value
+                                                   .SelectMany(GetPlayersPairs)
+                                                   .ToHashSet());
 
         static IEnumerable<GamePair<Player>> GetPlayersPairs(GamePair<Team> teamPair)
         {

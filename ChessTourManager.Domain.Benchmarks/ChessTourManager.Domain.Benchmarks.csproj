@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.5"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj" />
+        <ProjectReference Include="..\ChessTourManager.Domain\ChessTourManager.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

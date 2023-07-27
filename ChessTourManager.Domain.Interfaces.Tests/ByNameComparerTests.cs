@@ -12,8 +12,8 @@ public class ByNameComparerTests
             var name2 = new Name("John");
 
             // Act
-            var  comparer = new INameable.ByNameEqualityComparer<INameable>();
-            bool result   = comparer.Equals(new TestNameable(name1), new TestNameable(name2));
+            INameable.ByNameEqualityComparer<INameable> comparer = new INameable.ByNameEqualityComparer<INameable>();
+            bool result = comparer.Equals(new TestNameable(name1), new TestNameable(name2));
 
             // Assert
             Assert.True(result);
@@ -27,8 +27,8 @@ public class ByNameComparerTests
             var name2 = new Name("Jane");
 
             // Act
-            var  comparer = new INameable.ByNameEqualityComparer<INameable>();
-            bool result   = comparer.Equals(new TestNameable(name1), new TestNameable(name2));
+            INameable.ByNameEqualityComparer<INameable> comparer = new INameable.ByNameEqualityComparer<INameable>();
+            bool result = comparer.Equals(new TestNameable(name1), new TestNameable(name2));
 
             // Assert
             Assert.False(result);
@@ -41,8 +41,8 @@ public class ByNameComparerTests
             var name = new Name("John");
 
             // Act
-            var  comparer = new INameable.ByNameEqualityComparer<INameable>();
-            bool result   = comparer.Equals(null, new TestNameable(name));
+            INameable.ByNameEqualityComparer<INameable> comparer = new INameable.ByNameEqualityComparer<INameable>();
+            bool                                        result   = comparer.Equals(null, new TestNameable(name));
 
             // Assert
             Assert.False(result);
@@ -56,8 +56,8 @@ public class ByNameComparerTests
             var testNameable = new TestNameable(name);
 
             // Act
-            var  comparer = new INameable.ByNameEqualityComparer<INameable>();
-            bool result   = comparer.Equals(testNameable, testNameable);
+            INameable.ByNameEqualityComparer<INameable> comparer = new INameable.ByNameEqualityComparer<INameable>();
+            bool                                        result   = comparer.Equals(testNameable, testNameable);
 
             // Assert
             Assert.True(result);
@@ -71,9 +71,9 @@ public class ByNameComparerTests
             var name2 = new Name("John");
 
             // Act
-            var comparer  = new INameable.ByNameEqualityComparer<INameable>();
-            int hashCode1 = comparer.GetHashCode(new TestNameable(name1));
-            int hashCode2 = comparer.GetHashCode(new TestNameable(name2));
+            INameable.ByNameEqualityComparer<INameable> comparer  = new INameable.ByNameEqualityComparer<INameable>();
+            int                                         hashCode1 = comparer.GetHashCode(new TestNameable(name1));
+            int                                         hashCode2 = comparer.GetHashCode(new TestNameable(name2));
 
             // Assert
             Assert.Equal(hashCode1, hashCode2);
@@ -87,9 +87,9 @@ public class ByNameComparerTests
             var name2 = new Name("Jane");
 
             // Act
-            var comparer  = new INameable.ByNameEqualityComparer<INameable>();
-            int hashCode1 = comparer.GetHashCode(new TestNameable(name1));
-            int hashCode2 = comparer.GetHashCode(new TestNameable(name2));
+            INameable.ByNameEqualityComparer<INameable> comparer  = new INameable.ByNameEqualityComparer<INameable>();
+            int                                         hashCode1 = comparer.GetHashCode(new TestNameable(name1));
+            int                                         hashCode2 = comparer.GetHashCode(new TestNameable(name2));
 
             // Assert
             Assert.NotEqual(hashCode1, hashCode2);
@@ -101,7 +101,7 @@ public class ByNameComparerTests
     {
         public TestNameable(Name name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public Name Name { get; }

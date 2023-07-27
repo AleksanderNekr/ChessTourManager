@@ -2,33 +2,6 @@
 
 public class TournamentBaseTests
 {
-    private class TestTournament : TournamentBase
-    {
-        public TestTournament(Id<Guid> id, Name name, DateOnly createdAt)
-            : base(id, name, createdAt)
-        {
-            this.Kind = TournamentKind.Single;
-        }
-
-        public override SingleTournament ConvertToSingleTournament()
-        {
-            // Implementation for SingleTournament conversion
-            throw new NotImplementedException();
-        }
-
-        public override TeamTournament ConvertToTeamTournament()
-        {
-            // Implementation for TeamTournament conversion
-            throw new NotImplementedException();
-        }
-
-        public override SingleTeamTournament ConvertToSingleTeamTournament()
-        {
-            // Implementation for SingleTeamTournament conversion
-            throw new NotImplementedException();
-        }
-    }
-
     [Fact]
     public void TournamentBase_ConstructedWithValues_PropertiesSetCorrectly()
     {
@@ -80,5 +53,32 @@ public class TournamentBaseTests
         // Assert
         Assert.Equal(RemoveGroupResult.Success, result);
         Assert.DoesNotContain(new Group(id, "Group A"), tournament.Groups);
+    }
+
+    private class TestTournament : TournamentBase
+    {
+        public TestTournament(Id<Guid> id, Name name, DateOnly createdAt)
+            : base(id, name, createdAt)
+        {
+            Kind = TournamentKind.Single;
+        }
+
+        public override SingleTournament ConvertToSingleTournament()
+        {
+            // Implementation for SingleTournament conversion
+            throw new NotImplementedException();
+        }
+
+        public override TeamTournament ConvertToTeamTournament()
+        {
+            // Implementation for TeamTournament conversion
+            throw new NotImplementedException();
+        }
+
+        public override SingleTeamTournament ConvertToSingleTeamTournament()
+        {
+            // Implementation for SingleTeamTournament conversion
+            throw new NotImplementedException();
+        }
     }
 }

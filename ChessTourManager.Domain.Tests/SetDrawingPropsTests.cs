@@ -1,6 +1,5 @@
 ﻿using ChessTourManager.Domain.Entities;
 using ChessTourManager.Domain.Exceptions;
-using ChessTourManager.Domain.Interfaces;
 using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Tests;
@@ -24,7 +23,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
 
         // Act
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -32,18 +31,18 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Assert
-        Assert.Equal(id,                                   tournament.Id);
-        Assert.Equal(name,                                 tournament.Name);
-        Assert.Equal(drawSystem,                           tournament.System);
-        Assert.Equal(coefficients,                         tournament.Coefficients);
-        Assert.Equal(maxTour,                              tournament.MaxTour);
-        Assert.Equal(createdAt,                            tournament.CreatedAt);
-        Assert.Equal(currentTour,                          tournament.CurrentTour);
-        Assert.Equal(groups,                               tournament.Groups);
+        Assert.Equal(id,                    tournament.Id);
+        Assert.Equal(name,                  tournament.Name);
+        Assert.Equal(drawSystem,            tournament.System);
+        Assert.Equal(coefficients,          tournament.Coefficients);
+        Assert.Equal(maxTour,               tournament.MaxTour);
+        Assert.Equal(createdAt,             tournament.CreatedAt);
+        Assert.Equal(currentTour,           tournament.CurrentTour);
+        Assert.Equal(groups,                tournament.Groups);
         Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
@@ -69,7 +68,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -101,7 +100,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
@@ -129,7 +128,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger, SimpleBerger", exception!.Message);
@@ -150,7 +149,7 @@ public sealed class SetDrawingPropsTests
         List<Group> groups      = new();
 
         // Act
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -158,18 +157,18 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Assert
-        Assert.Equal(id,                                   tournament.Id);
-        Assert.Equal(name,                                 tournament.Name);
-        Assert.Equal(drawSystem,                           tournament.System);
-        Assert.Equal(coefficients,                         tournament.Coefficients);
-        Assert.Equal(maxTour,                              tournament.MaxTour);
-        Assert.Equal(createdAt,                            tournament.CreatedAt);
-        Assert.Equal(currentTour,                          tournament.CurrentTour);
-        Assert.Equal(groups,                               tournament.Groups);
+        Assert.Equal(id,                    tournament.Id);
+        Assert.Equal(name,                  tournament.Name);
+        Assert.Equal(drawSystem,            tournament.System);
+        Assert.Equal(coefficients,          tournament.Coefficients);
+        Assert.Equal(maxTour,               tournament.MaxTour);
+        Assert.Equal(createdAt,             tournament.CreatedAt);
+        Assert.Equal(currentTour,           tournament.CurrentTour);
+        Assert.Equal(groups,                tournament.Groups);
         Assert.Equal(TournamentKind.Single, tournament.Kind);
     }
 
@@ -195,7 +194,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -227,7 +226,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -255,7 +254,7 @@ public sealed class SetDrawingPropsTests
                                                                  maxTour,
                                                                  createdAt)
                                                              {
-                                                                 Groups = new HashSet<Group>(groups)
+                                                                 Groups = new HashSet<Group>(groups),
                                                              });
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz, TotalBuchholz", exception!.Message);
@@ -278,7 +277,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -286,11 +285,11 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
-        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient> { DrawCoefficient.Berger });
+        tournament.UpdateCoefficients(new List<DrawCoefficient> { DrawCoefficient.Berger });
 
         // Assert
         Assert.Equal(new List<DrawCoefficient> { DrawCoefficient.Berger },
@@ -310,7 +309,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -318,17 +317,17 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
-                                                new List<DrawCoefficient>
-                                                {
-                                                    DrawCoefficient.Buchholz,
-                                                }));
+                                               tournament.UpdateCoefficients(
+                                                                             new List<DrawCoefficient>
+                                                                             {
+                                                                                 DrawCoefficient.Buchholz,
+                                                                             }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -347,7 +346,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -355,17 +354,17 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
-                                                new List<DrawCoefficient>
-                                                {
-                                                    DrawCoefficient.Buchholz,
-                                                }));
+                                               tournament.UpdateCoefficients(
+                                                                             new List<DrawCoefficient>
+                                                                             {
+                                                                                 DrawCoefficient.Buchholz,
+                                                                             }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -384,7 +383,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -392,17 +391,17 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
-                                                new List<DrawCoefficient>
-                                                {
-                                                    DrawCoefficient.Buchholz,
-                                                }));
+                                               tournament.UpdateCoefficients(
+                                                                             new List<DrawCoefficient>
+                                                                             {
+                                                                                 DrawCoefficient.Buchholz,
+                                                                             }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception!.Message);
@@ -421,7 +420,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -429,17 +428,17 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
-                                                new List<DrawCoefficient>
-                                                {
-                                                    DrawCoefficient.Buchholz,
-                                                }));
+                                               tournament.UpdateCoefficients(
+                                                                             new List<DrawCoefficient>
+                                                                             {
+                                                                                 DrawCoefficient.Buchholz,
+                                                                             }));
 
         // Assert
         Assert.Equal("Wrong coefficients for RoundRobin draw system: Buchholz", exception.Message);
@@ -462,7 +461,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -470,11 +469,11 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
-        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        tournament.UpdateCoefficients(new List<DrawCoefficient>
                                       { DrawCoefficient.Buchholz });
 
         // Assert
@@ -495,7 +494,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -503,11 +502,11 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
-        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        tournament.UpdateCoefficients(new List<DrawCoefficient>
                                       { DrawCoefficient.TotalBuchholz });
 
         // Assert
@@ -528,7 +527,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -536,11 +535,11 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
-        ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+        tournament.UpdateCoefficients(new List<DrawCoefficient>
                                       {
                                           DrawCoefficient.Buchholz,
                                           DrawCoefficient.TotalBuchholz,
@@ -564,7 +563,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -572,12 +571,12 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                }));
@@ -599,7 +598,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -607,12 +606,12 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                    DrawCoefficient
@@ -636,7 +635,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -644,12 +643,12 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient.Berger,
                                                                                    DrawCoefficient
@@ -673,7 +672,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -681,17 +680,17 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
             Assert.Throws<DomainException>(() =>
-                                               ((DrawableTournament<Player>)tournament).UpdateCoefficients(
-                                                new List<DrawCoefficient>
-                                                {
-                                                    DrawCoefficient.Berger,
-                                                }));
+                                               tournament.UpdateCoefficients(
+                                                                             new List<DrawCoefficient>
+                                                                             {
+                                                                                 DrawCoefficient.Berger,
+                                                                             }));
 
         // Assert
         Assert.Equal("Wrong coefficients for Swiss draw system: Berger", exception!.Message);
@@ -710,7 +709,7 @@ public sealed class SetDrawingPropsTests
         TourNumber  maxTour     = 1;
         TourNumber  currentTour = 1;
         List<Group> groups      = new();
-        SingleTournament tournament =
+        var tournament =
             new SingleTournament(id,
                                  name,
                                  drawSystem,
@@ -718,12 +717,12 @@ public sealed class SetDrawingPropsTests
                                  maxTour,
                                  createdAt)
             {
-                Groups    = new HashSet<Group>(groups)
+                Groups = new HashSet<Group>(groups),
             };
 
         // Act
         var exception =
-            Assert.Throws<DomainException>(() => ((DrawableTournament<Player>)tournament).UpdateCoefficients(new List<DrawCoefficient>
+            Assert.Throws<DomainException>(() => tournament.UpdateCoefficients(new List<DrawCoefficient>
                                                                                {
                                                                                    DrawCoefficient
                                                                                       .TotalBuchholz,

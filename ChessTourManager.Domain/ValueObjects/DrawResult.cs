@@ -12,8 +12,8 @@ public readonly ref struct DrawResult
 
     private DrawResult(ResultType result, ReadOnlySpan<char> message)
     {
-        this.Result  = result;
-        this.Message = message;
+        Result  = result;
+        Message = message;
     }
 
     public ResultType Result { get; }

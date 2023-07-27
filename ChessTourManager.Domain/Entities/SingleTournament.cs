@@ -11,11 +11,11 @@ public sealed class SingleTournament : DrawableTournament<Player>
                               TourNumber                                                       maxTour,
                               DateOnly                                                         createdAt,
                               bool                                                             allowMixGroupGames = false,
-                              IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>>? gamePairs          = default,
-                              TourNumber?                                                      currentTour        = null)
+                              IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>>? gamePairs = default,
+                              TourNumber?                                                      currentTour = null)
         : base(id, name, createdAt, allowMixGroupGames, drawSystem, coefficients, maxTour, currentTour, gamePairs)
     {
-        this.Kind = TournamentKind.Single;
+        Kind = TournamentKind.Single;
     }
 
     public override SingleTournament ConvertToSingleTournament()
@@ -25,46 +25,46 @@ public sealed class SingleTournament : DrawableTournament<Player>
 
     public override TeamTournament ConvertToTeamTournament()
     {
-        return new TeamTournament(this.Id,
-                                  this.Name,
-                                  this.System,
-                                  this.Coefficients,
-                                  this.MaxTour,
-                                  this.CreatedAt,
-                                  this.AllowMixGroupGames)
+        return new TeamTournament(Id,
+                                  Name,
+                                  System,
+                                  Coefficients,
+                                  MaxTour,
+                                  CreatedAt,
+                                  AllowMixGroupGames)
                {
-                   Groups = this.Groups,
-                   Teams  = new HashSet<Team>()
+                   Groups = Groups,
+                   Teams  = new HashSet<Team>(),
                };
     }
 
     public override SingleTeamTournament ConvertToSingleTeamTournament()
     {
-        return new SingleTeamTournament(this.Id,
-                                        this.Name,
-                                        this.System,
-                                        this.Coefficients,
-                                        this.MaxTour,
-                                        this.CreatedAt,
-                                        this.AllowMixGroupGames,
-                                        currentTour: this.CurrentTour,
-                                        gamePairs: this.GamePairs)
+        return new SingleTeamTournament(Id,
+                                        Name,
+                                        System,
+                                        Coefficients,
+                                        MaxTour,
+                                        CreatedAt,
+                                        AllowMixGroupGames,
+                                        currentTour: CurrentTour,
+                                        gamePairs: GamePairs)
                {
-                   Groups = this.Groups,
+                   Groups = Groups,
                };
     }
 
     public AddPlayerResult TryAddPlayer(Id<Guid>  groupId, Id<Guid> playerId, Name playerName, Gender gender,
                                         BirthYear birthYear)
     {
-        Group? group = this.Groups.SingleOrDefault(g => g.Id == groupId);
+        Group? group = Groups.SingleOrDefault(g => g.Id == groupId);
 
         return group?.TryAddPlayer(playerId, playerName, gender, birthYear) ?? AddPlayerResult.GroupDoesNotExist;
     }
 
     public RemovePlayerResult TryRemovePlayer(Id<Guid> groupId, Id<Guid> playerId)
     {
-        Group? group = this.Groups.SingleOrDefault(g => g.Id == groupId);
+        Group? group = Groups.SingleOrDefault(g => g.Id == groupId);
 
         return group?.TryRemovePlayer(playerId) ?? RemovePlayerResult.GroupDoesNotExist;
     }

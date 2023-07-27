@@ -9,9 +9,15 @@ public readonly struct BirthYear : IMinMaxValue<int>, IEquatable<BirthYear>, ICo
 
     private const int OldestAge = 150;
 
-    public static int MinValue => DateTime.UtcNow.Year - OldestAge;
+    public static int MinValue
+    {
+        get => DateTime.UtcNow.Year - OldestAge;
+    }
 
-    public static int MaxValue => DateTime.UtcNow.Year;
+    public static int MaxValue
+    {
+        get => DateTime.UtcNow.Year;
+    }
 
     private BirthYear(in int value)
     {
@@ -20,7 +26,7 @@ public readonly struct BirthYear : IMinMaxValue<int>, IEquatable<BirthYear>, ICo
             throw new DomainException($"Birth year must be between {MinValue} and {MaxValue}");
         }
 
-        this._value = value;
+        _value = value;
     }
 
     public static implicit operator int(in BirthYear tourNumber)
@@ -35,12 +41,12 @@ public readonly struct BirthYear : IMinMaxValue<int>, IEquatable<BirthYear>, ICo
 
     public override string ToString()
     {
-        return this._value.ToString();
+        return _value.ToString();
     }
 
     public override int GetHashCode()
     {
-        return this._value;
+        return _value;
     }
 
     public static bool operator ==(in BirthYear left, in BirthYear right)
@@ -75,16 +81,16 @@ public readonly struct BirthYear : IMinMaxValue<int>, IEquatable<BirthYear>, ICo
 
     public override bool Equals(object? obj)
     {
-        return obj is BirthYear other && this.Equals(other);
+        return obj is BirthYear other && Equals(other);
     }
 
     public bool Equals(BirthYear other)
     {
-        return this._value == other._value;
+        return _value == other._value;
     }
 
     public int CompareTo(BirthYear other)
     {
-        return this._value.CompareTo(other._value);
+        return _value.CompareTo(other._value);
     }
 }

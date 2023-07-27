@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using ChessTourManager.Domain.ValueObjects;
 
 namespace ChessTourManager.Domain.Benchmarks;
 
@@ -18,7 +17,7 @@ public class NameWithoutRef
             throw new Exception("NameWithRef must be between 2 and 50 characters");
         }
 
-        this._value = trimmed.ToString();
+        _value = trimmed.ToString();
     }
 
     public static implicit operator string(NameWithoutRef name)
@@ -33,7 +32,7 @@ public class NameWithoutRef
 
     public override string ToString()
     {
-        return this._value;
+        return _value;
     }
 
     public override bool Equals(object? obj)
@@ -43,12 +42,12 @@ public class NameWithoutRef
             return false;
         }
 
-        return this._value == other._value;
+        return _value == other._value;
     }
 
     public override int GetHashCode()
     {
-        return this._value.GetHashCode();
+        return _value.GetHashCode();
     }
 
     public static bool operator ==(NameWithoutRef left, NameWithoutRef right)
@@ -75,7 +74,7 @@ public class NameWithRef
             throw new Exception("NameWithRef must be between 2 and 50 characters");
         }
 
-        this._value = trimmed.ToString();
+        _value = trimmed.ToString();
     }
 
     public static implicit operator string(NameWithRef name)
@@ -90,7 +89,7 @@ public class NameWithRef
 
     public override string ToString()
     {
-        return this._value;
+        return _value;
     }
 
     public override bool Equals(object? obj)
@@ -100,12 +99,12 @@ public class NameWithRef
             return false;
         }
 
-        return this._value == other._value;
+        return _value == other._value;
     }
 
     public override int GetHashCode()
     {
-        return this._value.GetHashCode();
+        return _value.GetHashCode();
     }
 
     public static bool operator ==(NameWithRef left, NameWithRef right)
@@ -128,7 +127,7 @@ public class NameBenchmarks
     [Benchmark]
     public void NameWithoutRef()
     {
-        var name = new NameWithoutRef(this.Name);
+        var name = new NameWithoutRef(Name);
 
         _ = name.ToString();
     }
@@ -136,7 +135,7 @@ public class NameBenchmarks
     [Benchmark]
     public void NameWithRef()
     {
-        var name = new NameWithRef(ref this.Name);
+        var name = new NameWithRef(ref Name);
 
         _ = name.ToString();
     }

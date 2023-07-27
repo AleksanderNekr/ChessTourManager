@@ -20,57 +20,57 @@ public sealed class SingleTeamTournament : DrawableTournament<Player>, ITeamTour
                                 IReadOnlyDictionary<TourNumber, IReadOnlySet<GamePair<Player>>>? gamePairs = default)
         : base(id, name, createdAt, allowMixGroupGames, drawSystem, coefficients, maxTour, currentTour, gamePairs)
     {
-        this.Kind = TournamentKind.SingleTeam;
-        this.AllowInTeamGames = allowInTeamGames;
-        this.Teams = new HashSet<Team>(teams ?? new HashSet<Team>(), new INameable.ByNameEqualityComparer<Team>());
+        Kind             = TournamentKind.SingleTeam;
+        AllowInTeamGames = allowInTeamGames;
+        Teams            = new HashSet<Team>(teams ?? new HashSet<Team>(), new INameable.ByNameEqualityComparer<Team>());
     }
 
     public IReadOnlySet<Team> Teams
     {
-        get => this._teams;
-        private init => this._teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
+        get => _teams;
+        private init => _teams = new HashSet<Team>(value, new INameable.ByNameEqualityComparer<Team>());
     }
 
     public bool AllowInTeamGames { get; }
 
     public bool TryAddTeam(Team team)
     {
-        return this._teams.Add(team);
+        return _teams.Add(team);
     }
 
     public bool TryRemoveTeam(Team team)
     {
-        return this._teams.Remove(team);
+        return _teams.Remove(team);
     }
 
     public override SingleTournament ConvertToSingleTournament()
     {
-        return new SingleTournament(this.Id,
-                                    this.Name,
-                                    this.System,
-                                    this.Coefficients,
-                                    this.MaxTour,
-                                    this.CreatedAt,
-                                    this.AllowMixGroupGames,
-                                    this.GamePairs,
-                                    this.CurrentTour)
+        return new SingleTournament(Id,
+                                    Name,
+                                    System,
+                                    Coefficients,
+                                    MaxTour,
+                                    CreatedAt,
+                                    AllowMixGroupGames,
+                                    GamePairs,
+                                    CurrentTour)
                {
-                   Groups = this.Groups,
+                   Groups = Groups,
                };
     }
 
     public override TeamTournament ConvertToTeamTournament()
     {
-        return new TeamTournament(this.Id,
-                                  this.Name,
-                                  this.System,
-                                  this.Coefficients,
-                                  this.MaxTour,
-                                  this.CreatedAt,
-                                  this.AllowMixGroupGames)
+        return new TeamTournament(Id,
+                                  Name,
+                                  System,
+                                  Coefficients,
+                                  MaxTour,
+                                  CreatedAt,
+                                  AllowMixGroupGames)
                {
-                   Teams  = this.Teams,
-                   Groups = this.Groups
+                   Teams  = Teams,
+                   Groups = Groups,
                };
     }
 

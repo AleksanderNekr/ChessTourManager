@@ -1,6 +1,5 @@
 using System.Collections.Immutable;
 using ChessTourManager.Domain.Entities;
-using ChessTourManager.Domain.Interfaces;
 using ChessTourManager.Domain.ValueObjects;
 
 // ReSharper disable CollectionNeverUpdated.Local
@@ -10,25 +9,24 @@ namespace ChessTourManager.Domain.Tests;
 
 public sealed class CreateTournamentsTests
 {
-    private readonly ImmutableArray<Guid> _guids;
-
     private readonly ImmutableArray<string> _groupNames;
-
-    private readonly ImmutableArray<string> _teamNames;
+    private readonly ImmutableArray<Guid>   _guids;
 
     private readonly ImmutableArray<Player> _players;
 
+    private readonly ImmutableArray<string> _teamNames;
+
     public CreateTournamentsTests()
     {
-        this._teamNames  = ImmutableArray.Create("Team1",        "Team2",        "Team3",        "Team4");
-        this._groupNames = ImmutableArray.Create("Group1",       "Group2",       "Group3",       "Group4");
-        this._guids      = ImmutableArray.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+        _teamNames  = ImmutableArray.Create("Team1",        "Team2",        "Team3",        "Team4");
+        _groupNames = ImmutableArray.Create("Group1",       "Group2",       "Group3",       "Group4");
+        _guids      = ImmutableArray.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
         ImmutableArray<string> playerNames = ImmutableArray.Create("Player1", "Player2", "Player3", "Player4");
 
-        this._players = ImmutableArray.Create(new Player(this._guids[0], playerNames[0], Gender.Male, 2000),
-                                              new Player(this._guids[1], playerNames[1], Gender.Male, 2000),
-                                              new Player(this._guids[2], playerNames[2], Gender.Male, 2000),
-                                              new Player(this._guids[3], playerNames[3], Gender.Male, 2000));
+        _players = ImmutableArray.Create(new Player(_guids[0], playerNames[0], Gender.Male, 2000),
+                                         new Player(_guids[1], playerNames[1], Gender.Male, 2000),
+                                         new Player(_guids[2], playerNames[2], Gender.Male, 2000),
+                                         new Player(_guids[3], playerNames[3], Gender.Male, 2000));
     }
 
     #region Create Single tournament
@@ -48,16 +46,15 @@ public sealed class CreateTournamentsTests
         List<Group>           groups       = new();
 
         // Act
-        SingleTournament tournament = new SingleTournament(id,
-                                                           name,
-                                                           drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           createdAt,
-                                                           false)
-                                      {
-                                          Groups    = new HashSet<Group>(groups),
-                                      };
+        var tournament = new SingleTournament(id,
+                                              name,
+                                              drawSystem,
+                                              coefficients,
+                                              maxTour,
+                                              createdAt)
+                         {
+                             Groups = new HashSet<Group>(groups),
+                         };
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),          tournament.Id);
@@ -86,21 +83,20 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
 
         // Act
-        SingleTournament tournament = new SingleTournament(id,
-                                                           name,
-                                                           drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           createdAt,
-                                                           false)
-                                      {
-                                          Groups    = new HashSet<Group>(groups),
-                                      };
+        var tournament = new SingleTournament(id,
+                                              name,
+                                              drawSystem,
+                                              coefficients,
+                                              maxTour,
+                                              createdAt)
+                         {
+                             Groups = new HashSet<Group>(groups),
+                         };
 
         // Assert
         Assert.Equal(new Id<Guid>(guid), tournament.Id);
@@ -114,8 +110,8 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(TournamentKind.Single, tournament.Kind);
@@ -136,15 +132,15 @@ public sealed class CreateTournamentsTests
         List<Group>           groups       = new();
 
         // Act
-        SingleTournament tournament = new SingleTournament(id,
-                                                           name,
-                                                           drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           createdAt)
-                                      {
-                                          Groups    = new HashSet<Group>(groups),
-                                      };
+        var tournament = new SingleTournament(id,
+                                              name,
+                                              drawSystem,
+                                              coefficients,
+                                              maxTour,
+                                              createdAt)
+                         {
+                             Groups = new HashSet<Group>(groups),
+                         };
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),          tournament.Id);
@@ -173,20 +169,20 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
 
         // Act
-        SingleTournament tournament = new SingleTournament(id,
-                                                           name,
-                                                           drawSystem,
-                                                           coefficients,
-                                                           maxTour,
-                                                           createdAt)
-                                      {
-                                          Groups    = new HashSet<Group>(groups),
-                                      };
+        var tournament = new SingleTournament(id,
+                                              name,
+                                              drawSystem,
+                                              coefficients,
+                                              maxTour,
+                                              createdAt)
+                         {
+                             Groups = new HashSet<Group>(groups),
+                         };
 
         // Assert
         Assert.Equal(new Id<Guid>(guid),    tournament.Id);
@@ -200,8 +196,8 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(TournamentKind.Single, tournament.Kind);
@@ -232,10 +228,9 @@ public sealed class CreateTournamentsTests
                                             drawSystem,
                                             coefficients,
                                             maxTour,
-                                            createdAt,
-                                            false)
+                                            createdAt)
                          {
-                             Teams = new HashSet<Team>(teams),
+                             Teams  = new HashSet<Team>(teams),
                              Groups = new HashSet<Group>(groups),
                          };
         ;
@@ -268,13 +263,13 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
         List<Team> teams = new()
                            {
-                               new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                               new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                               new Team(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                               new Team(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                            };
 
         // Act
@@ -285,7 +280,7 @@ public sealed class CreateTournamentsTests
                                             maxTour,
                                             createdAt)
                          {
-                             Teams = new HashSet<Team>(teams),
+                             Teams  = new HashSet<Team>(teams),
                              Groups = new HashSet<Group>(groups),
                          };
         ;
@@ -302,14 +297,14 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(new List<Team>
                      {
-                         new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                         new(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                         new(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                      },
                      tournament.Teams);
         Assert.Equal(TournamentKind.Team, tournament.Kind);
@@ -338,7 +333,7 @@ public sealed class CreateTournamentsTests
                                             maxTour,
                                             createdAt)
                          {
-                             Teams = new HashSet<Team>(teams),
+                             Teams  = new HashSet<Team>(teams),
                              Groups = new HashSet<Group>(groups),
                          };
         ;
@@ -371,13 +366,13 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
         List<Team> teams = new()
                            {
-                               new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                               new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                               new Team(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                               new Team(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                            };
 
         // Act
@@ -388,8 +383,8 @@ public sealed class CreateTournamentsTests
                                             maxTour,
                                             createdAt)
                          {
-                             Teams     = new HashSet<Team>(teams),
-                             Groups    = new HashSet<Group>(groups),
+                             Teams  = new HashSet<Team>(teams),
+                             Groups = new HashSet<Group>(groups),
                          };
 
         // Assert
@@ -404,14 +399,14 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(new List<Team>
                      {
-                         new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                         new(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                         new(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                      },
                      tournament.Teams);
         Assert.Equal(TournamentKind.Team, tournament.Kind);
@@ -445,7 +440,7 @@ public sealed class CreateTournamentsTests
                                                   createdAt,
                                                   teams: new HashSet<Team>(teams))
                          {
-                             Groups    = new HashSet<Group>(groups),
+                             Groups = new HashSet<Group>(groups),
                          };
 
         // Assert
@@ -476,13 +471,13 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
         List<Team> teams = new()
                            {
-                               new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                               new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                               new Team(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                               new Team(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                            };
 
         // Act
@@ -494,7 +489,7 @@ public sealed class CreateTournamentsTests
                                                   createdAt,
                                                   teams: new HashSet<Team>(teams))
                          {
-                             Groups    = new HashSet<Group>(groups),
+                             Groups = new HashSet<Group>(groups),
                          };
 
         // Assert
@@ -509,14 +504,14 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(new List<Team>
                      {
-                         new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                         new(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                         new(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                      },
                      tournament.Teams);
         Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);
@@ -577,13 +572,13 @@ public sealed class CreateTournamentsTests
         TourNumber currentTour = 2;
         List<Group> groups = new()
                              {
-                                 new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                                 new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                                 new Group(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                                 new Group(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                              };
         List<Team> teams = new()
                            {
-                               new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                               new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                               new Team(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                               new Team(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                            };
 
         // Act
@@ -610,14 +605,14 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
-                         new(this._guids[0], this._groupNames[0], this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._groupNames[1], this._players[2..].ToHashSet()),
+                         new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
+                         new(_guids[1], _groupNames[1], _players[2..].ToHashSet()),
                      },
                      tournament.Groups);
         Assert.Equal(new List<Team>
                      {
-                         new(this._guids[0], this._teamNames[0], players: this._players[..2].ToHashSet()),
-                         new(this._guids[1], this._teamNames[1], players: this._players[2..].ToHashSet()),
+                         new(_guids[0], _teamNames[0], players: _players[..2].ToHashSet()),
+                         new(_guids[1], _teamNames[1], players: _players[2..].ToHashSet()),
                      },
                      tournament.Teams);
         Assert.Equal(TournamentKind.SingleTeam, tournament.Kind);

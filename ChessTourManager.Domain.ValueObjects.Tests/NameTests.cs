@@ -123,10 +123,10 @@ public class NameTests
 
         // Act
         Name name1 = str;
-        int  name2 = 0;
+        var  name2 = 0;
 
         // Assert
-        Assert.False(name1.Equals((object)name2));
+        Assert.False(name1.Equals(name2));
     }
 
     [Fact]
@@ -149,7 +149,10 @@ public class NameTests
         const string str = "N";
 
         // Act
-        static void Act() => _ = new Name(str);
+        static void Act()
+        {
+            _ = new Name(str);
+        }
 
         // Assert
         Assert.Throws<DomainException>(Act);
@@ -162,7 +165,10 @@ public class NameTests
         var str = new string('N', 51);
 
         // Act
-        void Act() => _ = new Name(str);
+        void Act()
+        {
+            _ = new Name(str);
+        }
 
         // Assert
         Assert.Throws<DomainException>(Act);
@@ -201,7 +207,7 @@ public class NameTests
         const string str = "Name";
 
         // Act
-        Name name = str;
+        Name name  = str;
         Name name2 = str;
 
         // Assert
