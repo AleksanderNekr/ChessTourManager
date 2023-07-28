@@ -1,4 +1,7 @@
+
 # ChessTourManager
+![GitHub repo size](https://img.shields.io/github/repo-size/AleksanderNekr/ChessTourManager?color=%234682B4)
+
 Chess-drawing application
 
 Trying to implement DDD and Hexagonal Architecture.
