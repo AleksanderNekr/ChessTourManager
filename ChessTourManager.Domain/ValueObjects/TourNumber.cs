@@ -17,6 +17,11 @@ public readonly struct TourNumber : IMinMaxValue<int>, IEquatable<TourNumber>, I
         get => 20;
     }
 
+    public static TourNumber BeforeStart()
+    {
+        return new TourNumber();
+    }
+
     public TourNumber(in int value)
     {
         if (value < MinValue || value > MaxValue)

@@ -19,7 +19,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -57,7 +57,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.Berger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -89,7 +89,7 @@ public sealed class SetDrawingPropsTests
                                              };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -117,7 +117,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -145,7 +145,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -183,7 +183,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.Berger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -215,7 +215,7 @@ public sealed class SetDrawingPropsTests
                                              };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -243,7 +243,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
 
         // Act
@@ -275,7 +275,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -307,7 +307,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -344,7 +344,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -381,7 +381,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -418,7 +418,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Berger, DrawCoefficient.SimpleBerger };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -459,7 +459,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -492,7 +492,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -525,7 +525,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -561,7 +561,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -596,7 +596,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -633,7 +633,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -670,7 +670,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,
@@ -707,7 +707,7 @@ public sealed class SetDrawingPropsTests
             new() { DrawCoefficient.Buchholz, DrawCoefficient.TotalBuchholz };
         DateOnly    createdAt   = new(2021, 1, 1);
         TourNumber  maxTour     = 1;
-        TourNumber  currentTour = 1;
+        TourNumber  currentTour = TourNumber.BeforeStart();
         List<Group> groups      = new();
         var tournament =
             new SingleTournament(id,

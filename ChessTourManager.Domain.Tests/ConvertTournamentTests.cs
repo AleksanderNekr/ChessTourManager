@@ -510,7 +510,7 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new DateOnly(2021, 1, 1),                                      result.CreatedAt);
         Assert.Equal(kind,                                                          result.Kind);
         Assert.Equal(new TourNumber(1),                                             result.MaxTour);
-        Assert.Equal(new TourNumber(1),                                             result.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),                                      result.CurrentTour);
         Assert.Equal(new List<Group>(),                                             result.Groups);
         Assert.Equal(false,                                                         result.AllowMixGroupGames);
         Assert.Equal(new Dictionary<TourNumber, IReadOnlySet<GamePair<TPlayer>>>(), result.GamePairs);
@@ -528,7 +528,7 @@ public sealed class ConvertTournamentTests
         Assert.Equal(new DateOnly(2021, 1, 1), result.CreatedAt);
         Assert.Equal(kind,                     result.Kind);
         Assert.Equal(new TourNumber(7),        result.MaxTour);
-        Assert.Equal(new TourNumber(1),        result.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(), result.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),

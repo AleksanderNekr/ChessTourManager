@@ -63,7 +63,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(TournamentKind.Single,       tournament.Kind);
     }
@@ -107,7 +107,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
@@ -149,7 +149,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(TournamentKind.Single,       tournament.Kind);
     }
@@ -193,7 +193,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
@@ -242,7 +242,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(new List<Team>(),            tournament.Teams);
         Assert.Equal(TournamentKind.Team,         tournament.Kind);
@@ -294,7 +294,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
@@ -345,7 +345,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(new List<Team>(),            tournament.Teams);
         Assert.Equal(TournamentKind.Team,         tournament.Kind);
@@ -396,7 +396,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
@@ -450,7 +450,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(new List<Team>(),            tournament.Teams);
         Assert.Equal(TournamentKind.SingleTeam,   tournament.Kind);
@@ -501,7 +501,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
@@ -551,7 +551,7 @@ public sealed class CreateTournamentsTests
         Assert.Equal(new List<DrawCoefficient>(), tournament.Coefficients);
         Assert.Equal(new TourNumber(1),           tournament.MaxTour);
         Assert.Equal(new DateOnly(2021, 1, 1),    tournament.CreatedAt);
-        Assert.Equal(new TourNumber(1),           tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),           tournament.CurrentTour);
         Assert.Equal(new List<Group>(),           tournament.Groups);
         Assert.Equal(new List<Team>(),            tournament.Teams);
         Assert.Equal(TournamentKind.SingleTeam,   tournament.Kind);
@@ -602,7 +602,7 @@ public sealed class CreateTournamentsTests
                      tournament.Coefficients);
         Assert.Equal(new DateOnly(2021, 1, 1), tournament.CreatedAt);
         Assert.Equal(new TourNumber(7),        tournament.MaxTour);
-        Assert.Equal(new TourNumber(1),        tournament.CurrentTour);
+        Assert.Equal(TourNumber.BeforeStart(),        tournament.CurrentTour);
         Assert.Equal(new List<Group>
                      {
                          new(_guids[0], _groupNames[0], _players[..2].ToHashSet()),
