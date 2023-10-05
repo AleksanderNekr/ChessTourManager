@@ -1,0 +1,29 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  deploy-web:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore ChessTourManager.WEB/ChessTourManager.WEB.csproj
+    - name: Build
+      run: dotnet build ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore
+    - name: 📂 Deploy to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: web-api.somee.com
+        username: AlexSmith1
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ChessTourManager.WEB/bin/Debug/net7.0/
+        server-dir: www.web-api.somee.com/
