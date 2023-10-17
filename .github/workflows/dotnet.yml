@@ -18,6 +18,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ChessTourManager.WEB/ChessTourManager.WEB.csproj
     - name: Publish
+      env:
+        ConnectionStrings__DefaultConnection: ${{ secrets.CONN_STR }}
       run: dotnet publish -c Release --output /publish/ ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore
     - name: 📂 Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
