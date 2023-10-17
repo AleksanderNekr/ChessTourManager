@@ -22,9 +22,9 @@ jobs:
     - name: 📂 Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: win6055.site4now.net
-        username: chesstourmanager-001
+        server: web-api.somee.com
+        username: AlexSmith1
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: /publish/
-        server-dir: chess-tour-manager/
+        server-dir: www.web-api.somee.com/
         timeout: 120000
