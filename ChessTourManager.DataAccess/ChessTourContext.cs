@@ -58,6 +58,7 @@ public class ChessTourContext : DbContext
                                                                           .GetParent(Directory
                                                                               .GetCurrentDirectory())
                                                                      + "/ChessTourManager.WEB")
+                                                                  .AddJsonFile("appsettings.Development.json", false, true)
                                                                   .AddJsonFile("appsettings.json", false, true);
 
         IConfiguration configuration    = builder.Build();
