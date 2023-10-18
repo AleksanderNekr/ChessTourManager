@@ -17,8 +17,14 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore ChessTourManager.WEB/ChessTourManager.WEB.csproj
+    - name: Add connection string
+      uses: benday-inc/edit-dbconnstr-in-appsettings@main
+      with:
+        pathtosettingsfile: '${{ github.workspace }}/ChessTourManager.WEB/appsettings.json'
+        name: "DefaultConnection"
+        connectionstring: "${{ secrets.CONN_STR }}"
     - name: Publish
-      run: dotnet publish -c Release --output /publish/ ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore --RootConfig:ConnectionStrings:DefaultConnection="${{ secrets.CONN_STR }}"
+      run: dotnet publish -c Release --output /publish/ ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore
     - name: 📂 Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
