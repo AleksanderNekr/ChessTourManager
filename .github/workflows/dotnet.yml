@@ -17,14 +17,18 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore ChessTourManager.WEB/ChessTourManager.WEB.csproj
+    - name: Add connection string
+      run: set ASPNETCORE_ConnectionStrings__DefaultConnection="${{ secrets.CONN_STR }}"
+    - name: Set Dev env
+      run: set ASPNETCORE_ENVIRONMENT=Development
     - name: Publish
-      run: dotnet publish -c Release --output /publish/ ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore
+      run: dotnet publish -c Debug --output /publish/ ChessTourManager.WEB/ChessTourManager.WEB.csproj --no-restore
     - name: 📂 Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: win6055.site4now.net
-        username: chesstourmanager-001
+        server: chesstourmanager.somee.com
+        username: AlexSmith1
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: /publish/
-        server-dir: chess-tour-manager/
+        server-dir: www.chesstourmanager.somee.com/
         timeout: 120000
