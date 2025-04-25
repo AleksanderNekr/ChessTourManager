@@ -154,13 +154,13 @@ public class DrawableTests
 		}
 
 		public override SingleTournament ConvertToSingleTournament()
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		public override TeamTournament ConvertToTeamTournament()
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		public override SingleTeamTournament ConvertToSingleTeamTournament()
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		private protected override DrawResult DrawSwiss()
 			=> DrawResult.Success("OK");

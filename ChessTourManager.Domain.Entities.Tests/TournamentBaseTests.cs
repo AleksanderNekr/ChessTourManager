@@ -65,14 +65,14 @@ public class TournamentBaseTests
 
 		public override SingleTournament ConvertToSingleTournament()
 			// Implementation for SingleTournament conversion
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		public override TeamTournament ConvertToTeamTournament()
 			// Implementation for TeamTournament conversion
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		public override SingleTeamTournament ConvertToSingleTeamTournament()
 			// Implementation for SingleTeamTournament conversion
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 	}
 }
