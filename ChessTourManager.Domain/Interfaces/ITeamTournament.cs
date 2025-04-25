@@ -4,11 +4,11 @@ namespace ChessTourManager.Domain.Interfaces;
 
 internal interface ITeamTournament
 {
-    public IReadOnlySet<Team> Teams { get; }
+	public IReadOnlySet<Team> Teams { get; }
 
-    public bool AllowInTeamGames { get; }
+	public bool AllowInTeamGames { get; }
 
-    public bool TryAddTeam(Team team);
+	public bool TryAddTeam(Team team);
 
-    public bool TryRemoveTeam(Team team);
+	public bool TryRemoveTeam(Team team);
 }

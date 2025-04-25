@@ -2,9 +2,8 @@
 
 internal sealed class DomainOutOfRangeException : ArgumentOutOfRangeException
 {
-    internal DomainOutOfRangeException(string? paramName, object? actualValue, string? message = null)
-        : base(paramName, actualValue, message)
-    {
-
-    }
+	internal DomainOutOfRangeException(string? paramName, object? actualValue, string? message = null)
+		: base(paramName, actualValue, message)
+	{
+	}
 }
